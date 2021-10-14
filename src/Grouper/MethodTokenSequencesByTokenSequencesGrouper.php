@@ -8,9 +8,6 @@ use App\Model\Method\MethodTokenSequence;
 
 class MethodTokenSequencesByTokenSequencesGrouper
 {
-    public function __construct(private StringableByValueGrouper $stringableByValueGrouper)
-    {
-    }
 
     /**
      * @param MethodTokenSequence[] $methodTokenSequences
@@ -19,9 +16,41 @@ class MethodTokenSequencesByTokenSequencesGrouper
      */
     public function group(array $methodTokenSequences): array
     {
-        /** @var array<MethodTokenSequence[]> $grouped */
-        $grouped = $this->stringableByValueGrouper->group($methodTokenSequences);
+        $result = [];
+        $last = null;
 
-        return $grouped;
+        $group = 0;
+        foreach ($this->sort($methodTokenSequences) as $i => $methodTokenSequence) {
+            $s = $methodTokenSequence->identity();
+            if ($i > 0 && $s !== $last) {
+                $group++;
+            }
+
+            $result[$group][] = $methodTokenSequence;
+
+            $last = $s;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param MethodTokenSequence[] $methodTokenSequences
+     *
+     * @return MethodTokenSequence[]
+     */
+    private function sort(array $methodTokenSequences): array
+    {
+        usort($methodTokenSequences, function (MethodTokenSequence $a, MethodTokenSequence $b): int {
+            $aIdentity = $a->identity();
+            $bIdentity = $b->identity();
+            if ($aIdentity === $bIdentity) {
+                return 0;
+            }
+
+            return ($aIdentity < $bIdentity) ? -1 : 1;
+        });
+
+        return $methodTokenSequences;
     }
 }

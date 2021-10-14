@@ -46,9 +46,14 @@ class TokenSequence implements Stringable
         return $this->__toString() === $other->__toString();
     }
 
-    public function __toString(): string
+    public function identity(): string
     {
         return join(' ', array_map(fn(PhpToken $t): string => $t->__toString(), $this->tokens));
+    }
+
+    public function __toString(): string
+    {
+        return $this->identity();
     }
 
     public function withoutAccessModifiers(): self

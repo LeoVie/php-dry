@@ -78,9 +78,9 @@ class DetectClonesService
                 );
             }
 
-            $grouped = $this->methodTokenSequencesByTokenSequencesGrouper->group($methodTokenSequences);
+            $groupedByTokenSequences = $this->methodTokenSequencesByTokenSequencesGrouper->group($methodTokenSequences);
 
-            foreach ($grouped as $group) {
+            foreach ($groupedByTokenSequences as $group) {
                 $methodsCollection = MethodsCollection::empty();
                 foreach ($group as $methodTokenSequence) {
                     $methodsCollection->add($methodTokenSequence->getMethod());

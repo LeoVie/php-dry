@@ -28,8 +28,13 @@ class MethodTokenSequence implements Stringable
         return $this->tokenSequence;
     }
 
+    public function identity(): string
+    {
+        return $this->getTokenSequence()->identity();
+    }
+
     public function __toString(): string
     {
-        return $this->getTokenSequence()->__toString();
+        return $this->identity();
     }
 }
