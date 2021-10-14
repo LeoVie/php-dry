@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Parse\Extractor;
 
 use App\Exception\NodeTypeNotConvertable;
+use PhpParser\Node\ComplexType;
 use PhpParser\Node\Identifier;
-use PhpParser\Node\IntersectionType;
 use PhpParser\Node\Name;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\UnionType;
@@ -18,7 +18,7 @@ class NodeTypeToStringConverter
      * @throws NodeTypeNotConvertable
      * @throws StringsException
      */
-    public function convert(null|Identifier|Name|NullableType|UnionType|IntersectionType $type): string
+    public function convert(null|Identifier|Name|ComplexType $type): string
     {
         if ($type === null) {
             return 'void';
