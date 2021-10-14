@@ -7,10 +7,11 @@ namespace App\Parse\NodeVisitor;
 use PhpParser\Node;
 use PhpParser\NodeVisitorAbstract;
 use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Function_;
 
-class ExtractClassMethodsNodeVisitor extends NodeVisitorAbstract
+class ExtractMethodsNodeVisitor extends NodeVisitorAbstract
 {
-    /** @var ClassMethod[] */
+    /** @var array<ClassMethod|Function_> */
     private array $methods = [];
 
     public function reset(): self
@@ -20,14 +21,14 @@ class ExtractClassMethodsNodeVisitor extends NodeVisitorAbstract
 
     public function enterNode(Node $node)
     {
-        if ($node instanceof ClassMethod) {
+        if ($node instanceof ClassMethod || $node instanceof Function_) {
             $this->methods[] = $node;
         }
 
         return null;
     }
 
-    /** @return ClassMethod[] */
+    /** @return array<ClassMethod|Function_> */
     public function getMethods(): array
     {
         return $this->methods;

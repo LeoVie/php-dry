@@ -38,7 +38,15 @@ class DetectClonesService
     {
         $filePaths = $this->findFiles->findPhpFilesInPath($directory);
 
+        $output->single(\Safe\sprintf('Found %s files.', count($filePaths)));
+
+        // TODO: use stopwatch
+        $now = time();
+
         $methods = $this->findMethodsInPathsService->find($filePaths);
+
+        $output->single(\Safe\sprintf('Found %s methods in %s s.', count($methods), time() - $now));
+
 
         $methodsGroupedBySignatures = $this->methodsBySignatureGrouper->group($methods);
 

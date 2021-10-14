@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Parse\NodeVisitor;
 
-use App\Parse\NodeVisitor\ExtractClassMethodsNodeVisitor;
+use App\Parse\NodeVisitor\ExtractMethodsNodeVisitor;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPUnit\Framework\TestCase;
@@ -19,7 +19,7 @@ class ExtractClassMethodsNodeVisitorTest extends TestCase
      */
     public function testEnterNodeAndGetMethods(array $expected, array $nodes): void
     {
-        $extractClassMethodsNodeVisitor = new ExtractClassMethodsNodeVisitor();
+        $extractClassMethodsNodeVisitor = new ExtractMethodsNodeVisitor();
 
         foreach ($nodes as $node) {
             $extractClassMethodsNodeVisitor->enterNode($node);
@@ -65,7 +65,7 @@ class ExtractClassMethodsNodeVisitorTest extends TestCase
 
     public function testReset(): void
     {
-        $extractClassMethodsNodeVisitor = new ExtractClassMethodsNodeVisitor();
+        $extractClassMethodsNodeVisitor = new ExtractMethodsNodeVisitor();
 
         $nodes = [
             $this->createMock(ClassMethod::class),

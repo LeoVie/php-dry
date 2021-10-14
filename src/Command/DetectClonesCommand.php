@@ -84,7 +84,13 @@ class DetectClonesCommand extends Command
 
     private function shouldBeReported(SourceClone $clone, int $minLines): bool
     {
-        $codePositionRange = $clone->getMethodsCollection()->getFirst()->getCodePositionRange();
+        $first = $clone->getMethodsCollection()->getFirst();
+
+        if ($first === null) {
+            return false;
+        }
+
+        $codePositionRange = $first->getCodePositionRange();
         $lines = $codePositionRange->getEnd()->getLine() - $codePositionRange->getStart()->getLine();
 
         return $lines > $minLines;

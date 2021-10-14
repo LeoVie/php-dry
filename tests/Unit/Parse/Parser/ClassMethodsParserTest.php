@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Parse\Parser;
 
-use App\Parse\Parser\ClassMethodsParser;
-use App\Parse\NodeVisitor\ExtractClassMethodsNodeVisitor;
+use App\Parse\Parser\MethodsParser;
+use App\Parse\NodeVisitor\ExtractMethodsNodeVisitor;
 use App\Parse\LineAndColumnLexerWrapper;
 use App\Service\FileSystem;
 use PhpParser\NodeTraverser;
@@ -27,7 +27,7 @@ class ClassMethodsParserTest extends TestCase
         $nodeTraverser->method('addVisitor');
         $nodeTraverser->method('traverse');
 
-        $extractClassMethodsNodeVisitor = $this->createMock(ExtractClassMethodsNodeVisitor::class);
+        $extractClassMethodsNodeVisitor = $this->createMock(ExtractMethodsNodeVisitor::class);
         $extractClassMethodsNodeVisitor->method('reset')->willReturnSelf();
         $extractClassMethodsNodeVisitor->method('getMethods')->willReturn(['methods']);
 
@@ -36,7 +36,7 @@ class ClassMethodsParserTest extends TestCase
 
         $lineAndColumnLexerWrapper = $this->createMock(LineAndColumnLexerWrapper::class);
 
-        $classMethodsParser = new ClassMethodsParser(
+        $classMethodsParser = new MethodsParser(
             $parserFactory,
             $nodeTraverser,
             $extractClassMethodsNodeVisitor,
@@ -44,6 +44,6 @@ class ClassMethodsParserTest extends TestCase
             $lineAndColumnLexerWrapper
         );
 
-        self::assertSame(['methods'], $classMethodsParser->extractClassMethods(''));
+        self::assertSame(['methods'], $classMethodsParser->extractMethods(''));
     }
 }

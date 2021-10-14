@@ -14,7 +14,7 @@ use PhpParser\Node\Stmt\Function_;
 class ReturnTypeExtractor
 {
     /** @throws OtherNodeTypeExpected */
-    public function extractFromClassMethodOrFunction(ClassMethod|Function_ $function): ?string
+    public function extractFromClassMethodOrFunction(ClassMethod|Function_ $function): string
     {
         $returnType = $function->getReturnType();
 
