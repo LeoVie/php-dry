@@ -27,8 +27,7 @@ class ExtractClassnameNodeVisitor extends NodeVisitorAbstract
             }
 
             $this->classname = $name->toString();
-
-            return NodeTraverser::STOP_TRAVERSAL;
+            return null;
         }
 
         return null;

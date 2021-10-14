@@ -40,7 +40,7 @@ class MethodFromFilepathMethodsFactory
             return Method::create(
                 MethodSignature::create(
                     $this->paramTypesExtractor->extractFromParamsList($function->params),
-                    $this->returnTypeExtractor->extractFromClassMethodOrFunction($function)->name,
+                    $this->returnTypeExtractor->extractFromClassMethodOrFunction($function),
                 ),
                 $function->name->name,
                 $filepath,

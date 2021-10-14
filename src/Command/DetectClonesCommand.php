@@ -7,6 +7,7 @@ namespace App\Command;
 use App\Command\Output\DetectClonesCommandOutput;
 use App\Command\Output\Helper\VerboseOutputHelper;
 use App\Model\Method\Method;
+use App\Model\SourceClone\SourceClone;
 use App\Service\DetectClonesService;
 use App\ServiceFactory\StopwatchFactory;
 use Symfony\Component\Console\Command\Command;
@@ -31,6 +32,11 @@ class DetectClonesCommand extends Command
                 InputArgument::REQUIRED,
                 'Absolute path of directory in which clones should get detected.'
             )->addArgument(
+                'minLines',
+                InputArgument::OPTIONAL,
+                'How many lines should a fragment be at least to be treated as a clone.',
+                0
+            )->addArgument(
                 'countOfParamSets',
                 InputArgument::OPTIONAL,
                 'How many param sets should get generated for each method signature set (type 4 clone detection)?',
@@ -52,11 +58,17 @@ class DetectClonesCommand extends Command
 
         $countOfParamSets = (int)$input->getArgument('countOfParamSets');
 
+        $minLines = (int)$input->getArgument('minLines');
+
         $detected = $this->detectClonesService->detectInDirectory($directory, $countOfParamSets, $output);
 
         foreach ($detected as $cloneType => $clones) {
             $output->headline($cloneType);
             foreach ($clones as $clone) {
+                if (!$this->shouldBeReported($clone, $minLines)) {
+                    continue;
+                }
+
                 $output
                     ->single($clone->getType())
                     ->listing(array_map(fn(Method $m) => $m->__toString(), $clone->getMethodsCollection()->getAll()));
@@ -68,5 +80,13 @@ class DetectClonesCommand extends Command
         $output->runtime($runtime);
 
         return Command::SUCCESS;
+    }
+
+    private function shouldBeReported(SourceClone $clone, int $minLines): bool
+    {
+        $codePositionRange = $clone->getMethodsCollection()->getFirst()->getCodePositionRange();
+        $lines = $codePositionRange->getEnd()->getLine() - $codePositionRange->getStart()->getLine();
+
+        return $lines > $minLines;
     }
 }

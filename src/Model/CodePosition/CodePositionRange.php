@@ -37,6 +37,11 @@ class CodePositionRange implements Stringable
     /** @throws StringsException */
     public function __toString(): string
     {
-        return \Safe\sprintf('%s - %s', $this->getStart()->toString(), $this->getEnd()->toString());
+        return \Safe\sprintf(
+            '%s - %s (%s lines)',
+            $this->getStart()->toString(),
+            $this->getEnd()->toString(),
+            $this->getEnd()->getLine() - $this->getStart()->getLine()
+        );
     }
 }

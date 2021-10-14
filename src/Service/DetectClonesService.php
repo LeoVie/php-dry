@@ -66,6 +66,7 @@ class DetectClonesService
                         ->withoutWhitespaces()
                         ->withoutComments()
                         ->withoutDocComments()
+                        ->filter()
                 );
             }
 
