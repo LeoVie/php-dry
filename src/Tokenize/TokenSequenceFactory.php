@@ -8,18 +8,20 @@ use App\Wrapper\PhpTokenWrapper;
 
 class TokenSequenceFactory
 {
-    public function __construct(private PhpTokenWrapper $phpTokenWrapper)
-    {}
+    public function __construct(
+        private PhpTokenWrapper         $phpTokenWrapper,
+        private TokenSequenceNormalizer $tokenSequenceNormalizer,
+    )
+    {
+    }
 
     public function createNormalizedLevel1(string $code): TokenSequence
     {
-        return TokenSequence::create($this->phpTokenWrapper->tokenize($code))
-            ->withoutOpenTag()
-            ->withoutCloseTag()
-            ->withoutAccessModifiers()
-            ->withoutWhitespaces()
-            ->withoutComments()
-            ->withoutDocComments()
-            ->filter();
+        return $this->tokenSequenceNormalizer->normalizeLevel1(TokenSequence::create($this->phpTokenWrapper->tokenize($code)));
+    }
+
+    public function createNormalizedLevel2(TokenSequence $tokenSequence): TokenSequence
+    {
+        return $this->tokenSequenceNormalizer->normalizeLevel2($tokenSequence);
     }
 }

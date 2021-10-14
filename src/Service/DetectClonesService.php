@@ -51,8 +51,17 @@ class DetectClonesService
         $methodsGroupedBySignatures = $this->methodsBySignatureGrouper->group($methods);
         $tokenSequenceRepresentatives = $this->createTokenSequenceRepresentatives($methodsGroupedBySignatures);
 
+        $normalizedTokenSequenceRepresentatives = array_map(function (TokenSequenceRepresentative $tokenSequenceRepresentative): TokenSequenceRepresentative {
+            return TokenSequenceRepresentative::create(
+                $this->tokenSequenceFactory->createNormalizedLevel2($tokenSequenceRepresentative->getTokenSequence()),
+                $tokenSequenceRepresentative->getMethodsCollection(),
+            );
+        }, $tokenSequenceRepresentatives);
+
+
         return [
             SourceClone::TYPE_1 => $this->detectType1Clones($tokenSequenceRepresentatives),
+            SourceClone::TYPE_2 => $this->detectType2Clones($normalizedTokenSequenceRepresentatives),
         ];
     }
 
@@ -67,6 +76,43 @@ class DetectClonesService
             fn(TokenSequenceRepresentative $tsr): SourceClone => SourceClone::createType1($tsr->getMethodsCollection()),
             array_filter(
                 $tokenSequenceRepresentatives,
+                fn(TokenSequenceRepresentative $sc): bool => $sc->getMethodsCollection()->count() > 1
+            )
+        );
+    }
+
+    /** @param TokenSequenceRepresentative[] $normalizedTokenSequenceRepresentatives */
+    private function detectType2Clones(array $normalizedTokenSequenceRepresentatives): array
+    {
+        /** @var TokenSequenceRepresentative[] $groups */
+        $groups = [];
+
+        foreach ($normalizedTokenSequenceRepresentatives as $normalizedTokenSequenceRepresentative) {
+            $identity = $normalizedTokenSequenceRepresentative->getTokenSequence()->identity();
+            // TODO: remove if-else
+            if (array_key_exists($identity, $groups)) {
+                $groups[$identity] =
+                    TokenSequenceRepresentative::create(
+                        $normalizedTokenSequenceRepresentative->getTokenSequence(),
+                        MethodsCollection::withInitialContent(
+                            ...$groups[$identity]->getMethodsCollection()->getAll(),
+                            ...$normalizedTokenSequenceRepresentative->getMethodsCollection()->getAll()
+                        )
+                    );
+            } else {
+                $groups[$identity] = TokenSequenceRepresentative::create(
+                    $normalizedTokenSequenceRepresentative->getTokenSequence(),
+                    MethodsCollection::withInitialContent(
+                        ...$normalizedTokenSequenceRepresentative->getMethodsCollection()->getAll()
+                    )
+                );
+            }
+        }
+
+        return array_map(
+            fn(TokenSequenceRepresentative $tsr): SourceClone => SourceClone::createType2($tsr->getMethodsCollection()),
+            array_filter(
+                $groups,
                 fn(TokenSequenceRepresentative $sc): bool => $sc->getMethodsCollection()->count() > 1
             )
         );

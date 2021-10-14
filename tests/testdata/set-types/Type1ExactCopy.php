@@ -1,12 +1,9 @@
 <?php /** @noinspection ALL */
 
-class WithFor
+class Type1ExactCopy
 {
     public function doSomething(array $array, int $factor): array
     {
-        $a = -3.0;
-
-        // this is a comment
         $result = [];
         for ($i = 0; $i < count($array); $i++) {
             $result[] = $array[$i] * $factor;
