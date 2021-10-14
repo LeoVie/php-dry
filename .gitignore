@@ -1,0 +1,39 @@
+#
+# Composer
+#
+vendor
+bin
+composer.lock
+
+#
+# PHPStorm
+#
+.idea
+
+#
+# Test Output
+#
+/build/cache/*
+!build/cache/.gitkeep
+/build/config/base/*
+!build/config/base/.gitkeep
+/build/coverage/
+/build/logs/*
+.phpunit.result.cache
+
+#
+# Symfony
+#
+/.env.local
+/.env
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+
+template/generated/*
+!template/generated/.gitkeep
+
+tests/testdata/template/generated/*
+!tests/testdata/template/generated/.gitkeep

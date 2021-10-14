@@ -1,0 +1,1 @@
+'%PHP_FILE%':'%FUNCTION_NAME%':'%PARAMS%'

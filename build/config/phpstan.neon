@@ -1,0 +1,27 @@
+includes:
+        - /composer/vendor/spaze/phpstan-disallowed-calls/extension.neon
+parameters:
+    level: max
+    paths:
+        - %currentWorkingDirectory%/src
+        - %currentWorkingDirectory%/tests/Unit
+    excludePaths:
+        - %currentWorkingDirectory%/template/generated/*
+    ignoreErrors:
+        - '#Method App\\Tests.+ has parameter .+ with no value type specified in iterable type .+#'
+        - '#Method App\\Tests.+ return type has no value type specified in iterable type .+#'
+#        -
+#            message: '#Call to function is_callable\(\) with ''\%FUNCTION_NAME\%'' will always evaluate to false\.#'
+#            path: %currentWorkingDirectory%/template/run_free_method_template.php
+#        -
+#            message: '#Unreachable statement - code above always terminates\.#'
+#            path: %currentWorkingDirectory%/template/run_free_method_template.php
+#        -
+#            message: '#Instantiated class \%CLASS_NAME\% not found\.#'
+#            path: %currentWorkingDirectory%/template/run_class_method_template.php
+    disallowedMethodCalls:
+        - method: '*\*::__construct'
+          message: "Don't use naive object instantiation."
+          allowIn:
+              - %currentWorkingDirectory%/src/ServiceFactory/*
+              - %currentWorkingDirectory%/tests/*
