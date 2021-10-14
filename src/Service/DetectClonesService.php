@@ -12,7 +12,7 @@ use App\Grouper\MethodsBySignatureGrouper;
 use App\Grouper\MethodTokenSequencesByTokenSequencesGrouper;
 use App\Model\Method\MethodTokenSequence;
 use App\Model\SourceClone\SourceClone;
-use App\Tokenize\TokenSequence;
+use App\Model\TokenSequenceRepresentative;
 use App\Tokenize\TokenSequenceFactory;
 use Safe\Exceptions\FilesystemException;
 
@@ -49,32 +49,42 @@ class DetectClonesService
 
 
         $methodsGroupedBySignatures = $this->methodsBySignatureGrouper->group($methods);
+        $tokenSequenceRepresentatives = $this->createTokenSequenceRepresentatives($methodsGroupedBySignatures);
 
         return [
-            SourceClone::TYPE_1 => $this->detectType1Clones($methodsGroupedBySignatures),
+            SourceClone::TYPE_1 => $this->detectType1Clones($tokenSequenceRepresentatives),
         ];
+    }
+
+    /**
+     * @param TokenSequenceRepresentative[] $tokenSequenceRepresentatives
+     *
+     * @return SourceClone[]
+     */
+    private function detectType1Clones(array $tokenSequenceRepresentatives): array
+    {
+        return array_map(
+            fn(TokenSequenceRepresentative $tsr): SourceClone => SourceClone::createType1($tsr->getMethodsCollection()),
+            array_filter(
+                $tokenSequenceRepresentatives,
+                fn(TokenSequenceRepresentative $sc): bool => $sc->getMethodsCollection()->count() > 1
+            )
+        );
     }
 
     /**
      * @param MethodsCollection[] $methodsGroupedBySignatures
      *
-     * @return SourceClone[]
+     * @return TokenSequenceRepresentative[]
      */
-    private function detectType1Clones(array $methodsGroupedBySignatures): array
+    private function createTokenSequenceRepresentatives(array $methodsGroupedBySignatures): array
     {
-        $clones = [];
+        $tokenSequenceRepresentatives = [];
         foreach ($methodsGroupedBySignatures as $methodsCollection) {
             $methodTokenSequences = [];
             foreach ($methodsCollection->getAll() as $method) {
                 $methodTokenSequences[] = MethodTokenSequence::create($method,
-                    $this->tokenSequenceFactory->create('<?php ' . $method->getContent())
-                        ->withoutOpenTag()
-                        ->withoutCloseTag()
-                        ->withoutAccessModifiers()
-                        ->withoutWhitespaces()
-                        ->withoutComments()
-                        ->withoutDocComments()
-                        ->filter()
+                    $this->tokenSequenceFactory->createNormalizedLevel1('<?php ' . $method->getContent())
                 );
             }
 
@@ -86,14 +96,10 @@ class DetectClonesService
                     $methodsCollection->add($methodTokenSequence->getMethod());
                 }
 
-                if ($methodsCollection->count() < 2) {
-                    continue;
-                }
-
-                $clones[] = SourceClone::createType1($methodsCollection);
+                $tokenSequenceRepresentatives[] = TokenSequenceRepresentative::create($group[0]->getTokenSequence(), $methodsCollection);
             }
         }
 
-        return $clones;
+        return $tokenSequenceRepresentatives;
     }
 }
