@@ -8,6 +8,7 @@ use PhpToken;
 
 class NothingToNormalizeNormalizer implements TokenNormalizer
 {
+    /** @codeCoverageIgnore */
     public static function getDefaultPriority(): int
     {
         return PHP_INT_MIN;
