@@ -10,9 +10,7 @@ use Safe\Exceptions\FilesystemException;
 
 class FilepathMethodsFactory
 {
-    public function __construct(
-        private MethodsParser   $classMethodsParser
-    )
+    public function __construct(private MethodsParser $methodsParser)
     {
     }
 
@@ -30,6 +28,6 @@ class FilepathMethodsFactory
     /** @throws FilesystemException */
     private function createOne(string $filepath): FilepathMethods
     {
-        return FilepathMethods::create($filepath, $this->classMethodsParser->extractMethods($filepath));
+        return FilepathMethods::create($filepath, $this->methodsParser->extractMethods($filepath));
     }
 }

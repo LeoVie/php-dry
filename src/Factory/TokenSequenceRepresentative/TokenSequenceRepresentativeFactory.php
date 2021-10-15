@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Factory\TokenSequenceRepresentative;
 
 use App\Collection\MethodsCollection;
+use App\Factory\TokenSequenceFactory;
 use App\Grouper\MethodTokenSequencesByTokenSequencesGrouper;
 use App\Model\Method\Method;
 use App\Model\Method\MethodTokenSequence;
 use App\Model\TokenSequenceRepresentative\TokenSequenceRepresentative;
-use App\Tokenize\TokenSequenceFactory;
 use App\Tokenize\TokenSequenceNormalizer;
 
 class TokenSequenceRepresentativeFactory
@@ -39,7 +39,7 @@ class TokenSequenceRepresentativeFactory
     {
         $methodTokenSequences = array_map(function (Method $m): MethodTokenSequence {
             return MethodTokenSequence::create($m,
-                $this->tokenSequenceFactory->createNormalizedLevel1('<?php ' . $m->getContent())
+                $this->tokenSequenceNormalizer->normalizeLevel1($this->tokenSequenceFactory->create('<?php ' . $m->getContent()))
             );
         }, $methodsCollection->getAll());
 

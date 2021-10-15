@@ -6,12 +6,12 @@ namespace App\Factory\TokenSequenceRepresentative;
 
 use App\Model\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentative;
 use App\Model\TokenSequenceRepresentative\TokenSequenceRepresentative;
-use App\Tokenize\TokenSequenceFactory;
+use App\Tokenize\TokenSequenceNormalizer;
 
 class NormalizedTokenSequenceRepresentativeFactory
 {
     public function __construct(
-        private TokenSequenceFactory $tokenSequenceFactory,
+        private TokenSequenceNormalizer $tokenSequenceNormalizer,
     )
     {
     }
@@ -25,7 +25,7 @@ class NormalizedTokenSequenceRepresentativeFactory
     {
         return array_map(function (TokenSequenceRepresentative $tokenSequenceRepresentative): NormalizedTokenSequenceRepresentative {
             return NormalizedTokenSequenceRepresentative::create(
-                $this->tokenSequenceFactory->createNormalizedLevel2($tokenSequenceRepresentative->getTokenSequence()),
+                $this->tokenSequenceNormalizer->normalizeLevel2($tokenSequenceRepresentative->getTokenSequence()),
                 $tokenSequenceRepresentative->getMethodsCollection(),
             );
         }, $tokenSequenceRepresentatives);
