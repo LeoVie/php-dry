@@ -7,7 +7,7 @@ namespace App\Service;
 use App\CloneDetection\Type1CloneDetector;
 use App\CloneDetection\Type2CloneDetector;
 use App\Command\Output\DetectClonesCommandOutput;
-use App\Exception\OtherNodeTypeExpected;
+use App\Exception\NodeTypeNotConvertable;
 use App\Factory\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentativeFactory;
 use App\Factory\TokenSequenceRepresentative\TokenSequenceRepresentativeFactory;
 use App\File\FindFiles;
@@ -34,9 +34,9 @@ class DetectClonesService
     /**
      * @return SourceClone[][]
      *
-     * @throws OtherNodeTypeExpected
      * @throws FilesystemException
      * @throws StringsException
+     * @throws NodeTypeNotConvertable
      */
     public function detectInDirectory(Stopwatch $stopwatch, string $directory, int $countOfParamSets, DetectClonesCommandOutput $output): array
     {

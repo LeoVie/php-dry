@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tokenize;
 
+use App\Exception\NoReplacementRegistered;
+use Safe\Exceptions\StringsException;
+
 class ReplacementRegister
 {
     private int $lastRegisteredIndex = -1;
@@ -32,8 +35,16 @@ class ReplacementRegister
         return array_key_exists($original, $this->registered);
     }
 
+    /**
+     * @throws StringsException
+     * @throws NoReplacementRegistered
+     */
     public function getReplacement(string $original): string
     {
+        if (!$this->isReplacementRegistered($original)) {
+            throw NoReplacementRegistered::create($original);
+        }
+
         return $this->registered[$original];
     }
 }

@@ -10,12 +10,14 @@ use App\Model\Method\Method;
 use App\Model\Method\MethodTokenSequence;
 use App\Model\TokenSequenceRepresentative\TokenSequenceRepresentative;
 use App\Tokenize\TokenSequenceFactory;
+use App\Tokenize\TokenSequenceNormalizer;
 
 class TokenSequenceRepresentativeFactory
 {
     public function __construct(
         private MethodTokenSequencesByTokenSequencesGrouper $methodTokenSequencesByTokenSequencesGrouper,
         private TokenSequenceFactory                        $tokenSequenceFactory,
+        private TokenSequenceNormalizer                     $tokenSequenceNormalizer,
     )
     {
     }

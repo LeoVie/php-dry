@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Exception\OtherNodeTypeExpected;
+use App\Exception\NodeTypeNotConvertable;
 use App\Factory\FilepathMethodsFactory;
 use App\Factory\MethodSignature\MethodFromFilepathMethodsFactory;
 use App\Model\Method\Method;
 use Safe\Exceptions\FilesystemException;
+use Safe\Exceptions\StringsException;
 
 class FindMethodsInPathsService
 {
@@ -25,7 +26,8 @@ class FindMethodsInPathsService
      * @return Method[]
      *
      * @throws FilesystemException
-     * @throws OtherNodeTypeExpected
+     * @throws NodeTypeNotConvertable
+     * @throws StringsException
      */
     public function find(array $paths): array
     {

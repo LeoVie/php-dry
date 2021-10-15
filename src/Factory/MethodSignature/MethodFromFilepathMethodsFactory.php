@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Factory\MethodSignature;
 
-use App\Exception\OtherNodeTypeExpected;
+use App\Exception\NodeTypeNotConvertable;
 use App\Factory\CodePosition\CodePositionRangeFactory;
 use App\Model\CodePosition\CodePositionRange;
 use App\Model\FilepathMethods\FilepathMethods;
@@ -15,6 +15,7 @@ use App\Parse\Extractor\ReturnTypeExtractor;
 use App\Service\FileSystem;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
+use Safe\Exceptions\StringsException;
 
 class MethodFromFilepathMethodsFactory
 {
@@ -28,8 +29,11 @@ class MethodFromFilepathMethodsFactory
     }
 
     /**
+     * @param FilepathMethods $filepathMethods
      * @return Method[]
-     * @throws OtherNodeTypeExpected
+     *
+     * @throws NodeTypeNotConvertable
+     * @throws StringsException
      */
     public function buildMultipleFromFilepathMethods(FilepathMethods $filepathMethods): array
     {
