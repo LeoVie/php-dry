@@ -6,3 +6,6 @@ phpstan:
 
 phpunit:
 	composer phpunit
+
+test: phpstan
+	composer testall

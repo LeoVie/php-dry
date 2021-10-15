@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Model;
+namespace App\Model\TokenSequenceRepresentative;
 
 use App\Collection\MethodsCollection;
 use App\Tokenize\TokenSequence;
 
-class TokenSequenceRepresentative
+class NormalizedTokenSequenceRepresentative
 {
     private function __construct(private TokenSequence $tokenSequence, private MethodsCollection $methodsCollection)
     {}

@@ -47,7 +47,7 @@ class DetectClonesCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $stopwatch = StopwatchFactory::create();
-        $stopwatch->start(self::class);
+        $stopwatch->start('detect-clones');
 
         $output = DetectClonesCommandOutput::create(
             VerboseOutputHelper::create($input, $output),
@@ -60,7 +60,7 @@ class DetectClonesCommand extends Command
 
         $minLines = (int)$input->getArgument('minLines');
 
-        $detected = $this->detectClonesService->detectInDirectory($directory, $countOfParamSets, $output);
+        $detected = $this->detectClonesService->detectInDirectory($stopwatch, $directory, $countOfParamSets, $output);
 
         foreach ($detected as $cloneType => $clones) {
             $output->headline($cloneType);
@@ -75,9 +75,7 @@ class DetectClonesCommand extends Command
             }
         }
 
-        $runtime = $stopwatch->stop(self::class);
-
-        $output->runtime($runtime);
+        $output->runtime($stopwatch->stop('detect-clones'));
 
         return Command::SUCCESS;
     }

@@ -7,6 +7,8 @@ namespace App\Tokenize;
 class ReplacementRegister
 {
     private int $lastRegisteredIndex = -1;
+
+    /** @var array<string, string> */
     private array $registered = [];
 
     private function __construct(private string $replacementPrefix)

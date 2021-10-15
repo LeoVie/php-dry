@@ -11,6 +11,11 @@ class VariableNormalizer implements TokenNormalizer
 {
     private ReplacementRegister $variableReplacementRegister;
 
+    private function __construct()
+    {
+        $this->variableReplacementRegister = ReplacementRegister::create('$x');
+    }
+
     public function supports(PhpToken $token): bool
     {
         return $token->id === T_VARIABLE;
