@@ -7,9 +7,9 @@ namespace App\Util;
 class ArrayUtil
 {
     /**
-     * @param array<array> $a
+     * @param mixed[] $a
      *
-     * @return array<mixed>
+     * @return mixed[]
      */
     public function flatten(array $a, int $level = 1): array
     {

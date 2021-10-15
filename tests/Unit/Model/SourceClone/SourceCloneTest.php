@@ -11,24 +11,23 @@ use PHPUnit\Framework\TestCase;
 
 class SourceCloneTest extends TestCase
 {
-    public function testCreateType1(): void
+    /** @dataProvider createProvider */
+    public function testCreate(string $type): void
     {
-        self::assertSame(SourceClone::TYPE_1, SourceClone::createType1($this->createMock(MethodsCollection::class))->getType());
+        self::assertSame(
+            $type,
+            SourceClone::create($type, $this->createMock(MethodsCollection::class))->getType()
+        );
     }
 
-    public function testCreateType2(): void
+    public function createProvider(): array
     {
-        self::assertSame(SourceClone::TYPE_2, SourceClone::createType2($this->createMock(MethodsCollection::class))->getType());
-    }
-
-    public function testCreateType3(): void
-    {
-        self::assertSame(SourceClone::TYPE_3, SourceClone::createType3($this->createMock(MethodsCollection::class))->getType());
-    }
-
-    public function testCreateType4(): void
-    {
-        self::assertSame(SourceClone::TYPE_4, SourceClone::createType4($this->createMock(MethodsCollection::class))->getType());
+        return [
+            SourceClone::TYPE_1 => [SourceClone::TYPE_1],
+            SourceClone::TYPE_2 => [SourceClone::TYPE_2],
+            SourceClone::TYPE_3 => [SourceClone::TYPE_3],
+            SourceClone::TYPE_4 => [SourceClone::TYPE_4],
+        ];
     }
 
     /** @dataProvider getMethodsCollectionProvider */
@@ -40,6 +39,6 @@ class SourceCloneTest extends TestCase
     public function getMethodsCollectionProvider(): Generator
     {
         $methodsCollection = $this->createMock(MethodsCollection::class);
-        yield [$methodsCollection, SourceClone::createType1($methodsCollection)];
+        yield [$methodsCollection, SourceClone::create(SourceClone::TYPE_1, $methodsCollection)];
     }
 }

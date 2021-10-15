@@ -7,7 +7,7 @@ namespace App\Model\TokenSequenceRepresentative;
 use App\Collection\MethodsCollection;
 use App\Tokenize\TokenSequence;
 
-class NormalizedTokenSequenceRepresentative implements TokenSequenceRepresentative
+class ExactTokenSequenceRepresentative implements TokenSequenceRepresentative
 {
     private function __construct(private TokenSequence $tokenSequence, private MethodsCollection $methodsCollection)
     {}

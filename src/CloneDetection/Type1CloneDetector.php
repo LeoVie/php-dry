@@ -5,23 +5,21 @@ declare(strict_types=1);
 namespace App\CloneDetection;
 
 use App\Model\SourceClone\SourceClone;
-use App\Model\TokenSequenceRepresentative\TokenSequenceRepresentative;
+use App\Model\TokenSequenceRepresentative\ExactTokenSequenceRepresentative;
 
 class Type1CloneDetector
 {
+    public function __construct(private CloneDetector $cloneDetector)
+    {
+    }
+
     /**
-     * @param TokenSequenceRepresentative[] $tokenSequenceRepresentatives
+     * @param ExactTokenSequenceRepresentative[] $tokenSequenceRepresentatives
      *
      * @return SourceClone[]
      */
     public function detect(array $tokenSequenceRepresentatives): array
     {
-        return array_map(
-            fn(TokenSequenceRepresentative $tsr): SourceClone => SourceClone::createType1($tsr->getMethodsCollection()),
-            array_filter(
-                $tokenSequenceRepresentatives,
-                fn(TokenSequenceRepresentative $sc): bool => $sc->getMethodsCollection()->count() > 1
-            )
-        );
+        return $this->cloneDetector->detect($tokenSequenceRepresentatives, SourceClone::TYPE_1);
     }
 }

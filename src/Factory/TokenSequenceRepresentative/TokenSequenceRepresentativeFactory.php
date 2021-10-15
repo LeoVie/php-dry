@@ -9,7 +9,7 @@ use App\Factory\TokenSequenceFactory;
 use App\Grouper\MethodTokenSequencesByTokenSequencesGrouper;
 use App\Model\Method\Method;
 use App\Model\Method\MethodTokenSequence;
-use App\Model\TokenSequenceRepresentative\TokenSequenceRepresentative;
+use App\Model\TokenSequenceRepresentative\ExactTokenSequenceRepresentative;
 use App\Tokenize\TokenSequenceNormalizer;
 use App\Util\ArrayUtil;
 
@@ -27,7 +27,7 @@ class TokenSequenceRepresentativeFactory
     /**
      * @param MethodsCollection[] $methodsCollections
      *
-     * @return TokenSequenceRepresentative[]
+     * @return ExactTokenSequenceRepresentative[]
      */
     public function createMultipleForMultipleMethodsCollections(array $methodsCollections): array
     {
@@ -39,7 +39,7 @@ class TokenSequenceRepresentativeFactory
         );
     }
 
-    /** @return TokenSequenceRepresentative[] */
+    /** @return ExactTokenSequenceRepresentative[] */
     private function createMultipleForOneMethodsCollection(MethodsCollection $methodsCollection): array
     {
         $methodTokenSequences = array_map(function (Method $m): MethodTokenSequence {
@@ -57,12 +57,12 @@ class TokenSequenceRepresentativeFactory
     /**
      * @param array<MethodTokenSequence[]> $methodTokenSequenceGroups
      *
-     * @return TokenSequenceRepresentative[]
+     * @return ExactTokenSequenceRepresentative[]
      */
     private function createMultipleForMultipleMethodTokenSequencesGroups(array $methodTokenSequenceGroups): array
     {
-        return array_map(function (array $methodTokenSequences): TokenSequenceRepresentative {
-            return TokenSequenceRepresentative::create(
+        return array_map(function (array $methodTokenSequences): ExactTokenSequenceRepresentative {
+            return ExactTokenSequenceRepresentative::create(
                 $methodTokenSequences[0]->getTokenSequence(),
                 $this->createMethodsCollectionForMethodTokenSequences($methodTokenSequences)
             );

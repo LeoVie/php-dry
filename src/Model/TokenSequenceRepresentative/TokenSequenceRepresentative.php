@@ -7,23 +7,11 @@ namespace App\Model\TokenSequenceRepresentative;
 use App\Collection\MethodsCollection;
 use App\Tokenize\TokenSequence;
 
-class TokenSequenceRepresentative
+interface TokenSequenceRepresentative
 {
-    private function __construct(private TokenSequence $tokenSequence, private MethodsCollection $methodsCollection)
-    {}
+    public static function create(TokenSequence $tokenSequence, MethodsCollection $methodsCollection): self;
 
-    public static function create(TokenSequence $tokenSequence, MethodsCollection $methodsCollection): self
-    {
-        return new self($tokenSequence, $methodsCollection);
-    }
+    public function getTokenSequence(): TokenSequence;
 
-    public function getTokenSequence(): TokenSequence
-    {
-        return $this->tokenSequence;
-    }
-
-    public function getMethodsCollection(): MethodsCollection
-    {
-        return $this->methodsCollection;
-    }
+    public function getMethodsCollection(): MethodsCollection;
 }

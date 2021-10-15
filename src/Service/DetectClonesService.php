@@ -12,6 +12,7 @@ use App\Factory\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentativ
 use App\Factory\TokenSequenceRepresentative\TokenSequenceRepresentativeFactory;
 use App\File\FindFiles;
 use App\Grouper\MethodsBySignatureGrouper;
+use App\Merge\NormalizedTokenSequenceRepresentativeMerger;
 use App\Model\SourceClone\SourceClone;
 use Safe\Exceptions\FilesystemException;
 use Safe\Exceptions\StringsException;
@@ -27,6 +28,7 @@ class DetectClonesService
         private Type2CloneDetector                           $type2CloneDetector,
         private TokenSequenceRepresentativeFactory           $tokenSequenceRepresentativeFactory,
         private NormalizedTokenSequenceRepresentativeFactory $normalizedTokenSequenceRepresentativeFactory,
+        private NormalizedTokenSequenceRepresentativeMerger  $normalizedTokenSequenceRepresentativeMerger,
     )
     {
     }
@@ -56,7 +58,9 @@ class DetectClonesService
 
         return [
             SourceClone::TYPE_1 => $this->type1CloneDetector->detect($tokenSequenceRepresentatives),
-            SourceClone::TYPE_2 => $this->type2CloneDetector->detect($normalizedTokenSequenceRepresentatives),
+            SourceClone::TYPE_2 => $this->type2CloneDetector->detect(
+                $this->normalizedTokenSequenceRepresentativeMerger->merge($normalizedTokenSequenceRepresentatives)
+            ),
         ];
     }
 }

@@ -8,7 +8,7 @@ use App\Collection\MethodsCollection;
 use App\Factory\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentativeFactory;
 use App\Model\Method\Method;
 use App\Model\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentative;
-use App\Model\TokenSequenceRepresentative\TokenSequenceRepresentative;
+use App\Model\TokenSequenceRepresentative\ExactTokenSequenceRepresentative;
 use App\Tokenize\TokenSequence;
 use App\Tokenize\TokenSequenceNormalizer;
 use PHPUnit\Framework\TestCase;
@@ -44,11 +44,11 @@ class NormalizedTokenSequenceRepresentativeFactoryTest extends TestCase
         ];
 
         $tokenSequenceRepresentatives = [
-            TokenSequenceRepresentative::create(
+            ExactTokenSequenceRepresentative::create(
                 $tokenSequences[0],
                 $methodsCollections[0]
             ),
-            TokenSequenceRepresentative::create(
+            ExactTokenSequenceRepresentative::create(
                 $tokenSequences[1],
                 $methodsCollections[1]
             ),

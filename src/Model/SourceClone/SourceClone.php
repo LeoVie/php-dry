@@ -23,24 +23,9 @@ class SourceClone implements Stringable
     {
     }
 
-    public static function createType1(MethodsCollection $methodsCollection): self
+    public static function create(string $type, MethodsCollection $methodsCollection): self
     {
-        return new self(self::TYPE_1, $methodsCollection);
-    }
-
-    public static function createType2(MethodsCollection $methodsCollection): self
-    {
-        return new self(self::TYPE_2, $methodsCollection);
-    }
-
-    public static function createType3(MethodsCollection $methodsCollection): self
-    {
-        return new self(self::TYPE_3, $methodsCollection);
-    }
-
-    public static function createType4(MethodsCollection $methodsCollection): self
-    {
-        return new self(self::TYPE_4, $methodsCollection);
+        return new self($type, $methodsCollection);
     }
 
     public function getType(): string
