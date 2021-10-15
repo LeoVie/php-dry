@@ -19,8 +19,8 @@ class ReturnTypeExtractor
      * @throws StringsException
      * @throws NodeTypeNotConvertable
      */
-    public function extractFromClassMethodOrFunction(ClassMethod|Function_ $function): string
+    public function extract(ClassMethod|Function_ $method): string
     {
-        return $this->nodeTypeToStringConverter->convert($function->getReturnType());
+        return $this->nodeTypeToStringConverter->convert($method->getReturnType());
     }
 }

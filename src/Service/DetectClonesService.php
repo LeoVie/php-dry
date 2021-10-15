@@ -50,9 +50,9 @@ class DetectClonesService
 
         $methodsGroupedBySignatures = $this->methodsBySignatureGrouper->group($methods);
         $tokenSequenceRepresentatives
-            = $this->tokenSequenceRepresentativeFactory->createMultipleByMethodsCollections($methodsGroupedBySignatures);
+            = $this->tokenSequenceRepresentativeFactory->createMultipleForMultipleMethodsCollections($methodsGroupedBySignatures);
         $normalizedTokenSequenceRepresentatives
-            = $this->normalizedTokenSequenceRepresentativeFactory->createMultipleByTokenSequenceRepresentatives($tokenSequenceRepresentatives);
+            = $this->normalizedTokenSequenceRepresentativeFactory->normalizeMultipleTokenSequenceRepresentatives($tokenSequenceRepresentatives);
 
         return [
             SourceClone::TYPE_1 => $this->type1CloneDetector->detect($tokenSequenceRepresentatives),

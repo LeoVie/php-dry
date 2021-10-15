@@ -6,7 +6,7 @@ namespace App\Service;
 
 use App\Exception\NodeTypeNotConvertable;
 use App\Factory\FilepathMethodsFactory;
-use App\Factory\MethodSignature\MethodFromFilepathMethodsFactory;
+use App\Factory\MethodFactory;
 use App\Model\Method\Method;
 use Safe\Exceptions\FilesystemException;
 use Safe\Exceptions\StringsException;
@@ -14,8 +14,8 @@ use Safe\Exceptions\StringsException;
 class FindMethodsInPathsService
 {
     public function __construct(
-        private FilepathMethodsFactory           $filepathMethodsFactory,
-        private MethodFromFilepathMethodsFactory $methodSignatureFromFilepathMethodsFactory,
+        private FilepathMethodsFactory $filepathMethodsFactory,
+        private MethodFactory          $methodFactory,
     )
     {
     }
@@ -35,7 +35,7 @@ class FindMethodsInPathsService
 
         $methodsArray = [];
         foreach ($filepathMethodsArray as $filepathMethods) {
-            $methods = $this->methodSignatureFromFilepathMethodsFactory
+            $methods = $this->methodFactory
                 ->buildMultipleFromFilepathMethods($filepathMethods);
 
             $methodsArray = array_merge($methodsArray, $methods);

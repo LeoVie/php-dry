@@ -11,6 +11,7 @@ use App\Model\Method\Method;
 use App\Model\Method\MethodTokenSequence;
 use App\Model\TokenSequenceRepresentative\TokenSequenceRepresentative;
 use App\Tokenize\TokenSequenceNormalizer;
+use App\Util\ArrayUtil;
 
 class TokenSequenceRepresentativeFactory
 {
@@ -18,6 +19,7 @@ class TokenSequenceRepresentativeFactory
         private MethodTokenSequencesByTokenSequencesGrouper $methodTokenSequencesByTokenSequencesGrouper,
         private TokenSequenceFactory                        $tokenSequenceFactory,
         private TokenSequenceNormalizer                     $tokenSequenceNormalizer,
+        private ArrayUtil                                   $arrayUtil,
     )
     {
     }
@@ -27,42 +29,54 @@ class TokenSequenceRepresentativeFactory
      *
      * @return TokenSequenceRepresentative[]
      */
-    public function createMultipleByMethodsCollections(array $methodsCollections): array
+    public function createMultipleForMultipleMethodsCollections(array $methodsCollections): array
     {
-        return $this->arrayFlatten(array_map(function (MethodsCollection $mc): array {
-            return $this->createTokenSequenceRepresentativesForMethodsCollection($mc);
-        }, $methodsCollections));
+        return $this->arrayUtil->flatten(
+            array_map(
+                fn(MethodsCollection $mc): array => $this->createMultipleForOneMethodsCollection($mc),
+                $methodsCollections
+            )
+        );
     }
 
     /** @return TokenSequenceRepresentative[] */
-    private function createTokenSequenceRepresentativesForMethodsCollection(MethodsCollection $methodsCollection): array
+    private function createMultipleForOneMethodsCollection(MethodsCollection $methodsCollection): array
     {
         $methodTokenSequences = array_map(function (Method $m): MethodTokenSequence {
-            return MethodTokenSequence::create($m,
+            return MethodTokenSequence::create(
+                $m,
                 $this->tokenSequenceNormalizer->normalizeLevel1($this->tokenSequenceFactory->create('<?php ' . $m->getContent()))
             );
         }, $methodsCollection->getAll());
 
         $groupedByTokenSequences = $this->methodTokenSequencesByTokenSequencesGrouper->group($methodTokenSequences);
 
-        return array_map(function (array $group): TokenSequenceRepresentative {
-            $methodsCollection = MethodsCollection::empty();
-
-            foreach ($group as $methodTokenSequence) {
-                $methodsCollection->add($methodTokenSequence->getMethod());
-            }
-
-            return TokenSequenceRepresentative::create($group[0]->getTokenSequence(), $methodsCollection);
-        }, $groupedByTokenSequences);
+        return $this->createMultipleForMultipleMethodTokenSequencesGroups($groupedByTokenSequences);
     }
 
     /**
-     * @param array<array> $a
+     * @param array<MethodTokenSequence[]> $methodTokenSequenceGroups
      *
-     * @return array<mixed>
+     * @return TokenSequenceRepresentative[]
      */
-    private function arrayFlatten(array $a): array
+    private function createMultipleForMultipleMethodTokenSequencesGroups(array $methodTokenSequenceGroups): array
     {
-        return array_merge(...$a);
+        return array_map(function (array $methodTokenSequences): TokenSequenceRepresentative {
+            return TokenSequenceRepresentative::create(
+                $methodTokenSequences[0]->getTokenSequence(),
+                $this->createMethodsCollectionForMethodTokenSequences($methodTokenSequences)
+            );
+        }, $methodTokenSequenceGroups);
+    }
+
+    /** @param MethodTokenSequence[] $methodTokenSequences */
+    private function createMethodsCollectionForMethodTokenSequences(array $methodTokenSequences): MethodsCollection
+    {
+        return MethodsCollection::withInitialContent(
+            ...array_map(
+                fn(MethodTokenSequence $mts): Method => $mts->getMethod(),
+                $methodTokenSequences
+            )
+        );
     }
 }

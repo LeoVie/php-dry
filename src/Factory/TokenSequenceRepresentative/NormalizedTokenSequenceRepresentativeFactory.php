@@ -10,9 +10,7 @@ use App\Tokenize\TokenSequenceNormalizer;
 
 class NormalizedTokenSequenceRepresentativeFactory
 {
-    public function __construct(
-        private TokenSequenceNormalizer $tokenSequenceNormalizer,
-    )
+    public function __construct(private TokenSequenceNormalizer $tokenSequenceNormalizer)
     {
     }
 
@@ -21,13 +19,12 @@ class NormalizedTokenSequenceRepresentativeFactory
      *
      * @return NormalizedTokenSequenceRepresentative[]
      */
-    public function createMultipleByTokenSequenceRepresentatives(array $tokenSequenceRepresentatives): array
+    public function normalizeMultipleTokenSequenceRepresentatives(array $tokenSequenceRepresentatives): array
     {
-        return array_map(function (TokenSequenceRepresentative $tokenSequenceRepresentative): NormalizedTokenSequenceRepresentative {
-            return NormalizedTokenSequenceRepresentative::create(
-                $this->tokenSequenceNormalizer->normalizeLevel2($tokenSequenceRepresentative->getTokenSequence()),
-                $tokenSequenceRepresentative->getMethodsCollection(),
-            );
-        }, $tokenSequenceRepresentatives);
+        return array_map(
+            fn(TokenSequenceRepresentative $tsr): NormalizedTokenSequenceRepresentative => NormalizedTokenSequenceRepresentative::create(
+                $this->tokenSequenceNormalizer->normalizeLevel2($tsr->getTokenSequence()),
+                $tsr->getMethodsCollection(),
+            ), $tokenSequenceRepresentatives);
     }
 }
