@@ -11,7 +11,7 @@ class VariableNormalizer implements TokenNormalizer
 {
     private ReplacementRegister $variableReplacementRegister;
 
-    private function __construct()
+    public function __construct()
     {
         $this->variableReplacementRegister = ReplacementRegister::create('$x');
     }
