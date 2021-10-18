@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Parse\Extractor;
+namespace App\Parse\Converter;
 
 use App\Exception\NodeTypeNotConvertable;
 use PhpParser\Node\ComplexType;
@@ -14,17 +14,16 @@ use Safe\Exceptions\StringsException;
 
 class NodeTypeToStringConverter
 {
+    public const VOID_TYPE = 'void';
+
     /**
      * @throws NodeTypeNotConvertable
      * @throws StringsException
      */
     public function convert(null|Identifier|Name|ComplexType $type): string
     {
-        if ($type === null) {
-            return 'void';
-        }
-
         return match (true) {
+            $type === null => self::VOID_TYPE,
             $type instanceof Identifier => $type->name,
             $type instanceof Name => $type->toString(),
             $type instanceof UnionType => join('|', array_map(fn(Identifier|Name $x) => $this->convert($x), $type->types)),

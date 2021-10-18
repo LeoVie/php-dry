@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Parse\Extractor;
 
 use App\Exception\NodeTypeNotConvertable;
+use App\Parse\Converter\NodeTypeToStringConverter;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
