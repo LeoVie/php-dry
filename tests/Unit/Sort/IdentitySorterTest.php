@@ -39,6 +39,15 @@ class IdentitySorterTest extends TestCase
         ];
 
         $identities = [
+            $this->mockIdentity('abc'),
+            $this->mockIdentity('abc'),
+        ];
+        yield 'two same identities' => [
+            'expected' => $identities,
+            'identities' => $identities,
+        ];
+
+        $identities = [
             $this->mockIdentity('def'),
             $this->mockIdentity('abc'),
         ];

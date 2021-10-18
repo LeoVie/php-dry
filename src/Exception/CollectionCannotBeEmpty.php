@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Exception;
 
 use Exception;
-use Safe\Exceptions\StringsException;
 
 class CollectionCannotBeEmpty extends Exception
 {

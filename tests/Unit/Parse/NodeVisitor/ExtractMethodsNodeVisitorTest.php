@@ -7,9 +7,10 @@ namespace App\Tests\Unit\Parse\NodeVisitor;
 use App\Parse\NodeVisitor\ExtractMethodsNodeVisitor;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Function_;
 use PHPUnit\Framework\TestCase;
 
-class ExtractClassMethodsNodeVisitorTest extends TestCase
+class ExtractMethodsNodeVisitorTest extends TestCase
 {
     /**
      * @param ClassMethod[] $expected
@@ -55,7 +56,7 @@ class ExtractClassMethodsNodeVisitorTest extends TestCase
         $nodes = [
             $this->createMock(ClassMethod::class),
             $this->createMock(Node::class),
-            $this->createMock(ClassMethod::class),
+            $this->createMock(Function_::class),
         ];
         yield 'mixed Nodes' => [
             'expected' => [$nodes[0], $nodes[2]],

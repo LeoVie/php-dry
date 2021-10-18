@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Find;
 
-use App\Exception\InvalidPartBoundaries;
+use App\Exception\InvalidBoundaries;
 use App\File\ReadFileContent;
 use App\Service\FileSystem;
 use PHPUnit\Framework\TestCase;
@@ -48,7 +48,7 @@ class ReadFileContentTest extends TestCase
     {
         $fileSystem = $this->createMock(FileSystem::class);
 
-        self::expectException(InvalidPartBoundaries::class);
+        self::expectException(InvalidBoundaries::class);
         (new ReadFileContent($fileSystem))->readPart('', 10, 5);
     }
 }

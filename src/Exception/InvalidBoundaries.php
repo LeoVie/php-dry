@@ -7,7 +7,7 @@ namespace App\Exception;
 use Exception;
 use Safe\Exceptions\StringsException;
 
-class InvalidPartBoundaries extends Exception
+class InvalidBoundaries extends Exception
 {
     /** @throws StringsException */
     private function __construct(int $start, int $end)

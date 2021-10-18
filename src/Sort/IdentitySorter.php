@@ -6,6 +6,10 @@ namespace App\Sort;
 
 class IdentitySorter
 {
+    private const A_SAME_AS_B = 0;
+    private const A_LOWER_THAN_B = -1;
+    private const A_GREATER_THAN_B = 1;
+
     /**
      * @param Identity[] $identities
      *
@@ -23,9 +27,9 @@ class IdentitySorter
         $aIdentity = $a->identity();
         $bIdentity = $b->identity();
         if ($aIdentity === $bIdentity) {
-            return 0;
+            return self::A_SAME_AS_B;
         }
 
-        return ($aIdentity < $bIdentity) ? -1 : 1;
+        return ($aIdentity < $bIdentity) ? self::A_LOWER_THAN_B : self::A_GREATER_THAN_B;
     }
 }

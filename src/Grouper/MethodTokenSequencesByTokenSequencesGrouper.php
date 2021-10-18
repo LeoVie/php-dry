@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace App\Grouper;
 
 use App\Model\Method\MethodTokenSequence;
-use App\Sort\IdentitySorter;
 
 class MethodTokenSequencesByTokenSequencesGrouper
 {
-    public function __construct(private IdentitySorter $identitySorter)
+    public function __construct(private IdentityGrouper $identityGrouper)
     {
     }
 
@@ -20,21 +19,9 @@ class MethodTokenSequencesByTokenSequencesGrouper
      */
     public function group(array $methodTokenSequences): array
     {
-        $result = [];
-        $last = null;
+        /** @var  array<MethodTokenSequence[]> $grouped */
+        $grouped = $this->identityGrouper->group($methodTokenSequences);
 
-        $group = 0;
-        foreach ($this->identitySorter->sort($methodTokenSequences) as $i => $methodTokenSequence) {
-            $s = $methodTokenSequence->identity();
-            if ($i > 0 && $s !== $last) {
-                $group++;
-            }
-
-            $result[$group][] = $methodTokenSequence;
-
-            $last = $s;
-        }
-
-        return $result;
+        return $grouped;
     }
 }
