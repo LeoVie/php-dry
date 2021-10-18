@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Tokenize;
 
+use App\Sort\Identity;
 use PhpToken;
 use Stringable;
 
-class TokenSequence implements Stringable
+class TokenSequence implements Stringable, Identity
 {
     /** @var int[] */
     private array $tokenTypesToIgnore = [];
