@@ -7,6 +7,7 @@ namespace App\Service;
 use App\CloneDetection\Type1CloneDetector;
 use App\CloneDetection\Type2CloneDetector;
 use App\Command\Output\DetectClonesCommandOutput;
+use App\Configuration\Configuration;
 use App\Exception\NodeTypeNotConvertable;
 use App\Factory\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentativeFactory;
 use App\Factory\TokenSequenceRepresentative\TokenSequenceRepresentativeFactory;
@@ -40,15 +41,15 @@ class DetectClonesService
      * @throws StringsException
      * @throws NodeTypeNotConvertable
      */
-    public function detectInDirectory(Stopwatch $stopwatch, string $directory, int $countOfParamSets, DetectClonesCommandOutput $output): array
+    public function detectInDirectory(Configuration $configuration, DetectClonesCommandOutput $output): array
     {
-        $filePaths = $this->findFiles->findPhpFilesInPath($directory);
+        $filePaths = $this->findFiles->findPhpFilesInPath($configuration->directory());
 
-        $output->single(\Safe\sprintf('Found %s files: %s.', count($filePaths), $stopwatch->lap('detect-clones')));
+        $output->foundFiles(count($filePaths));
 
         $methods = $this->findMethodsInPathsService->find($filePaths);
 
-        $output->single(\Safe\sprintf('Found %s methods: %s', count($methods), $stopwatch->lap('detect-clones')));
+        $output->foundMethods(count($methods));
 
         $methodsGroupedBySignatures = $this->methodsBySignatureGrouper->group($methods);
         $tokenSequenceRepresentatives

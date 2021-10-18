@@ -28,6 +28,11 @@ class CodePositionRange implements Stringable
         return $this->end;
     }
 
+    public function countOfLines(): int
+    {
+        return $this->getEnd()->getLine() - $this->getStart()->getLine();
+    }
+
     /** @throws StringsException */
     public function __toString(): string
     {
@@ -35,7 +40,7 @@ class CodePositionRange implements Stringable
             '%s - %s (%s lines)',
             $this->getStart()->__toString(),
             $this->getEnd()->__toString(),
-            $this->getEnd()->getLine() - $this->getStart()->getLine()
+            $this->countOfLines()
         );
     }
 }

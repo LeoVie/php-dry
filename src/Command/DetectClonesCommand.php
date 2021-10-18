@@ -6,6 +6,7 @@ namespace App\Command;
 
 use App\Command\Output\DetectClonesCommandOutput;
 use App\Command\Output\Helper\VerboseOutputHelper;
+use App\Configuration\Configuration;
 use App\Model\Method\Method;
 use App\Model\SourceClone\SourceClone;
 use App\Service\DetectClonesService;
@@ -51,46 +52,46 @@ class DetectClonesCommand extends Command
 
         $output = DetectClonesCommandOutput::create(
             VerboseOutputHelper::create($input, $output),
+            $stopwatch
         );
 
-        /** @var string $directory */
-        $directory = $input->getArgument('directory');
+        $configuration = $this->createConfiguration($input);
 
-        $countOfParamSets = (int)$input->getArgument('countOfParamSets');
+        $detected = $this->detectClonesService->detectInDirectory($configuration, $output);
 
-        $minLines = (int)$input->getArgument('minLines');
-
-        $detected = $this->detectClonesService->detectInDirectory($stopwatch, $directory, $countOfParamSets, $output);
-
-        foreach ($detected as $cloneType => $clones) {
-            $output->headline($cloneType);
+        foreach ($detected as $clones) {
             foreach ($clones as $clone) {
-                if (!$this->shouldBeReported($clone, $minLines)) {
+                if ($this->cloneShouldBeIgnored($clone, $configuration)) {
                     continue;
                 }
 
                 $output
-                    ->single($clone->getType())
-                    ->listing(array_map(fn(Method $m) => $m->__toString(), $clone->getMethodsCollection()->getAll()));
+                    ->headline($clone->getType())
+                    ->methodsCollection($clone->getMethodsCollection());
             }
         }
 
-        $output->runtime($stopwatch->stop('detect-clones'));
+        $output->stopTime();
 
         return Command::SUCCESS;
     }
 
-    private function shouldBeReported(SourceClone $clone, int $minLines): bool
+    private function createConfiguration(InputInterface $input): Configuration
     {
-        $first = $clone->getMethodsCollection()->getFirst();
+        return Configuration::create(
+            (string)$input->getArgument('directory'),
+            (int)$input->getArgument('minLines'),
+            (int)$input->getArgument('countOfParamSets'),
+        );
+    }
 
-        if ($first === null) {
-            return false;
+    private function cloneShouldBeIgnored(SourceClone $clone, Configuration $configuration): bool
+    {
+        $methodLines = array_map(fn(Method $m): int => $m->getCodePositionRange()->countOfLines(), $clone->getMethodsCollection()->getAll());
+        if (empty($methodLines)) {
+            return true;
         }
 
-        $codePositionRange = $first->getCodePositionRange();
-        $lines = $codePositionRange->getEnd()->getLine() - $codePositionRange->getStart()->getLine();
-
-        return $lines > $minLines;
+        return max($methodLines) < $configuration->minLines();
     }
 }

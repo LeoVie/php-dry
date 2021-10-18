@@ -75,4 +75,30 @@ class CodePositionRangeTest extends TestCase
             'codePositionRange' => CodePositionRange::create($start, $end),
         ];
     }
+
+    /** @dataProvider countOfLinesProvider */
+    public function testCountOfLines(int $expected, CodePositionRange $codePositionRange): void
+    {
+        self::assertSame($expected, $codePositionRange->countOfLines());
+    }
+
+    public function countOfLinesProvider(): array
+    {
+        return [
+            '0 lines' => [
+                'expected' => 0,
+                'codePositionRange' => CodePositionRange::create(
+                    CodePosition::create(100, 10),
+                    CodePosition::create(100, 30),
+                ),
+            ],
+            'multiple lines' => [
+                'expected' => 890,
+                'codePositionRange' => CodePositionRange::create(
+                    CodePosition::create(100, 10),
+                    CodePosition::create(990, 30),
+                ),
+            ],
+        ];
+    }
 }
