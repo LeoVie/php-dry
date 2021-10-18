@@ -20,22 +20,45 @@ class IdentityGrouper
      */
     public function group(array $identities): array
     {
+        if (empty($identities)) {
+            return [];
+        }
+
         $result = [];
         $last = null;
 
-        $group = 0;
         $sorted = $this->identitySorter->sort($identities);
-        foreach ($sorted as $i => $methodTokenSequence) {
-            $s = $methodTokenSequence->identity();
-            if ($i > 0 && $s !== $last) {
-                $group++;
+
+        $group = $this->newGroup();
+
+        foreach ($sorted as $i => $identity) {
+            $s = $identity->identity();
+
+            $isNotFirst = $i > 0;
+            $notSameIdentityAsLast = $s !== $last;
+
+            if ($isNotFirst && $notSameIdentityAsLast) {
+                $result = $this->addGroupToResult($group, $result);
+                $group = $this->newGroup();
             }
 
-            $result[$group][] = $methodTokenSequence;
+            $group[] = $identity;
 
             $last = $s;
         }
 
+        return $this->addGroupToResult($group, $result);
+    }
+
+    private function addGroupToResult(array $group, array $result): array
+    {
+        $result[] = $group;
+
         return $result;
+    }
+
+    private function newGroup(): array
+    {
+        return [];
     }
 }
