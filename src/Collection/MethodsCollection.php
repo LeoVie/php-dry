@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Collection;
 
+use App\Exception\CollectionCannotBeEmpty;
 use App\Model\Method\Method;
 use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
@@ -13,30 +14,29 @@ class MethodsCollection
     /** @var CollectionInterface<int, Method> */
     private CollectionInterface $methods;
 
-    public static function empty(): self
+    private function __construct(Method ...$methods)
     {
-        return new self();
-    }
-
-    public static function withInitialContent(Method ...$methods): self
-    {
-        $methodsCollection = self::empty();
-
-        foreach ($methods as $method) {
-            $methodsCollection->add($method);
+        if (empty($methods)) {
+            throw CollectionCannotBeEmpty::create();
         }
 
-        return $methodsCollection;
-    }
-
-    private function __construct()
-    {
         $this->methods = Collection::empty();
+        foreach ($methods as $method) {
+            $this->add($method);
+        }
     }
 
-    public function getFirst(): ?Method
+    public static function create(Method ...$methods): self
     {
-        return $this->methods->first()->current();
+        return new self(...$methods);
+    }
+
+    public function getFirst(): Method
+    {
+        /** @var Method $first */
+        $first = $this->methods->first()->current();
+
+        return $first;
     }
 
     /** @return Method[] */
@@ -60,11 +60,6 @@ class MethodsCollection
     /** @return string[] */
     public function extractParamTypes(): array
     {
-        $first = $this->getFirst();
-        if ($first === null) {
-            return [];
-        }
-
-        return $first->getMethodSignature()->getParamTypes();
+        return $this->getFirst()->getMethodSignature()->getParamTypes();
     }
 }

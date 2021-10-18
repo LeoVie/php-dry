@@ -5,28 +5,21 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Collection;
 
 use App\Collection\MethodsCollection;
+use App\Exception\CollectionCannotBeEmpty;
 use App\Model\Method\Method;
 use App\Model\Method\MethodSignature;
 use PHPUnit\Framework\TestCase;
 
 class MethodsCollectionTest extends TestCase
 {
-    public function testEmpty(): void
+    /** @dataProvider createProvider */
+    public function testCreate(array $methods): void
     {
-        self::assertEmpty(MethodsCollection::empty()->getAll());
+        self::assertSame($methods, MethodsCollection::create(...$methods)->getAll());
     }
 
-    /** @dataProvider withInitialContentProvider */
-    public function testWithInitialContent(array $methods): void
+    public function createProvider(): \Generator
     {
-        self::assertSame($methods, MethodsCollection::withInitialContent(...$methods)->getAll());
-    }
-
-    public function withInitialContentProvider(): \Generator
-    {
-        yield 'empty' => [
-            'methods' => [],
-        ];
         yield 'one method' => [
             'methods' => [$this->createMock(Method::class)],
         ];
@@ -38,18 +31,20 @@ class MethodsCollectionTest extends TestCase
         ];
     }
 
-    public function testGetFirstOnEmpty(): void
+    public function testCreateThrowsWhenCalledWithNoMethods(): void
     {
-        self::assertNull(MethodsCollection::empty()->getFirst());
+        self::expectException(CollectionCannotBeEmpty::class);
+
+        MethodsCollection::create();
     }
 
-    /** @dataProvider getFirstOnNonEmptyProvider */
-    public function testGetFirstOnNonEmpty(Method $expected, MethodsCollection $methodsCollection): void
+    /** @dataProvider getFirstProvider */
+    public function testGetFirst(Method $expected, MethodsCollection $methodsCollection): void
     {
         self::assertSame($expected, $methodsCollection->getFirst());
     }
 
-    public function getFirstOnNonEmptyProvider(): \Generator
+    public function getFirstProvider(): \Generator
     {
         $methods = [
             $this->createMock(Method::class),
@@ -58,7 +53,7 @@ class MethodsCollectionTest extends TestCase
 
         yield [
             'expected' => $methods[0],
-            'methodsCollection' => MethodsCollection::withInitialContent(...$methods),
+            'methodsCollection' => MethodsCollection::create(...$methods),
         ];
     }
 
@@ -70,16 +65,11 @@ class MethodsCollectionTest extends TestCase
 
     public function extractParamTypesProvider(): \Generator
     {
-        yield 'empty' => [
-            'expected' => [],
-            'methodsCollection' => MethodsCollection::empty(),
-        ];
-
         $paramTypes = ['int', 'string'];
         $method = $this->mockMethodWithParamTypes($paramTypes);
         yield 'one method' => [
             'expected' => $paramTypes,
-            'methodsCollection' => MethodsCollection::withInitialContent($method),
+            'methodsCollection' => MethodsCollection::create($method),
         ];
 
         $paramTypes = ['int', 'string'];
@@ -89,7 +79,7 @@ class MethodsCollectionTest extends TestCase
         ];
         yield 'multiple methods' => [
             'expected' => $paramTypes,
-            'methodsCollection' => MethodsCollection::withInitialContent($methods[0]),
+            'methodsCollection' => MethodsCollection::create($methods[0]),
         ];
     }
 

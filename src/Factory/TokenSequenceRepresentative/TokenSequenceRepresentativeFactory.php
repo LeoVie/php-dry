@@ -72,7 +72,7 @@ class TokenSequenceRepresentativeFactory
     /** @param MethodTokenSequence[] $methodTokenSequences */
     private function createMethodsCollectionForMethodTokenSequences(array $methodTokenSequences): MethodsCollection
     {
-        return MethodsCollection::withInitialContent(
+        return MethodsCollection::create(
             ...array_map(
                 fn(MethodTokenSequence $mts): Method => $mts->getMethod(),
                 $methodTokenSequences

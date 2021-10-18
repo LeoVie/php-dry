@@ -30,7 +30,7 @@ class MethodsBySignatureGrouperTest extends TestCase
 
         $method = $this->createMethod(MethodSignature::create(['int'], 'string'));
         yield 'one method' => [
-            'expected' => [MethodsCollection::withInitialContent($method)],
+            'expected' => [MethodsCollection::create($method)],
             'methods' => [$method],
         ];
 
@@ -39,9 +39,9 @@ class MethodsBySignatureGrouperTest extends TestCase
         $method3 = $this->createMethod(MethodSignature::create(['string'], 'array'));
         yield 'only methods with different signatures' => [
             'expected' => [
-                MethodsCollection::withInitialContent($method1),
-                MethodsCollection::withInitialContent($method2),
-                MethodsCollection::withInitialContent($method3),
+                MethodsCollection::create($method1),
+                MethodsCollection::create($method2),
+                MethodsCollection::create($method3),
             ],
             'methods' => [$method1, $method2, $method3],
         ];
@@ -51,7 +51,7 @@ class MethodsBySignatureGrouperTest extends TestCase
         $method3 = $this->createMethod(MethodSignature::create(['int'], 'string'));
         yield 'only methods with same signatures' => [
             'expected' => [
-                MethodsCollection::withInitialContent($method1, $method2, $method3),
+                MethodsCollection::create($method1, $method2, $method3),
             ],
             'methods' => [$method1, $method2, $method3],
         ];
@@ -62,9 +62,9 @@ class MethodsBySignatureGrouperTest extends TestCase
         $method4 = $this->createMethod(MethodSignature::create(['string', 'int'], 'string'));
         yield 'mixed' => [
             'expected' => [
-                MethodsCollection::withInitialContent($method1, $method3),
-                MethodsCollection::withInitialContent($method2),
-                MethodsCollection::withInitialContent($method4),
+                MethodsCollection::create($method1, $method3),
+                MethodsCollection::create($method2),
+                MethodsCollection::create($method4),
             ],
             'methods' => [$method1, $method2, $method3, $method4],
         ];

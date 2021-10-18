@@ -34,11 +34,11 @@ class CloneDetectorTest extends TestCase
                 'tokenSequenceRepresentatives' => [
                     ExactTokenSequenceRepresentative::create(
                         $this->createMock(TokenSequence::class),
-                        MethodsCollection::empty()
+                        MethodsCollection::create($this->createMock(Method::class))
                     ),
                     ExactTokenSequenceRepresentative::create(
                         $this->createMock(TokenSequence::class),
-                        MethodsCollection::withInitialContent($this->createMock(Method::class))
+                        MethodsCollection::create($this->createMock(Method::class))
                     ),
                 ],
                 'type' => SourceClone::TYPE_1,
@@ -47,14 +47,14 @@ class CloneDetectorTest extends TestCase
                 'expected' => [
                     SourceClone::create(
                         SourceClone::TYPE_1,
-                        MethodsCollection::withInitialContent(
+                        MethodsCollection::create(
                             $this->createMock(Method::class),
                             $this->createMock(Method::class),
                         )
                     ),
                     SourceClone::create(
                         SourceClone::TYPE_1,
-                        MethodsCollection::withInitialContent(
+                        MethodsCollection::create(
                             $this->createMock(Method::class),
                             $this->createMock(Method::class),
                             $this->createMock(Method::class),
@@ -64,14 +64,14 @@ class CloneDetectorTest extends TestCase
                 'tokenSequenceRepresentatives' => [
                     ExactTokenSequenceRepresentative::create(
                         $this->createMock(TokenSequence::class),
-                        MethodsCollection::withInitialContent(
+                        MethodsCollection::create(
                             $this->createMock(Method::class),
                             $this->createMock(Method::class),
                         )
                     ),
                     ExactTokenSequenceRepresentative::create(
                         $this->createMock(TokenSequence::class),
-                        MethodsCollection::withInitialContent(
+                        MethodsCollection::create(
                             $this->createMock(Method::class),
                             $this->createMock(Method::class),
                             $this->createMock(Method::class),
@@ -84,7 +84,7 @@ class CloneDetectorTest extends TestCase
                 'expected' => [
                     SourceClone::create(
                         SourceClone::TYPE_2,
-                        MethodsCollection::withInitialContent(
+                        MethodsCollection::create(
                             $this->createMock(Method::class),
                             $this->createMock(Method::class),
                         )
@@ -93,7 +93,7 @@ class CloneDetectorTest extends TestCase
                 'tokenSequenceRepresentatives' => [
                     NormalizedTokenSequenceRepresentative::create(
                         $this->createMock(TokenSequence::class),
-                        MethodsCollection::withInitialContent(
+                        MethodsCollection::create(
                             $this->createMock(Method::class),
                             $this->createMock(Method::class),
                         )

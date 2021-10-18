@@ -26,19 +26,33 @@ class MethodsBySignatureGrouper
 
         /** @var MethodsCollection[] $methodsCollections */
         $methodsCollections = [
-            MethodsCollection::withInitialContent(array_shift($methods)),
+            MethodsCollection::create(array_shift($methods)),
         ];
 
         foreach ($methods as $method) {
-            $collection = $this->findMatchingMethodsCollection($method, $methodsCollections);
-
-            if ($collection === null) {
-                $collection = MethodsCollection::empty();
-                $methodsCollections[] = $collection;
-            }
-
-            $collection->add($method);
+            $methodsCollections = $this->addToExistingMatchingMethodsCollectionOrCreateNewOne($method, $methodsCollections);
         }
+
+        return $methodsCollections;
+    }
+
+    /**
+     * @param MethodsCollection[] $methodsCollections
+     *
+     * @return MethodsCollection[]
+     */
+    private function addToExistingMatchingMethodsCollectionOrCreateNewOne(Method $method, array $methodsCollections): array
+    {
+        $collection = $this->findMatchingMethodsCollection($method, $methodsCollections);
+
+        if ($collection !== null) {
+            $collection->add($method);
+
+            return $methodsCollections;
+        }
+
+        $collection = MethodsCollection::create($method);
+        $methodsCollections[] = $collection;
 
         return $methodsCollections;
     }
@@ -57,11 +71,9 @@ class MethodsBySignatureGrouper
 
     private function matchesMethodSignaturesCollection(Method $method, MethodsCollection $methodsCollection): bool
     {
-        $first = $methodsCollection->getFirst();
-        if ($first === null) {
-            return false;
-        }
-
-        return $this->methodSignatureComparer->areEqual($method->getMethodSignature(), $first->getMethodSignature());
+        return $this->methodSignatureComparer->areEqual(
+            $method->getMethodSignature(),
+            $methodsCollection->getFirst()->getMethodSignature()
+        );
     }
 }

@@ -14,7 +14,7 @@ class Type2CloneDetectorTest extends TestCase
 {
     public function testDetect(): void
     {
-        $clones = [SourceClone::create(SourceClone::TYPE_2, MethodsCollection::empty())];
+        $clones = [SourceClone::create(SourceClone::TYPE_2, $this->createMock(MethodsCollection::class))];
 
         $expected = $clones;
 

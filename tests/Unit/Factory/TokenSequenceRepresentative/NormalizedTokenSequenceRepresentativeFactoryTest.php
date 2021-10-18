@@ -36,8 +36,8 @@ class NormalizedTokenSequenceRepresentativeFactoryTest extends TestCase
             TokenSequence::create([$this->createMock(\PhpToken::class), $this->createMock(\PhpToken::class)]),
         ];
         $methodsCollections = [
-            MethodsCollection::withInitialContent($this->createMock(Method::class)),
-            MethodsCollection::withInitialContent(
+            MethodsCollection::create($this->createMock(Method::class)),
+            MethodsCollection::create(
                 $this->createMock(Method::class),
                 $this->createMock(Method::class)
             ),
