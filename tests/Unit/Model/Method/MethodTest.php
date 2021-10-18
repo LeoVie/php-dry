@@ -128,4 +128,39 @@ class MethodTest extends TestCase
             $content
         )];
     }
+
+    /** @dataProvider toStringProvider */
+    public function testToString(string $expected, Method $method): void
+    {
+        self::assertSame($expected, $method->__toString());
+    }
+
+    public function toStringProvider(): Generator
+    {
+        $codePositionRange = $this->createMock(CodePositionRange::class);
+        $codePositionRange->method('__toString')->willReturn('code position range');
+        yield [
+            'expected' => '/var/www/foo.php: foobar (code position range)',
+            'method' => Method::create(
+                $this->createMock(MethodSignature::class),
+                'foobar',
+                '/var/www/foo.php',
+                $codePositionRange,
+                ''
+            )
+        ];
+
+        $codePositionRange = $this->createMock(CodePositionRange::class);
+        $codePositionRange->method('__toString')->willReturn('code position range 2');
+        yield [
+            'expected' => '/fp/bar.php: barfoo (code position range 2)',
+            'method' => Method::create(
+                $this->createMock(MethodSignature::class),
+                'barfoo',
+                '/fp/bar.php',
+                $codePositionRange,
+                ''
+            )
+        ];
+    }
 }

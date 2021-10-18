@@ -7,32 +7,55 @@ namespace App\Tests\Unit\Model\Method;
 use App\Model\Method\Method;
 use App\Model\Method\MethodTokenSequence;
 use App\Tokenize\TokenSequence;
-use Generator;
 use PHPUnit\Framework\TestCase;
 
 class MethodTokenSequenceTest extends TestCase
 {
-    /** @dataProvider getMethodProvider */
-    public function testGetMethod(Method $expected, MethodTokenSequence $methodTokenSequence): void
-    {
-        self::assertSame($expected, $methodTokenSequence->getMethod());
-    }
-
-    public function getMethodProvider(): Generator
+    public function testGetMethod(): void
     {
         $method = $this->createMock(Method::class);
-        yield [$method, MethodTokenSequence::create($method, $this->createMock(TokenSequence::class))];
+        self::assertSame($method,
+            MethodTokenSequence::create(
+                $method,
+                $this->createMock(TokenSequence::class)
+            )->getMethod()
+        );
     }
 
-    /** @dataProvider getTokenSequenceProvider */
-    public function testGetTokenSequence(TokenSequence $expected, MethodTokenSequence $methodTokenSequence): void
-    {
-        self::assertSame($expected, $methodTokenSequence->getTokenSequence());
-    }
-
-    public function getTokenSequenceProvider(): Generator
+    public function testGetTokenSequence(): void
     {
         $tokenSequence = $this->createMock(TokenSequence::class);
-        yield [$tokenSequence, MethodTokenSequence::create($this->createMock(Method::class), $tokenSequence)];
+        self::assertSame($tokenSequence,
+            MethodTokenSequence::create(
+                $this->createMock(Method::class),
+                $tokenSequence
+            )->getTokenSequence()
+        );
+    }
+
+    public function testIdentity(): void
+    {
+        $tokenSequence = $this->createMock(TokenSequence::class);
+        $tokenSequence->method('identity')->willReturn('token sequence identity');
+
+        self::assertSame('token sequence identity',
+            MethodTokenSequence::create(
+                $this->createMock(Method::class),
+                $tokenSequence
+            )->identity()
+        );
+    }
+
+    public function testToString(): void
+    {
+        $tokenSequence = $this->createMock(TokenSequence::class);
+        $tokenSequence->method('identity')->willReturn('token sequence identity');
+
+        self::assertSame('token sequence identity',
+            MethodTokenSequence::create(
+                $this->createMock(Method::class),
+                $tokenSequence
+            )->__toString()
+        );
     }
 }

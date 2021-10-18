@@ -28,19 +28,13 @@ class CodePositionRange implements Stringable
         return $this->end;
     }
 
-    /** @deprecated */
-    public function toString(): string
-    {
-        return $this->__toString();
-    }
-
     /** @throws StringsException */
     public function __toString(): string
     {
         return \Safe\sprintf(
             '%s - %s (%s lines)',
-            $this->getStart()->toString(),
-            $this->getEnd()->toString(),
+            $this->getStart()->__toString(),
+            $this->getEnd()->__toString(),
             $this->getEnd()->getLine() - $this->getStart()->getLine()
         );
     }

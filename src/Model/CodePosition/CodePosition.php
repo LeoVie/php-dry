@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Model\CodePosition;
 
 use Safe\Exceptions\StringsException;
+use Stringable;
 
-class CodePosition
+class CodePosition implements Stringable
 {
     public static function create(int $line, int $filePos): self
     {
@@ -28,8 +29,8 @@ class CodePosition
     }
 
     /** @throws StringsException */
-    public function toString(): string
+    public function __toString(): string
     {
-        return \Safe\sprintf('line %s (file position %s)', $this->getLine(), $this->getFilePos());
+        return \Safe\sprintf('%s (position %s)', $this->getLine(), $this->getFilePos());
     }
 }

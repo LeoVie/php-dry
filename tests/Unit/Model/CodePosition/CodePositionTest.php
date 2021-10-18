@@ -48,4 +48,24 @@ class CodePositionTest extends TestCase
             ],
         ];
     }
+
+    /** @dataProvider toStringProvider */
+    public function testToString(string $expected, CodePosition $codePosition): void
+    {
+        self::assertSame($expected, $codePosition->__toString());
+    }
+
+    public function toStringProvider(): array
+    {
+        return [
+            [
+                'expected' => '10 (position 15)',
+                CodePosition::create(10, 15),
+            ],
+            [
+                'expected' => '999 (position 29)',
+                CodePosition::create(999, 29),
+            ],
+        ];
+    }
 }
