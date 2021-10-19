@@ -30,6 +30,16 @@ class TokenSequence implements Stringable, Identity
         return $this->tokens;
     }
 
+    public function length(): int
+    {
+        return count($this->getTokens());
+    }
+
+    public function isEmpty(): bool
+    {
+        return $this->length() === 0;
+    }
+
     public function filter(): self
     {
         return new self(
