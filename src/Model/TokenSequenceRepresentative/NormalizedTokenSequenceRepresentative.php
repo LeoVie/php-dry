@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Model\TokenSequenceRepresentative;
 
 use App\Collection\MethodsCollection;
+use App\Sort\Identity;
 use App\Tokenize\TokenSequence;
 
-class NormalizedTokenSequenceRepresentative implements TokenSequenceRepresentative
+class NormalizedTokenSequenceRepresentative implements TokenSequenceRepresentative, Identity, \Stringable
 {
     private function __construct(private TokenSequence $tokenSequence, private MethodsCollection $methodsCollection)
     {}
@@ -25,5 +26,15 @@ class NormalizedTokenSequenceRepresentative implements TokenSequenceRepresentati
     public function getMethodsCollection(): MethodsCollection
     {
         return $this->methodsCollection;
+    }
+
+    public function identity(): string
+    {
+        return $this->getTokenSequence()->identity();
+    }
+
+    public function __toString(): string
+    {
+        return $this->identity();
     }
 }

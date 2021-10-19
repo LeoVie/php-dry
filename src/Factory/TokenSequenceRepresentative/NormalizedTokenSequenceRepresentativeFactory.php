@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Factory\TokenSequenceRepresentative;
 
-use App\Model\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentative;
 use App\Model\TokenSequenceRepresentative\ExactTokenSequenceRepresentative;
+use App\Model\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentative;
 use App\Tokenize\TokenSequenceNormalizer;
 
 class NormalizedTokenSequenceRepresentativeFactory

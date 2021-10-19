@@ -16,6 +16,7 @@ use App\File\FindFiles;
 use App\Grouper\MethodsBySignatureGrouper;
 use App\Merge\NormalizedTokenSequenceRepresentativeMerger;
 use App\Model\SourceClone\SourceClone;
+use App\Model\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentative;
 use Safe\Exceptions\FilesystemException;
 use Safe\Exceptions\StringsException;
 use Symfony\Component\Stopwatch\Stopwatch;
@@ -58,12 +59,12 @@ class DetectClonesService
             = $this->tokenSequenceRepresentativeFactory->createMultipleForMultipleMethodsCollections($methodsGroupedBySignatures);
         $normalizedTokenSequenceRepresentatives
             = $this->normalizedTokenSequenceRepresentativeFactory->normalizeMultipleTokenSequenceRepresentatives($tokenSequenceRepresentatives);
+        $mergedNormalizedTokenSequenceRepresentatives
+            = $this->normalizedTokenSequenceRepresentativeMerger->merge($normalizedTokenSequenceRepresentatives);
 
         return [
             SourceClone::TYPE_1 => $this->type1CloneDetector->detect($tokenSequenceRepresentatives),
-            SourceClone::TYPE_2 => $this->type2CloneDetector->detect(
-                $this->normalizedTokenSequenceRepresentativeMerger->merge($normalizedTokenSequenceRepresentatives)
-            ),
+            SourceClone::TYPE_2 => $this->type2CloneDetector->detect($mergedNormalizedTokenSequenceRepresentatives),
         ];
     }
 }
