@@ -50,6 +50,12 @@ class IdentityGrouper
         return $this->addGroupToResult($group, $result);
     }
 
+    /**
+     * @param Identity[] $group
+     * @param array<Identity[]> $result
+     *
+     * @return array<Identity[]>
+     */
     private function addGroupToResult(array $group, array $result): array
     {
         $result[] = $group;
@@ -57,6 +63,9 @@ class IdentityGrouper
         return $result;
     }
 
+    /**
+     * @return Identity[]
+     */
     private function newGroup(): array
     {
         return [];

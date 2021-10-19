@@ -55,6 +55,6 @@ class NormalizedTokenSequenceRepresentativeMerger
             $newNormalizedTokenRepresentatives[$identity]->getMethodsCollection()->add($newNormalizedMethod);
         }
 
-        return $newNormalizedTokenRepresentatives;
+        return array_values($newNormalizedTokenRepresentatives);
     }
 }
