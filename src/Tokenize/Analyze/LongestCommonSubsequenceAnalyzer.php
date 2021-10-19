@@ -14,7 +14,7 @@ class LongestCommonSubsequenceAnalyzer
             return 0;
         }
 
-        if ($a->getTokens() == $b->getTokens()) {
+        if ($a->equals($b)) {
             return $a->length();
         }
 

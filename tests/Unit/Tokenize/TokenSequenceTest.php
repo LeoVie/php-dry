@@ -56,6 +56,50 @@ class TokenSequenceTest extends TestCase
         ];
     }
 
+    /** @dataProvider lengthProvider */
+    public function testLength(int $expected, TokenSequence $tokenSequence): void
+    {
+        self::assertSame($expected, $tokenSequence->length());
+    }
+
+    public function lengthProvider(): array
+    {
+        return [
+            'empty' => [
+                'expected' => 0,
+                TokenSequence::create([]),
+            ],
+            'non empty' => [
+                'expected' => 3,
+                TokenSequence::create([
+                    $this->mockPhpToken(T_PUBLIC, 'public'),
+                    $this->mockPhpToken(T_PUBLIC, 'public'),
+                    $this->mockPhpToken(T_PUBLIC, 'public'),
+                ]),
+            ],
+        ];
+    }
+
+    /** @dataProvider isEmptyProvider */
+    public function testIsEmpty(bool $expected, TokenSequence $tokenSequence): void
+    {
+        self::assertSame($expected, $tokenSequence->isEmpty());
+    }
+
+    public function isEmptyProvider(): array
+    {
+        return [
+            'empty' => [
+                'expected' => true,
+                TokenSequence::create([]),
+            ],
+            'non empty' => [
+                'expected' => false,
+                TokenSequence::create([$this->mockPhpToken(T_PUBLIC, 'public'),]),
+            ],
+        ];
+    }
+
     /** @dataProvider withoutAccessModifiersProvider */
     public function testWithoutAccessModifiers(array $expected, TokenSequence $tokenSequence): void
     {
