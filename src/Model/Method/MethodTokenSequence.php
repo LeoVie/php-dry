@@ -8,7 +8,7 @@ use App\Sort\Identity;
 use App\Tokenize\TokenSequence;
 use Stringable;
 
-class MethodTokenSequence implements Stringable, Identity
+class MethodTokenSequence implements Stringable, Identity, HasMethod
 {
     private function __construct(private Method $method, private TokenSequence $tokenSequence)
     {

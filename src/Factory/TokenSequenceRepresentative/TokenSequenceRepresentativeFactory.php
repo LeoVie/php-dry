@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Factory\TokenSequenceRepresentative;
 
 use App\Collection\MethodsCollection;
+use App\Exception\CollectionCannotBeEmpty;
+use App\Factory\Collection\MethodsCollectionFactory;
 use App\Factory\TokenSequenceFactory;
 use App\Grouper\MethodTokenSequencesByTokenSequencesGrouper;
 use App\Model\Method\Method;
@@ -20,6 +22,7 @@ class TokenSequenceRepresentativeFactory
         private TokenSequenceFactory                        $tokenSequenceFactory,
         private TokenSequenceNormalizer                     $tokenSequenceNormalizer,
         private ArrayUtil                                   $arrayUtil,
+        private MethodsCollectionFactory                    $methodsCollectionFactory,
     )
     {
     }
@@ -28,6 +31,7 @@ class TokenSequenceRepresentativeFactory
      * @param MethodsCollection[] $methodsCollections
      *
      * @return ExactTokenSequenceRepresentative[]
+     * @throws CollectionCannotBeEmpty
      */
     public function createMultipleForMultipleMethodsCollections(array $methodsCollections): array
     {
@@ -39,15 +43,16 @@ class TokenSequenceRepresentativeFactory
         );
     }
 
-    /** @return ExactTokenSequenceRepresentative[] */
+    /**
+     * @return ExactTokenSequenceRepresentative[]
+     * @throws CollectionCannotBeEmpty
+     */
     private function createMultipleForOneMethodsCollection(MethodsCollection $methodsCollection): array
     {
-        $methodTokenSequences = array_map(function (Method $m): MethodTokenSequence {
-            return MethodTokenSequence::create(
-                $m,
-                $this->tokenSequenceNormalizer->normalizeLevel1($this->tokenSequenceFactory->create('<?php ' . $m->getContent()))
-            );
-        }, $methodsCollection->getAll());
+        $methodTokenSequences = array_map(fn(Method $m): MethodTokenSequence => MethodTokenSequence::create(
+            $m,
+            $this->tokenSequenceNormalizer->normalizeLevel1($this->tokenSequenceFactory->create('<?php ' . $m->getContent()))
+        ), $methodsCollection->getAll());
 
         $groupedByTokenSequences = $this->methodTokenSequencesByTokenSequencesGrouper->group($methodTokenSequences);
 
@@ -58,25 +63,13 @@ class TokenSequenceRepresentativeFactory
      * @param array<MethodTokenSequence[]> $methodTokenSequenceGroups
      *
      * @return ExactTokenSequenceRepresentative[]
+     * @throws CollectionCannotBeEmpty
      */
     private function createMultipleForMultipleMethodTokenSequencesGroups(array $methodTokenSequenceGroups): array
     {
-        return array_map(function (array $methodTokenSequences): ExactTokenSequenceRepresentative {
-            return ExactTokenSequenceRepresentative::create(
-                $methodTokenSequences[0]->getTokenSequence(),
-                $this->createMethodsCollectionForMethodTokenSequences($methodTokenSequences)
-            );
-        }, $methodTokenSequenceGroups);
-    }
-
-    /** @param MethodTokenSequence[] $methodTokenSequences */
-    private function createMethodsCollectionForMethodTokenSequences(array $methodTokenSequences): MethodsCollection
-    {
-        return MethodsCollection::create(
-            ...array_map(
-                fn(MethodTokenSequence $mts): Method => $mts->getMethod(),
-                $methodTokenSequences
-            )
-        );
+        return array_map(fn(array $methodTokenSequences): ExactTokenSequenceRepresentative => ExactTokenSequenceRepresentative::create(
+            $methodTokenSequences[0]->getTokenSequence(),
+            $this->methodsCollectionFactory->fromHasMethods($methodTokenSequences),
+        ), $methodTokenSequenceGroups);
     }
 }

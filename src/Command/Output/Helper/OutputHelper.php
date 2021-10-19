@@ -24,13 +24,6 @@ class OutputHelper
         return new static($input, $output, $verbosityLevel);
     }
 
-    /** @param string[] $lines */
-    public function withHeadline(string $headline, array $lines, int $level = 0): self
-    {
-        return $this->headline($headline, $level)
-            ->listing($lines, $level);
-    }
-
     public function headline(string $headline, int $level = 0): self
     {
         $this->io->section($this->formatLine($headline, $level));

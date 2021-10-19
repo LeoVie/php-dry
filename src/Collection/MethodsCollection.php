@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Collection;
 
 use App\Exception\CollectionCannotBeEmpty;
+use App\Model\Method\HasMethod;
 use App\Model\Method\Method;
 use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
@@ -14,6 +15,7 @@ class MethodsCollection
     /** @var CollectionInterface<int, Method> */
     private CollectionInterface $methods;
 
+    /** @throws CollectionCannotBeEmpty */
     private function __construct(Method ...$methods)
     {
         if (empty($methods)) {
@@ -26,6 +28,7 @@ class MethodsCollection
         }
     }
 
+    /** @throws CollectionCannotBeEmpty */
     public static function create(Method ...$methods): self
     {
         return new self(...$methods);
