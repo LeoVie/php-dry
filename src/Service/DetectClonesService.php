@@ -8,6 +8,7 @@ use App\CloneDetection\Type1CloneDetector;
 use App\CloneDetection\Type2CloneDetector;
 use App\Command\Output\DetectClonesCommandOutput;
 use App\Configuration\Configuration;
+use App\Exception\CollectionCannotBeEmpty;
 use App\Exception\NodeTypeNotConvertable;
 use App\Factory\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentativeFactory;
 use App\Factory\TokenSequenceRepresentative\TokenSequenceRepresentativeFactory;
@@ -40,6 +41,7 @@ class DetectClonesService
      * @throws FilesystemException
      * @throws StringsException
      * @throws NodeTypeNotConvertable
+     * @throws CollectionCannotBeEmpty
      */
     public function detectInDirectory(Configuration $configuration, DetectClonesCommandOutput $output): array
     {

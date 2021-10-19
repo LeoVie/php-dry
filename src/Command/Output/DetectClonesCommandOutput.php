@@ -82,4 +82,9 @@ class DetectClonesCommandOutput
     {
         return $this->single($this->stopwatch->stop('detect-clones')->__toString());
     }
+
+    public function noClonesFound(): self
+    {
+        return $this->single('No clones found.');
+    }
 }

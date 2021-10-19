@@ -7,10 +7,15 @@ namespace App\Command;
 use App\Command\Output\DetectClonesCommandOutput;
 use App\Command\Output\Helper\VerboseOutputHelper;
 use App\Configuration\Configuration;
+use App\Exception\CollectionCannotBeEmpty;
+use App\Exception\NodeTypeNotConvertable;
 use App\Model\Method\Method;
 use App\Model\SourceClone\SourceClone;
 use App\Service\DetectClonesService;
+use App\Service\IgnoreClonesService;
 use App\ServiceFactory\StopwatchFactory;
+use Safe\Exceptions\FilesystemException;
+use Safe\Exceptions\StringsException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,7 +25,7 @@ class DetectClonesCommand extends Command
 {
     protected static $defaultName = 'app:detect-clones';
 
-    public function __construct(private DetectClonesService $detectClonesService)
+    public function __construct(private DetectClonesService $detectClonesService, private IgnoreClonesService $ignoreClonesService)
     {
         parent::__construct(self::$defaultName);
     }
@@ -45,6 +50,12 @@ class DetectClonesCommand extends Command
             );
     }
 
+    /**
+     * @throws CollectionCannotBeEmpty
+     * @throws FilesystemException
+     * @throws NodeTypeNotConvertable
+     * @throws StringsException
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $stopwatch = StopwatchFactory::create();
@@ -58,13 +69,12 @@ class DetectClonesCommand extends Command
         $configuration = $this->createConfiguration($input);
 
         $detected = $this->detectClonesService->detectInDirectory($configuration, $output);
+        $clonesToReport = $this->ignoreClonesService->extractNonIgnoredClones($detected, $configuration);
 
-        foreach ($detected as $clones) {
-            foreach ($clones as $clone) {
-                if ($this->cloneShouldBeIgnored($clone, $configuration)) {
-                    continue;
-                }
-
+        if (empty($clonesToReport)) {
+            $output->noClonesFound();
+        } else {
+            foreach ($clonesToReport as $clone) {
                 $output
                     ->headline($clone->getType())
                     ->methodsCollection($clone->getMethodsCollection());
@@ -83,15 +93,5 @@ class DetectClonesCommand extends Command
             (int)$input->getArgument('minLines'),
             (int)$input->getArgument('countOfParamSets'),
         );
-    }
-
-    private function cloneShouldBeIgnored(SourceClone $clone, Configuration $configuration): bool
-    {
-        $methodLines = array_map(fn(Method $m): int => $m->getCodePositionRange()->countOfLines(), $clone->getMethodsCollection()->getAll());
-        if (empty($methodLines)) {
-            return true;
-        }
-
-        return max($methodLines) < $configuration->minLines();
     }
 }
