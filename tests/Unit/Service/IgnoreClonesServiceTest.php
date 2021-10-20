@@ -23,14 +23,14 @@ class IgnoreClonesServiceTest extends TestCase
 
     public function extractNonIgnoredClonesProvider(): \Generator
     {
-        $configuration = Configuration::create('', 5, 0);
+        $configuration = Configuration::create('', 5, 0, 0);
         yield 'empty' => [
             'expected' => [],
             'cloneGroups' => [],
             'configuration' => $configuration,
         ];
 
-        $configuration = Configuration::create('', 5, 0);
+        $configuration = Configuration::create('', 5, 0, 0);
         $method1 = $this->mockMethod(4);
         $method2 = $this->mockMethod(6);
         $method3 = $this->mockMethod(4);

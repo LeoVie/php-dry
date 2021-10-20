@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\CloneDetection;
 
 use App\Model\SourceClone\SourceClone;
-use App\Model\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentative;
+use App\Model\TokenSequenceRepresentative\SimilarTokenSequencesRepresentative;
 
 class Type3CloneDetector
 {
@@ -14,12 +14,12 @@ class Type3CloneDetector
     }
 
     /**
-     * @param NormalizedTokenSequenceRepresentative[] $normalizedTokenSequenceRepresentatives
+     * @param SimilarTokenSequencesRepresentative[] $similarTokenSequenceRepresentatives
      *
      * @return SourceClone[]
      */
-    public function detect(array $normalizedTokenSequenceRepresentatives): array
+    public function detect(array $similarTokenSequenceRepresentatives): array
     {
-        return $this->cloneDetector->detect($normalizedTokenSequenceRepresentatives, SourceClone::TYPE_3);
+        return $this->cloneDetector->detect($similarTokenSequenceRepresentatives, SourceClone::TYPE_3);
     }
 }

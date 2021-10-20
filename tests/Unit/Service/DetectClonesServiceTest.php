@@ -6,12 +6,14 @@ namespace App\Tests\Unit\Service;
 
 use App\CloneDetection\Type1CloneDetector;
 use App\CloneDetection\Type2CloneDetector;
+use App\CloneDetection\Type3CloneDetector;
 use App\Command\Output\DetectClonesCommandOutput;
 use App\Configuration\Configuration;
 use App\Factory\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentativeFactory;
 use App\Factory\TokenSequenceRepresentative\TokenSequenceRepresentativeFactory;
 use App\File\FindFiles;
 use App\Grouper\MethodsBySignatureGrouper;
+use App\Grouper\NormalizedTokenSequenceRepresentativesBySimilarityGrouper;
 use App\Merge\NormalizedTokenSequenceRepresentativeMerger;
 use App\Model\SourceClone\SourceClone;
 use App\Service\DetectClonesService;
@@ -38,6 +40,9 @@ class DetectClonesServiceTest extends TestCase
         $type2CloneDetector = $this->createMock(Type2CloneDetector::class);
         $type2CloneDetector->method('detect')->willReturn(['type 2 clones']);
 
+        $type3CloneDetector = $this->createMock(Type3CloneDetector::class);
+        $type3CloneDetector->method('detect')->willReturn(['type 3 clones']);
+
         $tokenSequenceRepresentativeFactory = $this->createMock(TokenSequenceRepresentativeFactory::class);
         $tokenSequenceRepresentativeFactory->method('createMultipleForMultipleMethodsCollections')->willReturn([]);
 
@@ -47,18 +52,23 @@ class DetectClonesServiceTest extends TestCase
         $normalizedTokenSequenceRepresentativeMerger = $this->createMock(NormalizedTokenSequenceRepresentativeMerger::class);
         $normalizedTokenSequenceRepresentativeMerger->method('merge')->willReturn([]);
 
+        $normalizedTokenSequenceRepresentativesBySimilarityGrouper = $this->createMock(NormalizedTokenSequenceRepresentativesBySimilarityGrouper::class);
+        $normalizedTokenSequenceRepresentativesBySimilarityGrouper->method('group')->willReturn([]);
+
         $detectClonesService = new DetectClonesService(
             $findFiles,
             $findMethodsInPathsService,
             $methodsBySignatureGrouper,
             $type1CloneDetector,
             $type2CloneDetector,
+            $type3CloneDetector,
             $tokenSequenceRepresentativeFactory,
             $normalizedTokenSequenceRepresentativeFactory,
             $normalizedTokenSequenceRepresentativeMerger,
+            $normalizedTokenSequenceRepresentativesBySimilarityGrouper,
         );
 
-        $configuration = Configuration::create('', 0, 0);
+        $configuration = Configuration::create('', 0, 0, 0);
 
         $output = $this->createMock(DetectClonesCommandOutput::class);
         $output->method('foundFiles')->willReturnSelf();
@@ -67,6 +77,7 @@ class DetectClonesServiceTest extends TestCase
         $expected = [
             SourceClone::TYPE_1 => ['type 1 clones'],
             SourceClone::TYPE_2 => ['type 2 clones'],
+            SourceClone::TYPE_3 => ['type 3 clones'],
         ];
 
         self::assertSame($expected, $detectClonesService->detectInDirectory($configuration, $output));

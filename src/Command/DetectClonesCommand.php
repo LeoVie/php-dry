@@ -38,12 +38,17 @@ class DetectClonesCommand extends Command
                 InputArgument::REQUIRED,
                 'Absolute path of directory in which clones should get detected.'
             )->addArgument(
-                'minLines',
+                'minLinesForType1AndType2Clones',
                 InputArgument::OPTIONAL,
                 'How many lines should a fragment be at least to be treated as a clone.',
                 0
             )->addArgument(
-                'countOfParamSets',
+                'minSimilarTokensForType3Clones',
+                InputArgument::OPTIONAL,
+                'How many same tokens should be in two fragments to treat them as a clone.',
+                3
+            )->addArgument(
+                'countOfParamSetsForType4Clones',
                 InputArgument::OPTIONAL,
                 'How many param sets should get generated for each method signature set (type 4 clone detection)?',
                 10
@@ -90,8 +95,9 @@ class DetectClonesCommand extends Command
     {
         return Configuration::create(
             (string)$input->getArgument('directory'),
-            (int)$input->getArgument('minLines'),
-            (int)$input->getArgument('countOfParamSets'),
+            (int)$input->getArgument('minLinesForType1AndType2Clones'),
+            (int)$input->getArgument('minSimilarTokensForType3Clones'),
+            (int)$input->getArgument('countOfParamSetsForType4Clones'),
         );
     }
 }

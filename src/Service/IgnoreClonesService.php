@@ -33,6 +33,6 @@ class IgnoreClonesService
     {
         $methodLines = array_map(fn(Method $m): int => $m->getCodePositionRange()->countOfLines(), $clone->getMethodsCollection()->getAll());
 
-        return max($methodLines) < $configuration->minLines();
+        return max($methodLines) < $configuration->minLinesForType1AndType2Clones();
     }
 }

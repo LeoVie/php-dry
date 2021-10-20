@@ -9,9 +9,5 @@ use App\Tokenize\TokenSequence;
 
 interface TokenSequenceRepresentative
 {
-    public static function create(TokenSequence $tokenSequence, MethodsCollection $methodsCollection): self;
-
-    public function getTokenSequence(): TokenSequence;
-
     public function getMethodsCollection(): MethodsCollection;
 }

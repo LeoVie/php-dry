@@ -35,6 +35,8 @@ services:
           - endFilePos
   Faker\Generator:
     factory: [ 'Faker\Factory', 'create' ]
+  Eloquent\Lcs\LcsSolver:
+    factory: [ 'App\ServiceFactory\LcsSolverFactory', 'create' ]
   _instanceof:
     App\Tokenize\Normalize\TokenNormalizer:
       tags: [ 'app.token_normalizer' ]
