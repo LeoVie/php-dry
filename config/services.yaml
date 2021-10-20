@@ -36,7 +36,7 @@ services:
   Faker\Generator:
     factory: [ 'Faker\Factory', 'create' ]
   Eloquent\Lcs\LcsSolver:
-    factory: [ 'App\ServiceFactory\LcsSolverFactory', 'create' ]
+    factory: [ 'App\ServiceFactory\LcsSolverForPhpTokensFactory', 'create' ]
   _instanceof:
     App\Tokenize\Normalize\TokenNormalizer:
       tags: [ 'app.token_normalizer' ]

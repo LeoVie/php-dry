@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\ServiceFactory;
 
-use App\Sort\Identity;
 use Eloquent\Lcs\LcsSolver;
 
-final class LcsSolverFactory
+final class LcsSolverForPhpTokensFactory
 {
     public static function create(): LcsSolver
     {
