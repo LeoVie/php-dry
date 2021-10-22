@@ -6,8 +6,8 @@ namespace App\Tests\Unit\Factory;
 
 use App\Factory\MethodSignatureFactory;
 use App\Model\Method\MethodSignature;
-use App\Parse\Extractor\ParamTypesExtractor;
-use App\Parse\Extractor\ReturnTypeExtractor;
+use LeoVie\PhpMethodsParser\Extractor\ParamTypesExtractor;
+use LeoVie\PhpMethodsParser\Extractor\ReturnTypeExtractor;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PHPUnit\Framework\TestCase;

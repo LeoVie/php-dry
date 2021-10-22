@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Factory;
 
 use App\Factory\TokenSequenceFactory;
-use App\Tokenize\TokenSequence;
 use App\Wrapper\PhpTokenWrapper;
 use Generator;
+use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 use PHPUnit\Framework\TestCase;
 
 class TokenSequenceFactoryTest extends TestCase

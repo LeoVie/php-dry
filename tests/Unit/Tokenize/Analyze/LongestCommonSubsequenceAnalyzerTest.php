@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Tokenize\Analyze;
 
-use App\ServiceFactory\LcsSolverFactory;
+use App\ServiceFactory\LcsSolverForPhpTokensFactory;
 use App\Tokenize\Analyze\LongestCommonSubsequenceAnalyzer;
-use App\Tokenize\TokenSequence;
+use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 use PHPUnit\Framework\TestCase;
 
 class LongestCommonSubsequenceAnalyzerTest extends TestCase
@@ -14,7 +14,7 @@ class LongestCommonSubsequenceAnalyzerTest extends TestCase
     /** @dataProvider findProvider */
     public function testFind(TokenSequence $expected, TokenSequence $a, TokenSequence $b): void
     {
-        self::assertEquals($expected, (new LongestCommonSubsequenceAnalyzer((new LcsSolverFactory())->create()))->find($a, $b));
+        self::assertEquals($expected, (new LongestCommonSubsequenceAnalyzer((new LcsSolverForPhpTokensFactory())->create()))->find($a, $b));
     }
 
     public function findProvider(): array

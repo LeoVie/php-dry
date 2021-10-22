@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Factory;
 
 use App\Factory\FilepathMethodsFactory;
 use App\Model\FilepathMethods\FilepathMethods;
-use App\Parse\Parser\MethodsParser;
+use LeoVie\PhpMethodsParser\Service\MethodsParser;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPUnit\Framework\TestCase;
 

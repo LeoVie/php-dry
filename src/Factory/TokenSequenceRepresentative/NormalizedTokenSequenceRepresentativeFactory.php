@@ -6,7 +6,7 @@ namespace App\Factory\TokenSequenceRepresentative;
 
 use App\Model\TokenSequenceRepresentative\ExactTokenSequenceRepresentative;
 use App\Model\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentative;
-use App\Tokenize\TokenSequenceNormalizer;
+use LeoVie\PhpTokenNormalize\Service\TokenSequenceNormalizer;
 
 class NormalizedTokenSequenceRepresentativeFactory
 {

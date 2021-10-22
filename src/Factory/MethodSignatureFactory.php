@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Factory;
 
-use App\Exception\NodeTypeNotConvertable;
 use App\Model\Method\MethodSignature;
-use App\Parse\Extractor\ParamTypesExtractor;
-use App\Parse\Extractor\ReturnTypeExtractor;
+use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
+use LeoVie\PhpMethodsParser\Extractor\ParamTypesExtractor;
+use LeoVie\PhpMethodsParser\Extractor\ReturnTypeExtractor;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use Safe\Exceptions\StringsException;

@@ -20,19 +20,19 @@ class ConfigurationTest extends TestCase
         return [
             [
                 'expected' => '/var/www/foo/',
-                'configuration' => Configuration::create('/var/www/foo/', 0, 0, 0),
+                'configuration' => Configuration::create('/var/www/foo/', 0, 0),
             ],
             [
                 'expected' => '/mnt/c/bla/bla/',
-                'configuration' => Configuration::create('/mnt/c/bla/bla/', 0, 0, 0),
+                'configuration' => Configuration::create('/mnt/c/bla/bla/', 0, 0),
             ],
         ];
     }
 
     /** @dataProvider minLinesForType1AndType2ClonesProvider */
-    public function testminLinesForType1AndType2Clones(int $expected, Configuration $configuration): void
+    public function testMinSimilarTokens(int $expected, Configuration $configuration): void
     {
-        self::assertSame($expected, $configuration->minLinesForType1AndType2Clones());
+        self::assertSame($expected, $configuration->minSimilarTokens());
     }
 
     public function minLinesForType1AndType2ClonesProvider(): array
@@ -40,31 +40,11 @@ class ConfigurationTest extends TestCase
         return [
             [
                 'expected' => 10,
-                'configuration' => Configuration::create('', 10, 0, 0),
+                'configuration' => Configuration::create('', 10, 0),
             ],
             [
                 'expected' => 5,
-                'configuration' => Configuration::create('', 5, 0, 0),
-            ],
-        ];
-    }
-
-    /** @dataProvider minSimilarTokensForType3ClonesProvider */
-    public function testMinSimilarTokensForType3ClonesProvider(int $expected, Configuration $configuration): void
-    {
-        self::assertSame($expected, $configuration->minSimilarTokensForType3Clones());
-    }
-
-    public function minSimilarTokensForType3ClonesProvider(): array
-    {
-        return [
-            [
-                'expected' => 10,
-                'configuration' => Configuration::create('', 0, 10, 0),
-            ],
-            [
-                'expected' => 4,
-                'configuration' => Configuration::create('', 0, 4, 0),
+                'configuration' => Configuration::create('', 5, 0),
             ],
         ];
     }
@@ -80,11 +60,11 @@ class ConfigurationTest extends TestCase
         return [
             [
                 'expected' => 7,
-                'configuration' => Configuration::create('', 0, 0, 7),
+                'configuration' => Configuration::create('', 0, 7),
             ],
             [
                 'expected' => 2,
-                'configuration' => Configuration::create('', 0, 0, 2),
+                'configuration' => Configuration::create('', 0,  2),
             ],
         ];
     }

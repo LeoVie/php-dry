@@ -10,7 +10,6 @@ use App\CloneDetection\Type3CloneDetector;
 use App\Command\Output\DetectClonesCommandOutput;
 use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
-use App\Exception\NodeTypeNotConvertable;
 use App\Factory\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentativeFactory;
 use App\Factory\TokenSequenceRepresentative\TokenSequenceRepresentativeFactory;
 use App\File\FindFiles;
@@ -18,6 +17,7 @@ use App\Grouper\MethodsBySignatureGrouper;
 use App\Grouper\NormalizedTokenSequenceRepresentativesBySimilarityGrouper;
 use App\Merge\NormalizedTokenSequenceRepresentativeMerger;
 use App\Model\SourceClone\SourceClone;
+use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
 use Safe\Exceptions\FilesystemException;
 use Safe\Exceptions\StringsException;
 

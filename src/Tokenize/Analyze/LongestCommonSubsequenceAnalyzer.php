@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tokenize\Analyze;
 
-use App\Tokenize\TokenSequence;
 use Eloquent\Lcs\LcsSolver;
+use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 
 class LongestCommonSubsequenceAnalyzer
 {

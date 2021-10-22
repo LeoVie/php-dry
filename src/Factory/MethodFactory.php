@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Factory;
 
-use App\Exception\NodeTypeNotConvertable;
 use App\Factory\CodePosition\CodePositionRangeFactory;
 use App\File\ReadFileContent;
 use App\Model\CodePosition\CodePositionRange;
 use App\Model\FilepathMethods\FilepathMethods;
 use App\Model\Method\Method;
+use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use Safe\Exceptions\FilesystemException;

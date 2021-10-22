@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Model\TokenSequenceRepresentative;
 
 use App\Collection\MethodsCollection;
 use App\Model\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentative;
-use App\Tokenize\TokenSequence;
+use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 use PHPUnit\Framework\TestCase;
 
 class NormalizedTokenSequenceRepresentativeTest extends TestCase

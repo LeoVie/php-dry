@@ -10,7 +10,7 @@ use App\Model\Method\Method;
 use App\Model\SourceClone\SourceClone;
 use App\Model\TokenSequenceRepresentative\ExactTokenSequenceRepresentative;
 use App\Model\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentative;
-use App\Tokenize\TokenSequence;
+use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 use PHPUnit\Framework\TestCase;
 
 class CloneDetectorTest extends TestCase

@@ -23,23 +23,10 @@ services:
 
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones
-  PhpParser\ParserFactory: ~
-  PhpParser\NodeTraverser: ~
-  PhpParser\Lexer:
-    arguments:
-      $options:
-        usedAttributes:
-          - startLine
-          - endLine
-          - startFilePos
-          - endFilePos
+
   Faker\Generator:
     factory: [ 'Faker\Factory', 'create' ]
   Eloquent\Lcs\LcsSolver:
     factory: [ 'App\ServiceFactory\LcsSolverForPhpTokensFactory', 'create' ]
-  _instanceof:
-    App\Tokenize\Normalize\TokenNormalizer:
-      tags: [ 'app.token_normalizer' ]
-  App\Tokenize\TokenSequenceNormalizer:
-    arguments: [ !tagged_iterator { tag: 'app.token_normalizer' } ]
+
 

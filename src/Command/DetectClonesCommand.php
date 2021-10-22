@@ -8,12 +8,10 @@ use App\Command\Output\DetectClonesCommandOutput;
 use App\Command\Output\Helper\VerboseOutputHelper;
 use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
-use App\Exception\NodeTypeNotConvertable;
-use App\Model\Method\Method;
-use App\Model\SourceClone\SourceClone;
 use App\Service\DetectClonesService;
 use App\Service\IgnoreClonesService;
 use App\ServiceFactory\StopwatchFactory;
+use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
 use Safe\Exceptions\FilesystemException;
 use Safe\Exceptions\StringsException;
 use Symfony\Component\Console\Command\Command;
@@ -23,9 +21,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class DetectClonesCommand extends Command
 {
+    private const ARGUMENT_DIRECTORY = 'directory';
+    private const ARGUMENT_MIN_SIMILAR_TOKENS = 'minSimilarTokens';
+    private const ARGUMENT_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES = 'countOfParamSetsForType4Clones';
     protected static $defaultName = 'app:detect-clones';
 
-    public function __construct(private DetectClonesService $detectClonesService, private IgnoreClonesService $ignoreClonesService)
+    public function __construct(
+        private DetectClonesService $detectClonesService,
+        private IgnoreClonesService $ignoreClonesService
+    )
     {
         parent::__construct(self::$defaultName);
     }
@@ -34,21 +38,16 @@ class DetectClonesCommand extends Command
     {
         $this
             ->addArgument(
-                'directory',
+                self::ARGUMENT_DIRECTORY,
                 InputArgument::REQUIRED,
                 'Absolute path of directory in which clones should get detected.'
             )->addArgument(
-                'minLinesForType1AndType2Clones',
+                self::ARGUMENT_MIN_SIMILAR_TOKENS,
                 InputArgument::OPTIONAL,
-                'How many lines should a fragment be at least to be treated as a clone.',
-                0
-            )->addArgument(
-                'minSimilarTokensForType3Clones',
-                InputArgument::OPTIONAL,
-                'How many same tokens should be in two fragments to treat them as a clone.',
+                'How many similar tokens should be in two fragments to treat them as clones.',
                 3
             )->addArgument(
-                'countOfParamSetsForType4Clones',
+                self::ARGUMENT_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES,
                 InputArgument::OPTIONAL,
                 'How many param sets should get generated for each method signature set (type 4 clone detection)?',
                 10
@@ -94,10 +93,9 @@ class DetectClonesCommand extends Command
     private function createConfiguration(InputInterface $input): Configuration
     {
         return Configuration::create(
-            (string)$input->getArgument('directory'),
-            (int)$input->getArgument('minLinesForType1AndType2Clones'),
-            (int)$input->getArgument('minSimilarTokensForType3Clones'),
-            (int)$input->getArgument('countOfParamSetsForType4Clones'),
+            (string)$input->getArgument(self::ARGUMENT_DIRECTORY),
+            (int)$input->getArgument(self::ARGUMENT_MIN_SIMILAR_TOKENS),
+            (int)$input->getArgument(self::ARGUMENT_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES),
         );
     }
 }

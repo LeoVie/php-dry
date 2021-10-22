@@ -8,7 +8,7 @@ use App\Collection\MethodsCollection;
 use App\Merge\NormalizedTokenSequenceRepresentativeMerger;
 use App\Model\Method\Method;
 use App\Model\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentative;
-use App\Tokenize\TokenSequence;
+use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 use PHPUnit\Framework\TestCase;
 
 class NormalizedTokenSequenceRepresentativeMergerTest extends TestCase

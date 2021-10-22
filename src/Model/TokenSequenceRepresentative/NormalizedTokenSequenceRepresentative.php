@@ -6,7 +6,7 @@ namespace App\Model\TokenSequenceRepresentative;
 
 use App\Collection\MethodsCollection;
 use App\Sort\Identity;
-use App\Tokenize\TokenSequence;
+use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 
 class NormalizedTokenSequenceRepresentative implements TokenSequenceRepresentative, Identity, \Stringable
 {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Model\TokenSequenceRepresentative;
 
 use App\Collection\MethodsCollection;
-use App\Tokenize\TokenSequence;
+use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 
 class ExactTokenSequenceRepresentative implements TokenSequenceRepresentative
 {

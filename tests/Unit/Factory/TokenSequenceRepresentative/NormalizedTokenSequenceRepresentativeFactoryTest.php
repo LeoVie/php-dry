@@ -9,8 +9,8 @@ use App\Factory\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentativ
 use App\Model\Method\Method;
 use App\Model\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentative;
 use App\Model\TokenSequenceRepresentative\ExactTokenSequenceRepresentative;
-use App\Tokenize\TokenSequence;
-use App\Tokenize\TokenSequenceNormalizer;
+use LeoVie\PhpTokenNormalize\Model\TokenSequence;
+use LeoVie\PhpTokenNormalize\Service\TokenSequenceNormalizer;
 use PHPUnit\Framework\TestCase;
 
 class NormalizedTokenSequenceRepresentativeFactoryTest extends TestCase

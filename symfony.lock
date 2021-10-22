@@ -44,6 +44,15 @@
     "justinrainbow/json-schema": {
         "version": "5.2.11"
     },
+    "leovie/php-filesystem": {
+        "version": "dev-main"
+    },
+    "leovie/php-methods-parser": {
+        "version": "dev-main"
+    },
+    "leovie/php-token-normalize": {
+        "version": "dev-main"
+    },
     "loophp/collection": {
         "version": "5.1.0"
     },

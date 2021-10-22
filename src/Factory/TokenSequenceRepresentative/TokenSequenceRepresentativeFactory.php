@@ -12,8 +12,8 @@ use App\Grouper\MethodTokenSequencesByTokenSequencesGrouper;
 use App\Model\Method\Method;
 use App\Model\Method\MethodTokenSequence;
 use App\Model\TokenSequenceRepresentative\ExactTokenSequenceRepresentative;
-use App\Tokenize\TokenSequenceNormalizer;
 use App\Util\ArrayUtil;
+use LeoVie\PhpTokenNormalize\Service\TokenSequenceNormalizer;
 
 class TokenSequenceRepresentativeFactory
 {

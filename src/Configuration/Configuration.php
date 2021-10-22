@@ -9,8 +9,7 @@ class Configuration
 {
     private function __construct(
         private string $directory,
-        private int    $minLinesForType1AndType2Clones,
-        private int    $minSimilarTokensForType3Clones,
+        private int    $minSimilarTokens,
         private int    $countOfParamSetsForType4Clones,
     )
     {
@@ -18,12 +17,11 @@ class Configuration
 
     public static function create(
         string $directory,
-        int    $minLinesForType1AndType2Clones,
-        int    $minSimilarTokensForType3Clones,
+        int    $minSimilarTokens,
         int    $countOfParamSetsForType4Clones,
     ): self
     {
-        return new self($directory, $minLinesForType1AndType2Clones, $minSimilarTokensForType3Clones, $countOfParamSetsForType4Clones);
+        return new self($directory, $minSimilarTokens, $countOfParamSetsForType4Clones);
     }
 
     public function directory(): string
@@ -31,14 +29,9 @@ class Configuration
         return $this->directory;
     }
 
-    public function minLinesForType1AndType2Clones(): int
+    public function minSimilarTokens(): int
     {
-        return $this->minLinesForType1AndType2Clones;
-    }
-
-    public function minSimilarTokensForType3Clones(): int
-    {
-        return $this->minSimilarTokensForType3Clones;
+        return $this->minSimilarTokens;
     }
 
     public function countOfParamSetsForType4Clones(): int

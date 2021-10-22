@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Factory;
 
 use App\Model\FilepathMethods\FilepathMethods;
-use App\Parse\Parser\MethodsParser;
+use LeoVie\PhpMethodsParser\Service\MethodsParser;
 use Safe\Exceptions\FilesystemException;
 
 class FilepathMethodsFactory

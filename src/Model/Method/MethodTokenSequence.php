@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Model\Method;
 
 use App\Sort\Identity;
-use App\Tokenize\TokenSequence;
+use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 use Stringable;
 
 class MethodTokenSequence implements Stringable, Identity, HasMethod

@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Find;
 
 use App\Exception\InvalidBoundaries;
 use App\File\ReadFileContent;
-use App\Service\FileSystem;
+use LeoVie\PhpFilesystem\Service\Filesystem;
 use PHPUnit\Framework\TestCase;
 
 class ReadFileContentTest extends TestCase
@@ -14,7 +14,7 @@ class ReadFileContentTest extends TestCase
     /** @dataProvider readPartProvider */
     public function testReadPart(string $expected, string $fileContent, int $startPos, int $endPos): void
     {
-        $fileSystem = $this->createMock(FileSystem::class);
+        $fileSystem = $this->createMock(Filesystem::class);
         $fileSystem->method('readFile')->willReturn($fileContent);
 
         self::assertSame($expected, (new ReadFileContent($fileSystem))->readPart('', $startPos, $endPos));
@@ -46,7 +46,7 @@ class ReadFileContentTest extends TestCase
 
     public function testReadPartThrows(): void
     {
-        $fileSystem = $this->createMock(FileSystem::class);
+        $fileSystem = $this->createMock(Filesystem::class);
 
         self::expectException(InvalidBoundaries::class);
         (new ReadFileContent($fileSystem))->readPart('', 10, 5);

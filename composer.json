@@ -1,4 +1,6 @@
 {
+    "name": "leovie/php-clone-detection",
+    "description": "Detect clones in php code.",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
@@ -8,6 +10,9 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "eloquent/lcs": "^2.0",
+        "leovie/php-filesystem": "dev-main",
+        "leovie/php-methods-parser": "dev-main",
+        "leovie/php-token-normalize": "dev-main",
         "loophp/collection": "^5.1",
         "nikic/php-parser": "^4.13",
         "symfony/console": "5.3.*",
@@ -27,6 +32,20 @@
         },
         "sort-packages": true
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/LeoVie/php-token-normalize.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/LeoVie/php-methods-parser.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/LeoVie/php-filesystem.git"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "App\\": "src/"
@@ -45,7 +64,7 @@
     "scripts": {
         "psalm": "psalm -c build/config/psalm.xml --show-info=true",
         "phpunit": "phpunit -c build/config/phpunit.xml",
-        "infection": "infection --only-covered --configuration=build/config/infection.json --min-msi=92 --min-covered-msi=92 --coverage=../coverage --threads=4 --test-framework-options='--no-coverage'",
+        "infection": "infection --only-covered --configuration=build/config/infection.json --min-msi=91 --min-covered-msi=91 --coverage=../coverage --threads=4 --test-framework-options='--no-coverage'",
         "infection-after-phpunit": "@infection --skip-initial-tests",
         "test": [
             "@psalm",

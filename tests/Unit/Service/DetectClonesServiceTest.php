@@ -68,7 +68,7 @@ class DetectClonesServiceTest extends TestCase
             $normalizedTokenSequenceRepresentativesBySimilarityGrouper,
         );
 
-        $configuration = Configuration::create('', 0, 0, 0);
+        $configuration = Configuration::create('', 0, 0);
 
         $output = $this->createMock(DetectClonesCommandOutput::class);
         $output->method('foundFiles')->willReturnSelf();

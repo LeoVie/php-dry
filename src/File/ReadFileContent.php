@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\File;
 
 use App\Exception\InvalidBoundaries;
-use App\Service\FileSystem;
+use LeoVie\PhpFilesystem\Service\Filesystem;
 use Safe\Exceptions\FilesystemException;
 
 class ReadFileContent
 {
-    public function __construct(private FileSystem $fileSystem)
+    public function __construct(private Filesystem $fileSystem)
     {
     }
 

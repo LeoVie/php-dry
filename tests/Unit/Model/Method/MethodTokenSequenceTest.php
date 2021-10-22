@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Model\Method;
 
 use App\Model\Method\Method;
 use App\Model\Method\MethodTokenSequence;
-use App\Tokenize\TokenSequence;
+use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 use PHPUnit\Framework\TestCase;
 
 class MethodTokenSequenceTest extends TestCase

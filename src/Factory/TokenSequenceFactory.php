@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Factory;
 
-use App\Tokenize\TokenSequence;
 use App\Wrapper\PhpTokenWrapper;
+use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 
 class TokenSequenceFactory
 {

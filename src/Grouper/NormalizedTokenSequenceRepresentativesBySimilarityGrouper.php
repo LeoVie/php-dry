@@ -42,7 +42,7 @@ class NormalizedTokenSequenceRepresentativesBySimilarityGrouper
             foreach ($toCompare as $b) {
                 $longestCommonSubsequence = $this->longestCommonSubsequenceAnalyzer->find($a->getTokenSequence(), $b->getTokenSequence());
 
-                if ($longestCommonSubsequence->length() >= $configuration->minSimilarTokensForType3Clones()) {
+                if ($longestCommonSubsequence->length() >= $configuration->minSimilarTokens()) {
                     $groups[$a->identity()][] = $b;
                 }
             }

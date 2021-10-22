@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Exception\NodeTypeNotConvertable;
 use App\Factory\FilepathMethodsFactory;
 use App\Factory\MethodFactory;
 use App\Model\Method\Method;
+use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
 use Safe\Exceptions\FilesystemException;
 use Safe\Exceptions\StringsException;
 
@@ -26,8 +26,8 @@ class FindMethodsInPathsService
      * @return Method[]
      *
      * @throws FilesystemException
-     * @throws NodeTypeNotConvertable
      * @throws StringsException
+     * @throws NodeTypeNotConvertable
      */
     public function find(array $paths): array
     {
