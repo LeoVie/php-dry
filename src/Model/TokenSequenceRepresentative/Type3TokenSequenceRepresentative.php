@@ -8,7 +8,7 @@ use App\Collection\MethodsCollection;
 use App\Model\Identity;
 use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 
-class SimilarTokenSequencesRepresentative implements Identity, \Stringable, TokenSequenceRepresentative
+class Type3TokenSequenceRepresentative implements Identity, \Stringable, TokenSequenceRepresentative
 {
     /** @param TokenSequence[] $tokenSequences */
     private function __construct(private array $tokenSequences, private MethodsCollection $methodsCollection)

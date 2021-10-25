@@ -7,7 +7,7 @@ namespace App\Model\TokenSequenceRepresentative;
 use App\Collection\MethodsCollection;
 use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 
-class ExactTokenSequenceRepresentative implements TokenSequenceRepresentative
+class Type1TokenSequenceRepresentative implements TokenSequenceRepresentative
 {
     private function __construct(private TokenSequence $tokenSequence, private MethodsCollection $methodsCollection)
     {}

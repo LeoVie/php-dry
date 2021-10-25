@@ -11,11 +11,11 @@ use App\Factory\TokenSequenceFactory;
 use App\Grouper\MethodTokenSequencesByTokenSequencesGrouper;
 use App\Model\Method\Method;
 use App\Model\Method\MethodTokenSequence;
-use App\Model\TokenSequenceRepresentative\ExactTokenSequenceRepresentative;
+use App\Model\TokenSequenceRepresentative\Type1TokenSequenceRepresentative;
 use App\Util\ArrayUtil;
 use LeoVie\PhpTokenNormalize\Service\TokenSequenceNormalizer;
 
-class TokenSequenceRepresentativeFactory
+class Type1TokenSequenceRepresentativeFactory
 {
     public function __construct(
         private MethodTokenSequencesByTokenSequencesGrouper $methodTokenSequencesByTokenSequencesGrouper,
@@ -30,7 +30,7 @@ class TokenSequenceRepresentativeFactory
     /**
      * @param MethodsCollection[] $methodsCollections
      *
-     * @return ExactTokenSequenceRepresentative[]
+     * @return Type1TokenSequenceRepresentative[]
      * @throws CollectionCannotBeEmpty
      */
     public function createMultipleForMultipleMethodsCollections(array $methodsCollections): array
@@ -44,7 +44,7 @@ class TokenSequenceRepresentativeFactory
     }
 
     /**
-     * @return ExactTokenSequenceRepresentative[]
+     * @return Type1TokenSequenceRepresentative[]
      * @throws CollectionCannotBeEmpty
      */
     private function createMultipleForOneMethodsCollection(MethodsCollection $methodsCollection): array
@@ -62,12 +62,12 @@ class TokenSequenceRepresentativeFactory
     /**
      * @param array<MethodTokenSequence[]> $methodTokenSequenceGroups
      *
-     * @return ExactTokenSequenceRepresentative[]
+     * @return Type1TokenSequenceRepresentative[]
      * @throws CollectionCannotBeEmpty
      */
     private function createMultipleForMultipleMethodTokenSequencesGroups(array $methodTokenSequenceGroups): array
     {
-        return array_map(fn(array $methodTokenSequences): ExactTokenSequenceRepresentative => ExactTokenSequenceRepresentative::create(
+        return array_map(fn(array $methodTokenSequences): Type1TokenSequenceRepresentative => Type1TokenSequenceRepresentative::create(
             $methodTokenSequences[0]->getTokenSequence(),
             $this->methodsCollectionFactory->fromMethodTokenSequence($methodTokenSequences),
         ), $methodTokenSequenceGroups);

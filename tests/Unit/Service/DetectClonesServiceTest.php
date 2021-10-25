@@ -9,17 +9,16 @@ use App\CloneDetection\Type2CloneDetector;
 use App\CloneDetection\Type3CloneDetector;
 use App\Command\Output\DetectClonesCommandOutput;
 use App\Configuration\Configuration;
-use App\Factory\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentativeFactory;
-use App\Factory\TokenSequenceRepresentative\TokenSequenceRepresentativeFactory;
+use App\Factory\TokenSequenceRepresentative\Type2TokenSequenceRepresentativeFactory;
+use App\Factory\TokenSequenceRepresentative\Type1TokenSequenceRepresentativeFactory;
+use App\Factory\TokenSequenceRepresentative\Type3TokenSequenceRepresentativeFactory;
 use App\File\FindFiles;
 use App\Grouper\MethodsBySignatureGrouper;
-use App\Grouper\NormalizedTokenSequenceRepresentativesBySimilarityGrouper;
-use App\Merge\NormalizedTokenSequenceRepresentativeMerger;
+use App\Merge\Type2TokenSequenceRepresentativeMerger;
 use App\Model\SourceClone\SourceClone;
 use App\Service\DetectClonesService;
 use App\Service\FindMethodsInPathsService;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Console\Output\OutputInterface;
 
 class DetectClonesServiceTest extends TestCase
 {
@@ -43,17 +42,14 @@ class DetectClonesServiceTest extends TestCase
         $type3CloneDetector = $this->createMock(Type3CloneDetector::class);
         $type3CloneDetector->method('detect')->willReturn(['type 3 clones']);
 
-        $tokenSequenceRepresentativeFactory = $this->createMock(TokenSequenceRepresentativeFactory::class);
-        $tokenSequenceRepresentativeFactory->method('createMultipleForMultipleMethodsCollections')->willReturn([]);
+        $type1TokenSequenceRepresentativeFactory = $this->createMock(Type1TokenSequenceRepresentativeFactory::class);
+        $type1TokenSequenceRepresentativeFactory->method('createMultipleForMultipleMethodsCollections')->willReturn([]);
 
-        $normalizedTokenSequenceRepresentativeFactory = $this->createMock(NormalizedTokenSequenceRepresentativeFactory::class);
-        $normalizedTokenSequenceRepresentativeFactory->method('normalizeMultipleTokenSequenceRepresentatives')->willReturn([]);
+        $type2TokenSequenceRepresentativeFactory = $this->createMock(Type2TokenSequenceRepresentativeFactory::class);
+        $type2TokenSequenceRepresentativeFactory->method('createMultiple')->willReturn([]);
 
-        $normalizedTokenSequenceRepresentativeMerger = $this->createMock(NormalizedTokenSequenceRepresentativeMerger::class);
-        $normalizedTokenSequenceRepresentativeMerger->method('merge')->willReturn([]);
-
-        $normalizedTokenSequenceRepresentativesBySimilarityGrouper = $this->createMock(NormalizedTokenSequenceRepresentativesBySimilarityGrouper::class);
-        $normalizedTokenSequenceRepresentativesBySimilarityGrouper->method('group')->willReturn([]);
+        $type3TokenSequenceRepresentativeFactory = $this->createMock(Type3TokenSequenceRepresentativeFactory::class);
+        $type3TokenSequenceRepresentativeFactory->method('createMultiple')->willReturn([]);
 
         $detectClonesService = new DetectClonesService(
             $findFiles,
@@ -62,10 +58,9 @@ class DetectClonesServiceTest extends TestCase
             $type1CloneDetector,
             $type2CloneDetector,
             $type3CloneDetector,
-            $tokenSequenceRepresentativeFactory,
-            $normalizedTokenSequenceRepresentativeFactory,
-            $normalizedTokenSequenceRepresentativeMerger,
-            $normalizedTokenSequenceRepresentativesBySimilarityGrouper,
+            $type1TokenSequenceRepresentativeFactory,
+            $type2TokenSequenceRepresentativeFactory,
+            $type3TokenSequenceRepresentativeFactory
         );
 
         $configuration = Configuration::create('', 0, 0);

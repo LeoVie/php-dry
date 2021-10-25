@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Factory\TokenSequenceRepresentative;
 
 use App\Collection\MethodsCollection;
-use App\Factory\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentativeFactory;
+use App\Factory\TokenSequenceRepresentative\Type2TokenSequenceRepresentativeFactory;
+use App\Merge\Type2TokenSequenceRepresentativeMerger;
 use App\Model\Method\Method;
-use App\Model\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentative;
-use App\Model\TokenSequenceRepresentative\ExactTokenSequenceRepresentative;
+use App\Model\TokenSequenceRepresentative\Type2TokenSequenceRepresentative;
+use App\Model\TokenSequenceRepresentative\Type1TokenSequenceRepresentative;
 use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 use LeoVie\PhpTokenNormalize\Service\TokenSequenceNormalizer;
 use PHPUnit\Framework\TestCase;
 
-class NormalizedTokenSequenceRepresentativeFactoryTest extends TestCase
+class Type2TokenSequenceRepresentativeFactoryTest extends TestCase
 {
     /** @dataProvider createMultipleByTokenSequenceRepresentativesProvider */
     public function testCreateMultipleByTokenSequenceRepresentatives(
@@ -22,10 +23,13 @@ class NormalizedTokenSequenceRepresentativeFactoryTest extends TestCase
         array                   $tokenSequenceRepresentatives,
     ): void
     {
+        $type2TokenSequenceRepresentativeMerger = $this->createMock(Type2TokenSequenceRepresentativeMerger::class);
+        $type2TokenSequenceRepresentativeMerger->method('merge')->willReturnArgument(0);
+
         self::assertEquals(
             $expected,
-            (new NormalizedTokenSequenceRepresentativeFactory($tokenSequenceNormalizer))
-                ->normalizeMultipleTokenSequenceRepresentatives($tokenSequenceRepresentatives)
+            (new Type2TokenSequenceRepresentativeFactory($tokenSequenceNormalizer, $type2TokenSequenceRepresentativeMerger))
+                ->createMultiple($tokenSequenceRepresentatives)
         );
     }
 
@@ -43,12 +47,12 @@ class NormalizedTokenSequenceRepresentativeFactoryTest extends TestCase
             ),
         ];
 
-        $tokenSequenceRepresentatives = [
-            ExactTokenSequenceRepresentative::create(
+        $type1TokenSequenceRepresentatives = [
+            Type1TokenSequenceRepresentative::create(
                 $tokenSequences[0],
                 $methodsCollections[0]
             ),
-            ExactTokenSequenceRepresentative::create(
+            Type1TokenSequenceRepresentative::create(
                 $tokenSequences[1],
                 $methodsCollections[1]
             ),
@@ -60,11 +64,11 @@ class NormalizedTokenSequenceRepresentativeFactoryTest extends TestCase
         ];
 
         $expected = [
-            NormalizedTokenSequenceRepresentative::create(
+            Type2TokenSequenceRepresentative::create(
                 $normalizedTokenSequences[0],
                 $methodsCollections[0]
             ),
-            NormalizedTokenSequenceRepresentative::create(
+            Type2TokenSequenceRepresentative::create(
                 $normalizedTokenSequences[1],
                 $methodsCollections[1]
             ),
@@ -76,7 +80,7 @@ class NormalizedTokenSequenceRepresentativeFactoryTest extends TestCase
         yield [
             $expected,
             $tokenSequenceNormalizer,
-            $tokenSequenceRepresentatives,
+            $type1TokenSequenceRepresentatives,
         ];
     }
 }

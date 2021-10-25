@@ -5,25 +5,25 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Merge;
 
 use App\Collection\MethodsCollection;
-use App\Merge\NormalizedTokenSequenceRepresentativeMerger;
+use App\Merge\Type2TokenSequenceRepresentativeMerger;
 use App\Model\Method\Method;
-use App\Model\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentative;
+use App\Model\TokenSequenceRepresentative\Type2TokenSequenceRepresentative;
 use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 use PHPUnit\Framework\TestCase;
 
-class NormalizedTokenSequenceRepresentativeMergerTest extends TestCase
+class Type2TokenSequenceRepresentativeMergerTest extends TestCase
 {
     /** @dataProvider mergeProvider */
-    public function testMerge(array $expected, array $normalizedTokenSequenceRepresentatives): void
+    public function testMerge(array $expected, array $type2TokenSequenceRepresentatives): void
     {
-        self::assertEquals($expected, (new NormalizedTokenSequenceRepresentativeMerger())->merge($normalizedTokenSequenceRepresentatives));
+        self::assertEquals($expected, (new Type2TokenSequenceRepresentativeMerger())->merge($type2TokenSequenceRepresentatives));
     }
 
     public function mergeProvider(): \Generator
     {
         yield 'empty' => [
             'expected' => [],
-            'normalizedTokenSequenceRepresentatives' => [],
+            'type2TokenSequenceRepresentatives' => [],
         ];
 
         $tokenSequence1 = TokenSequence::create([
@@ -41,29 +41,29 @@ class NormalizedTokenSequenceRepresentativeMergerTest extends TestCase
 
         yield 'not empty' => [
             'expected' => [
-                NormalizedTokenSequenceRepresentative::create(
+                Type2TokenSequenceRepresentative::create(
                     $tokenSequence1,
                     MethodsCollection::create($method1, $method2, $method4, $method5)
                 ),
-                NormalizedTokenSequenceRepresentative::create(
+                Type2TokenSequenceRepresentative::create(
                     $tokenSequence2,
                     MethodsCollection::create($method3, $method6)
                 ),
             ],
-            'normalizedTokenSequenceRepresentatives' => [
-                NormalizedTokenSequenceRepresentative::create(
+            'type2TokenSequenceRepresentatives' => [
+                Type2TokenSequenceRepresentative::create(
                     $tokenSequence1,
                     MethodsCollection::create($method1, $method2)
                 ),
-                NormalizedTokenSequenceRepresentative::create(
+                Type2TokenSequenceRepresentative::create(
                     $tokenSequence2,
                     MethodsCollection::create($method3)
                 ),
-                NormalizedTokenSequenceRepresentative::create(
+                Type2TokenSequenceRepresentative::create(
                     $tokenSequence1,
                     MethodsCollection::create($method4, $method5)
                 ),
-                NormalizedTokenSequenceRepresentative::create(
+                Type2TokenSequenceRepresentative::create(
                     $tokenSequence2,
                     MethodsCollection::create($method6)
                 ),
