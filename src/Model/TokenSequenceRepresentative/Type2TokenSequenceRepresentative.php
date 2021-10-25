@@ -6,9 +6,10 @@ namespace App\Model\TokenSequenceRepresentative;
 
 use App\Collection\MethodsCollection;
 use App\Model\Identity;
+use LeoVie\PhpGrouper\Model\GroupIdentifiable;
 use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 
-class Type2TokenSequenceRepresentative implements TokenSequenceRepresentative, Identity, \Stringable
+class Type2TokenSequenceRepresentative implements TokenSequenceRepresentative, Identity, \Stringable, GroupIdentifiable
 {
     private function __construct(private TokenSequence $tokenSequence, private MethodsCollection $methodsCollection)
     {}
@@ -31,6 +32,11 @@ class Type2TokenSequenceRepresentative implements TokenSequenceRepresentative, I
     public function identity(): string
     {
         return $this->getTokenSequence()->identity();
+    }
+
+    public function groupID(): string
+    {
+        return $this->identity();
     }
 
     public function __toString(): string

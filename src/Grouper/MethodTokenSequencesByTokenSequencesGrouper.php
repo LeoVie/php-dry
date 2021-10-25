@@ -21,7 +21,7 @@ class MethodTokenSequencesByTokenSequencesGrouper
     public function group(array $methodTokenSequences): array
     {
         /** @var array<MethodTokenSequence[]> $grouped */
-        $grouped = $this->grouper->group($methodTokenSequences);
+        $grouped = $this->grouper->groupByGroupID($methodTokenSequences);
 
         return $grouped;
     }

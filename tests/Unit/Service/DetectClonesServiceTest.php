@@ -9,12 +9,11 @@ use App\CloneDetection\Type2CloneDetector;
 use App\CloneDetection\Type3CloneDetector;
 use App\Command\Output\DetectClonesCommandOutput;
 use App\Configuration\Configuration;
-use App\Factory\TokenSequenceRepresentative\Type2TokenSequenceRepresentativeFactory;
 use App\Factory\TokenSequenceRepresentative\Type1TokenSequenceRepresentativeFactory;
+use App\Factory\TokenSequenceRepresentative\Type2TokenSequenceRepresentativeFactory;
 use App\Factory\TokenSequenceRepresentative\Type3TokenSequenceRepresentativeFactory;
 use App\File\FindFiles;
 use App\Grouper\MethodsBySignatureGrouper;
-use App\Merge\Type2TokenSequenceRepresentativeMerger;
 use App\Model\SourceClone\SourceClone;
 use App\Service\DetectClonesService;
 use App\Service\FindMethodsInPathsService;
@@ -43,7 +42,7 @@ class DetectClonesServiceTest extends TestCase
         $type3CloneDetector->method('detect')->willReturn(['type 3 clones']);
 
         $type1TokenSequenceRepresentativeFactory = $this->createMock(Type1TokenSequenceRepresentativeFactory::class);
-        $type1TokenSequenceRepresentativeFactory->method('createMultipleForMultipleMethodsCollections')->willReturn([]);
+        $type1TokenSequenceRepresentativeFactory->method('createMultiple')->willReturn([]);
 
         $type2TokenSequenceRepresentativeFactory = $this->createMock(Type2TokenSequenceRepresentativeFactory::class);
         $type2TokenSequenceRepresentativeFactory->method('createMultiple')->willReturn([]);

@@ -13,7 +13,7 @@ class MethodTokenSequencesByTokenSequencesGrouperTest extends TestCase
     public function testGroup(): void
     {
         $identityGrouper = $this->createMock(Grouper::class);
-        $identityGrouper->method('group')->willReturn(['grouped']);
+        $identityGrouper->method('groupByGroupID')->willReturn(['grouped']);
 
         self::assertSame(['grouped'], (new MethodTokenSequencesByTokenSequencesGrouper($identityGrouper))->group([]));
     }

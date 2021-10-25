@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Factory\TokenSequenceRepresentative;
 
+use App\Exception\CollectionCannotBeEmpty;
 use App\Merge\Type2TokenSequenceRepresentativeMerger;
 use App\Model\TokenSequenceRepresentative\Type1TokenSequenceRepresentative;
 use App\Model\TokenSequenceRepresentative\Type2TokenSequenceRepresentative;
@@ -22,6 +23,7 @@ class Type2TokenSequenceRepresentativeFactory
      * @param Type1TokenSequenceRepresentative[] $type1TokenSequenceRepresentatives
      *
      * @return Type2TokenSequenceRepresentative[]
+     * @throws CollectionCannotBeEmpty
      */
     public function createMultiple(array $type1TokenSequenceRepresentatives): array
     {

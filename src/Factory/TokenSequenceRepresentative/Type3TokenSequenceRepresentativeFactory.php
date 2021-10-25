@@ -11,13 +11,15 @@ use App\Model\TokenSequenceRepresentative\Type2TokenSequenceRepresentative;
 use App\Model\TokenSequenceRepresentative\Type3TokenSequenceRepresentative;
 use App\TokenAnalyze\LongestCommonSubsequenceAnalyzer;
 use App\Util\ArrayUtil;
+use LeoVie\PhpGrouper\Service\Grouper;
 
 class Type3TokenSequenceRepresentativeFactory
 {
     public function __construct(
         private LongestCommonSubsequenceAnalyzer       $longestCommonSubsequenceAnalyzer,
         private ArrayUtil                              $arrayUtil,
-        private Type3TokenSequenceRepresentativeMerger $type3TokenSequenceRepresentativeMerger
+        private Type3TokenSequenceRepresentativeMerger $type3TokenSequenceRepresentativeMerger,
+        private Grouper                                $grouper
     )
     {
     }
@@ -32,36 +34,31 @@ class Type3TokenSequenceRepresentativeFactory
      */
     public function createMultiple(array $type2TokenSequenceRepresentatives, Configuration $configuration): array
     {
-        $groups = [];
+        $type2TokenSequenceRepresentativeGroups = $this->grouper->groupByCallback(
+            $type2TokenSequenceRepresentatives,
+            function (Type2TokenSequenceRepresentative $a, Type2TokenSequenceRepresentative $b) use ($configuration): bool {
+                if ($a === $b) {
+                    return false;
+                }
 
-        $toCompare = array_slice($type2TokenSequenceRepresentatives, 1);
-
-        foreach ($type2TokenSequenceRepresentatives as $a) {
-            if (!array_key_exists($a->identity(), $groups)) {
-                $groups[$a->identity()] = [$a];
-            }
-
-            foreach ($toCompare as $b) {
                 $longestCommonSubsequence = $this->longestCommonSubsequenceAnalyzer->find($a->getTokenSequence(), $b->getTokenSequence());
 
-                if ($longestCommonSubsequence->length() >= $configuration->minSimilarTokens()) {
-                    $groups[$a->identity()][] = $b;
-                }
+                return $longestCommonSubsequence->length() >= $configuration->minSimilarTokens();
             }
+        );
 
-            $toCompare = array_slice($toCompare, 1);
-        }
+        $type2TSRGroupsWithoutSubsetGroups = $this->arrayUtil->removeEntriesThatAreSubsetsOfOtherEntries($type2TokenSequenceRepresentativeGroups);
 
-        $type3TokenSequenceRepresentatives = [];
-        foreach ($this->arrayUtil->removeEntriesThatAreSubsetsOfOtherEntries($groups) as $groupKey => $group) {
-            $type3TokenSequenceRepresentatives[$groupKey] = array_map(
-                fn(Type2TokenSequenceRepresentative $t2tsp): Type3TokenSequenceRepresentative => Type3TokenSequenceRepresentative::create(
-                    [$t2tsp->getTokenSequence()],
-                    $t2tsp->getMethodsCollection()
+        $type3TokenSequenceRepresentatives = array_map(
+            fn(array $type2TSRs): array => array_map(
+                fn(Type2TokenSequenceRepresentative $type2TSR): Type3TokenSequenceRepresentative => Type3TokenSequenceRepresentative::create(
+                    [$type2TSR->getTokenSequence()],
+                    $type2TSR->getMethodsCollection()
                 ),
-                $group
-            );
-        }
+                $type2TSRs
+            ),
+            $type2TSRGroupsWithoutSubsetGroups
+        );
 
         return $this->type3TokenSequenceRepresentativeMerger->merge($type3TokenSequenceRepresentatives);
     }

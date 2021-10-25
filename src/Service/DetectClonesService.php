@@ -10,12 +10,11 @@ use App\CloneDetection\Type3CloneDetector;
 use App\Command\Output\DetectClonesCommandOutput;
 use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
-use App\Factory\TokenSequenceRepresentative\Type2TokenSequenceRepresentativeFactory;
 use App\Factory\TokenSequenceRepresentative\Type1TokenSequenceRepresentativeFactory;
+use App\Factory\TokenSequenceRepresentative\Type2TokenSequenceRepresentativeFactory;
+use App\Factory\TokenSequenceRepresentative\Type3TokenSequenceRepresentativeFactory;
 use App\File\FindFiles;
 use App\Grouper\MethodsBySignatureGrouper;
-use App\Factory\TokenSequenceRepresentative\Type3TokenSequenceRepresentativeFactory;
-use App\Merge\Type2TokenSequenceRepresentativeMerger;
 use App\Model\SourceClone\SourceClone;
 use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
 use Safe\Exceptions\FilesystemException;
@@ -56,16 +55,14 @@ class DetectClonesService
         $output->foundMethods(count($methods));
 
         $methodsGroupedBySignatures = $this->methodsBySignatureGrouper->group($methods);
-        $type1TokenSequenceRepresentatives
-            = $this->type1TokenSequenceRepresentativeFactory->createMultipleForMultipleMethodsCollections($methodsGroupedBySignatures);
-        $type2TokenSequenceRepresentatives = $this->type2TokenSequenceRepresentativeFactory->createMultiple($type1TokenSequenceRepresentatives);
-        $normalizedTokenSequenceRepresentativesGroupedBySimilarity
-            = $this->type3TokenSequenceRepresentativeFactory->createMultiple($type2TokenSequenceRepresentatives, $configuration);
+        $type1TSRs = $this->type1TokenSequenceRepresentativeFactory->createMultiple($methodsGroupedBySignatures);
+        $type2TSRs = $this->type2TokenSequenceRepresentativeFactory->createMultiple($type1TSRs);
+        $type3TSRs = $this->type3TokenSequenceRepresentativeFactory->createMultiple($type2TSRs, $configuration);
 
         return [
-            SourceClone::TYPE_1 => $this->type1CloneDetector->detect($type1TokenSequenceRepresentatives),
-            SourceClone::TYPE_2 => $this->type2CloneDetector->detect($type2TokenSequenceRepresentatives),
-            SourceClone::TYPE_3 => $this->type3CloneDetector->detect($normalizedTokenSequenceRepresentativesGroupedBySimilarity),
+            SourceClone::TYPE_1 => $this->type1CloneDetector->detect($type1TSRs),
+            SourceClone::TYPE_2 => $this->type2CloneDetector->detect($type2TSRs),
+            SourceClone::TYPE_3 => $this->type3CloneDetector->detect($type3TSRs),
         ];
     }
 }
