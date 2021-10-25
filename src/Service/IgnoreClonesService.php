@@ -37,9 +37,10 @@ class IgnoreClonesService
 
     private function cloneShouldBeIgnored(SourceClone $clone, Configuration $configuration): bool
     {
-        $tokenLengths = array_map(function (Method $m): int {
-            return $this->tokenSequenceFactory->create('<?php ' . $m->getContent())->length();
-        }, $clone->getMethodsCollection()->getAll());
+        $tokenLengths = array_map(
+            fn(Method $m): int => $this->tokenSequenceFactory->createFromMethod($m)->length(),
+            $clone->getMethodsCollection()->getAll()
+        );
 
         return max($tokenLengths) < $configuration->minSimilarTokens();
     }

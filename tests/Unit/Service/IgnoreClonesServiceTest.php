@@ -24,7 +24,7 @@ class IgnoreClonesServiceTest extends TestCase
         $arrayUtil->method('flatten')->willReturn($clones);
 
         $tokenSequenceFactory = $this->createMock(TokenSequenceFactory::class);
-        $tokenSequenceFactory->method('create')->willReturnOnConsecutiveCalls(...$tokenSequences);
+        $tokenSequenceFactory->method('createFromMethod')->willReturnOnConsecutiveCalls(...$tokenSequences);
 
         self::assertSame(
             $expected,
@@ -72,7 +72,7 @@ class IgnoreClonesServiceTest extends TestCase
             $this->mockTokenSequence(20),
         ];
         $expected = [$clones[0]];
-        $configuration = Configuration::create('', 11, 0);
+        $configuration = Configuration::create('', 10, 0);
         yield '1 clone with multiple methods' => [
             'expected' => $expected,
             'clones' => $clones,

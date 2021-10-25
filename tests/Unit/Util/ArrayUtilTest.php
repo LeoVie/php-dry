@@ -9,39 +9,51 @@ use PHPUnit\Framework\TestCase;
 
 class ArrayUtilTest extends TestCase
 {
-    /** @dataProvider flattenProvider */
-    public function testFlatten(array $expected, array $input, int $level): void
+    /** @dataProvider flattenWithDefaultLevelProvider */
+    public function testFlattenWithDefaultLevel(array $expected, array $input): void
     {
-        self::assertSame($expected, (new ArrayUtil())->flatten($input, $level));
+        self::assertSame($expected, (new ArrayUtil())->flatten($input));
     }
 
-    public function flattenProvider(): array
+    public function flattenWithDefaultLevelProvider(): array
     {
         return [
-            'empty (level 1)' => [
+            'empty' => [
                 'expected' => [],
                 'input' => [],
                 'level' => 1,
             ],
+            'two arrays' => [
+                'expected' => [1, 2, 3, 4, 5, 6],
+                'input' => [[1, 2, 3], [4, 5, 6]],
+                'level' => 1,
+            ],
+            'nested array' => [
+                'expected' => [1, 2, 3, 4, [5, 6]],
+                'input' => [1, 2, [3, 4, [5, 6]]],
+                'level' => 1,
+            ],
+        ];
+    }
+
+    /** @dataProvider flattenWithOtherLevelProvider */
+    public function testFlattenWithOtherLevel(array $expected, array $input, int $level): void
+    {
+        self::assertSame($expected, (new ArrayUtil())->flatten($input, $level));
+    }
+
+    public function flattenWithOtherLevelProvider(): array
+    {
+        return [
             'empty (level 2)' => [
                 'expected' => [],
                 'input' => [],
                 'level' => 2,
             ],
-            'two arrays (level 1)' => [
-                'expected' => [1, 2, 3, 4, 5, 6],
-                'input' => [[1, 2, 3], [4, 5, 6]],
-                'level' => 1,
-            ],
             'two arrays (level 2)' => [
                 'expected' => [1, 2, 3, 4, 5, 6],
                 'input' => [[1, 2, 3], [4, 5, 6]],
                 'level' => 2,
-            ],
-            'nested array (level 1)' => [
-                'expected' => [1, 2, 3, 4, [5, 6]],
-                'input' => [1, 2, [3, 4, [5, 6]]],
-                'level' => 1,
             ],
             'nested array (level 2)' => [
                 'expected' => [1, 2, 3, 4, 5, 6],
@@ -93,13 +105,13 @@ class ArrayUtilTest extends TestCase
         ];
     }
 
-    /** @dataProvider removeSubsetsProvider */
-    public function testRemoveSubsets(array $expected, array $array): void
+    /** @dataProvider removeEntriesThatAreSubsetsOfOtherEntriesProvider */
+    public function testRemoveEntriesThatAreSubsetsOfOtherEntries(array $expected, array $array): void
     {
         self::assertSame($expected, (new ArrayUtil())->removeEntriesThatAreSubsetsOfOtherEntries($array));
     }
 
-    public function removeSubsetsProvider(): array
+    public function removeEntriesThatAreSubsetsOfOtherEntriesProvider(): array
     {
         return [
             'empty' => [
@@ -121,9 +133,9 @@ class ArrayUtilTest extends TestCase
                     [4, 5, 6],
                 ],
                 'array' => [
-                    [1, 2, 3],
-                    [2, 3, 4],
-                    [4, 5, 6],
+                    0 => [1, 2, 3],
+                    2 => [2, 3, 4],
+                    9 => [4, 5, 6],
                 ],
             ],
             'subsets contained' => [

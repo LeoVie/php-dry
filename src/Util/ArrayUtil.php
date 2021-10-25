@@ -51,18 +51,18 @@ class ArrayUtil
 
         $result = [];
 
-        foreach (array_values($array) as $i => $a) {
-            foreach (array_values($array) as $j => $b) {
+        foreach ($array as $i => $a) {
+            foreach ($array as $j => $b) {
                 if ($i === $j) {
                     continue;
                 }
 
                 if ($this->arrayContainsOtherArray($b, $a)) {
-                    continue 2;
+                    break;
                 }
 
                 if (in_array($a, $result)) {
-                    continue;
+                    break;
                 }
 
                 $result[] = $a;

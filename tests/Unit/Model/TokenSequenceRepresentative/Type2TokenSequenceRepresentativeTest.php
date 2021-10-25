@@ -28,4 +28,34 @@ class Type2TokenSequenceRepresentativeTest extends TestCase
             $methodsCollection,
         )->getMethodsCollection());
     }
+
+    public function testIdentity(): void
+    {
+        $tokenSequence = $this->createMock(TokenSequence::class);
+        $tokenSequence->method('identity')->willReturn('tokenSequenceIdentity');
+        self::assertSame('tokenSequenceIdentity', Type2TokenSequenceRepresentative::create(
+            $tokenSequence,
+            $this->createMock(MethodsCollection::class)
+        )->identity());
+    }
+
+    public function testGroupID(): void
+    {
+        $tokenSequence = $this->createMock(TokenSequence::class);
+        $tokenSequence->method('identity')->willReturn('tokenSequenceIdentity');
+        self::assertSame('tokenSequenceIdentity', Type2TokenSequenceRepresentative::create(
+            $tokenSequence,
+            $this->createMock(MethodsCollection::class)
+        )->groupID());
+    }
+
+    public function testToString(): void
+    {
+        $tokenSequence = $this->createMock(TokenSequence::class);
+        $tokenSequence->method('identity')->willReturn('tokenSequenceIdentity');
+        self::assertSame('tokenSequenceIdentity', Type2TokenSequenceRepresentative::create(
+            $tokenSequence,
+            $this->createMock(MethodsCollection::class)
+        )->__toString());
+    }
 }

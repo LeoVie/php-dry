@@ -44,7 +44,7 @@ class SourceClone implements Stringable
         return \Safe\sprintf(
             "CLONE: Type: %s, Methods: \n\t%s",
             $this->getType(),
-            join("\n\t", array_map(fn(Method $m) => $m->__toString(), $this->getMethodsCollection()->getAll()))
+            join("\n\t", $this->getMethodsCollection()->getAll())
         );
     }
 }

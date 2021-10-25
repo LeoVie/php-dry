@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Factory;
 
 use App\Factory\TokenSequenceFactory;
+use App\Model\Method\Method;
 use App\Wrapper\PhpTokenWrapper;
 use Generator;
 use LeoVie\PhpTokenNormalize\Model\TokenSequence;
@@ -12,13 +13,15 @@ use PHPUnit\Framework\TestCase;
 
 class TokenSequenceFactoryTest extends TestCase
 {
-    /** @dataProvider createProvider */
-    public function testCreate(TokenSequence $expected, PhpTokenWrapper $phpTokenWrapper): void
+    /** @dataProvider createFromMethodProvider */
+    public function testCreateFromMethod(TokenSequence $expected, PhpTokenWrapper $phpTokenWrapper): void
     {
-        self::assertEquals($expected, (new TokenSequenceFactory($phpTokenWrapper))->create(''));
+        $method = $this->createMock(Method::class);
+        $method->method('getContent')->willReturn('');
+        self::assertEquals($expected, (new TokenSequenceFactory($phpTokenWrapper))->createFromMethod($method));
     }
 
-    public function createProvider(): Generator
+    public function createFromMethodProvider(): Generator
     {
         $tokens = [];
         $expected = TokenSequence::create($tokens);
