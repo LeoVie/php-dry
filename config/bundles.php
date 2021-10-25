@@ -5,4 +5,5 @@ return [
     LeoVie\PhpTokenNormalize\PhpTokenNormalizeBundle::class => ['all' => true],
     LeoVie\PhpMethodsParser\PhpMethodsParserBundle::class => ['all' => true],
     LeoVie\PhpFilesystem\PhpFilesystemBundle::class => ['all' => true],
+    LeoVie\PhpGrouper\PhpGrouperBundle::class => ['all' => true],
 ];

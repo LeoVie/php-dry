@@ -11,6 +11,7 @@
         "ext-iconv": "*",
         "eloquent/lcs": "^2.0",
         "leovie/php-filesystem": "dev-main",
+        "leovie/php-grouper": "dev-main",
         "leovie/php-methods-parser": "dev-main",
         "leovie/php-token-normalize": "dev-main",
         "loophp/collection": "^5.1",
@@ -44,6 +45,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/LeoVie/php-filesystem.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/LeoVie/php-grouper.git"
         }
     ],
     "autoload": {

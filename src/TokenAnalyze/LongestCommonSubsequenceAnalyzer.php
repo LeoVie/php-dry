@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tokenize\Analyze;
+namespace App\TokenAnalyze;
 
 use Eloquent\Lcs\LcsSolver;
 use LeoVie\PhpTokenNormalize\Model\TokenSequence;

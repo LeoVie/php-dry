@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Model\TokenSequenceRepresentative;
 
 use App\Collection\MethodsCollection;
-use App\Sort\Identity;
+use App\Model\Identity;
 use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 
 class SimilarTokenSequencesRepresentative implements Identity, \Stringable, TokenSequenceRepresentative

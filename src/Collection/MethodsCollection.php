@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Collection;
 
 use App\Exception\CollectionCannotBeEmpty;
-use App\Model\Method\HasMethod;
 use App\Model\Method\Method;
 use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;

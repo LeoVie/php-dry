@@ -47,6 +47,9 @@
     "leovie/php-filesystem": {
         "version": "dev-main"
     },
+    "leovie/php-grouper": {
+        "version": "dev-main"
+    },
     "leovie/php-methods-parser": {
         "version": "dev-main"
     },

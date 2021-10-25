@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Find;
 
 use App\File\FindFiles;
-use App\Service\FinderService;
+use App\ServiceFactory\FinderFactory;
 use PHPUnit\Framework\TestCase;
 
 class FindFilesTest extends TestCase
@@ -13,7 +13,7 @@ class FindFilesTest extends TestCase
     /** @dataProvider findPhpFilesInPathProvider */
     public function testFindPhpFilesInPath(string $path, array $expected): void
     {
-        self::assertEqualsCanonicalizing($expected, (new FindFiles(new FinderService()))->findPhpFilesInPath($path));
+        self::assertEqualsCanonicalizing($expected, (new FindFiles(new FinderFactory()))->findPhpFilesInPath($path));
     }
 
     public function findPhpFilesInPathProvider(): array

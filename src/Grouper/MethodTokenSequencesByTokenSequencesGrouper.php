@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Grouper;
 
 use App\Model\Method\MethodTokenSequence;
+use LeoVie\PhpGrouper\Service\Grouper;
 
 class MethodTokenSequencesByTokenSequencesGrouper
 {
-    public function __construct(private IdentityGrouper $identityGrouper)
+    public function __construct(private Grouper $grouper)
     {
     }
 
@@ -19,8 +20,8 @@ class MethodTokenSequencesByTokenSequencesGrouper
      */
     public function group(array $methodTokenSequences): array
     {
-        /** @var  array<MethodTokenSequence[]> $grouped */
-        $grouped = $this->identityGrouper->group($methodTokenSequences);
+        /** @var array<MethodTokenSequence[]> $grouped */
+        $grouped = $this->grouper->group($methodTokenSequences);
 
         return $grouped;
     }

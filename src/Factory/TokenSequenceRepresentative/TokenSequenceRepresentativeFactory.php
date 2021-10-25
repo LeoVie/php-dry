@@ -69,7 +69,7 @@ class TokenSequenceRepresentativeFactory
     {
         return array_map(fn(array $methodTokenSequences): ExactTokenSequenceRepresentative => ExactTokenSequenceRepresentative::create(
             $methodTokenSequences[0]->getTokenSequence(),
-            $this->methodsCollectionFactory->fromHasMethods($methodTokenSequences),
+            $this->methodsCollectionFactory->fromMethodTokenSequence($methodTokenSequences),
         ), $methodTokenSequenceGroups);
     }
 }

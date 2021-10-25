@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Factory;
 
 use App\Factory\CodePosition\CodePositionRangeFactory;
-use App\File\ReadFileContent;
 use App\Model\CodePosition\CodePositionRange;
 use App\Model\FilepathMethods\FilepathMethods;
 use App\Model\Method\Method;
+use LeoVie\PhpFilesystem\Exception\InvalidBoundaries;
+use LeoVie\PhpFilesystem\Model\Boundaries;
+use LeoVie\PhpFilesystem\Service\Filesystem;
 use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
@@ -19,7 +21,7 @@ class MethodFactory
 {
     public function __construct(
         private CodePositionRangeFactory $codePositionRangeFactory,
-        private ReadFileContent          $readFileContent,
+        private Filesystem               $filesystem,
         private MethodSignatureFactory   $methodSignatureFactory,
     )
     {
@@ -31,6 +33,7 @@ class MethodFactory
      * @throws NodeTypeNotConvertable
      * @throws StringsException
      * @throws FilesystemException
+     * @throws InvalidBoundaries
      */
     public function buildMultipleFromFilepathMethods(FilepathMethods $filepathMethods): array
     {
@@ -46,6 +49,7 @@ class MethodFactory
      * @throws NodeTypeNotConvertable
      * @throws StringsException
      * @throws FilesystemException
+     * @throws InvalidBoundaries
      */
     private function oneFromFilepath(string $filepath, ClassMethod|Function_ $method): Method
     {
@@ -62,13 +66,17 @@ class MethodFactory
 
     /**
      * @throws FilesystemException
+     * @throws StringsException
+     * @throws InvalidBoundaries
      */
     private function readMethodContent(string $filepath, CodePositionRange $codePositionRange): string
     {
-        return $this->readFileContent->readPart(
+        return $this->filesystem->readFilePart(
             $filepath,
-            $codePositionRange->getStart()->getFilePos(),
-            $codePositionRange->getEnd()->getFilePos()
+            Boundaries::create(
+                $codePositionRange->getStart()->getFilePos(),
+                $codePositionRange->getEnd()->getFilePos()
+            )
         );
     }
 }

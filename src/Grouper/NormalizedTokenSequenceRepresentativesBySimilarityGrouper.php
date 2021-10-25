@@ -9,7 +9,7 @@ use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
 use App\Model\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentative;
 use App\Model\TokenSequenceRepresentative\SimilarTokenSequencesRepresentative;
-use App\Tokenize\Analyze\LongestCommonSubsequenceAnalyzer;
+use App\TokenAnalyze\LongestCommonSubsequenceAnalyzer;
 use App\Util\ArrayUtil;
 
 class NormalizedTokenSequenceRepresentativesBySimilarityGrouper

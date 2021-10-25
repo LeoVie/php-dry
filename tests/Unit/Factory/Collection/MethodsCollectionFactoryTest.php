@@ -7,9 +7,9 @@ namespace App\Tests\Unit\Factory\Collection;
 use App\Collection\MethodsCollection;
 use App\Factory\Collection\MethodsCollectionFactory;
 use App\Model\CodePosition\CodePositionRange;
-use App\Model\Method\HasMethod;
 use App\Model\Method\Method;
 use App\Model\Method\MethodSignature;
+use App\Model\Method\MethodTokenSequence;
 use PHPUnit\Framework\TestCase;
 
 class MethodsCollectionFactoryTest extends TestCase
@@ -17,7 +17,7 @@ class MethodsCollectionFactoryTest extends TestCase
     /** @dataProvider fromHasMethodsProvider */
     public function testFromHasMethods(MethodsCollection $expected, array $hasMethods): void
     {
-        self::assertEquals($expected, (new MethodsCollectionFactory())->fromHasMethods($hasMethods));
+        self::assertEquals($expected, (new MethodsCollectionFactory())->fromMethodTokenSequence($hasMethods));
     }
 
     public function fromHasMethodsProvider(): \Generator
@@ -27,10 +27,10 @@ class MethodsCollectionFactoryTest extends TestCase
         $method3 = $this->mockMethod('method3');
         $method4 = $this->mockMethod('method4');
 
-        $hasMethod1 = $this->mockHasMethod($method1);
-        $hasMethod2 = $this->mockHasMethod($method2);
-        $hasMethod3 = $this->mockHasMethod($method3);
-        $hasMethod4 = $this->mockHasMethod($method4);
+        $hasMethod1 = $this->mockMethodTokenSequence($method1);
+        $hasMethod2 = $this->mockMethodTokenSequence($method2);
+        $hasMethod3 = $this->mockMethodTokenSequence($method3);
+        $hasMethod4 = $this->mockMethodTokenSequence($method4);
 
         yield [
             'expected' => MethodsCollection::create($method1, $method2, $method3, $method4),
@@ -54,11 +54,11 @@ class MethodsCollectionFactoryTest extends TestCase
         );
     }
 
-    private function mockHasMethod(Method $method): HasMethod
+    private function mockMethodTokenSequence(Method $method): MethodTokenSequence
     {
-        $hasMethod = $this->createMock(HasMethod::class);
-        $hasMethod->method('getMethod')->willReturn($method);
+        $methodTokenSequence = $this->createMock(MethodTokenSequence::class);
+        $methodTokenSequence->method('getMethod')->willReturn($method);
 
-        return $hasMethod;
+        return $methodTokenSequence;
     }
 }

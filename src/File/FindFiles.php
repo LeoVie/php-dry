@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\File;
 
-use App\Service\FinderService;
+use App\ServiceFactory\FinderFactory;
 use SplFileInfo;
 
 class FindFiles
 {
-    public function __construct(private FinderService $finderService)
+    public function __construct(private FinderFactory $finderFactory)
     {
     }
 
@@ -18,7 +18,7 @@ class FindFiles
     {
         return array_map(
             fn(SplFileInfo $f) => $f->__toString(),
-            iterator_to_array($this->finderService->instance()->in($path)->name('*.php')->files())
+            iterator_to_array($this->finderFactory->instance()->in($path)->name('*.php')->files())
         );
     }
 }

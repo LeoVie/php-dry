@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Tokenize\Analyze;
+namespace App\Tests\Unit\TokenAnalyze;
 
 use App\ServiceFactory\LcsSolverForPhpTokensFactory;
-use App\Tokenize\Analyze\LongestCommonSubsequenceAnalyzer;
+use App\TokenAnalyze\LongestCommonSubsequenceAnalyzer;
 use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 use PHPUnit\Framework\TestCase;
 

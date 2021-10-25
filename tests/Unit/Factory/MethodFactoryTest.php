@@ -7,11 +7,11 @@ namespace App\Tests\Unit\Factory;
 use App\Factory\CodePosition\CodePositionRangeFactory;
 use App\Factory\MethodFactory;
 use App\Factory\MethodSignatureFactory;
-use App\File\ReadFileContent;
 use App\Model\CodePosition\CodePositionRange;
 use App\Model\FilepathMethods\FilepathMethods;
 use App\Model\Method\Method;
 use App\Model\Method\MethodSignature;
+use LeoVie\PhpFilesystem\Service\Filesystem;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPUnit\Framework\TestCase;
@@ -23,13 +23,13 @@ class MethodFactoryTest extends TestCase
         array                    $expected,
         FilepathMethods          $filepathMethods,
         CodePositionRangeFactory $codePositionRangeFactory,
-        ReadFileContent          $readFileContent,
+        Filesystem               $filesystem,
         MethodSignatureFactory   $methodSignatureFactory,
     ): void
     {
         self::assertEquals(
             $expected,
-            (new MethodFactory($codePositionRangeFactory, $readFileContent, $methodSignatureFactory))
+            (new MethodFactory($codePositionRangeFactory, $filesystem, $methodSignatureFactory))
                 ->buildMultipleFromFilepathMethods($filepathMethods)
         );
     }
@@ -61,7 +61,7 @@ class MethodFactoryTest extends TestCase
             );
         }
 
-        $methods = array_map(function(string $name): ClassMethod {
+        $methods = array_map(function (string $name): ClassMethod {
             $classMethod = $this->createMock(ClassMethod::class);
             $classMethod->name = $this->createMock(Identifier::class);
             $classMethod->name->name = $name;
@@ -74,8 +74,8 @@ class MethodFactoryTest extends TestCase
         $codePositionRangeFactory = $this->createMock(CodePositionRangeFactory::class);
         $codePositionRangeFactory->method('byClassMethodOrFunction')->willReturnOnConsecutiveCalls(...$codePositionRanges);
 
-        $readFileContent = $this->createMock(ReadFileContent::class);
-        $readFileContent->method('readPart')->willReturnOnConsecutiveCalls(...$methodContents);
+        $filesystem = $this->createMock(Filesystem::class);
+        $filesystem->method('readFilePart')->willReturnOnConsecutiveCalls(...$methodContents);
 
         $methodSignatureFactory = $this->createMock(MethodSignatureFactory::class);
         $methodSignatureFactory->method('create')->willReturnOnConsecutiveCalls(...$methodSignatures);
@@ -84,7 +84,7 @@ class MethodFactoryTest extends TestCase
             'expected' => $expected,
             $filepathMethods,
             $codePositionRangeFactory,
-            $readFileContent,
+            $filesystem,
             $methodSignatureFactory,
         ];
     }

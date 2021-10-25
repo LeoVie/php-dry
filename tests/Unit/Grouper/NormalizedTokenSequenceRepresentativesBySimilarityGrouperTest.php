@@ -4,14 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Grouper;
 
-use App\Collection\MethodsCollection;
-use App\Configuration\Configuration;
-use App\Grouper\NormalizedTokenSequenceRepresentativesBySimilarityGrouper;
-use App\Model\Method\Method;
-use App\Model\TokenSequenceRepresentative\NormalizedTokenSequenceRepresentative;
-use App\Tokenize\Analyze\LongestCommonSubsequenceAnalyzer;
-use App\Tokenize\TokenSequence;
-use App\Util\ArrayUtil;
 use PHPUnit\Framework\TestCase;
 
 class NormalizedTokenSequenceRepresentativesBySimilarityGrouperTest extends TestCase

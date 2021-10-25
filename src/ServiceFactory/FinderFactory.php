@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Service;
+namespace App\ServiceFactory;
 
 use Symfony\Component\Finder\Finder;
 
-class FinderService
+final class FinderFactory
 {
     public function instance(): Finder
     {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Sort;
+namespace App\Model;
 
 interface Identity
 {
