@@ -12,7 +12,9 @@
         "eloquent/lcs": "^2.0",
         "leovie/php-filesystem": "dev-main",
         "leovie/php-grouper": "dev-main",
+        "leovie/php-method-runner": "dev-main",
         "leovie/php-methods-parser": "dev-main",
+        "leovie/php-param-generator": "dev-main",
         "leovie/php-token-normalize": "dev-main",
         "loophp/collection": "^5.1",
         "nikic/php-parser": "^4.13",
@@ -49,6 +51,14 @@
         {
             "type": "vcs",
             "url": "https://github.com/LeoVie/php-grouper.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/LeoVie/php-param-generator.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/LeoVie/php-method-runner.git"
         }
     ],
     "autoload": {

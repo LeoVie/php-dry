@@ -23,6 +23,9 @@
     "eloquent/lcs": {
         "version": "2.0.0"
     },
+    "fakerphp/faker": {
+        "version": "v1.16.0"
+    },
     "felixfbecker/advanced-json-rpc": {
         "version": "v3.2.1"
     },
@@ -50,7 +53,13 @@
     "leovie/php-grouper": {
         "version": "dev-main"
     },
+    "leovie/php-method-runner": {
+        "version": "dev-main"
+    },
     "leovie/php-methods-parser": {
+        "version": "dev-main"
+    },
+    "leovie/php-param-generator": {
         "version": "dev-main"
     },
     "leovie/php-token-normalize": {

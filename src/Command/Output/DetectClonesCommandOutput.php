@@ -73,6 +73,13 @@ class DetectClonesCommandOutput
             ->lapTime();
     }
 
+    public function foundClones(string $clonesType, int $clonesCount): self
+    {
+        return $this
+            ->single(\Safe\sprintf('Found %s %s clones:', $clonesCount, $clonesType))
+            ->lapTime();
+    }
+
     public function lapTime(): self
     {
         return $this->single($this->stopwatch->lap('detect-clones')->__toString());

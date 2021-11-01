@@ -7,6 +7,7 @@ namespace App\Service;
 use App\CloneDetection\Type1CloneDetector;
 use App\CloneDetection\Type2CloneDetector;
 use App\CloneDetection\Type3CloneDetector;
+use App\CloneDetection\Type4CloneDetector;
 use App\Command\Output\DetectClonesCommandOutput;
 use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
@@ -32,6 +33,7 @@ class DetectClonesService
         private Type1TokenSequenceRepresentativeFactory $type1TokenSequenceRepresentativeFactory,
         private Type2TokenSequenceRepresentativeFactory $type2TokenSequenceRepresentativeFactory,
         private Type3TokenSequenceRepresentativeFactory $type3TokenSequenceRepresentativeFactory,
+        private Type4CloneDetector                      $type4CloneDetector,
     )
     {
     }
@@ -55,14 +57,20 @@ class DetectClonesService
         $output->foundMethods(count($methods));
 
         $methodsGroupedBySignatures = $this->methodsBySignatureGrouper->group($methods);
+
         $type1TSRs = $this->type1TokenSequenceRepresentativeFactory->createMultiple($methodsGroupedBySignatures);
+        $type1Clones = $this->type1CloneDetector->detect($type1TSRs);
+
         $type2TSRs = $this->type2TokenSequenceRepresentativeFactory->createMultiple($type1TSRs);
+        $type2Clones = $this->type2CloneDetector->detect($type2TSRs);
+
         $type3TSRs = $this->type3TokenSequenceRepresentativeFactory->createMultiple($type2TSRs, $configuration);
+        $type3Clones = $this->type3CloneDetector->detect($type3TSRs);
 
         return [
-            SourceClone::TYPE_1 => $this->type1CloneDetector->detect($type1TSRs),
-            SourceClone::TYPE_2 => $this->type2CloneDetector->detect($type2TSRs),
-            SourceClone::TYPE_3 => $this->type3CloneDetector->detect($type3TSRs),
+            SourceClone::TYPE_1 => $type1Clones,
+            SourceClone::TYPE_2 => $type2Clones,
+            SourceClone::TYPE_3 => $type3Clones,
         ];
     }
 }
