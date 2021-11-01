@@ -8,6 +8,7 @@ use App\CloneDetection\Type1CloneDetector;
 use App\CloneDetection\Type2CloneDetector;
 use App\CloneDetection\Type3CloneDetector;
 use App\CloneDetection\Type4CloneDetector;
+use App\Collection\MethodsCollection;
 use App\Command\Output\DetectClonesCommandOutput;
 use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
@@ -16,6 +17,7 @@ use App\Factory\TokenSequenceRepresentative\Type2TokenSequenceRepresentativeFact
 use App\Factory\TokenSequenceRepresentative\Type3TokenSequenceRepresentativeFactory;
 use App\File\FindFiles;
 use App\Grouper\MethodsBySignatureGrouper;
+use App\Model\Method\MethodSignatureGroup;
 use App\Model\SourceClone\SourceClone;
 use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
 use Safe\Exceptions\FilesystemException;
@@ -56,7 +58,14 @@ class DetectClonesService
 
         $output->foundMethods(count($methods));
 
-        $methodsGroupedBySignatures = $this->methodsBySignatureGrouper->group($methods);
+        $methodsGroupedBySignatures = $this->methodsBySignatureGrouper->groupOld($methods);
+
+        $methodSignatureGroups = $this->methodsBySignatureGrouper->group($methods);
+
+        print("\n\n\n");
+        print(join("\n\n", array_map(fn(MethodSignatureGroup $mg): string => $mg->__toString(), $methodSignatureGroups)));
+        print("\n");
+        die;
 
         $type1TSRs = $this->type1TokenSequenceRepresentativeFactory->createMultiple($methodsGroupedBySignatures);
         $type1Clones = $this->type1CloneDetector->detect($type1TSRs);

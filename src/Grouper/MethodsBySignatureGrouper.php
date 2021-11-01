@@ -7,6 +7,7 @@ namespace App\Grouper;
 use App\Collection\MethodsCollection;
 use App\Compare\MethodSignatureComparer;
 use App\Model\Method\Method;
+use App\Model\Method\MethodSignatureGroup;
 
 class MethodsBySignatureGrouper
 {
@@ -16,7 +17,8 @@ class MethodsBySignatureGrouper
 
     /**
      * @param Method[] $methods
-     * @return MethodsCollection[]
+     *
+     * @return MethodSignatureGroup[]
      */
     public function group(array $methods): array
     {
@@ -24,56 +26,64 @@ class MethodsBySignatureGrouper
             return [];
         }
 
-        /** @var MethodsCollection[] $methodsCollections */
-        $methodsCollections = [
-            MethodsCollection::create(array_shift($methods)),
+        $firstMethod = array_shift($methods);
+        $methodSignatureGroups = [
+            MethodSignatureGroup::create(
+                $firstMethod->getMethodSignature(),
+                MethodsCollection::create($firstMethod)
+            ),
         ];
 
         foreach ($methods as $method) {
-            $methodsCollections = $this->addToExistingMatchingMethodsCollectionOrCreateNewOne($method, $methodsCollections);
+            $methodSignatureGroups = $this->addToExistingMatchingMethodSignatureGroupOrCreateNewOne($method, $methodSignatureGroups);
         }
 
-        return $methodsCollections;
+        return $methodSignatureGroups;
     }
 
     /**
-     * @param MethodsCollection[] $methodsCollections
+     * @param MethodSignatureGroup[] $methodSignatureGroups
      *
-     * @return MethodsCollection[]
+     * @return MethodSignatureGroup[]
      */
-    private function addToExistingMatchingMethodsCollectionOrCreateNewOne(Method $method, array $methodsCollections): array
+    private function addToExistingMatchingMethodSignatureGroupOrCreateNewOne(Method $method, array $methodSignatureGroups): array
     {
-        $collection = $this->findMatchingMethodsCollection($method, $methodsCollections);
+        $methodSignatureGroup = $this->findMatchingMethodSignatureGroup($method, $methodSignatureGroups);
 
-        if ($collection !== null) {
-            $collection->add($method);
+        if ($methodSignatureGroup !== null) {
+            $methodSignatureGroup->getMethodsCollection()->add($method);
 
-            return $methodsCollections;
+            return $methodSignatureGroups;
         }
 
-        $collection = MethodsCollection::create($method);
-        $methodsCollections[] = $collection;
+        $methodSignatureGroup = MethodSignatureGroup::create(
+            $method->getMethodSignature(),
+            MethodsCollection::create($method)
+        );
+        $methodSignatureGroups[] = $methodSignatureGroup;
 
-        return $methodsCollections;
+        return $methodSignatureGroups;
     }
 
-    /** @param MethodsCollection[] $methodsCollections */
-    private function findMatchingMethodsCollection(Method $method, array $methodsCollections): ?MethodsCollection
+    /**
+     * @param MethodSignatureGroup[] $methodSignatureGroups
+     */
+    private function findMatchingMethodSignatureGroup(Method $method, array $methodSignatureGroups): ?MethodSignatureGroup
     {
-        foreach ($methodsCollections as $methodSignaturesCollection) {
-            if ($this->matchesMethodSignaturesCollection($method, $methodSignaturesCollection)) {
-                return $methodSignaturesCollection;
+        foreach ($methodSignatureGroups as $methodSignatureGroup) {
+            if ($this->matchesMethodSignatureGroup($method, $methodSignatureGroup)) {
+                return $methodSignatureGroup;
             }
         }
 
         return null;
     }
 
-    private function matchesMethodSignaturesCollection(Method $method, MethodsCollection $methodsCollection): bool
+    private function matchesMethodSignatureGroup(Method $method, MethodSignatureGroup $methodSignatureGroup): bool
     {
         return $this->methodSignatureComparer->areEqual(
             $method->getMethodSignature(),
-            $methodsCollection->getFirst()->getMethodSignature()
+            $methodSignatureGroup->getMethodSignature()
         );
     }
 }

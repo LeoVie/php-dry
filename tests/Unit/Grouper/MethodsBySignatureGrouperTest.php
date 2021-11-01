@@ -10,6 +10,7 @@ use App\Grouper\MethodsBySignatureGrouper;
 use App\Model\CodePosition\CodePositionRange;
 use App\Model\Method\Method;
 use App\Model\Method\MethodSignature;
+use App\Model\Method\MethodSignatureGroup;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
@@ -28,45 +29,58 @@ class MethodsBySignatureGrouperTest extends TestCase
             'methods' => [],
         ];
 
-        $method = $this->createMethod(MethodSignature::create(['int'], 'string'));
+        $methodSignatures = [MethodSignature::create(['int'], 'string')];
+        $method = $this->createMethod($methodSignatures[0]);
         yield 'one method' => [
-            'expected' => [MethodsCollection::create($method)],
+            'expected' => [MethodSignatureGroup::create($methodSignatures[0], MethodsCollection::create($method))],
             'methods' => [$method],
         ];
 
-        $method1 = $this->createMethod(MethodSignature::create(['int'], 'string'));
-        $method2 = $this->createMethod(MethodSignature::create(['int', 'int'], 'string'));
-        $method3 = $this->createMethod(MethodSignature::create(['string'], 'array'));
+        $methodSignatures = [
+            MethodSignature::create(['int'], 'string'),
+            MethodSignature::create(['int', 'int'], 'string'),
+            MethodSignature::create(['string'], 'array')
+        ];
+        $methods = array_map(fn(MethodSignature $ms): Method => $this->createMethod($ms), $methodSignatures);
         yield 'only methods with different signatures' => [
             'expected' => [
-                MethodsCollection::create($method1),
-                MethodsCollection::create($method2),
-                MethodsCollection::create($method3),
+                MethodSignatureGroup::create($methodSignatures[0], MethodsCollection::create($methods[0])),
+                MethodSignatureGroup::create($methodSignatures[1], MethodsCollection::create($methods[1])),
+                MethodSignatureGroup::create($methodSignatures[2], MethodsCollection::create($methods[2])),
             ],
-            'methods' => [$method1, $method2, $method3],
+            'methods' => $methods,
         ];
 
-        $method1 = $this->createMethod(MethodSignature::create(['int'], 'string'));
-        $method2 = $this->createMethod(MethodSignature::create(['int'], 'string'));
-        $method3 = $this->createMethod(MethodSignature::create(['int'], 'string'));
+        $methodSignatures = [MethodSignature::create(['int'], 'string')];
+        $methods = [];
+        for ($i = 0; $i <= 2; $i++) {
+            $methods[] = $this->createMethod($methodSignatures[0]);
+        }
         yield 'only methods with same signatures' => [
             'expected' => [
-                MethodsCollection::create($method1, $method2, $method3),
+                MethodSignatureGroup::create($methodSignatures[0], MethodsCollection::create(...$methods)),
             ],
-            'methods' => [$method1, $method2, $method3],
+            'methods' => $methods,
         ];
 
-        $method1 = $this->createMethod(MethodSignature::create(['int'], 'string'));
-        $method2 = $this->createMethod(MethodSignature::create(['array'], 'string'));
-        $method3 = $this->createMethod(MethodSignature::create(['int'], 'string'));
-        $method4 = $this->createMethod(MethodSignature::create(['string', 'int'], 'string'));
+        $methodSignatures = [
+            MethodSignature::create(['int'], 'string'),
+            MethodSignature::create(['array'], 'string'),
+            MethodSignature::create(['string', 'int'], 'string')
+        ];
+        $methods = [
+            $this->createMethod($methodSignatures[0]),
+            $this->createMethod($methodSignatures[1]),
+            $this->createMethod($methodSignatures[0]),
+            $this->createMethod($methodSignatures[2]),
+        ];
         yield 'mixed' => [
             'expected' => [
-                MethodsCollection::create($method1, $method3),
-                MethodsCollection::create($method2),
-                MethodsCollection::create($method4),
+                MethodSignatureGroup::create($methodSignatures[0], MethodsCollection::create($methods[0], $methods[2])),
+                MethodSignatureGroup::create($methodSignatures[1], MethodsCollection::create($methods[1])),
+                MethodSignatureGroup::create($methodSignatures[2], MethodsCollection::create($methods[3])),
             ],
-            'methods' => [$method1, $method2, $method3, $method4],
+            'methods' => $methods,
         ];
     }
 

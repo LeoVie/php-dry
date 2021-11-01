@@ -64,4 +64,9 @@ class MethodsCollection
     {
         return $this->getFirst()->getMethodSignature()->getParamTypes();
     }
+
+    public function __toString(): string
+    {
+        return join("\n", array_map(fn(Method $m): string => $m->__toString(), $this->getAll()));
+    }
 }
