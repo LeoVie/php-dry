@@ -8,42 +8,42 @@ use App\CloneDetection\CloneDetector;
 use App\Collection\MethodsCollection;
 use App\Model\Method\Method;
 use App\Model\SourceClone\SourceClone;
-use App\Model\TokenSequenceRepresentative\Type1TokenSequenceRepresentative;
-use App\Model\TokenSequenceRepresentative\Type2TokenSequenceRepresentative;
+use App\Model\SourceCloneCandidate\Type1SourceCloneCandidate;
+use App\Model\SourceCloneCandidate\Type2SourceCloneCandidate;
 use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 use PHPUnit\Framework\TestCase;
 
 class CloneDetectorTest extends TestCase
 {
     /** @dataProvider detectProvider */
-    public function testDetect(array $expected, array $tokenSequenceRepresentatives, string $type): void
+    public function testDetect(array $expected, array $sourceCloneCandidates, string $type): void
     {
-        self::assertEquals($expected, (new CloneDetector())->detect($tokenSequenceRepresentatives, $type));
+        self::assertEquals($expected, (new CloneDetector())->detect($sourceCloneCandidates, $type));
     }
 
     public function detectProvider(): array
     {
         return [
-            'no tokenSequenceRepresentatives' => [
+            'no sourceCloneCandidates' => [
                 'expected' => [],
-                'tokenSequenceRepresentatives' => [],
+                'sourceCloneCandidates' => [],
                 'type' => SourceClone::TYPE_1,
             ],
-            'no tokenSequenceRepresentatives with > 1 method' => [
+            'no sourceCloneCandidates with > 1 method' => [
                 'expected' => [],
-                'tokenSequenceRepresentatives' => [
-                    Type1TokenSequenceRepresentative::create(
+                'sourceCloneCandidates' => [
+                    Type1SourceCloneCandidate::create(
                         $this->createMock(TokenSequence::class),
                         MethodsCollection::create($this->createMock(Method::class))
                     ),
-                    Type1TokenSequenceRepresentative::create(
+                    Type1SourceCloneCandidate::create(
                         $this->createMock(TokenSequence::class),
                         MethodsCollection::create($this->createMock(Method::class))
                     ),
                 ],
                 'type' => SourceClone::TYPE_1,
             ],
-            'only tokenSequenceRepresentatives with > 1 method' => [
+            'only sourceCloneCandidates with > 1 method' => [
                 'expected' => [
                     SourceClone::create(
                         SourceClone::TYPE_1,
@@ -61,15 +61,15 @@ class CloneDetectorTest extends TestCase
                         )
                     ),
                 ],
-                'tokenSequenceRepresentatives' => [
-                    Type1TokenSequenceRepresentative::create(
+                'sourceCloneCandidates' => [
+                    Type1SourceCloneCandidate::create(
                         $this->createMock(TokenSequence::class),
                         MethodsCollection::create(
                             $this->createMock(Method::class),
                             $this->createMock(Method::class),
                         )
                     ),
-                    Type1TokenSequenceRepresentative::create(
+                    Type1SourceCloneCandidate::create(
                         $this->createMock(TokenSequence::class),
                         MethodsCollection::create(
                             $this->createMock(Method::class),
@@ -90,8 +90,8 @@ class CloneDetectorTest extends TestCase
                         )
                     ),
                 ],
-                'tokenSequenceRepresentatives' => [
-                    Type2TokenSequenceRepresentative::create(
+                'sourceCloneCandidates' => [
+                    Type2SourceCloneCandidate::create(
                         $this->createMock(TokenSequence::class),
                         MethodsCollection::create(
                             $this->createMock(Method::class),

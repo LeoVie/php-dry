@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Model\TokenSequenceRepresentative;
+namespace App\Tests\Unit\Model\SourceCloneCandidate;
 
 use App\Collection\MethodsCollection;
-use App\Model\TokenSequenceRepresentative\Type2TokenSequenceRepresentative;
-use App\Model\TokenSequenceRepresentative\Type3TokenSequenceRepresentative;
+use App\Model\SourceCloneCandidate\Type3SourceCloneCandidate;
 use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 use PHPUnit\Framework\TestCase;
 
-class Type3TokenSequenceRepresentativeTest extends TestCase
+class Type3SourceCloneCandidateTest extends TestCase
 {
     public function testGetTokenSequences(): void
     {
@@ -19,7 +18,7 @@ class Type3TokenSequenceRepresentativeTest extends TestCase
             $this->createMock(TokenSequence::class),
             $this->createMock(TokenSequence::class),
         ];
-        self::assertSame($tokenSequences, Type3TokenSequenceRepresentative::create(
+        self::assertSame($tokenSequences, Type3SourceCloneCandidate::create(
             $tokenSequences,
             $this->createMock(MethodsCollection::class)
         )->getTokenSequences());
@@ -28,7 +27,7 @@ class Type3TokenSequenceRepresentativeTest extends TestCase
     public function testGetMethodsCollection(): void
     {
         $methodsCollection = $this->createMock(MethodsCollection::class);
-        self::assertSame($methodsCollection, Type3TokenSequenceRepresentative::create(
+        self::assertSame($methodsCollection, Type3SourceCloneCandidate::create(
             [$this->createMock(TokenSequence::class)],
             $methodsCollection,
         )->getMethodsCollection());
@@ -41,7 +40,7 @@ class Type3TokenSequenceRepresentativeTest extends TestCase
             $this->mockTokenSequenceWithIdentity('b'),
             $this->mockTokenSequenceWithIdentity('c'),
         ];
-        self::assertSame('a-b-c', Type3TokenSequenceRepresentative::create(
+        self::assertSame('a-b-c', Type3SourceCloneCandidate::create(
             $tokenSequences,
             $this->createMock(MethodsCollection::class)
         )->identity());
@@ -62,7 +61,7 @@ class Type3TokenSequenceRepresentativeTest extends TestCase
             $this->mockTokenSequenceWithIdentity('b'),
             $this->mockTokenSequenceWithIdentity('c'),
         ];
-        self::assertSame('a-b-c', Type3TokenSequenceRepresentative::create(
+        self::assertSame('a-b-c', Type3SourceCloneCandidate::create(
             $tokenSequences,
             $this->createMock(MethodsCollection::class)
         )->__toString());

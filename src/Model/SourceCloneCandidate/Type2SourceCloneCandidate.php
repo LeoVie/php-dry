@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Model\TokenSequenceRepresentative;
+namespace App\Model\SourceCloneCandidate;
 
 use App\Collection\MethodsCollection;
 use App\Model\Identity;
 use LeoVie\PhpGrouper\Model\GroupIdentifiable;
 use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 
-class Type2TokenSequenceRepresentative implements TokenSequenceRepresentative, Identity, \Stringable, GroupIdentifiable
+class Type2SourceCloneCandidate implements SourceCloneCandidate, Identity, \Stringable, GroupIdentifiable
 {
     private function __construct(private TokenSequence $tokenSequence, private MethodsCollection $methodsCollection)
     {}

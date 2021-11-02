@@ -2,38 +2,38 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Factory\TokenSequenceRepresentative;
+namespace App\Tests\Unit\Factory\SourceCloneCandidate;
 
 use App\Collection\MethodsCollection;
-use App\Factory\TokenSequenceRepresentative\Type2TokenSequenceRepresentativeFactory;
-use App\Merge\Type2TokenSequenceRepresentativeMerger;
+use App\Factory\SourceCloneCandidate\Type2SourceCloneCandidateFactory;
+use App\Merge\Type2SourceCloneCandidatesMerger;
 use App\Model\Method\Method;
-use App\Model\TokenSequenceRepresentative\Type2TokenSequenceRepresentative;
-use App\Model\TokenSequenceRepresentative\Type1TokenSequenceRepresentative;
+use App\Model\SourceCloneCandidate\Type2SourceCloneCandidate;
+use App\Model\SourceCloneCandidate\Type1SourceCloneCandidate;
 use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 use LeoVie\PhpTokenNormalize\Service\TokenSequenceNormalizer;
 use PHPUnit\Framework\TestCase;
 
-class Type2TokenSequenceRepresentativeFactoryTest extends TestCase
+class Type2SourceCloneCandidateFactoryTest extends TestCase
 {
-    /** @dataProvider createMultipleByTokenSequenceRepresentativesProvider */
-    public function testCreateMultipleByTokenSequenceRepresentatives(
+    /** @dataProvider createMultipleProvider */
+    public function testCreateMultiple(
         array                   $expected,
         TokenSequenceNormalizer $tokenSequenceNormalizer,
-        array                   $tokenSequenceRepresentatives,
+        array                   $sourceCloneCandidates,
     ): void
     {
-        $type2TokenSequenceRepresentativeMerger = $this->createMock(Type2TokenSequenceRepresentativeMerger::class);
-        $type2TokenSequenceRepresentativeMerger->method('merge')->willReturnArgument(0);
+        $type2SourceCloneCandidatesMerger = $this->createMock(Type2SourceCloneCandidatesMerger::class);
+        $type2SourceCloneCandidatesMerger->method('merge')->willReturnArgument(0);
 
         self::assertEquals(
             $expected,
-            (new Type2TokenSequenceRepresentativeFactory($tokenSequenceNormalizer, $type2TokenSequenceRepresentativeMerger))
-                ->createMultiple($tokenSequenceRepresentatives)
+            (new Type2SourceCloneCandidateFactory($tokenSequenceNormalizer, $type2SourceCloneCandidatesMerger))
+                ->createMultiple($sourceCloneCandidates)
         );
     }
 
-    public function createMultipleByTokenSequenceRepresentativesProvider(): \Generator
+    public function createMultipleProvider(): \Generator
     {
         $tokenSequences = [
             TokenSequence::create([$this->createMock(\PhpToken::class)]),
@@ -47,12 +47,12 @@ class Type2TokenSequenceRepresentativeFactoryTest extends TestCase
             ),
         ];
 
-        $type1TokenSequenceRepresentatives = [
-            Type1TokenSequenceRepresentative::create(
+        $type1SourceCloneCandidates = [
+            Type1SourceCloneCandidate::create(
                 $tokenSequences[0],
                 $methodsCollections[0]
             ),
-            Type1TokenSequenceRepresentative::create(
+            Type1SourceCloneCandidate::create(
                 $tokenSequences[1],
                 $methodsCollections[1]
             ),
@@ -64,11 +64,11 @@ class Type2TokenSequenceRepresentativeFactoryTest extends TestCase
         ];
 
         $expected = [
-            Type2TokenSequenceRepresentative::create(
+            Type2SourceCloneCandidate::create(
                 $normalizedTokenSequences[0],
                 $methodsCollections[0]
             ),
-            Type2TokenSequenceRepresentative::create(
+            Type2SourceCloneCandidate::create(
                 $normalizedTokenSequences[1],
                 $methodsCollections[1]
             ),
@@ -80,7 +80,7 @@ class Type2TokenSequenceRepresentativeFactoryTest extends TestCase
         yield [
             $expected,
             $tokenSequenceNormalizer,
-            $type1TokenSequenceRepresentatives,
+            $type1SourceCloneCandidates,
         ];
     }
 }

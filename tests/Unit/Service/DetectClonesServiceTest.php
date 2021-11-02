@@ -10,9 +10,9 @@ use App\CloneDetection\Type3CloneDetector;
 use App\CloneDetection\Type4CloneDetector;
 use App\Command\Output\DetectClonesCommandOutput;
 use App\Configuration\Configuration;
-use App\Factory\TokenSequenceRepresentative\Type1TokenSequenceRepresentativeFactory;
-use App\Factory\TokenSequenceRepresentative\Type2TokenSequenceRepresentativeFactory;
-use App\Factory\TokenSequenceRepresentative\Type3TokenSequenceRepresentativeFactory;
+use App\Factory\SourceCloneCandidate\Type1SourceCloneCandidateFactory;
+use App\Factory\SourceCloneCandidate\Type2SourceCloneCandidateFactory;
+use App\Factory\SourceCloneCandidate\Type3SourceCloneCandidateFactory;
 use App\File\FindFiles;
 use App\Grouper\MethodsBySignatureGrouper;
 use App\Model\SourceClone\SourceClone;
@@ -42,16 +42,17 @@ class DetectClonesServiceTest extends TestCase
         $type3CloneDetector = $this->createMock(Type3CloneDetector::class);
         $type3CloneDetector->method('detect')->willReturn(['type 3 clones']);
 
-        $type1TokenSequenceRepresentativeFactory = $this->createMock(Type1TokenSequenceRepresentativeFactory::class);
-        $type1TokenSequenceRepresentativeFactory->method('createMultiple')->willReturn([]);
+        $type1SourceCloneCandidateFactory = $this->createMock(Type1SourceCloneCandidateFactory::class);
+        $type1SourceCloneCandidateFactory->method('createMultiple')->willReturn([]);
 
-        $type2TokenSequenceRepresentativeFactory = $this->createMock(Type2TokenSequenceRepresentativeFactory::class);
-        $type2TokenSequenceRepresentativeFactory->method('createMultiple')->willReturn([]);
+        $type2SourceCloneCandidateFactory = $this->createMock(Type2SourceCloneCandidateFactory::class);
+        $type2SourceCloneCandidateFactory->method('createMultiple')->willReturn([]);
 
-        $type3TokenSequenceRepresentativeFactory = $this->createMock(Type3TokenSequenceRepresentativeFactory::class);
-        $type3TokenSequenceRepresentativeFactory->method('createMultiple')->willReturn([]);
+        $type3SourceCloneCandidateFactory = $this->createMock(Type3SourceCloneCandidateFactory::class);
+        $type3SourceCloneCandidateFactory->method('createMultiple')->willReturn([]);
 
         $type4CloneDetector = $this->createMock(Type4CloneDetector::class);
+        $type4CloneDetector->method('detect')->willReturn(['type 4 clones']);
 
         $detectClonesService = new DetectClonesService(
             $findFiles,
@@ -60,9 +61,9 @@ class DetectClonesServiceTest extends TestCase
             $type1CloneDetector,
             $type2CloneDetector,
             $type3CloneDetector,
-            $type1TokenSequenceRepresentativeFactory,
-            $type2TokenSequenceRepresentativeFactory,
-            $type3TokenSequenceRepresentativeFactory,
+            $type1SourceCloneCandidateFactory,
+            $type2SourceCloneCandidateFactory,
+            $type3SourceCloneCandidateFactory,
             $type4CloneDetector
         );
 
@@ -76,6 +77,7 @@ class DetectClonesServiceTest extends TestCase
             SourceClone::TYPE_1 => ['type 1 clones'],
             SourceClone::TYPE_2 => ['type 2 clones'],
             SourceClone::TYPE_3 => ['type 3 clones'],
+            SourceClone::TYPE_4 => ['type 4 clones'],
         ];
 
         self::assertSame($expected, $detectClonesService->detectInDirectory($configuration, $output));

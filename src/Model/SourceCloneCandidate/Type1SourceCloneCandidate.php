@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Model\TokenSequenceRepresentative;
+namespace App\Model\SourceCloneCandidate;
 
 use App\Collection\MethodsCollection;
 use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 
-class Type1TokenSequenceRepresentative implements TokenSequenceRepresentative
+class Type1SourceCloneCandidate implements SourceCloneCandidate
 {
     private function __construct(private TokenSequence $tokenSequence, private MethodsCollection $methodsCollection)
     {}

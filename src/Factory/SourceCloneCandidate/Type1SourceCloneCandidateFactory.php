@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Factory\TokenSequenceRepresentative;
+namespace App\Factory\SourceCloneCandidate;
 
 use App\Exception\CollectionCannotBeEmpty;
 use App\Factory\Collection\MethodsCollectionFactory;
@@ -11,11 +11,11 @@ use App\Grouper\MethodTokenSequencesByTokenSequencesGrouper;
 use App\Model\Method\Method;
 use App\Model\Method\MethodSignatureGroup;
 use App\Model\Method\MethodTokenSequence;
-use App\Model\TokenSequenceRepresentative\Type1TokenSequenceRepresentative;
+use App\Model\SourceCloneCandidate\Type1SourceCloneCandidate;
 use App\Util\ArrayUtil;
 use LeoVie\PhpTokenNormalize\Service\TokenSequenceNormalizer;
 
-class Type1TokenSequenceRepresentativeFactory
+class Type1SourceCloneCandidateFactory
 {
     public function __construct(
         private MethodTokenSequencesByTokenSequencesGrouper $methodTokenSequencesByTokenSequencesGrouper,
@@ -30,7 +30,7 @@ class Type1TokenSequenceRepresentativeFactory
     /**
      * @param MethodSignatureGroup[] $methodSignatureGroups
      *
-     * @return Type1TokenSequenceRepresentative[]
+     * @return Type1SourceCloneCandidate[]
      * @throws CollectionCannotBeEmpty
      */
     public function createMultiple(array $methodSignatureGroups): array
@@ -44,7 +44,7 @@ class Type1TokenSequenceRepresentativeFactory
     }
 
     /**
-     * @return Type1TokenSequenceRepresentative[]
+     * @return Type1SourceCloneCandidate[]
      * @throws CollectionCannotBeEmpty
      */
     private function createMultipleForOneMethodsCollection(MethodSignatureGroup $methodSignatureGroup): array
@@ -62,12 +62,12 @@ class Type1TokenSequenceRepresentativeFactory
     /**
      * @param array<MethodTokenSequence[]> $groupedMethodTokenSequences
      *
-     * @return Type1TokenSequenceRepresentative[]
+     * @return Type1SourceCloneCandidate[]
      * @throws CollectionCannotBeEmpty
      */
     private function createMultipleForMultipleMethodTokenSequencesGroups(array $groupedMethodTokenSequences): array
     {
-        return array_map(fn(array $methodTokenSequences): Type1TokenSequenceRepresentative => Type1TokenSequenceRepresentative::create(
+        return array_map(fn(array $methodTokenSequences): Type1SourceCloneCandidate => Type1SourceCloneCandidate::create(
             $methodTokenSequences[0]->getTokenSequence(),
             $this->methodsCollectionFactory->fromMethodTokenSequence($methodTokenSequences),
         ), $groupedMethodTokenSequences);

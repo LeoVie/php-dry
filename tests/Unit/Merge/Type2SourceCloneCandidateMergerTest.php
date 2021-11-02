@@ -5,25 +5,25 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Merge;
 
 use App\Collection\MethodsCollection;
-use App\Merge\Type2TokenSequenceRepresentativeMerger;
+use App\Merge\Type2SourceCloneCandidatesMerger;
 use App\Model\Method\Method;
-use App\Model\TokenSequenceRepresentative\Type2TokenSequenceRepresentative;
+use App\Model\SourceCloneCandidate\Type2SourceCloneCandidate;
 use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 use PHPUnit\Framework\TestCase;
 
-class Type2TokenSequenceRepresentativeMergerTest extends TestCase
+class Type2SourceCloneCandidateMergerTest extends TestCase
 {
     /** @dataProvider mergeProvider */
-    public function testMerge(array $expected, array $type2TokenSequenceRepresentatives): void
+    public function testMerge(array $expected, array $type2SourceCloneCandidates): void
     {
-        self::assertEquals($expected, (new Type2TokenSequenceRepresentativeMerger())->merge($type2TokenSequenceRepresentatives));
+        self::assertEquals($expected, (new Type2SourceCloneCandidatesMerger())->merge($type2SourceCloneCandidates));
     }
 
     public function mergeProvider(): \Generator
     {
         yield 'empty' => [
             'expected' => [],
-            'type2TokenSequenceRepresentatives' => [],
+            'type2SourceCloneCandidates' => [],
         ];
 
         $tokenSequence1 = TokenSequence::create([
@@ -41,29 +41,29 @@ class Type2TokenSequenceRepresentativeMergerTest extends TestCase
 
         yield 'not empty' => [
             'expected' => [
-                Type2TokenSequenceRepresentative::create(
+                Type2SourceCloneCandidate::create(
                     $tokenSequence1,
                     MethodsCollection::create($method1, $method2, $method4, $method5)
                 ),
-                Type2TokenSequenceRepresentative::create(
+                Type2SourceCloneCandidate::create(
                     $tokenSequence2,
                     MethodsCollection::create($method3, $method6)
                 ),
             ],
-            'type2TokenSequenceRepresentatives' => [
-                Type2TokenSequenceRepresentative::create(
+            'type2SourceCloneCandidates' => [
+                Type2SourceCloneCandidate::create(
                     $tokenSequence1,
                     MethodsCollection::create($method1, $method2)
                 ),
-                Type2TokenSequenceRepresentative::create(
+                Type2SourceCloneCandidate::create(
                     $tokenSequence2,
                     MethodsCollection::create($method3)
                 ),
-                Type2TokenSequenceRepresentative::create(
+                Type2SourceCloneCandidate::create(
                     $tokenSequence1,
                     MethodsCollection::create($method4, $method5)
                 ),
-                Type2TokenSequenceRepresentative::create(
+                Type2SourceCloneCandidate::create(
                     $tokenSequence2,
                     MethodsCollection::create($method6)
                 ),
