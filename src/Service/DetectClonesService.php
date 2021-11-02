@@ -58,16 +58,9 @@ class DetectClonesService
 
         $output->foundMethods(count($methods));
 
-        $methodsGroupedBySignatures = $this->methodsBySignatureGrouper->groupOld($methods);
-
         $methodSignatureGroups = $this->methodsBySignatureGrouper->group($methods);
 
-        print("\n\n\n");
-        print(join("\n\n", array_map(fn(MethodSignatureGroup $mg): string => $mg->__toString(), $methodSignatureGroups)));
-        print("\n");
-        die;
-
-        $type1TSRs = $this->type1TokenSequenceRepresentativeFactory->createMultiple($methodsGroupedBySignatures);
+        $type1TSRs = $this->type1TokenSequenceRepresentativeFactory->createMultiple($methodSignatureGroups);
         $type1Clones = $this->type1CloneDetector->detect($type1TSRs);
 
         $type2TSRs = $this->type2TokenSequenceRepresentativeFactory->createMultiple($type1TSRs);

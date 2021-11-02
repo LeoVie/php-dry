@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Factory\TokenSequenceRepresentative;
 
-use App\Collection\MethodsCollection;
 use App\Exception\CollectionCannotBeEmpty;
 use App\Factory\Collection\MethodsCollectionFactory;
 use App\Factory\TokenSequenceFactory;
 use App\Grouper\MethodTokenSequencesByTokenSequencesGrouper;
 use App\Model\Method\Method;
+use App\Model\Method\MethodSignatureGroup;
 use App\Model\Method\MethodTokenSequence;
 use App\Model\TokenSequenceRepresentative\Type1TokenSequenceRepresentative;
 use App\Util\ArrayUtil;
@@ -28,17 +28,17 @@ class Type1TokenSequenceRepresentativeFactory
     }
 
     /**
-     * @param MethodsCollection[] $methodsCollections
+     * @param MethodSignatureGroup[] $methodSignatureGroups
      *
      * @return Type1TokenSequenceRepresentative[]
      * @throws CollectionCannotBeEmpty
      */
-    public function createMultiple(array $methodsCollections): array
+    public function createMultiple(array $methodSignatureGroups): array
     {
         return $this->arrayUtil->flatten(
             array_map(
-                fn(MethodsCollection $mc): array => $this->createMultipleForOneMethodsCollection($mc),
-                $methodsCollections
+                fn(MethodSignatureGroup $msg): array => $this->createMultipleForOneMethodsCollection($msg),
+                $methodSignatureGroups
             )
         );
     }
@@ -47,12 +47,12 @@ class Type1TokenSequenceRepresentativeFactory
      * @return Type1TokenSequenceRepresentative[]
      * @throws CollectionCannotBeEmpty
      */
-    private function createMultipleForOneMethodsCollection(MethodsCollection $methodsCollection): array
+    private function createMultipleForOneMethodsCollection(MethodSignatureGroup $methodSignatureGroup): array
     {
         $methodTokenSequences = array_map(fn(Method $m): MethodTokenSequence => MethodTokenSequence::create(
             $m,
             $this->tokenSequenceNormalizer->normalizeLevel1($this->tokenSequenceFactory->createFromMethod($m))
-        ), $methodsCollection->getAll());
+        ), $methodSignatureGroup->getMethodsCollection()->getAll());
 
         $groupedMethodTokenSequences = $this->methodTokenSequencesByTokenSequencesGrouper->group($methodTokenSequences);
 
