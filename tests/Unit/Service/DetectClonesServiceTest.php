@@ -7,6 +7,7 @@ namespace App\Tests\Unit\Service;
 use App\CloneDetection\Type1CloneDetector;
 use App\CloneDetection\Type2CloneDetector;
 use App\CloneDetection\Type3CloneDetector;
+use App\CloneDetection\Type4CloneDetector;
 use App\Command\Output\DetectClonesCommandOutput;
 use App\Configuration\Configuration;
 use App\Factory\TokenSequenceRepresentative\Type1TokenSequenceRepresentativeFactory;
@@ -50,6 +51,8 @@ class DetectClonesServiceTest extends TestCase
         $type3TokenSequenceRepresentativeFactory = $this->createMock(Type3TokenSequenceRepresentativeFactory::class);
         $type3TokenSequenceRepresentativeFactory->method('createMultiple')->willReturn([]);
 
+        $type4CloneDetector = $this->createMock(Type4CloneDetector::class);
+
         $detectClonesService = new DetectClonesService(
             $findFiles,
             $findMethodsInPathsService,
@@ -59,7 +62,8 @@ class DetectClonesServiceTest extends TestCase
             $type3CloneDetector,
             $type1TokenSequenceRepresentativeFactory,
             $type2TokenSequenceRepresentativeFactory,
-            $type3TokenSequenceRepresentativeFactory
+            $type3TokenSequenceRepresentativeFactory,
+            $type4CloneDetector
         );
 
         $configuration = Configuration::create('', 0, 0);
