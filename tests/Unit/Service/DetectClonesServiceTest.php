@@ -13,6 +13,7 @@ use App\Configuration\Configuration;
 use App\Factory\SourceCloneCandidate\Type1SourceCloneCandidateFactory;
 use App\Factory\SourceCloneCandidate\Type2SourceCloneCandidateFactory;
 use App\Factory\SourceCloneCandidate\Type3SourceCloneCandidateFactory;
+use App\Factory\SourceCloneCandidate\Type4SourceCloneCandidateFactory;
 use App\File\FindFiles;
 use App\Grouper\MethodsBySignatureGrouper;
 use App\Model\SourceClone\SourceClone;
@@ -42,6 +43,9 @@ class DetectClonesServiceTest extends TestCase
         $type3CloneDetector = $this->createMock(Type3CloneDetector::class);
         $type3CloneDetector->method('detect')->willReturn(['type 3 clones']);
 
+        $type4CloneDetector = $this->createMock(Type4CloneDetector::class);
+        $type4CloneDetector->method('detect')->willReturn(['type 4 clones']);
+
         $type1SourceCloneCandidateFactory = $this->createMock(Type1SourceCloneCandidateFactory::class);
         $type1SourceCloneCandidateFactory->method('createMultiple')->willReturn([]);
 
@@ -51,8 +55,8 @@ class DetectClonesServiceTest extends TestCase
         $type3SourceCloneCandidateFactory = $this->createMock(Type3SourceCloneCandidateFactory::class);
         $type3SourceCloneCandidateFactory->method('createMultiple')->willReturn([]);
 
-        $type4CloneDetector = $this->createMock(Type4CloneDetector::class);
-        $type4CloneDetector->method('detect')->willReturn(['type 4 clones']);
+        $type4SourceCloneCandidateFactory = $this->createMock(Type4SourceCloneCandidateFactory::class);
+        $type4SourceCloneCandidateFactory->method('createMultiple')->willReturn([]);
 
         $detectClonesService = new DetectClonesService(
             $findFiles,
@@ -61,10 +65,11 @@ class DetectClonesServiceTest extends TestCase
             $type1CloneDetector,
             $type2CloneDetector,
             $type3CloneDetector,
+            $type4CloneDetector,
             $type1SourceCloneCandidateFactory,
             $type2SourceCloneCandidateFactory,
             $type3SourceCloneCandidateFactory,
-            $type4CloneDetector
+            $type4SourceCloneCandidateFactory,
         );
 
         $configuration = Configuration::create('', 0, 0);

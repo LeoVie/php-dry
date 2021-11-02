@@ -11,13 +11,16 @@ use App\CloneDetection\Type4CloneDetector;
 use App\Command\Output\DetectClonesCommandOutput;
 use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
+use App\Exception\NoParamRequestForParamType;
 use App\Factory\SourceCloneCandidate\Type1SourceCloneCandidateFactory;
 use App\Factory\SourceCloneCandidate\Type2SourceCloneCandidateFactory;
 use App\Factory\SourceCloneCandidate\Type3SourceCloneCandidateFactory;
+use App\Factory\SourceCloneCandidate\Type4SourceCloneCandidateFactory;
 use App\File\FindFiles;
 use App\Grouper\MethodsBySignatureGrouper;
 use App\Model\SourceClone\SourceClone;
 use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
+use LeoVie\PhpParamGenerator\Exception\NoParamGeneratorFoundForParamRequest;
 use Safe\Exceptions\FilesystemException;
 use Safe\Exceptions\StringsException;
 
@@ -30,10 +33,11 @@ class DetectClonesService
         private Type1CloneDetector               $type1CloneDetector,
         private Type2CloneDetector               $type2CloneDetector,
         private Type3CloneDetector               $type3CloneDetector,
+        private Type4CloneDetector               $type4CloneDetector,
         private Type1SourceCloneCandidateFactory $type1SourceCloneCandidateFactory,
         private Type2SourceCloneCandidateFactory $type2SourceCloneCandidateFactory,
         private Type3SourceCloneCandidateFactory $type3SourceCloneCandidateFactory,
-        private Type4CloneDetector               $type4CloneDetector,
+        private Type4SourceCloneCandidateFactory $type4SourceCloneCandidateFactory,
     )
     {
     }
@@ -41,10 +45,12 @@ class DetectClonesService
     /**
      * @return SourceClone[][]
      *
-     * @throws FilesystemException
-     * @throws StringsException
-     * @throws NodeTypeNotConvertable
      * @throws CollectionCannotBeEmpty
+     * @throws FilesystemException
+     * @throws NodeTypeNotConvertable
+     * @throws StringsException
+     * @throws NoParamRequestForParamType
+     * @throws NoParamGeneratorFoundForParamRequest
      */
     public function detectInDirectory(Configuration $configuration, DetectClonesCommandOutput $output): array
     {
@@ -67,8 +73,8 @@ class DetectClonesService
         $type3SCCs = $this->type3SourceCloneCandidateFactory->createMultiple($type2SCCs, $configuration);
         $type3Clones = $this->type3CloneDetector->detect($type3SCCs);
 
-
-        $type4Clones = $this->type4CloneDetector->detect($methodSignatureGroups);
+        $type4SCCS = $this->type4SourceCloneCandidateFactory->createMultiple($methodSignatureGroups);
+        $type4Clones = $this->type4CloneDetector->detect($type4SCCS);
 
         return [
             SourceClone::TYPE_1 => $type1Clones,
