@@ -29,4 +29,7 @@ services:
   Eloquent\Lcs\LcsSolver:
     factory: [ 'App\ServiceFactory\LcsSolverForPhpTokensFactory', 'create' ]
 
-
+php_method_runner:
+  directories:
+    template_directory: '%kernel.project_dir%/vendor/leovie/php-method-runner/template'
+    generated_directory: '%kernel.project_dir%/generated'

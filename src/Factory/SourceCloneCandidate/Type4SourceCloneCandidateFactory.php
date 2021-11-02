@@ -32,6 +32,7 @@ class Type4SourceCloneCandidateFactory
         private MethodRunner            $methodRunner,
         private TokenSequenceFactory    $tokenSequenceFactory,
         private TokenSequenceNormalizer $tokenSequenceNormalizer,
+        private Configuration           $configuration,
     )
     {
     }
@@ -49,9 +50,7 @@ class Type4SourceCloneCandidateFactory
     {
         $sourceCloneCandidates = [];
 
-        $methodRunnerConfiguration = Configuration::create(
-            __DIR__ . '/../../../generated'
-        );
+        $methodRunnerConfiguration = $this->configuration;
 
         foreach ($methodSignatureGroups as $methodSignatureGroup) {
             $signature = $methodSignatureGroup->getMethodsCollection()->getFirst()->getMethodSignature();

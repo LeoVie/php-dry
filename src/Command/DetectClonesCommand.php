@@ -8,10 +8,12 @@ use App\Command\Output\DetectClonesCommandOutput;
 use App\Command\Output\Helper\VerboseOutputHelper;
 use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
+use App\Exception\NoParamRequestForParamType;
 use App\Service\DetectClonesService;
 use App\Service\IgnoreClonesService;
 use App\ServiceFactory\StopwatchFactory;
 use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
+use LeoVie\PhpParamGenerator\Exception\NoParamGeneratorFoundForParamRequest;
 use Safe\Exceptions\FilesystemException;
 use Safe\Exceptions\StringsException;
 use Symfony\Component\Console\Command\Command;
@@ -59,6 +61,8 @@ class DetectClonesCommand extends Command
      * @throws FilesystemException
      * @throws NodeTypeNotConvertable
      * @throws StringsException
+     * @throws NoParamRequestForParamType
+     * @throws NoParamGeneratorFoundForParamRequest
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
