@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Find;
+namespace App\Tests\Unit\File;
 
 use App\File\FindFiles;
 use App\ServiceFactory\FinderFactory;
