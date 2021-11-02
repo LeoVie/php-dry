@@ -12,14 +12,17 @@ use App\Collection\MethodsCollection;
 use App\Command\Output\DetectClonesCommandOutput;
 use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
+use App\Factory\TokenSequenceFactory;
 use App\Factory\TokenSequenceRepresentative\Type1TokenSequenceRepresentativeFactory;
 use App\Factory\TokenSequenceRepresentative\Type2TokenSequenceRepresentativeFactory;
 use App\Factory\TokenSequenceRepresentative\Type3TokenSequenceRepresentativeFactory;
 use App\File\FindFiles;
 use App\Grouper\MethodsBySignatureGrouper;
+use App\Model\Method\Method;
 use App\Model\Method\MethodSignatureGroup;
 use App\Model\SourceClone\SourceClone;
 use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
+use LeoVie\PhpTokenNormalize\Service\TokenSequenceNormalizer;
 use Safe\Exceptions\FilesystemException;
 use Safe\Exceptions\StringsException;
 
@@ -69,10 +72,14 @@ class DetectClonesService
         $type3TSRs = $this->type3TokenSequenceRepresentativeFactory->createMultiple($type2TSRs, $configuration);
         $type3Clones = $this->type3CloneDetector->detect($type3TSRs);
 
+
+        $type4Clones = $this->type4CloneDetector->detect($methodSignatureGroups);
+
         return [
             SourceClone::TYPE_1 => $type1Clones,
             SourceClone::TYPE_2 => $type2Clones,
             SourceClone::TYPE_3 => $type3Clones,
+            SourceClone::TYPE_4 => $type4Clones,
         ];
     }
 }

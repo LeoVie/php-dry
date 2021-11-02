@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Model\Method;
 
 use App\Model\CodePosition\CodePositionRange;
+use App\Model\Identity;
 use Safe\Exceptions\StringsException;
 use Stringable;
 
-class Method implements Stringable
+class Method implements Stringable, Identity
 {
     private function __construct(
         private MethodSignature   $methodSignature,
@@ -54,6 +55,11 @@ class Method implements Stringable
     public function getContent(): string
     {
         return $this->content;
+    }
+
+    public function identity(): string
+    {
+        return $this->__toString();
     }
 
     /** @throws StringsException */

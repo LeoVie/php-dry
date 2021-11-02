@@ -10,7 +10,9 @@ class Type3WithAdditionalStatements
             $returnedValues[] = $items[$i] * $n;
         }
 
-        var_dump($items);
+        foreach ($items as $item) {
+            print($item . "\n");
+        }
 
         return $returnedValues;
     }

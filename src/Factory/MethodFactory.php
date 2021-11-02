@@ -75,7 +75,7 @@ class MethodFactory
             $filepath,
             Boundaries::create(
                 $codePositionRange->getStart()->getFilePos(),
-                $codePositionRange->getEnd()->getFilePos()
+                $codePositionRange->getEnd()->getFilePos() + 1
             )
         );
     }

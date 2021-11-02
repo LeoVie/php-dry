@@ -54,6 +54,19 @@ class MethodsCollection
         return $this;
     }
 
+    // TODO: Remove this unused method
+    public function remove(Method $method): self
+    {
+        $withoutMethod = $this->methods->filter(fn(Method $m): bool => $m->identity() !== $method->identity());
+        if ($withoutMethod->count() === 0) {
+            throw CollectionCannotBeEmpty::create();
+        }
+
+        $this->methods = $withoutMethod;
+
+        return $this;
+    }
+
     public function count(): int
     {
         return $this->methods->count();
