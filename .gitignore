@@ -2,7 +2,8 @@
 # Composer
 #
 vendor
-bin
+bin/*
+!bin/console
 composer.lock
 
 #
