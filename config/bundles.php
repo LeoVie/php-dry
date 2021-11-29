@@ -8,4 +8,5 @@ return [
     LeoVie\PhpGrouper\PhpGrouperBundle::class => ['all' => true],
     LeoVie\PhpParamGenerator\PhpParamGeneratorBundle::class => ['all' => true],
     LeoVie\PhpMethodRunner\PhpMethodRunnerBundle::class => ['all' => true],
+    LeoVie\PhpCleanCode\PhpCleanCodeBundle::class => ['all' => true],
 ];

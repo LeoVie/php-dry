@@ -47,6 +47,9 @@
     "justinrainbow/json-schema": {
         "version": "5.2.11"
     },
+    "leovie/php-clean-code-bundle": {
+        "version": "dev-main"
+    },
     "leovie/php-filesystem": {
         "version": "dev-main"
     },

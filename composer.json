@@ -6,10 +6,11 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=8.0.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "eloquent/lcs": "^2.0",
+        "leovie/php-clean-code-bundle": "dev-main",
         "leovie/php-filesystem": "dev-main",
         "leovie/php-grouper": "dev-main",
         "leovie/php-method-runner": "dev-main",
@@ -59,6 +60,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/LeoVie/php-method-runner.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/LeoVie/php-clean-code-bundle.git"
         }
     ],
     "autoload": {
