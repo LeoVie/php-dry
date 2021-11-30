@@ -9,4 +9,5 @@ return [
     LeoVie\PhpParamGenerator\PhpParamGeneratorBundle::class => ['all' => true],
     LeoVie\PhpMethodRunner\PhpMethodRunnerBundle::class => ['all' => true],
     LeoVie\PhpCleanCode\PhpCleanCodeBundle::class => ['all' => true],
+    LeoVie\PhpMethodModifier\PhpMethodModifierBundle::class => ['all' => true],
 ];

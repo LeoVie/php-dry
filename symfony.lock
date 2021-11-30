@@ -56,6 +56,9 @@
     "leovie/php-grouper": {
         "version": "dev-main"
     },
+    "leovie/php-method-modifier": {
+        "version": "dev-main"
+    },
     "leovie/php-method-runner": {
         "version": "dev-main"
     },

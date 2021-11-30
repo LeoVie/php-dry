@@ -12,6 +12,10 @@ use App\Exception\NoParamRequestForParamType;
 use App\Service\DetectClonesService;
 use App\Service\IgnoreClonesService;
 use App\ServiceFactory\StopwatchFactory;
+use LeoVie\PhpCleanCode\Rule\FileRuleResults;
+use LeoVie\PhpCleanCode\Service\CleanCodeCheckerService;
+use LeoVie\PhpCleanCode\Service\CleanCodeScorerService;
+use LeoVie\PhpMethodModifier\Service\MethodModifierService;
 use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
 use LeoVie\PhpParamGenerator\Exception\NoParamGeneratorFoundForParamRequest;
 use Safe\Exceptions\FilesystemException;
@@ -29,8 +33,11 @@ class DetectClonesCommand extends Command
     protected static $defaultName = 'app:detect-clones';
 
     public function __construct(
-        private DetectClonesService $detectClonesService,
-        private IgnoreClonesService $ignoreClonesService
+        private DetectClonesService     $detectClonesService,
+        private IgnoreClonesService     $ignoreClonesService,
+        private CleanCodeCheckerService $cleanCodeCheckerService,
+        private CleanCodeScorerService  $cleanCodeScorerService,
+        private MethodModifierService   $methodModifierService
     )
     {
         parent::__construct(self::$defaultName);
@@ -86,6 +93,19 @@ class DetectClonesCommand extends Command
                 $output
                     ->headline($clone->getType())
                     ->methodsCollection($clone->getMethodsCollection());
+
+                foreach ($clone->getMethodsCollection()->getAll() as $method) {
+                    $methodContent = $this->methodModifierService->modifyMethodToNonClassContext(
+                        $this->methodModifierService->buildMethod($method->getContent())
+                    )->getCode();
+
+                    $ruleResults = FileRuleResults::create($method->getFilepath(), $this->cleanCodeCheckerService->checkCode('<?php ' . $methodContent));
+                    $scoresResult = $this->cleanCodeScorerService->createScoresResult($ruleResults);
+
+                    foreach ($scoresResult->getScores() as $score) {
+                        print($score->getScoreType() . ': ' . $score->getPoints() . "\n");
+                    }
+                }
             }
         }
 
