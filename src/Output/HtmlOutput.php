@@ -25,6 +25,8 @@ class HtmlOutput
     private const BOOTSTRAP_CSS_INTEGRITY = 'sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC';
     private const BOOTSTRAP_JS_URL = 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js';
     private const BOOTSTRAP_JS_INTEGRITY = 'sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM';
+    private const HIGHLIGHT_CSS_URL = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css';
+    private const HIGHLIGHT_JS_URL = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js';
 
     /**
      * @param SourceCloneMethodScoresMapping[] $sourceCloneMethodScoresMappings
@@ -49,41 +51,7 @@ class HtmlOutput
             [Attribute::create('lang', 'en')],
             [
                 $this->createHead(),
-                Tag::create('body',
-                    [],
-                    [
-                        Tag::create('script',
-                            [
-                                Attribute::create('src', self::BOOTSTRAP_JS_URL),
-                                Attribute::create('integrity', self::BOOTSTRAP_JS_INTEGRITY),
-                                Attribute::create('crossorigin', 'anonymous'),
-                            ],
-                            []
-                        ),
-                        Tag::create('div',
-                            [Attribute::create('class', 'container')],
-                            [
-                                Tag::create('h1',
-                                    [],
-                                    [Content::create('Source Code Clones')]
-                                ),
-                                $this->createNavigation(),
-                                Tag::create('div',
-                                    [
-                                        Attribute::create('class', 'tab-content'),
-                                        Attribute::create('id', 'nav-tabContent'),
-                                    ],
-                                    [
-                                        $this->createType1ClonesTab($sortedSourceCloneMethodScoreMappings[SourceClone::TYPE_1]),
-                                        $this->createType2ClonesTab($sortedSourceCloneMethodScoreMappings[SourceClone::TYPE_2]),
-                                        $this->createType3ClonesTab($sortedSourceCloneMethodScoreMappings[SourceClone::TYPE_3]),
-                                        $this->createType4ClonesTab($sortedSourceCloneMethodScoreMappings[SourceClone::TYPE_4]),
-                                    ]
-                                ),
-                            ]
-                        ),
-                    ],
-                ),
+                $this->createBody($sortedSourceCloneMethodScoreMappings),
             ]
         );
 
@@ -119,11 +87,67 @@ class HtmlOutput
                     ],
                     []
                 ),
+                Tag::create('link',
+                    [
+                        Attribute::create('href', self::HIGHLIGHT_CSS_URL),
+                        Attribute::create('rel', 'stylesheet'),
+                    ],
+                    []
+                ),
                 Tag::create('title',
                     [],
                     [Content::create('Source Code Clones')]
                 ),
             ]
+        );
+    }
+
+    private function createBody(array $sortedSourceCloneMethodScoreMappings): Tag
+    {
+        return Tag::create('body',
+            [],
+            [
+                Tag::create('script',
+                    [
+                        Attribute::create('src', self::BOOTSTRAP_JS_URL),
+                        Attribute::create('integrity', self::BOOTSTRAP_JS_INTEGRITY),
+                        Attribute::create('crossorigin', 'anonymous'),
+                    ],
+                    []
+                ),
+                Tag::create('script',
+                    [
+                        Attribute::create('src', self::HIGHLIGHT_JS_URL),
+                    ],
+                    []
+                ),
+                Tag::create('script',
+                    [],
+                    [Content::create('hljs.highlightAll();')]
+                ),
+                Tag::create('div',
+                    [Attribute::create('class', 'container')],
+                    [
+                        Tag::create('h1',
+                            [],
+                            [Content::create('Source Code Clones')]
+                        ),
+                        $this->createNavigation(),
+                        Tag::create('div',
+                            [
+                                Attribute::create('class', 'tab-content'),
+                                Attribute::create('id', 'nav-tabContent'),
+                            ],
+                            [
+                                $this->createType1ClonesTab($sortedSourceCloneMethodScoreMappings[SourceClone::TYPE_1]),
+                                $this->createType2ClonesTab($sortedSourceCloneMethodScoreMappings[SourceClone::TYPE_2]),
+                                $this->createType3ClonesTab($sortedSourceCloneMethodScoreMappings[SourceClone::TYPE_3]),
+                                $this->createType4ClonesTab($sortedSourceCloneMethodScoreMappings[SourceClone::TYPE_4]),
+                            ]
+                        ),
+                    ]
+                ),
+            ],
         );
     }
 
@@ -220,6 +244,7 @@ class HtmlOutput
                         $this->createColumnTh('End'),
                         $this->createColumnTh('Lines'),
                         $this->createColumnTh('Scores'),
+                        $this->createColumnTh('Content'),
                     ]
                 ),
             ]
@@ -266,6 +291,22 @@ class HtmlOutput
                     [],
                     [
                         $this->createScoresList($methodScoresMapping->getScores()),
+                    ]
+                ),
+                Tag::create('td',
+                    [],
+                    [
+                        Tag::create('pre',
+                            [],
+                            [
+                                Tag::create('code',
+                                    [
+                                        Attribute::create('class', 'language-php'),
+                                    ],
+                                    [Content::create($method->getContent())]
+                                ),
+                            ]
+                        ),
                     ]
                 ),
             ]
