@@ -12,6 +12,7 @@ use App\Model\Method\MethodSignatureGroup;
 use App\Model\RunResult\RunResultSet;
 use App\Model\SourceCloneCandidate\Type4SourceCloneCandidate;
 use LeoVie\PhpMethodRunner\Configuration\Configuration;
+use LeoVie\PhpMethodRunner\Exception\CommandFailed;
 use LeoVie\PhpMethodRunner\Model\Method;
 use LeoVie\PhpMethodRunner\Model\MethodRunRequest;
 use LeoVie\PhpMethodRunner\Run\MethodRunner;
@@ -21,6 +22,7 @@ use LeoVie\PhpParamGenerator\Model\ParamRequest\ArrayRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\IntRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamList\ParamListRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamList\ParamListSetRequest;
+use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\StringRequest;
 use LeoVie\PhpParamGenerator\Service\ParamGeneratorService;
 use LeoVie\PhpTokenNormalize\Service\TokenSequenceNormalizer;
@@ -57,12 +59,11 @@ class Type4SourceCloneCandidateFactory
 
             $paramRequests = [];
             foreach ($signature->getParamTypes() as $paramType) {
-                $paramRequests[] = match ($paramType) {
-                    'int' => IntRequest::create(),
-                    'string' => StringRequest::create(),
-                    'array' => ArrayRequest::create([IntRequest::create(), IntRequest::create(), IntRequest::create()]),
-                    default => throw NoParamRequestForParamType::create($paramType)
-                };
+                try {
+                    $paramRequests[] = $this->createParamRequest($paramType);
+                } catch (NoParamRequestForParamType) {
+                    continue 2;
+                }
             }
 
             $paramListSetRequest = ParamListSetRequest::create(
@@ -85,7 +86,11 @@ class Type4SourceCloneCandidateFactory
                         array_map(fn(Param $p): mixed => $p->flatten(), $paramList->getParams())
                     );
 
-                    $methodResults[] = $this->methodRunner->run($methodRunRequest, $methodRunnerConfiguration);
+                    try {
+                        $methodResults[] = $this->methodRunner->run($methodRunRequest);
+                    } catch (CommandFailed) {
+                        continue 2;
+                    }
                 }
 
                 $runResultSet = RunResultSet::create($msgMethod, $paramListSet, $methodResults);
@@ -99,5 +104,16 @@ class Type4SourceCloneCandidateFactory
         }
 
         return $sourceCloneCandidates;
+    }
+
+    /** @throws NoParamRequestForParamType */
+    private function createParamRequest(string $paramType): ParamRequest
+    {
+        return match ($paramType) {
+            'int' => IntRequest::create(),
+            'string' => StringRequest::create(),
+            'array' => ArrayRequest::create([IntRequest::create(), IntRequest::create(), IntRequest::create()]),
+            default => throw NoParamRequestForParamType::create($paramType)
+        };
     }
 }

@@ -12,6 +12,7 @@ use App\Model\SourceCloneCandidate\Type3SourceCloneCandidate;
 use App\TokenAnalyze\LongestCommonSubsequenceAnalyzer;
 use App\Util\ArrayUtil;
 use LeoVie\PhpGrouper\Service\Grouper;
+use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 
 class Type3SourceCloneCandidateFactory
 {

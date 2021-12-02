@@ -11,6 +11,7 @@ class Configuration
         private string $directory,
         private int    $minSimilarTokens,
         private int    $countOfParamSetsForType4Clones,
+        private string $htmlReportFile,
     )
     {
     }
@@ -19,9 +20,10 @@ class Configuration
         string $directory,
         int    $minSimilarTokens,
         int    $countOfParamSetsForType4Clones,
+        string $htmlReportFile,
     ): self
     {
-        return new self($directory, $minSimilarTokens, $countOfParamSetsForType4Clones);
+        return new self($directory, $minSimilarTokens, $countOfParamSetsForType4Clones, $htmlReportFile);
     }
 
     public function directory(): string
@@ -37,5 +39,10 @@ class Configuration
     public function countOfParamSetsForType4Clones(): int
     {
         return $this->countOfParamSetsForType4Clones;
+    }
+
+    public function htmlReportFile(): string
+    {
+        return $this->htmlReportFile;
     }
 }

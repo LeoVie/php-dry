@@ -9,6 +9,10 @@ use App\Command\Output\Helper\VerboseOutputHelper;
 use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
 use App\Exception\NoParamRequestForParamType;
+use App\Model\MethodScoresMapping;
+use App\Model\SourceClone\SourceClone;
+use App\Model\SourceCloneMethodScoresMapping;
+use App\Output\HtmlOutput;
 use App\Service\DetectClonesService;
 use App\Service\IgnoreClonesService;
 use App\ServiceFactory\StopwatchFactory;
@@ -37,7 +41,8 @@ class DetectClonesCommand extends Command
         private IgnoreClonesService     $ignoreClonesService,
         private CleanCodeCheckerService $cleanCodeCheckerService,
         private CleanCodeScorerService  $cleanCodeScorerService,
-        private MethodModifierService   $methodModifierService
+        private MethodModifierService   $methodModifierService,
+        private HtmlOutput              $htmlOutput
     )
     {
         parent::__construct(self::$defaultName);
@@ -86,6 +91,7 @@ class DetectClonesCommand extends Command
         $detected = $this->detectClonesService->detectInDirectory($configuration, $output);
         $clonesToReport = $this->ignoreClonesService->extractNonIgnoredClones($detected, $configuration);
 
+        $sourceCloneMethodScoresMappings = [];
         if (empty($clonesToReport)) {
             $output->noClonesFound();
         } else {
@@ -94,20 +100,38 @@ class DetectClonesCommand extends Command
                     ->headline($clone->getType())
                     ->methodsCollection($clone->getMethodsCollection());
 
+
+                $methodScoresMappings = [];
                 foreach ($clone->getMethodsCollection()->getAll() as $method) {
-                    $methodContent = $this->methodModifierService->modifyMethodToNonClassContext(
-                        $this->methodModifierService->buildMethod($method->getContent())
-                    )->getCode();
+                    if ($clone->getType() === SourceClone::TYPE_4) {
+                        $methodModifiedToNonClassContext = $this->methodModifierService->modifyMethodToNonClassContext(
+                            $this->methodModifierService->buildMethod($method->getContent())
+                        );
+                        $methodContent = $methodModifiedToNonClassContext->getCode();
 
-                    $ruleResults = FileRuleResults::create($method->getFilepath(), $this->cleanCodeCheckerService->checkCode('<?php ' . $methodContent));
-                    $scoresResult = $this->cleanCodeScorerService->createScoresResult($ruleResults);
+                        $ruleResults = FileRuleResults::create($method->getFilepath(), $this->cleanCodeCheckerService->checkCode('<?php ' . $methodContent));
+                        $scoresResult = $this->cleanCodeScorerService->createScoresResult($ruleResults);
 
-                    foreach ($scoresResult->getScores() as $score) {
-                        print($score->getScoreType() . ': ' . $score->getPoints() . "\n");
+                        $methodScoresMappings[] = MethodScoresMapping::create(
+                            $method,
+                            $scoresResult->getScores()
+                        );
+                    } else {
+                        $methodScoresMappings[] = MethodScoresMapping::create(
+                            $method,
+                            []
+                        );
                     }
                 }
+
+                $sourceCloneMethodScoresMappings[] = SourceCloneMethodScoresMapping::create(
+                    $clone,
+                    $methodScoresMappings
+                );
             }
         }
+
+        $this->htmlOutput->createReport($sourceCloneMethodScoresMappings, $configuration->htmlReportFile());
 
         $output->stopTime();
 
@@ -117,9 +141,26 @@ class DetectClonesCommand extends Command
     private function createConfiguration(InputInterface $input): Configuration
     {
         return Configuration::create(
-            (string)$input->getArgument(self::ARGUMENT_DIRECTORY),
-            (int)$input->getArgument(self::ARGUMENT_MIN_SIMILAR_TOKENS),
-            (int)$input->getArgument(self::ARGUMENT_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES),
+            $this->getStringArgument($input, self::ARGUMENT_DIRECTORY),
+            $this->getIntArgument($input, self::ARGUMENT_MIN_SIMILAR_TOKENS),
+            $this->getIntArgument($input, self::ARGUMENT_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES),
+            __DIR__ . '/../../report.html',
         );
+    }
+
+    private function getStringArgument(InputInterface $input, string $name): string
+    {
+        /** @var string $value */
+        $value = $input->getArgument($name);
+
+        return $value;
+    }
+
+    private function getIntArgument(InputInterface $input, string $name): int
+    {
+        /** @var int $value */
+        $value = $input->getArgument($name);
+
+        return $value;
     }
 }

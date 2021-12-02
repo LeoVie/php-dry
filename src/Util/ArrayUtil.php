@@ -45,14 +45,17 @@ class ArrayUtil
      */
     public function removeEntriesThatAreSubsetsOfOtherEntries(array $array): array
     {
-        if (count($array) <= 1) {
-            return array_values($array);
+        /** @var array<array<mixed>> $uniqueArray */
+        $uniqueArray = $this->unique($array);
+
+        if (count($uniqueArray) <= 1) {
+            return array_values($uniqueArray);
         }
 
         $result = [];
 
-        foreach ($array as $i => $a) {
-            foreach ($array as $j => $b) {
+        foreach ($uniqueArray as $i => $a) {
+            foreach ($uniqueArray as $j => $b) {
                 if ($i === $j) {
                     continue;
                 }
@@ -70,5 +73,43 @@ class ArrayUtil
         }
 
         return $result;
+    }
+
+    /**
+     * @param mixed[] $array
+     * @return mixed[]
+     */
+    public function unique(array $array): array
+    {
+        $array = $this->nestedSort($array);
+
+        $unique = [];
+        foreach ($array as $item) {
+            if (!in_array($item, $unique)) {
+                $unique[] = $item;
+            }
+        }
+
+        return $unique;
+    }
+
+    /**
+     * @param mixed[] $array
+     * @return mixed[]
+     */
+    private function nestedSort(array $array): array
+    {
+        $sorted = [];
+        foreach ($array as $item) {
+            if (!is_array($item)) {
+                $sorted[] = $item;
+            } else {
+                $sorted[] = $this->nestedSort($item);
+            }
+        }
+
+        sort($sorted);
+
+        return $sorted;
     }
 }

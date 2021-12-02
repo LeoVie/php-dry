@@ -35,12 +35,15 @@ class Type1SourceCloneCandidateFactory
      */
     public function createMultiple(array $methodSignatureGroups): array
     {
-        return $this->arrayUtil->flatten(
+        /** @var Type1SourceCloneCandidate[] $sourceClonesCandidates */
+        $sourceClonesCandidates = $this->arrayUtil->flatten(
             array_map(
                 fn(MethodSignatureGroup $msg): array => $this->createMultipleForOneMethodsCollection($msg),
                 $methodSignatureGroups
             )
         );
+
+        return $sourceClonesCandidates;
     }
 
     /**

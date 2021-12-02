@@ -120,10 +120,10 @@ class ArrayUtilTest extends TestCase
             ],
             'only one entry' => [
                 'expected' => [
-                    [1, 2, 3]
+                    [1, 2, 3],
                 ],
                 'array' => [
-                    'key that should get removed' => [1, 2, 3]
+                    'key that should get removed' => [1, 2, 3],
                 ],
             ],
             'no subsets contained' => [
@@ -149,6 +149,51 @@ class ArrayUtilTest extends TestCase
                     [4, 5, 6],
                 ],
             ],
+            'all same' => [
+                'expected' => [
+                    [1, 2, 3],
+                ],
+                'array' => [
+                    [1, 2, 3],
+                    [1, 2, 3],
+                ],
+            ],
+        ];
+    }
+
+    /** @dataProvider uniqueProvider */
+    public function testUnique(array $expected, array $array): void
+    {
+        self::assertSame($expected, (new ArrayUtil())->unique($array));
+    }
+
+    public function uniqueProvider(): array
+    {
+        return [
+            'empty' => [
+                'expected' => [],
+                'array' => [],
+            ],
+            'one entry' => [
+                'expected' => [1],
+                'array' => [1],
+            ],
+            'only unique entries' => [
+                'expected' => [1, 2, 3],
+                'array' => [1, 2, 3],
+            ],
+            'one duplicate' => [
+                'expected' => [1, 2, 3],
+                'array' => [1, 2, 2, 3],
+            ],
+            'nested with only unique entries' => [
+                'expected' => [[1], [2], [3]],
+                'array' => [[1], [2], [3]],
+            ],
+            'unsorted nested with duplicate' => [
+                'expected' => [[1, 2, 3]],
+                'array' => [[1, 2, 3], [3, 1, 2]],
+            ]
         ];
     }
 }

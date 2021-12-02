@@ -6,6 +6,7 @@ namespace App\TokenAnalyze;
 
 use Eloquent\Lcs\LcsSolver;
 use LeoVie\PhpTokenNormalize\Model\TokenSequence;
+use PhpToken;
 
 class LongestCommonSubsequenceAnalyzer
 {
@@ -15,6 +16,9 @@ class LongestCommonSubsequenceAnalyzer
 
     public function find(TokenSequence $a, TokenSequence $b): TokenSequence
     {
-        return TokenSequence::create($this->lcsSolver->longestCommonSubsequence($a->getTokens(), $b->getTokens()));
+        /** @var PhpToken[] $longestCommonSubsequence */
+        $longestCommonSubsequence = $this->lcsSolver->longestCommonSubsequence($a->getTokens(), $b->getTokens());
+
+        return TokenSequence::create($longestCommonSubsequence);
     }
 }

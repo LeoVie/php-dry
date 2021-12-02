@@ -72,7 +72,7 @@ class DetectClonesServiceTest extends TestCase
             $type4SourceCloneCandidateFactory,
         );
 
-        $configuration = Configuration::create('', 0, 0);
+        $configuration = Configuration::create('', 0, 0, '');
 
         $output = $this->createMock(DetectClonesCommandOutput::class);
         $output->method('foundFiles')->willReturnSelf();

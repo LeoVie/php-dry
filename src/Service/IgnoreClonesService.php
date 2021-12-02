@@ -27,12 +27,15 @@ class IgnoreClonesService
      */
     public function extractNonIgnoredClones(array $cloneGroups, Configuration $configuration): array
     {
-        return array_values(
+        /** @var SourceClone[] $nonIgnoredClones */
+        $nonIgnoredClones = array_values(
             array_filter(
                 $this->arrayUtil->flatten($cloneGroups),
                 fn(SourceClone $c): bool => !$this->cloneShouldBeIgnored($c, $configuration)
             )
         );
+
+        return $nonIgnoredClones;
     }
 
     private function cloneShouldBeIgnored(SourceClone $clone, Configuration $configuration): bool
