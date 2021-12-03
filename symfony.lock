@@ -71,9 +71,6 @@
     "leovie/php-token-normalize": {
         "version": "dev-main"
     },
-    "loophp/collection": {
-        "version": "5.1.0"
-    },
     "myclabs/deep-copy": {
         "version": "1.10.2"
     },

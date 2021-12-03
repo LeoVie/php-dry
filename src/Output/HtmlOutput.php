@@ -102,6 +102,7 @@ class HtmlOutput
         );
     }
 
+    /** @param SourceCloneMethodScoresMapping[][] $sortedSourceCloneMethodScoreMappings */
     private function createBody(array $sortedSourceCloneMethodScoreMappings): Tag
     {
         return Tag::create('body',

@@ -6,13 +6,11 @@ namespace App\Collection;
 
 use App\Exception\CollectionCannotBeEmpty;
 use App\Model\Method\Method;
-use loophp\collection\Collection;
-use loophp\collection\Contract\Collection as CollectionInterface;
 
 class MethodsCollection
 {
-    /** @var CollectionInterface<int, Method> */
-    private CollectionInterface $methods;
+    /** @var Method[] */
+    private array $methods;
 
     /** @throws CollectionCannotBeEmpty */
     private function __construct(Method ...$methods)
@@ -21,10 +19,7 @@ class MethodsCollection
             throw CollectionCannotBeEmpty::create();
         }
 
-        $this->methods = Collection::empty();
-        foreach ($methods as $method) {
-            $this->add($method);
-        }
+        $this->methods = $methods;
     }
 
     /** @throws CollectionCannotBeEmpty */
@@ -35,41 +30,25 @@ class MethodsCollection
 
     public function getFirst(): Method
     {
-        /** @var Method $first */
-        $first = $this->methods->first()->current();
-
-        return $first;
+        return $this->methods[array_key_first($this->methods)];
     }
 
     /** @return Method[] */
     public function getAll(): array
     {
-        return $this->methods->normalize()->all();
+        return $this->methods;
     }
 
     public function add(Method $method): self
     {
-        $this->methods = $this->methods->append($method);
-
-        return $this;
-    }
-
-    // TODO: Remove this unused method
-    public function remove(Method $method): self
-    {
-        $withoutMethod = $this->methods->filter(fn(Method $m): bool => $m->identity() !== $method->identity());
-        if ($withoutMethod->count() === 0) {
-            throw CollectionCannotBeEmpty::create();
-        }
-
-        $this->methods = $withoutMethod;
+        $this->methods[] = $method;
 
         return $this;
     }
 
     public function count(): int
     {
-        return $this->methods->count();
+        return count($this->methods);
     }
 
     /** @return string[] */

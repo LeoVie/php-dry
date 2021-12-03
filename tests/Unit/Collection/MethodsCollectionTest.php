@@ -84,49 +84,12 @@ class MethodsCollectionTest extends TestCase
         ];
     }
 
-    /** @dataProvider removeProvider */
-    public function testRemove(array $expected, array $methods, Method $toRemove): void
-    {
-        self::assertSame($expected, MethodsCollection::create(...$methods)->remove($toRemove)->getAll());
-    }
-
-    public function removeProvider(): \Generator
-    {
-        $methods = [
-            $this->mockMethodWithIdentity('abc'),
-            $this->mockMethodWithIdentity('def'),
-        ];
-        yield 'multiple methods' => [
-            'expected' => [
-                $methods[1],
-            ],
-            'methods' => $methods,
-            'toRemove' => $methods[0],
-        ];
-    }
-
-    public function testRemoveThrowsIfOnlyMethodGetsRemoved(): void
-    {
-        self::expectException(CollectionCannotBeEmpty::class);
-
-        $method = $this->mockMethodWithIdentity('abc');
-        MethodsCollection::create($method)->remove($method);
-    }
-
     private function mockMethodWithParamTypes(array $paramTypes): Method
     {
         $method = $this->createMock(Method::class);
         $methodSignature = $this->createMock(MethodSignature::class);
         $methodSignature->method('getParamTypes')->willReturn($paramTypes);
         $method->method('getMethodSignature')->willReturn($methodSignature);
-
-        return $method;
-    }
-
-    private function mockMethodWithIdentity(string $identity): Method
-    {
-        $method = $this->createMock(Method::class);
-        $method->method('identity')->willReturn($identity);
 
         return $method;
     }
