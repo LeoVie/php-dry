@@ -5,10 +5,11 @@ namespace App\Output;
 use App\Model\MethodScoresMapping;
 use App\Model\SourceClone\SourceClone;
 use App\Model\SourceCloneMethodScoresMapping;
-use App\Output\Html\Attribute;
-use App\Output\Html\Content;
-use App\Output\Html\Tag;
 use LeoVie\PhpCleanCode\Model\Score;
+use LeoVie\PhpHtmlBuilder\Model\Attribute;
+use LeoVie\PhpHtmlBuilder\Model\Content;
+use LeoVie\PhpHtmlBuilder\Model\HtmlDOM;
+use LeoVie\PhpHtmlBuilder\Model\Tag;
 use Safe\Exceptions\FilesystemException;
 
 class HtmlOutput
@@ -55,9 +56,9 @@ class HtmlOutput
             ]
         );
 
-        $htmlDom->add($htmlTag->asCode());
+        $htmlDom->add($htmlTag);
 
-        \Safe\file_put_contents($reportPath, $htmlDom->getContent());
+        \Safe\file_put_contents($reportPath, $htmlDom->asCode());
 
         return $this;
     }

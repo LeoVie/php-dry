@@ -13,6 +13,7 @@
         "leovie/php-clean-code-bundle": "dev-main",
         "leovie/php-filesystem": "dev-main",
         "leovie/php-grouper": "dev-main",
+        "leovie/php-html-builder": "dev-main",
         "leovie/php-method-modifier": "dev-main",
         "leovie/php-method-runner": "dev-main",
         "leovie/php-methods-parser": "dev-main",
@@ -68,6 +69,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/LeoVie/php-method-modifier.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/LeoVie/php-html-builder.git"
         }
     ],
     "autoload": {
