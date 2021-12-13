@@ -19,6 +19,7 @@ use App\ServiceFactory\StopwatchFactory;
 use LeoVie\PhpCleanCode\Rule\FileRuleResults;
 use LeoVie\PhpCleanCode\Service\CleanCodeCheckerService;
 use LeoVie\PhpCleanCode\Service\CleanCodeScorerService;
+use LeoVie\PhpMethodModifier\Exception\MethodCannotBeModifiedToNonClassContext;
 use LeoVie\PhpMethodModifier\Service\MethodModifierService;
 use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
 use LeoVie\PhpParamGenerator\Exception\NoParamGeneratorFoundForParamRequest;
@@ -34,7 +35,7 @@ class DetectClonesCommand extends Command
     private const ARGUMENT_DIRECTORY = 'directory';
     private const ARGUMENT_MIN_SIMILAR_TOKENS = 'minSimilarTokens';
     private const ARGUMENT_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES = 'countOfParamSetsForType4Clones';
-    protected static $defaultName = 'app:detect-clones';
+    protected static $defaultName = 'php-cd:check';
 
     public function __construct(
         private DetectClonesService     $detectClonesService,
@@ -59,7 +60,7 @@ class DetectClonesCommand extends Command
                 self::ARGUMENT_MIN_SIMILAR_TOKENS,
                 InputArgument::OPTIONAL,
                 'How many similar tokens should be in two fragments to treat them as clones.',
-                3
+                5
             )->addArgument(
                 self::ARGUMENT_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES,
                 InputArgument::OPTIONAL,
@@ -104,9 +105,13 @@ class DetectClonesCommand extends Command
                 $methodScoresMappings = [];
                 foreach ($clone->getMethodsCollection()->getAll() as $method) {
                     if ($clone->getType() === SourceClone::TYPE_4) {
-                        $methodModifiedToNonClassContext = $this->methodModifierService->modifyMethodToNonClassContext(
-                            $this->methodModifierService->buildMethod($method->getContent())
-                        );
+                        try {
+                            $methodModifiedToNonClassContext = $this->methodModifierService->modifyMethodToNonClassContext(
+                                $this->methodModifierService->buildMethod($method->getContent())
+                            );
+                        } catch (MethodCannotBeModifiedToNonClassContext) {
+                            continue;
+                        }
                         $methodContent = $methodModifiedToNonClassContext->getCode();
 
                         $ruleResults = FileRuleResults::create($method->getFilepath(), $this->cleanCodeCheckerService->checkCode('<?php ' . $methodContent));

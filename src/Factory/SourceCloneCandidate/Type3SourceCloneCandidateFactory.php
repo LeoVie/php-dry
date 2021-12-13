@@ -9,23 +9,18 @@ use App\Exception\CollectionCannotBeEmpty;
 use App\Merge\Type3SourceCloneCandidatesMerger;
 use App\Model\SourceCloneCandidate\Type2SourceCloneCandidate;
 use App\Model\SourceCloneCandidate\Type3SourceCloneCandidate;
-use App\TokenAnalyze\LongestCommonSubsequenceAnalyzer;
 use App\Util\ArrayUtil;
 use LeoVie\PhpGrouper\Service\Grouper;
-use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 
 class Type3SourceCloneCandidateFactory
 {
     public function __construct(
-        private LongestCommonSubsequenceAnalyzer $longestCommonSubsequenceAnalyzer,
         private ArrayUtil                        $arrayUtil,
         private Type3SourceCloneCandidatesMerger $type3SourceCloneCandidatesMerger,
         private Grouper                          $grouper
     )
     {
     }
-
-    // TODO: Vergleich eigentlich nur innerhalb der Methodensignatur-Gruppen
 
     /**
      * @param Type2SourceCloneCandidate[] $type2SourceCloneCandidates
@@ -37,15 +32,9 @@ class Type3SourceCloneCandidateFactory
     {
         $type2SourceCloneCandidateGroups = $this->grouper->groupByCallback(
             $type2SourceCloneCandidates,
-            function (Type2SourceCloneCandidate $a, Type2SourceCloneCandidate $b) use ($configuration): bool {
-                if ($a === $b) {
-                    return false;
-                }
-
-                $longestCommonSubsequence = $this->longestCommonSubsequenceAnalyzer->find($a->getTokenSequence(), $b->getTokenSequence());
-
-                return $longestCommonSubsequence->length() >= $configuration->minSimilarTokens();
-            }
+            fn(Type2SourceCloneCandidate $a, Type2SourceCloneCandidate $b): bool => $this->longestCommonSubsequenceIsLongerThanConfiguredThreshold(
+                $a, $b, $configuration
+            )
         );
 
         $type2SCCGroupsWithoutSubsetGroups = $this->arrayUtil->removeEntriesThatAreSubsetsOfOtherEntries($type2SourceCloneCandidateGroups);
@@ -62,5 +51,18 @@ class Type3SourceCloneCandidateFactory
         );
 
         return $this->type3SourceCloneCandidatesMerger->merge($type3SourceCloneCandidates);
+    }
+
+    private function longestCommonSubsequenceIsLongerThanConfiguredThreshold(
+        Type2SourceCloneCandidate $a,
+        Type2SourceCloneCandidate $b,
+        Configuration             $configuration
+    ): bool
+    {
+        if ($a === $b) {
+            return false;
+        }
+
+        return similar_text($a->identity(), $b->identity()) > $configuration->minSimilarTokens();
     }
 }

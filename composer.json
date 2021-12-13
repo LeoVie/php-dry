@@ -9,7 +9,6 @@
         "php": ">=8.0.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "eloquent/lcs": "^2.0",
         "leovie/php-clean-code-bundle": "dev-main",
         "leovie/php-filesystem": "dev-main",
         "leovie/php-grouper": "dev-main",
