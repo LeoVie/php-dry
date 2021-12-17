@@ -10,7 +10,7 @@ use App\Model\Method\Method;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Stopwatch\StopwatchEvent;
 
-class DetectClonesCommandOutput
+class QuietOutput implements OutputFormat
 {
     private function __construct
     (
@@ -34,50 +34,38 @@ class DetectClonesCommandOutput
 
     public function headline(string $headline): self
     {
-        $this->verboseOutputHelper->headline($headline);
-
         return $this;
     }
 
     public function single(string $line): self
     {
-        $this->verboseOutputHelper->single($line);
-
         return $this;
     }
 
     /** @param string[] $items */
     public function listing(array $items): self
     {
-        $this->verboseOutputHelper->listing($items);
-
         return $this;
     }
 
     public function methodsCollection(MethodsCollection $methodsCollection): self
     {
-        return $this->listing(array_map(fn(Method $m) => $m->__toString(), $methodsCollection->getAll()));
+        return $this;
     }
 
     public function foundFiles(int $filesCount): self
     {
-        return $this
-            ->single(\Safe\sprintf('Found %s files:', $filesCount))
-            ->lapTime();
+        return $this->lapTime();
     }
 
     public function foundMethods(int $methodsCount): self
     {
-        return $this
-            ->single(\Safe\sprintf('Found %s methods:', $methodsCount))
-            ->lapTime();
+        return $this->lapTime();
     }
 
     public function foundClones(string $clonesType, int $clonesCount): self
     {
-        return $this
-            ->single(\Safe\sprintf('Found %s %s clones:', $clonesCount, $clonesType))
-            ->lapTime();
+        return $this->lapTime();
     }
 
     public function lapTime(): self
@@ -92,6 +80,6 @@ class DetectClonesCommandOutput
 
     public function noClonesFound(): self
     {
-        return $this->single('No clones found.');
+        return $this;
     }
 }

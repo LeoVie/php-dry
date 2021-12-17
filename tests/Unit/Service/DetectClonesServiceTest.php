@@ -8,7 +8,7 @@ use App\CloneDetection\Type1CloneDetector;
 use App\CloneDetection\Type2CloneDetector;
 use App\CloneDetection\Type3CloneDetector;
 use App\CloneDetection\Type4CloneDetector;
-use App\Command\Output\DetectClonesCommandOutput;
+use App\Command\Output\HumanOutput;
 use App\Configuration\Configuration;
 use App\Factory\SourceCloneCandidate\Type1SourceCloneCandidateFactory;
 use App\Factory\SourceCloneCandidate\Type2SourceCloneCandidateFactory;
@@ -74,7 +74,7 @@ class DetectClonesServiceTest extends TestCase
 
         $configuration = Configuration::create('', 0, 0, '');
 
-        $output = $this->createMock(DetectClonesCommandOutput::class);
+        $output = $this->createMock(HumanOutput::class);
         $output->method('foundFiles')->willReturnSelf();
         $output->method('foundMethods')->willReturnSelf();
 

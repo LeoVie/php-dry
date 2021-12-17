@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Factory\SourceCloneCandidate;
 
 use App\Collection\MethodsCollection;
+use App\ContextDecider\MethodContextDecider;
 use App\Exception\CollectionCannotBeEmpty;
 use App\Exception\NoParamRequestForParamType;
 use App\Factory\TokenSequenceFactory;
 use App\Model\Method\MethodSignatureGroup;
 use App\Model\RunResult\RunResultSet;
 use App\Model\SourceCloneCandidate\Type4SourceCloneCandidate;
-use LeoVie\PhpMethodRunner\Configuration\Configuration;
 use LeoVie\PhpMethodRunner\Exception\CommandFailed;
 use LeoVie\PhpMethodRunner\Model\Method;
 use LeoVie\PhpMethodRunner\Model\MethodRunRequest;
@@ -26,6 +26,7 @@ use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\StringRequest;
 use LeoVie\PhpParamGenerator\Service\ParamGeneratorService;
 use LeoVie\PhpTokenNormalize\Service\TokenSequenceNormalizer;
+use Safe\Exceptions\FilesystemException;
 
 class Type4SourceCloneCandidateFactory
 {
@@ -34,7 +35,7 @@ class Type4SourceCloneCandidateFactory
         private MethodRunner            $methodRunner,
         private TokenSequenceFactory    $tokenSequenceFactory,
         private TokenSequenceNormalizer $tokenSequenceNormalizer,
-        private Configuration           $configuration,
+        private MethodContextDecider    $methodContextDecider,
     )
     {
     }
@@ -45,14 +46,12 @@ class Type4SourceCloneCandidateFactory
      * @return Type4SourceCloneCandidate[]
      *
      * @throws CollectionCannotBeEmpty
-     * @throws NoParamRequestForParamType
      * @throws NoParamGeneratorFoundForParamRequest
+     * @throws FilesystemException
      */
     public function createMultiple(array $methodSignatureGroups): array
     {
         $sourceCloneCandidates = [];
-
-        $methodRunnerConfiguration = $this->configuration;
 
         foreach ($methodSignatureGroups as $methodSignatureGroup) {
             $signature = $methodSignatureGroup->getMethodsCollection()->getFirst()->getMethodSignature();
@@ -76,6 +75,10 @@ class Type4SourceCloneCandidateFactory
             /** @var array<RunResultSet[]> $runResultSetsArray */
             $runResultSetsArray = [];
             foreach ($methodSignatureGroup->getMethodsCollection()->getAll() as $msgMethod) {
+                if ($this->methodContextDecider->requiresClassContext($msgMethod)) {
+                    continue;
+                }
+
                 $methodResults = [];
                 foreach ($paramListSet->getParamLists() as $paramList) {
                     $methodRunRequest = MethodRunRequest::create(

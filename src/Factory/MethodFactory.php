@@ -61,6 +61,7 @@ class MethodFactory
             $filepath,
             $codePositionRange,
             $this->readMethodContent($filepath, $codePositionRange),
+            $method
         );
     }
 

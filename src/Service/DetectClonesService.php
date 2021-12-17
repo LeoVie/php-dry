@@ -8,7 +8,8 @@ use App\CloneDetection\Type1CloneDetector;
 use App\CloneDetection\Type2CloneDetector;
 use App\CloneDetection\Type3CloneDetector;
 use App\CloneDetection\Type4CloneDetector;
-use App\Command\Output\DetectClonesCommandOutput;
+use App\Command\Output\HumanOutput;
+use App\Command\Output\OutputFormat;
 use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
 use App\Exception\NoParamRequestForParamType;
@@ -49,10 +50,9 @@ class DetectClonesService
      * @throws FilesystemException
      * @throws NodeTypeNotConvertable
      * @throws StringsException
-     * @throws NoParamRequestForParamType
      * @throws NoParamGeneratorFoundForParamRequest
      */
-    public function detectInDirectory(Configuration $configuration, DetectClonesCommandOutput $output): array
+    public function detectInDirectory(Configuration $configuration, OutputFormat $output): array
     {
         $filePaths = $this->findFiles->findPhpFilesInPath($configuration->directory());
 

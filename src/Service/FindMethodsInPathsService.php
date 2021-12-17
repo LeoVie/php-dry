@@ -7,6 +7,7 @@ namespace App\Service;
 use App\Factory\FilepathMethodsFactory;
 use App\Factory\MethodFactory;
 use App\Model\Method\Method;
+use LeoVie\PhpFilesystem\Exception\InvalidBoundaries;
 use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
 use Safe\Exceptions\FilesystemException;
 use Safe\Exceptions\StringsException;
@@ -28,6 +29,7 @@ class FindMethodsInPathsService
      * @throws FilesystemException
      * @throws StringsException
      * @throws NodeTypeNotConvertable
+     * @throws InvalidBoundaries
      */
     public function find(array $paths): array
     {

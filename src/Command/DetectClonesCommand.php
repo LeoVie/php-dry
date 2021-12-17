@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Command\Output\DetectClonesCommandOutput;
+use App\Command\Output\HumanOutput;
 use App\Command\Output\Helper\VerboseOutputHelper;
+use App\Command\Output\OutputFormat;
+use App\Command\Output\QuietOutput;
 use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
 use App\Exception\NoParamRequestForParamType;
@@ -29,12 +31,15 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 class DetectClonesCommand extends Command
 {
     private const ARGUMENT_DIRECTORY = 'directory';
     private const ARGUMENT_MIN_SIMILAR_TOKENS = 'minSimilarTokens';
     private const ARGUMENT_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES = 'countOfParamSetsForType4Clones';
+    private const OPTION_SILENT_LONG = 'silent';
+    private const OPTION_SILENT_SHORT = 's';
     protected static $defaultName = 'php-cd:check';
 
     public function __construct(
@@ -66,6 +71,12 @@ class DetectClonesCommand extends Command
                 InputArgument::OPTIONAL,
                 'How many param sets should get generated for each method signature set (type 4 clone detection)?',
                 10
+            )->addOption(
+                self::OPTION_SILENT_LONG,
+                self::OPTION_SILENT_SHORT,
+                InputArgument::OPTIONAL,
+                'Should the command be silent?',
+                false
             );
     }
 
@@ -74,7 +85,6 @@ class DetectClonesCommand extends Command
      * @throws FilesystemException
      * @throws NodeTypeNotConvertable
      * @throws StringsException
-     * @throws NoParamRequestForParamType
      * @throws NoParamGeneratorFoundForParamRequest
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -82,22 +92,19 @@ class DetectClonesCommand extends Command
         $stopwatch = StopwatchFactory::create();
         $stopwatch->start('detect-clones');
 
-        $output = DetectClonesCommandOutput::create(
-            VerboseOutputHelper::create($input, $output),
-            $stopwatch
-        );
+        $commandOutput = $this->getOutputFormat($input, $output, $stopwatch);
 
         $configuration = $this->createConfiguration($input);
 
-        $detected = $this->detectClonesService->detectInDirectory($configuration, $output);
+        $detected = $this->detectClonesService->detectInDirectory($configuration, $commandOutput);
         $clonesToReport = $this->ignoreClonesService->extractNonIgnoredClones($detected, $configuration);
 
         $sourceCloneMethodScoresMappings = [];
         if (empty($clonesToReport)) {
-            $output->noClonesFound();
+            $commandOutput->noClonesFound();
         } else {
             foreach ($clonesToReport as $clone) {
-                $output
+                $commandOutput
                     ->headline($clone->getType())
                     ->methodsCollection($clone->getMethodsCollection());
 
@@ -138,9 +145,24 @@ class DetectClonesCommand extends Command
 
         $this->htmlOutput->createReport($sourceCloneMethodScoresMappings, $configuration->htmlReportFile());
 
-        $output->stopTime();
+        $commandOutput->stopTime();
 
         return Command::SUCCESS;
+    }
+
+    private function getOutputFormat(InputInterface $input, OutputInterface $output, Stopwatch $stopwatch): OutputFormat
+    {
+        if ($this->getBoolOption($input, self::OPTION_SILENT_LONG)) {
+            return QuietOutput::create(
+                VerboseOutputHelper::create($input, $output),
+                $stopwatch
+            );
+        }
+
+        return HumanOutput::create(
+            VerboseOutputHelper::create($input, $output),
+            $stopwatch
+        );
     }
 
     private function createConfiguration(InputInterface $input): Configuration
@@ -165,6 +187,14 @@ class DetectClonesCommand extends Command
     {
         /** @var int $value */
         $value = $input->getArgument($name);
+
+        return $value;
+    }
+
+    private function getBoolOption(InputInterface $input, string $name): bool
+    {
+        /** @var bool $value */
+        $value = $input->getOption($name) === 'true';
 
         return $value;
     }
