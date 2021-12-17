@@ -8,11 +8,9 @@ use App\CloneDetection\Type1CloneDetector;
 use App\CloneDetection\Type2CloneDetector;
 use App\CloneDetection\Type3CloneDetector;
 use App\CloneDetection\Type4CloneDetector;
-use App\Command\Output\HumanOutput;
 use App\Command\Output\OutputFormat;
 use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
-use App\Exception\NoParamRequestForParamType;
 use App\Factory\SourceCloneCandidate\Type1SourceCloneCandidateFactory;
 use App\Factory\SourceCloneCandidate\Type2SourceCloneCandidateFactory;
 use App\Factory\SourceCloneCandidate\Type3SourceCloneCandidateFactory;
@@ -20,6 +18,7 @@ use App\Factory\SourceCloneCandidate\Type4SourceCloneCandidateFactory;
 use App\File\FindFiles;
 use App\Grouper\MethodsBySignatureGrouper;
 use App\Model\SourceClone\SourceClone;
+use LeoVie\PhpFilesystem\Exception\InvalidBoundaries;
 use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
 use LeoVie\PhpParamGenerator\Exception\NoParamGeneratorFoundForParamRequest;
 use Safe\Exceptions\FilesystemException;
@@ -51,6 +50,7 @@ class DetectClonesService
      * @throws NodeTypeNotConvertable
      * @throws StringsException
      * @throws NoParamGeneratorFoundForParamRequest
+     * @throws InvalidBoundaries
      */
     public function detectInDirectory(Configuration $configuration, OutputFormat $output): array
     {

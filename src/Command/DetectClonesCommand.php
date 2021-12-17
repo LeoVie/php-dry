@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Command\Output\HumanOutput;
 use App\Command\Output\Helper\VerboseOutputHelper;
+use App\Command\Output\HumanOutput;
 use App\Command\Output\OutputFormat;
 use App\Command\Output\QuietOutput;
 use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
-use App\Exception\NoParamRequestForParamType;
 use App\Model\MethodScoresMapping;
 use App\Model\SourceClone\SourceClone;
 use App\Model\SourceCloneMethodScoresMapping;
@@ -21,6 +20,7 @@ use App\ServiceFactory\StopwatchFactory;
 use LeoVie\PhpCleanCode\Rule\FileRuleResults;
 use LeoVie\PhpCleanCode\Service\CleanCodeCheckerService;
 use LeoVie\PhpCleanCode\Service\CleanCodeScorerService;
+use LeoVie\PhpFilesystem\Exception\InvalidBoundaries;
 use LeoVie\PhpMethodModifier\Exception\MethodCannotBeModifiedToNonClassContext;
 use LeoVie\PhpMethodModifier\Service\MethodModifierService;
 use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
@@ -86,6 +86,7 @@ class DetectClonesCommand extends Command
      * @throws NodeTypeNotConvertable
      * @throws StringsException
      * @throws NoParamGeneratorFoundForParamRequest
+     * @throws InvalidBoundaries
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {

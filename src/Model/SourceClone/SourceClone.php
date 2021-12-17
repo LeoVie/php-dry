@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Model\SourceClone;
 
 use App\Collection\MethodsCollection;
-use App\Model\Method\Method;
 use Safe\Exceptions\StringsException;
 use Stringable;
 
