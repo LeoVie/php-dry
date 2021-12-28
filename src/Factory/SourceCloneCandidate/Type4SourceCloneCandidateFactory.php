@@ -9,15 +9,19 @@ use App\ContextDecider\MethodContextDecider;
 use App\Exception\CollectionCannotBeEmpty;
 use App\Exception\NoParamRequestForParamType;
 use App\Factory\TokenSequenceFactory;
+use App\Model\Method\MethodSignature;
 use App\Model\Method\MethodSignatureGroup;
 use App\Model\RunResult\RunResultSet;
 use App\Model\SourceCloneCandidate\Type4SourceCloneCandidate;
 use LeoVie\PhpMethodRunner\Exception\CommandFailed;
 use LeoVie\PhpMethodRunner\Model\Method;
+use LeoVie\PhpMethodRunner\Model\MethodResult;
 use LeoVie\PhpMethodRunner\Model\MethodRunRequest;
 use LeoVie\PhpMethodRunner\Run\MethodRunner;
 use LeoVie\PhpParamGenerator\Exception\NoParamGeneratorFoundForParamRequest;
 use LeoVie\PhpParamGenerator\Model\Param\Param;
+use LeoVie\PhpParamGenerator\Model\Param\ParamList\ParamList;
+use LeoVie\PhpParamGenerator\Model\Param\ParamList\ParamListSet;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ArrayRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\IntRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamList\ParamListRequest;
@@ -45,7 +49,6 @@ class Type4SourceCloneCandidateFactory
      *
      * @return Type4SourceCloneCandidate[]
      *
-     * @throws CollectionCannotBeEmpty
      * @throws NoParamGeneratorFoundForParamRequest
      * @throws FilesystemException
      */
@@ -56,57 +59,46 @@ class Type4SourceCloneCandidateFactory
         foreach ($methodSignatureGroups as $methodSignatureGroup) {
             $signature = $methodSignatureGroup->getMethodsCollection()->getFirst()->getMethodSignature();
 
-            $paramRequests = [];
-            foreach ($signature->getParamTypes() as $paramType) {
-                try {
-                    $paramRequests[] = $this->createParamRequest($paramType);
-                } catch (NoParamRequestForParamType) {
-                    continue 2;
-                }
+            try {
+                $paramRequests = $this->createParamRequests($signature);
+            } catch (NoParamRequestForParamType) {
+                continue;
             }
 
-            $paramListSetRequest = ParamListSetRequest::create(
-                ParamListRequest::create($paramRequests),
-                5
-            );
-
-            $paramListSet = $this->paramGeneratorService->generate($paramListSetRequest);
+            $paramListSet = $this->createParamListSet($paramRequests, 5);
 
             /** @var array<RunResultSet[]> $runResultSetsArray */
             $runResultSetsArray = [];
-            foreach ($methodSignatureGroup->getMethodsCollection()->getAll() as $msgMethod) {
-                if ($this->methodContextDecider->requiresClassContext($msgMethod)) {
+            foreach ($methodSignatureGroup->getMethodsCollection()->getAll() as $method) {
+                if ($this->methodContextDecider->requiresClassContext($method)) {
                     continue;
                 }
 
-                $methodResults = [];
-                foreach ($paramListSet->getParamLists() as $paramList) {
-                    $methodRunRequest = MethodRunRequest::create(
-                        Method::create(
-                            $msgMethod->getName(),
-                            $this->tokenSequenceNormalizer->normalizeLevel4($this->tokenSequenceFactory->createFromMethod($msgMethod))->toCode()
-                        ),
-                        array_map(fn(Param $p): mixed => $p->flatten(), $paramList->getParams())
-                    );
-
-                    try {
-                        $methodResults[] = $this->methodRunner->run($methodRunRequest);
-                    } catch (CommandFailed) {
-                        continue 2;
-                    }
+                try {
+                    $methodResults = $this->runMethodMultipleTimes($method, $paramListSet);
+                } catch (CommandFailed) {
+                    continue;
                 }
 
-                $runResultSet = RunResultSet::create($msgMethod, $paramListSet, $methodResults);
+                $runResultSet = RunResultSet::create($method, $paramListSet, $methodResults);
                 $runResultSetsArray[$runResultSet->hash()][] = $runResultSet;
             }
 
-            foreach ($runResultSetsArray as $runResultSets) {
-                $methods = array_map(fn(RunResultSet $rrs): \App\Model\Method\Method => $rrs->getMethod(), $runResultSets);
-                $sourceCloneCandidates[] = Type4SourceCloneCandidate::create(MethodsCollection::create(...$methods));
-            }
+            array_push($sourceCloneCandidates, ...$this->createSourceCloneCandidatesForRunResultSetsArray($runResultSetsArray));
         }
 
         return $sourceCloneCandidates;
+    }
+
+    /** @throws NoParamRequestForParamType */
+    private function createParamRequests(MethodSignature $methodSignature): array
+    {
+        $paramRequests = [];
+        foreach ($methodSignature->getParamTypes() as $paramType) {
+            $paramRequests[] = $this->createParamRequest($paramType);
+        }
+
+        return $paramRequests;
     }
 
     /** @throws NoParamRequestForParamType */
@@ -118,5 +110,56 @@ class Type4SourceCloneCandidateFactory
             'array' => ArrayRequest::create([IntRequest::create(), IntRequest::create(), IntRequest::create()]),
             default => throw NoParamRequestForParamType::create($paramType)
         };
+    }
+
+    /** @throws NoParamGeneratorFoundForParamRequest */
+    private function createParamListSet(array $paramRequests, int $length): ParamListSet
+    {
+        $paramListSetRequest = ParamListSetRequest::create(
+            ParamListRequest::create($paramRequests),
+            $length
+        );
+
+        return $this->paramGeneratorService->generate($paramListSetRequest);
+    }
+
+    /**
+     * @throws FilesystemException
+     * @throws CommandFailed
+     */
+    private function runMethodMultipleTimes(\App\Model\Method\Method $method, ParamListSet $paramListSet): array
+    {
+        return array_map(
+            fn(ParamList $paramList): MethodResult => $this->runMethod($method, $paramList),
+            $paramListSet->getParamLists()
+        );
+    }
+
+    /**
+     * @throws FilesystemException
+     * @throws CommandFailed
+     */
+    private function runMethod(\App\Model\Method\Method $method, ParamList $paramList): MethodResult
+    {
+        $methodRunRequest = MethodRunRequest::create(
+            Method::create(
+                $method->getName(),
+                $this->tokenSequenceNormalizer->normalizeLevel4($this->tokenSequenceFactory->createFromMethod($method))->toCode()
+            ),
+            array_map(fn(Param $p): mixed => $p->flatten(), $paramList->getParams())
+        );
+
+        return $this->methodRunner->run($methodRunRequest);
+    }
+
+    private function createSourceCloneCandidatesForRunResultSetsArray(array $runResultSetsArray): array
+    {
+        $sourceCloneCandidates = [];
+        foreach ($runResultSetsArray as $runResultSets) {
+            $methods = array_map(fn(RunResultSet $rrs): \App\Model\Method\Method => $rrs->getMethod(), $runResultSets);
+            $sourceCloneCandidates[] = Type4SourceCloneCandidate::create(MethodsCollection::create(...$methods));
+        }
+
+        return $sourceCloneCandidates;
     }
 }

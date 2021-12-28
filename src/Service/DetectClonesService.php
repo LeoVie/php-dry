@@ -17,6 +17,7 @@ use App\Factory\SourceCloneCandidate\Type3SourceCloneCandidateFactory;
 use App\Factory\SourceCloneCandidate\Type4SourceCloneCandidateFactory;
 use App\File\FindFiles;
 use App\Grouper\MethodsBySignatureGrouper;
+use App\Model\Method\Method;
 use App\Model\Method\MethodSignatureGroup;
 use App\Model\SourceClone\SourceClone;
 use App\Model\SourceCloneCandidate\SourceCloneCandidate;
@@ -27,7 +28,6 @@ use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
 use LeoVie\PhpParamGenerator\Exception\NoParamGeneratorFoundForParamRequest;
 use Safe\Exceptions\FilesystemException;
 use Safe\Exceptions\StringsException;
-use Symfony\Component\Config\Resource\ReflectionClassResource;
 
 class DetectClonesService
 {
@@ -67,6 +67,20 @@ class DetectClonesService
 
         $output->foundMethods(count($methods));
 
+        return $this->detectClones($methods, $configuration);
+    }
+
+    /**
+     * @param Method[] $methods
+     *
+     * @return array<string, SourceClone[]>
+     *
+     * @throws CollectionCannotBeEmpty
+     * @throws FilesystemException
+     * @throws NoParamGeneratorFoundForParamRequest
+     */
+    private function detectClones(array $methods, Configuration $configuration): array
+    {
         $methodSignatureGroups = $this->methodsBySignatureGrouper->group($methods);
 
         $type1SCCs = $this->type1SourceCloneCandidateFactory->createMultiple($methodSignatureGroups);
