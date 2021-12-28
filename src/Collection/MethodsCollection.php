@@ -39,6 +39,11 @@ class MethodsCollection
         return $this->methods;
     }
 
+    public function equals(self $other): bool
+    {
+        return $this->getAll() === $other->getAll();
+    }
+
     public function add(Method $method): self
     {
         $this->methods[] = $method;

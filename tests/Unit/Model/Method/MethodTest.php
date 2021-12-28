@@ -8,6 +8,7 @@ use App\Model\CodePosition\CodePositionRange;
 use App\Model\Method\Method;
 use App\Model\Method\MethodSignature;
 use Generator;
+use PhpParser\Node\Stmt\ClassMethod;
 use PHPUnit\Framework\TestCase;
 
 class MethodTest extends TestCase
@@ -26,7 +27,8 @@ class MethodTest extends TestCase
             '',
             '',
             $this->createMock(CodePositionRange::class),
-            ''
+            '',
+            $this->createMock(ClassMethod::class),
         )];
     }
 
@@ -44,7 +46,8 @@ class MethodTest extends TestCase
             $name,
             '',
             $this->createMock(CodePositionRange::class),
-            ''
+            '',
+            $this->createMock(ClassMethod::class),
         )];
 
         $name = 'bar';
@@ -53,7 +56,8 @@ class MethodTest extends TestCase
             $name,
             '',
             $this->createMock(CodePositionRange::class),
-            ''
+            '',
+            $this->createMock(ClassMethod::class),
         )];
     }
 
@@ -71,7 +75,8 @@ class MethodTest extends TestCase
             '',
             $filepath,
             $this->createMock(CodePositionRange::class),
-            ''
+            '',
+            $this->createMock(ClassMethod::class),
         )];
 
         $filepath = '/var/www/bar.php';
@@ -80,7 +85,8 @@ class MethodTest extends TestCase
             '',
             $filepath,
             $this->createMock(CodePositionRange::class),
-            ''
+            '',
+            $this->createMock(ClassMethod::class),
         )];
     }
 
@@ -98,7 +104,8 @@ class MethodTest extends TestCase
             '',
             '',
             $codePositionRange,
-            ''
+            '',
+            $this->createMock(ClassMethod::class),
         )];
     }
 
@@ -116,7 +123,8 @@ class MethodTest extends TestCase
             '',
             '',
             $this->createMock(CodePositionRange::class),
-            $content
+            $content,
+            $this->createMock(ClassMethod::class),
         )];
 
         $content = 'bla bla bla';
@@ -125,7 +133,8 @@ class MethodTest extends TestCase
             '',
             '',
             $this->createMock(CodePositionRange::class),
-            $content
+            $content,
+            $this->createMock(ClassMethod::class),
         )];
     }
 
@@ -146,8 +155,9 @@ class MethodTest extends TestCase
                 'foobar',
                 '/var/www/foo.php',
                 $codePositionRange,
-                ''
-            )
+                '',
+                $this->createMock(ClassMethod::class),
+            ),
         ];
 
         $codePositionRange = $this->createMock(CodePositionRange::class);
@@ -159,8 +169,9 @@ class MethodTest extends TestCase
                 'barfoo',
                 '/fp/bar.php',
                 $codePositionRange,
-                ''
-            )
+                '',
+                $this->createMock(ClassMethod::class),
+            ),
         ];
     }
 }

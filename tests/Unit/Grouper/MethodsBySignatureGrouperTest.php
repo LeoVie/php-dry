@@ -12,6 +12,7 @@ use App\Model\Method\Method;
 use App\Model\Method\MethodSignature;
 use App\Model\Method\MethodSignatureGroup;
 use Generator;
+use PhpParser\Node\Stmt\ClassMethod;
 use PHPUnit\Framework\TestCase;
 
 class MethodsBySignatureGrouperTest extends TestCase
@@ -91,7 +92,8 @@ class MethodsBySignatureGrouperTest extends TestCase
             '',
             '',
             $this->createMock(CodePositionRange::class),
-            ''
+            '',
+            $this->createMock(ClassMethod::class),
         );
     }
 }

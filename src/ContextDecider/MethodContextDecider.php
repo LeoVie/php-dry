@@ -33,6 +33,7 @@ class MethodContextDecider
         return $this->stringContainsAny($methodCode, $bodyClassContextEvidences);
     }
 
+    /** @param string[] $needles */
     private function stringContainsAny(string $haystack, array $needles): bool
     {
         foreach ($needles as $needle) {

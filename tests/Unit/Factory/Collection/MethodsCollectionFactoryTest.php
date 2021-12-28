@@ -10,6 +10,7 @@ use App\Model\CodePosition\CodePositionRange;
 use App\Model\Method\Method;
 use App\Model\Method\MethodSignature;
 use App\Model\Method\MethodTokenSequence;
+use PhpParser\Node\Stmt\ClassMethod;
 use PHPUnit\Framework\TestCase;
 
 class MethodsCollectionFactoryTest extends TestCase
@@ -50,7 +51,8 @@ class MethodsCollectionFactoryTest extends TestCase
             $name,
             '',
             $this->createMock(CodePositionRange::class),
-            ''
+            '',
+            $this->createMock(ClassMethod::class),
         );
     }
 

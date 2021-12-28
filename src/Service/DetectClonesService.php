@@ -17,12 +17,17 @@ use App\Factory\SourceCloneCandidate\Type3SourceCloneCandidateFactory;
 use App\Factory\SourceCloneCandidate\Type4SourceCloneCandidateFactory;
 use App\File\FindFiles;
 use App\Grouper\MethodsBySignatureGrouper;
+use App\Model\Method\MethodSignatureGroup;
 use App\Model\SourceClone\SourceClone;
+use App\Model\SourceCloneCandidate\SourceCloneCandidate;
+use App\Model\SourceCloneCandidate\Type1SourceCloneCandidate;
+use App\Model\SourceCloneCandidate\Type2SourceCloneCandidate;
 use LeoVie\PhpFilesystem\Exception\InvalidBoundaries;
 use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
 use LeoVie\PhpParamGenerator\Exception\NoParamGeneratorFoundForParamRequest;
 use Safe\Exceptions\FilesystemException;
 use Safe\Exceptions\StringsException;
+use Symfony\Component\Config\Resource\ReflectionClassResource;
 
 class DetectClonesService
 {
@@ -67,20 +72,119 @@ class DetectClonesService
         $type1SCCs = $this->type1SourceCloneCandidateFactory->createMultiple($methodSignatureGroups);
         $type1Clones = $this->type1CloneDetector->detect($type1SCCs);
 
-        $type2SCCs = $this->type2SourceCloneCandidateFactory->createMultiple($type1SCCs);
+        /** @var Type1SourceCloneCandidate[] $filteredType1SCCs */
+        $filteredType1SCCs = $this->removeSCCsFullyCoveredByCloneAndMethodSignatureGroup($methodSignatureGroups, $type1SCCs, $type1Clones);
+
+        $type2SCCs = $this->type2SourceCloneCandidateFactory->createMultiple($filteredType1SCCs);
         $type2Clones = $this->type2CloneDetector->detect($type2SCCs);
 
-        $type3SCCs = $this->type3SourceCloneCandidateFactory->createMultiple($type2SCCs, $configuration);
+        /** @var Type2SourceCloneCandidate[] $filteredType2SCCs */
+        $filteredType2SCCs = $this->removeSCCsFullyCoveredByCloneAndMethodSignatureGroup($methodSignatureGroups, $type2SCCs, $type2Clones);
+
+        $type3SCCs = $this->type3SourceCloneCandidateFactory->createMultiple($filteredType2SCCs, $configuration);
         $type3Clones = $this->type3CloneDetector->detect($type3SCCs);
 
-        $type4SCCS = $this->type4SourceCloneCandidateFactory->createMultiple($methodSignatureGroups);
+        $filteredMethodSignatureGroups = $this->removeMethodSignatureGroupsFullyCoveredByClonesAlready($methodSignatureGroups, $type1Clones, $type2Clones, $type3Clones);
+
+        $type4SCCS = $this->type4SourceCloneCandidateFactory->createMultiple($filteredMethodSignatureGroups);
         $type4Clones = $this->type4CloneDetector->detect($type4SCCS);
+
+        $filteredType4Clones = $this->removeType4ClonesFullyCoveredByOtherClonesAlready($type4Clones, $type1Clones, $type2Clones, $type3Clones);
 
         return [
             SourceClone::TYPE_1 => $type1Clones,
             SourceClone::TYPE_2 => $type2Clones,
             SourceClone::TYPE_3 => $type3Clones,
-            SourceClone::TYPE_4 => $type4Clones,
+            SourceClone::TYPE_4 => $filteredType4Clones,
         ];
+    }
+
+    /**
+     * @param MethodSignatureGroup[] $methodSignatureGroups
+     * @param SourceCloneCandidate[] $sccs
+     * @param SourceClone[] $clones
+     *
+     * @return SourceCloneCandidate[]
+     */
+    private function removeSCCsFullyCoveredByCloneAndMethodSignatureGroup(array $methodSignatureGroups, array $sccs, array $clones): array
+    {
+        $sccsToRemove = [];
+        foreach ($clones as $clone) {
+            foreach ($sccs as $x => $type1SCC) {
+                if ($clone->getMethodsCollection()->equals($type1SCC->getMethodsCollection())) {
+                    foreach ($methodSignatureGroups as $methodSignatureGroup) {
+                        if ($type1SCC->getMethodsCollection()->equals($methodSignatureGroup->getMethodsCollection())) {
+                            $sccsToRemove[$x] = $type1SCC;
+                        }
+                    }
+                }
+            }
+        }
+
+        return array_diff_key($sccs, $sccsToRemove);
+    }
+
+    /**
+     * @param MethodSignatureGroup[] $methodSignatureGroups
+     * @param SourceClone[] $type1Clones
+     * @param SourceClone[] $type2Clones
+     * @param SourceClone[] $type3Clones
+     *
+     * @return MethodSignatureGroup[]
+     */
+    private function removeMethodSignatureGroupsFullyCoveredByClonesAlready(array $methodSignatureGroups, array $type1Clones, array $type2Clones, array $type3Clones): array
+    {
+        /** @var MethodSignatureGroup[] $filtered */
+        $filtered = $this->removeItemsFullyCoveredByOtherClonesAlready($methodSignatureGroups, $type1Clones, $type2Clones, $type3Clones);
+
+        return $filtered;
+    }
+
+    /**
+     * @param SourceClone[] $type4Clones
+     * @param SourceClone[] $type1Clones
+     * @param SourceClone[] $type2Clones
+     * @param SourceClone[] $type3Clones
+     *
+     * @return SourceClone[]
+     */
+    private function removeType4ClonesFullyCoveredByOtherClonesAlready(array $type4Clones, array $type1Clones, array $type2Clones, array $type3Clones): array
+    {
+        /** @var SourceClone[] $filtered */
+        $filtered = $this->removeItemsFullyCoveredByOtherClonesAlready($type4Clones, $type1Clones, $type2Clones, $type3Clones);
+
+        return $filtered;
+    }
+
+    /**
+     * @param array<MethodSignatureGroup|SourceClone> $items
+     * @param SourceClone[] $type1Clones
+     * @param SourceClone[] $type2Clones
+     * @param SourceClone[] $type3Clones
+     *
+     * @return array<MethodSignatureGroup|SourceClone>
+     */
+    private function removeItemsFullyCoveredByOtherClonesAlready(array $items, array $type1Clones, array $type2Clones, array $type3Clones): array
+    {
+        $itemsToRemove = [];
+        foreach ($items as $i => $item) {
+            foreach ($type1Clones as $clone) {
+                if ($item->getMethodsCollection()->equals($clone->getMethodsCollection())) {
+                    $itemsToRemove[$i] = $item;
+                }
+            }
+            foreach ($type2Clones as $clone) {
+                if ($item->getMethodsCollection()->equals($clone->getMethodsCollection())) {
+                    $itemsToRemove[$i] = $item;
+                }
+            }
+            foreach ($type3Clones as $clone) {
+                if ($item->getMethodsCollection()->equals($clone->getMethodsCollection())) {
+                    $itemsToRemove[$i] = $item;
+                }
+            }
+        }
+
+        return array_diff_key($items, $itemsToRemove);
     }
 }

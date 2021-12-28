@@ -50,6 +50,14 @@ class MethodFactoryTest extends TestCase
         ];
         $methodContents = ['c1', 'c2', 'c3'];
 
+        $methods = array_map(function (string $name): ClassMethod {
+            $classMethod = $this->createMock(ClassMethod::class);
+            $classMethod->name = $this->createMock(Identifier::class);
+            $classMethod->name->name = $name;
+
+            return $classMethod;
+        }, $methodNames);
+
         $expected = [];
         for ($i = 0; $i < count($methodSignatures); $i++) {
             $expected[] = Method::create(
@@ -58,16 +66,9 @@ class MethodFactoryTest extends TestCase
                 $filepath,
                 $codePositionRanges[$i],
                 $methodContents[$i],
+                $methods[$i],
             );
         }
-
-        $methods = array_map(function (string $name): ClassMethod {
-            $classMethod = $this->createMock(ClassMethod::class);
-            $classMethod->name = $this->createMock(Identifier::class);
-            $classMethod->name->name = $name;
-
-            return $classMethod;
-        }, $methodNames);
 
         $filepathMethods = FilepathMethods::create($filepath, $methods);
 
