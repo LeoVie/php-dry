@@ -122,12 +122,6 @@ class DetectClonesService
 
         $filteredType4Clones = $this->removeType4ClonesFullyCoveredByOtherClonesAlready($type4Clones, $type1Clones, $type2Clones, $type3Clones);
 
-
-//        $filteredType4ClonesByConstructNormalization = $this->removeType4ClonesFullyCoveredByOtherClonesAlready($type4ClonesByConstructNormalization, $type1Clones, $type2Clones, $type3Clones);
-//        $filteredType4ClonesByResultComparison = $this->removeType4ClonesFullyCoveredByOtherClonesAlready($type4ClonesByResultComparison, $type1Clones, $type2Clones, $type3Clones);
-//
-//        $filteredType4Clones = array_merge($filteredType4ClonesByConstructNormalization, $filteredType4ClonesByResultComparison);
-
         return [
             SourceClone::TYPE_1 => $type1Clones,
             SourceClone::TYPE_2 => $type2Clones,
@@ -225,6 +219,16 @@ class DetectClonesService
         return array_diff_key($items, $itemsToRemove);
     }
 
+    /**
+     * @param MethodSignatureGroup[] $filteredMethodSignatureGroups
+     *
+     * @return SourceClone[]
+     *
+     * @throws CollectionCannotBeEmpty
+     * @throws FilesystemException
+     * @throws MethodCannotBeModifiedToNonClassContext
+     * @throws NoParamGeneratorFoundForParamRequest
+     */
     private function detectType4ClonesByConstructNormalization(array $filteredMethodSignatureGroups, Configuration $configuration): array
     {
         $methodSignatureGroupsWithLanguageConstructNormalizedMethods = [];

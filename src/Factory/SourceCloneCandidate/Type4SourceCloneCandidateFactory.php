@@ -92,7 +92,11 @@ class Type4SourceCloneCandidateFactory
         return $sourceCloneCandidates;
     }
 
-    /** @throws NoParamRequestForParamType */
+    /**
+     * @return ParamRequest[]
+     *
+     * @throws NoParamRequestForParamType
+     */
     private function createParamRequests(MethodSignature $methodSignature): array
     {
         $paramRequests = [];
@@ -114,7 +118,11 @@ class Type4SourceCloneCandidateFactory
         };
     }
 
-    /** @throws NoParamGeneratorFoundForParamRequest */
+    /**
+     * @param ParamRequest[] $paramRequests
+     *
+     * @throws NoParamGeneratorFoundForParamRequest
+     */
     private function createParamListSet(array $paramRequests, int $length): ParamListSet
     {
         $paramListSetRequest = ParamListSetRequest::create(
@@ -128,6 +136,8 @@ class Type4SourceCloneCandidateFactory
     /**
      * @throws FilesystemException
      * @throws CommandFailed
+     *
+     * @return MethodResult[]
      */
     private function runMethodMultipleTimes(\App\Model\Method\Method $method, ParamListSet $paramListSet): array
     {
@@ -157,7 +167,7 @@ class Type4SourceCloneCandidateFactory
     /**
      * @param array<RunResultSet[]> $runResultSetsArray
      *
-     * @return SourceCloneCandidate[]
+     * @return Type4SourceCloneCandidate[]
      * @throws CollectionCannotBeEmpty
      */
     private function createSourceCloneCandidatesForRunResultSetsArray(array $runResultSetsArray): array
