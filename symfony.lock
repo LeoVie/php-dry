@@ -47,6 +47,9 @@
     "leovie/php-clean-code-bundle": {
         "version": "dev-main"
     },
+    "leovie/php-construct-normalize": {
+        "version": "dev-main"
+    },
     "leovie/php-filesystem": {
         "version": "dev-main"
     },
@@ -104,6 +107,9 @@
     "phpspec/prophecy": {
         "version": "1.14.0"
     },
+    "phpstan/phpstan": {
+        "version": "1.2.0"
+    },
     "phpunit/php-code-coverage": {
         "version": "9.2.7"
     },
@@ -147,6 +153,9 @@
     },
     "psr/log": {
         "version": "2.0.0"
+    },
+    "rector/rector": {
+        "version": "0.12.9"
     },
     "sanmai/later": {
         "version": "0.1.2"

@@ -12,6 +12,7 @@ use App\Factory\TokenSequenceFactory;
 use App\Model\Method\MethodSignature;
 use App\Model\Method\MethodSignatureGroup;
 use App\Model\RunResult\RunResultSet;
+use App\Model\SourceCloneCandidate\SourceCloneCandidate;
 use App\Model\SourceCloneCandidate\Type4SourceCloneCandidate;
 use LeoVie\PhpMethodRunner\Exception\CommandFailed;
 use LeoVie\PhpMethodRunner\Model\Method;
@@ -49,10 +50,11 @@ class Type4SourceCloneCandidateFactory
      *
      * @return Type4SourceCloneCandidate[]
      *
-     * @throws NoParamGeneratorFoundForParamRequest
+     * @throws CollectionCannotBeEmpty
      * @throws FilesystemException
+     * @throws NoParamGeneratorFoundForParamRequest
      */
-    public function createMultiple(array $methodSignatureGroups): array
+    public function createMultipleByRunningMethods(array $methodSignatureGroups): array
     {
         $sourceCloneCandidates = [];
 
@@ -152,14 +154,31 @@ class Type4SourceCloneCandidateFactory
         return $this->methodRunner->run($methodRunRequest);
     }
 
+    /**
+     * @param array<RunResultSet[]> $runResultSetsArray
+     *
+     * @return SourceCloneCandidate[]
+     * @throws CollectionCannotBeEmpty
+     */
     private function createSourceCloneCandidatesForRunResultSetsArray(array $runResultSetsArray): array
     {
-        $sourceCloneCandidates = [];
-        foreach ($runResultSetsArray as $runResultSets) {
-            $methods = array_map(fn(RunResultSet $rrs): \App\Model\Method\Method => $rrs->getMethod(), $runResultSets);
-            $sourceCloneCandidates[] = Type4SourceCloneCandidate::create(MethodsCollection::create(...$methods));
-        }
+        return array_values(
+            array_map(
+                fn(array $runResultSets): Type4SourceCloneCandidate => $this->createSourceCloneCandidateForRunResultSets($runResultSets),
+                $runResultSetsArray
+            )
+        );
+    }
 
-        return $sourceCloneCandidates;
+    /**
+     * @param RunResultSet[] $runResultSets
+     *
+     * @throws CollectionCannotBeEmpty
+     */
+    private function createSourceCloneCandidateForRunResultSets(array $runResultSets): Type4SourceCloneCandidate
+    {
+        $methods = array_map(fn(RunResultSet $rrs): \App\Model\Method\Method => $rrs->getMethod(), $runResultSets);
+
+        return Type4SourceCloneCandidate::create(MethodsCollection::create(...$methods));
     }
 }

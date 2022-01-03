@@ -41,7 +41,29 @@ class MethodsCollection
 
     public function equals(self $other): bool
     {
-        return $this->getAll() === $other->getAll();
+        return $this->containsOtherMethodCollection($other) && $other->containsOtherMethodCollection($this);
+    }
+
+    private function containsOtherMethodCollection(self $other): bool
+    {
+        foreach ($other->getAll() as $otherMethod) {
+            if (!$this->contains($otherMethod)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private function contains(Method $method): bool
+    {
+        foreach ($this->getAll() as $thisMethod) {
+            if ($thisMethod->identity() === $method->identity()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function add(Method $method): self

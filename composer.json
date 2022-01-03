@@ -10,6 +10,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "leovie/php-clean-code-bundle": "dev-main",
+        "leovie/php-construct-normalize": "dev-main",
         "leovie/php-filesystem": "dev-main",
         "leovie/php-grouper": "dev-main",
         "leovie/php-html-builder": "dev-main",
@@ -72,6 +73,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/LeoVie/php-html-builder.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/LeoVie/php-construct-normalize.git"
         }
     ],
     "autoload": {

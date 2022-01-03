@@ -8,6 +8,7 @@ use App\CloneDetection\Type1CloneDetector;
 use App\CloneDetection\Type2CloneDetector;
 use App\CloneDetection\Type3CloneDetector;
 use App\CloneDetection\Type4CloneDetector;
+use App\Collection\MethodsCollection;
 use App\Command\Output\OutputFormat;
 use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
@@ -23,7 +24,9 @@ use App\Model\SourceClone\SourceClone;
 use App\Model\SourceCloneCandidate\SourceCloneCandidate;
 use App\Model\SourceCloneCandidate\Type1SourceCloneCandidate;
 use App\Model\SourceCloneCandidate\Type2SourceCloneCandidate;
+use LeoVie\PhpConstructNormalize\Service\ConstructNormalizeService;
 use LeoVie\PhpFilesystem\Exception\InvalidBoundaries;
+use LeoVie\PhpMethodModifier\Exception\MethodCannotBeModifiedToNonClassContext;
 use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
 use LeoVie\PhpParamGenerator\Exception\NoParamGeneratorFoundForParamRequest;
 use Safe\Exceptions\FilesystemException;
@@ -43,6 +46,7 @@ class DetectClonesService
         private Type2SourceCloneCandidateFactory $type2SourceCloneCandidateFactory,
         private Type3SourceCloneCandidateFactory $type3SourceCloneCandidateFactory,
         private Type4SourceCloneCandidateFactory $type4SourceCloneCandidateFactory,
+        private ConstructNormalizeService        $constructNormalizeService,
     )
     {
     }
@@ -56,6 +60,7 @@ class DetectClonesService
      * @throws StringsException
      * @throws NoParamGeneratorFoundForParamRequest
      * @throws InvalidBoundaries
+     * @throws MethodCannotBeModifiedToNonClassContext
      */
     public function detectInDirectory(Configuration $configuration, OutputFormat $output): array
     {
@@ -67,22 +72,22 @@ class DetectClonesService
 
         $output->foundMethods(count($methods));
 
-        return $this->detectClones($methods, $configuration);
+        $methodSignatureGroups = $this->methodsBySignatureGrouper->group($methods);
+        return $this->detectClones($methodSignatureGroups, $configuration);
     }
 
     /**
-     * @param Method[] $methods
+     * @param MethodSignatureGroup[] $methodSignatureGroups
      *
      * @return array<string, SourceClone[]>
      *
      * @throws CollectionCannotBeEmpty
      * @throws FilesystemException
      * @throws NoParamGeneratorFoundForParamRequest
+     * @throws MethodCannotBeModifiedToNonClassContext
      */
-    private function detectClones(array $methods, Configuration $configuration): array
+    private function detectClones(array $methodSignatureGroups, Configuration $configuration, bool $includeType4Clones = true): array
     {
-        $methodSignatureGroups = $this->methodsBySignatureGrouper->group($methods);
-
         $type1SCCs = $this->type1SourceCloneCandidateFactory->createMultiple($methodSignatureGroups);
         $type1Clones = $this->type1CloneDetector->detect($type1SCCs);
 
@@ -98,12 +103,30 @@ class DetectClonesService
         $type3SCCs = $this->type3SourceCloneCandidateFactory->createMultiple($filteredType2SCCs, $configuration);
         $type3Clones = $this->type3CloneDetector->detect($type3SCCs);
 
+        if (!$includeType4Clones) {
+            return [
+                SourceClone::TYPE_1 => $type1Clones,
+                SourceClone::TYPE_2 => $type2Clones,
+                SourceClone::TYPE_3 => $type3Clones,
+            ];
+        }
+
         $filteredMethodSignatureGroups = $this->removeMethodSignatureGroupsFullyCoveredByClonesAlready($methodSignatureGroups, $type1Clones, $type2Clones, $type3Clones);
 
-        $type4SCCS = $this->type4SourceCloneCandidateFactory->createMultiple($filteredMethodSignatureGroups);
-        $type4Clones = $this->type4CloneDetector->detect($type4SCCS);
+        $type4ClonesByConstructNormalization = $this->detectType4ClonesByConstructNormalization($filteredMethodSignatureGroups, $configuration);
+
+        $type4SCCS = $this->type4SourceCloneCandidateFactory->createMultipleByRunningMethods($filteredMethodSignatureGroups);
+        $type4ClonesByResultComparison = $this->type4CloneDetector->detect($type4SCCS);
+
+        $type4Clones = array_merge($type4ClonesByConstructNormalization, $type4ClonesByResultComparison);
 
         $filteredType4Clones = $this->removeType4ClonesFullyCoveredByOtherClonesAlready($type4Clones, $type1Clones, $type2Clones, $type3Clones);
+
+
+//        $filteredType4ClonesByConstructNormalization = $this->removeType4ClonesFullyCoveredByOtherClonesAlready($type4ClonesByConstructNormalization, $type1Clones, $type2Clones, $type3Clones);
+//        $filteredType4ClonesByResultComparison = $this->removeType4ClonesFullyCoveredByOtherClonesAlready($type4ClonesByResultComparison, $type1Clones, $type2Clones, $type3Clones);
+//
+//        $filteredType4Clones = array_merge($filteredType4ClonesByConstructNormalization, $filteredType4ClonesByResultComparison);
 
         return [
             SourceClone::TYPE_1 => $type1Clones,
@@ -200,5 +223,53 @@ class DetectClonesService
         }
 
         return array_diff_key($items, $itemsToRemove);
+    }
+
+    private function detectType4ClonesByConstructNormalization(array $filteredMethodSignatureGroups, Configuration $configuration): array
+    {
+        $methodSignatureGroupsWithLanguageConstructNormalizedMethods = [];
+        foreach ($filteredMethodSignatureGroups as $methodSignatureGroup) {
+            $methods = $methodSignatureGroup->getMethodsCollection()->getAll();
+
+            $languageConstructNormalizedMethods = [];
+
+            foreach ($methods as $method) {
+                $languageConstructNormalizedMethodCode = $this->constructNormalizeService->normalizeMethod(
+                    $method->getContent()
+                );
+
+                $languageConstructNormalizedMethods[] = Method::create(
+                    $method->getMethodSignature(),
+                    $method->getName(),
+                    $method->getFilepath(),
+                    $method->getCodePositionRange(),
+                    $languageConstructNormalizedMethodCode,
+                    $method->getParsedMethod()
+                );
+            }
+
+            $methodSignatureGroupsWithLanguageConstructNormalizedMethods[] = MethodSignatureGroup::create(
+                $methodSignatureGroup->getMethodSignature(),
+                MethodsCollection::create(...$languageConstructNormalizedMethods)
+            );
+        }
+
+        $clones = $this->detectClones($methodSignatureGroupsWithLanguageConstructNormalizedMethods, $configuration, false);
+
+        $allClonesTogether = array_merge(
+            $clones[SourceClone::TYPE_1],
+            $clones[SourceClone::TYPE_2],
+            $clones[SourceClone::TYPE_3],
+        );
+
+        $type4Clones = [];
+        foreach ($allClonesTogether as $clone) {
+            $type4Clones[] = SourceClone::create(
+                SourceClone::TYPE_4,
+                $clone->getMethodsCollection()
+            );
+        }
+
+        return $type4Clones;
     }
 }
