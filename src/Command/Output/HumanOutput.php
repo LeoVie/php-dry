@@ -56,7 +56,16 @@ class HumanOutput implements OutputFormat
 
     public function methodsCollection(MethodsCollection $methodsCollection): self
     {
-        return $this->listing(array_map(fn(Method $m) => $m->__toString(), $methodsCollection->getAll()));
+        $methods = $methodsCollection->getAll();
+        usort($methods, function (Method $m1, Method $m2): int {
+            if ($m1->identity() === $m2->identity()) {
+                return 0;
+            }
+
+            return $m1->identity() < $m2->identity() ? -1 : 1;
+        });
+
+        return $this->listing(array_map(fn(Method $m) => $m->__toString(), $methods));
     }
 
     public function foundFiles(int $filesCount): self

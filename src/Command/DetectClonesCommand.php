@@ -36,8 +36,9 @@ use Symfony\Component\Stopwatch\Stopwatch;
 class DetectClonesCommand extends Command
 {
     private const ARGUMENT_DIRECTORY = 'directory';
-    private const ARGUMENT_MIN_SIMILAR_TOKENS = 'minSimilarTokens';
+    private const ARGUMENT_MIN_SIMILAR_TOKENS_PERCENT = 'minSimilarTokensPercent';
     private const ARGUMENT_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES = 'countOfParamSetsForType4Clones';
+    private const ARGUMENT_MIN_TOKEN_LENGTH = 'minTokenLength';
     private const OPTION_SILENT_LONG = 'silent';
     private const OPTION_SILENT_SHORT = 's';
     protected static $defaultName = 'php-cd:check';
@@ -62,10 +63,10 @@ class DetectClonesCommand extends Command
                 InputArgument::REQUIRED,
                 'Absolute path of directory in which clones should get detected.'
             )->addArgument(
-                self::ARGUMENT_MIN_SIMILAR_TOKENS,
+                self::ARGUMENT_MIN_SIMILAR_TOKENS_PERCENT,
                 InputArgument::OPTIONAL,
                 'How many similar tokens should be in two fragments to treat them as clones.',
-                5
+                80
             )->addArgument(
                 self::ARGUMENT_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES,
                 InputArgument::OPTIONAL,
@@ -77,6 +78,11 @@ class DetectClonesCommand extends Command
                 InputArgument::OPTIONAL,
                 'Should the command be silent?',
                 false
+            )->addArgument(
+                self::ARGUMENT_MIN_TOKEN_LENGTH,
+                InputArgument::OPTIONAL,
+                'How many tokens should be each clone long at least?',
+                50
             );
     }
 
@@ -87,6 +93,7 @@ class DetectClonesCommand extends Command
      * @throws StringsException
      * @throws NoParamGeneratorFoundForParamRequest
      * @throws InvalidBoundaries
+     * @throws MethodCannotBeModifiedToNonClassContext
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -170,9 +177,10 @@ class DetectClonesCommand extends Command
     {
         return Configuration::create(
             $this->getStringArgument($input, self::ARGUMENT_DIRECTORY),
-            $this->getIntArgument($input, self::ARGUMENT_MIN_SIMILAR_TOKENS),
+            $this->getIntArgument($input, self::ARGUMENT_MIN_SIMILAR_TOKENS_PERCENT),
             $this->getIntArgument($input, self::ARGUMENT_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES),
             __DIR__ . '/../../report.html',
+            $this->getIntArgument($input, self::ARGUMENT_MIN_TOKEN_LENGTH),
         );
     }
 

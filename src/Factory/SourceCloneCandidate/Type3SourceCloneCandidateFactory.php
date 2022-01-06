@@ -7,6 +7,8 @@ namespace App\Factory\SourceCloneCandidate;
 use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
 use App\Merge\Type3SourceCloneCandidatesMerger;
+use App\Model\Method\Method;
+use App\Model\Method\MethodSignatureGroup;
 use App\Model\SourceCloneCandidate\Type2SourceCloneCandidate;
 use App\Model\SourceCloneCandidate\Type3SourceCloneCandidate;
 use App\Util\ArrayUtil;
@@ -63,6 +65,57 @@ class Type3SourceCloneCandidateFactory
             return false;
         }
 
-        return similar_text($a->identity(), $b->identity()) > $configuration->minSimilarTokens();
+        $similarText = similar_text($a->identity(), $b->identity());
+        $percentageOfSimilarText = ($similarText / (max(strlen($a->identity()), strlen($b->identity())))) * 100;
+
+        return $percentageOfSimilarText > $configuration->minSimilarTokensPercent();
+
+        $lcs = $this->lcs($a->identity(), $b->identity());
+        $percentageOfEqualTokens = ($lcs / (max(strlen($a->identity()), strlen($b->identity())))) * 100;
+
+        $similarText = similar_text($a->identity(), $b->identity());
+        $percentageOfSimilarText = ($similarText / (max(strlen($a->identity()), strlen($b->identity())))) * 100;
+
+        $file = fopen(__DIR__ . '/foo.csv', 'a');
+        fwrite($file, "$lcs;$similarText;$percentageOfEqualTokens;$percentageOfSimilarText\n");
+        fclose($file);
+
+        return $percentageOfEqualTokens > $configuration->minSimilarTokensPercent();
+    }
+
+    private function lcs(string $a, string $b): int
+    {
+        $aLength = strlen($a);
+        $bLength = strlen($b);
+
+        if ($aLength === 0 || $bLength === 0) {
+            return 0;
+        }
+
+        $table = [];
+
+        foreach ([0, 1] as $i) {
+            for ($j = 0; $j <= $bLength; $j++) {
+                $table[$i][$j] = 0;
+            }
+        }
+
+        for ($i = 1; $i < $aLength + 1; $i++) {
+            for ($j = 0; $j < $bLength + 1; $j++) {
+                $table[0][$j] = $table[1][$j];
+            }
+
+            for ($j = 1; $j < $bLength + 1; $j++) {
+                $table[1][$j] = match (true) {
+                    $a[$i - 1] === $b[$j - 1] => $table[0][$j - 1] + 1,
+                    default => max(
+                        $table[0][$j],
+                        $table[1][$j - 1]
+                    )
+                };
+            }
+        }
+
+        return $table[1][$bLength];
     }
 }

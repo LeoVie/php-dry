@@ -45,6 +45,6 @@ class IgnoreClonesService
             $clone->getMethodsCollection()->getAll()
         );
 
-        return max($tokenLengths) < $configuration->minSimilarTokens();
+        return max($tokenLengths) < $configuration->minTokenLength();
     }
 }

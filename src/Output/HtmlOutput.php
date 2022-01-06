@@ -220,6 +220,39 @@ class HtmlOutput
     }
 
     /** @param MethodScoresMapping[] $methodScoresMappings */
+    private function createCard(string $title, string $id, array $methodScoresMappings): Tag
+    {
+        return Tag::create('card',
+            [Attribute::create('class', 'card')],
+            [
+                Tag::create('card-body',
+                    [Attribute::create('class', 'card-body')],
+                    [
+                        Tag::create('h5',
+                            [Attribute::create('class', 'card-title')],
+                            [
+                                Tag::create('a',
+                                    [
+                                        Attribute::create('id', $id),
+                                        Attribute::create('href', '#' . $id),
+                                    ],
+                                    [
+                                        Tag::create('span',
+                                            [Attribute::create('class', 'badge bg-secondary')],
+                                            [Content::create($title)]
+                                        ),
+                                    ]
+                                ),
+                            ]
+                        ),
+                        $this->createTable($methodScoresMappings),
+                    ]
+                ),
+            ]
+        );
+    }
+
+    /** @param MethodScoresMapping[] $methodScoresMappings */
     private function createTable(array $methodScoresMappings): Tag
     {
         return Tag::create('table',
@@ -335,15 +368,24 @@ class HtmlOutput
     private function createType1ClonesTab(array $sourceCloneMethodScoresMappings): Tag
     {
         $tables = [];
-        foreach ($sourceCloneMethodScoresMappings as $sourceCloneMethodScoresMapping) {
-            $tables[] = $this->createTable($sourceCloneMethodScoresMapping->getMethodScoresMappings());
+        foreach ($sourceCloneMethodScoresMappings as $i => $sourceCloneMethodScoresMapping) {
+            $tables[] = $this->createCard("Clone $i", "type_1_clone_$i", $sourceCloneMethodScoresMapping->getMethodScoresMappings());
         }
 
         return $this->createTab(
             self::NAV_TYPE_1_CLONES,
             self::NAV_TYPE_1_CLONES_TAB,
             true,
-            $tables
+            array_merge([$this->createTabHeadline($sourceCloneMethodScoresMappings)], $tables)
+        );
+    }
+
+    /** @param SourceCloneMethodScoresMapping[] $sourceCloneMethodScoresMappings */
+    private function createTabHeadline(array $sourceCloneMethodScoresMappings): Tag
+    {
+        return Tag::create('h3',
+            [],
+            [Content::create('Detected ' . count($sourceCloneMethodScoresMappings) . ' clones')]
         );
     }
 
@@ -351,15 +393,15 @@ class HtmlOutput
     private function createType2ClonesTab(array $sourceCloneMethodScoresMappings): Tag
     {
         $tables = [];
-        foreach ($sourceCloneMethodScoresMappings as $sourceCloneMethodScoresMapping) {
-            $tables[] = $this->createTable($sourceCloneMethodScoresMapping->getMethodScoresMappings());
+        foreach ($sourceCloneMethodScoresMappings as $i => $sourceCloneMethodScoresMapping) {
+            $tables[] = $this->createCard("Clone $i", "type_2_clone_$i", $sourceCloneMethodScoresMapping->getMethodScoresMappings());
         }
 
         return $this->createTab(
             self::NAV_TYPE_2_CLONES,
             self::NAV_TYPE_2_CLONES_TAB,
             false,
-            $tables
+            array_merge([$this->createTabHeadline($sourceCloneMethodScoresMappings)], $tables)
         );
     }
 
@@ -367,15 +409,15 @@ class HtmlOutput
     private function createType3ClonesTab(array $sourceCloneMethodScoresMappings): Tag
     {
         $tables = [];
-        foreach ($sourceCloneMethodScoresMappings as $sourceCloneMethodScoresMapping) {
-            $tables[] = $this->createTable($sourceCloneMethodScoresMapping->getMethodScoresMappings());
+        foreach ($sourceCloneMethodScoresMappings as $i => $sourceCloneMethodScoresMapping) {
+            $tables[] = $this->createCard("Clone $i", "type_3_clone_$i", $sourceCloneMethodScoresMapping->getMethodScoresMappings());
         }
 
         return $this->createTab(
             self::NAV_TYPE_3_CLONES,
             self::NAV_TYPE_3_CLONES_TAB,
             false,
-            $tables
+            array_merge([$this->createTabHeadline($sourceCloneMethodScoresMappings)], $tables)
         );
     }
 
@@ -383,15 +425,15 @@ class HtmlOutput
     private function createType4ClonesTab(array $sourceCloneMethodScoresMappings): Tag
     {
         $tables = [];
-        foreach ($sourceCloneMethodScoresMappings as $sourceCloneMethodScoresMapping) {
-            $tables[] = $this->createTable($sourceCloneMethodScoresMapping->getMethodScoresMappings());
+        foreach ($sourceCloneMethodScoresMappings as $i => $sourceCloneMethodScoresMapping) {
+            $tables[] = $this->createCard("Clone $i", "type_4_clone_$i", $sourceCloneMethodScoresMapping->getMethodScoresMappings());
         }
 
         return $this->createTab(
             self::NAV_TYPE_4_CLONES,
             self::NAV_TYPE_4_CLONES_TAB,
             false,
-            $tables
+            array_merge([$this->createTabHeadline($sourceCloneMethodScoresMappings)], $tables)
         );
     }
 

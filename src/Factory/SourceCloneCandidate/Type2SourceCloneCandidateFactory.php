@@ -29,10 +29,12 @@ class Type2SourceCloneCandidateFactory
     {
         return $this->type2SourceCloneCandidatesMerger->merge(
             array_map(
-                fn(Type1SourceCloneCandidate $scc): Type2SourceCloneCandidate => Type2SourceCloneCandidate::create(
-                    $this->tokenSequenceNormalizer->normalizeLevel2($scc->getTokenSequence()),
-                    $scc->getMethodsCollection(),
-                ), $type1SourceCloneCandidates)
+                function (Type1SourceCloneCandidate $scc): Type2SourceCloneCandidate {
+                    return Type2SourceCloneCandidate::create(
+                        $this->tokenSequenceNormalizer->normalizeLevel2($scc->getTokenSequence()),
+                        $scc->getMethodsCollection(),
+                    );
+                }, $type1SourceCloneCandidates)
         );
     }
 }

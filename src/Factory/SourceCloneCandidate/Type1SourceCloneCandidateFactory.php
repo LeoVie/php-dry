@@ -52,10 +52,12 @@ class Type1SourceCloneCandidateFactory
      */
     private function createMultipleForOneMethodsCollection(MethodSignatureGroup $methodSignatureGroup): array
     {
-        $methodTokenSequences = array_map(fn(Method $m): MethodTokenSequence => MethodTokenSequence::create(
-            $m,
-            $this->tokenSequenceNormalizer->normalizeLevel1($this->tokenSequenceFactory->createFromMethod($m))
-        ), $methodSignatureGroup->getMethodsCollection()->getAll());
+        $methodTokenSequences = array_map(function (Method $m): MethodTokenSequence {
+            return MethodTokenSequence::create(
+                $m,
+                $this->tokenSequenceNormalizer->normalizeLevel1($this->tokenSequenceFactory->createFromMethod($m))
+            );
+        }, $methodSignatureGroup->getMethodsCollection()->getAll());
 
         $groupedMethodTokenSequences = $this->methodTokenSequencesByTokenSequencesGrouper->group($methodTokenSequences);
 

@@ -9,21 +9,23 @@ class Configuration
 {
     private function __construct(
         private string $directory,
-        private int    $minSimilarTokens,
+        private int    $minSimilarTokensPercent,
         private int    $countOfParamSetsForType4Clones,
         private string $htmlReportFile,
+        private int    $minTokenLength,
     )
     {
     }
 
     public static function create(
         string $directory,
-        int    $minSimilarTokens,
+        int    $minSimilarTokensPercent,
         int    $countOfParamSetsForType4Clones,
         string $htmlReportFile,
+        int    $minTokenLength
     ): self
     {
-        return new self($directory, $minSimilarTokens, $countOfParamSetsForType4Clones, $htmlReportFile);
+        return new self($directory, $minSimilarTokensPercent, $countOfParamSetsForType4Clones, $htmlReportFile, $minTokenLength);
     }
 
     public function directory(): string
@@ -31,9 +33,9 @@ class Configuration
         return $this->directory;
     }
 
-    public function minSimilarTokens(): int
+    public function minSimilarTokensPercent(): int
     {
-        return $this->minSimilarTokens;
+        return $this->minSimilarTokensPercent;
     }
 
     public function countOfParamSetsForType4Clones(): int
@@ -44,5 +46,10 @@ class Configuration
     public function htmlReportFile(): string
     {
         return $this->htmlReportFile;
+    }
+
+    public function minTokenLength(): int
+    {
+        return $this->minTokenLength;
     }
 }

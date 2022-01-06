@@ -73,6 +73,7 @@ class DetectClonesService
         $output->foundMethods(count($methods));
 
         $methodSignatureGroups = $this->methodsBySignatureGrouper->group($methods);
+
         return $this->detectClones($methodSignatureGroups, $configuration);
     }
 
@@ -91,17 +92,23 @@ class DetectClonesService
         $type1SCCs = $this->type1SourceCloneCandidateFactory->createMultiple($methodSignatureGroups);
         $type1Clones = $this->type1CloneDetector->detect($type1SCCs);
 
+        print("Type 1 done\n");
+
         /** @var Type1SourceCloneCandidate[] $filteredType1SCCs */
         $filteredType1SCCs = $this->removeSCCsFullyCoveredByCloneAndMethodSignatureGroup($methodSignatureGroups, $type1SCCs, $type1Clones);
 
         $type2SCCs = $this->type2SourceCloneCandidateFactory->createMultiple($filteredType1SCCs);
         $type2Clones = $this->type2CloneDetector->detect($type2SCCs);
 
+        print("Type 2 done\n");
+
         /** @var Type2SourceCloneCandidate[] $filteredType2SCCs */
         $filteredType2SCCs = $this->removeSCCsFullyCoveredByCloneAndMethodSignatureGroup($methodSignatureGroups, $type2SCCs, $type2Clones);
 
         $type3SCCs = $this->type3SourceCloneCandidateFactory->createMultiple($filteredType2SCCs, $configuration);
         $type3Clones = $this->type3CloneDetector->detect($type3SCCs);
+
+        print("Type 3 done\n");
 
         if (!$includeType4Clones) {
             return [
@@ -113,10 +120,15 @@ class DetectClonesService
 
         $filteredMethodSignatureGroups = $this->removeMethodSignatureGroupsFullyCoveredByClonesAlready($methodSignatureGroups, $type1Clones, $type2Clones, $type3Clones);
 
-        $type4ClonesByConstructNormalization = $this->detectType4ClonesByConstructNormalization($filteredMethodSignatureGroups, $configuration);
+//        $type4ClonesByConstructNormalization = $this->detectType4ClonesByConstructNormalization($filteredMethodSignatureGroups, $configuration);
+        $type4ClonesByConstructNormalization = [];
 
+        print("Type 4.1 done\n");
+#
         $type4SCCS = $this->type4SourceCloneCandidateFactory->createMultipleByRunningMethods($filteredMethodSignatureGroups);
         $type4ClonesByResultComparison = $this->type4CloneDetector->detect($type4SCCS);
+
+        print("Type 4.2 done\n");
 
         $type4Clones = array_merge($type4ClonesByConstructNormalization, $type4ClonesByResultComparison);
 
@@ -231,6 +243,13 @@ class DetectClonesService
      */
     private function detectType4ClonesByConstructNormalization(array $filteredMethodSignatureGroups, Configuration $configuration): array
     {
+        $totalCountOfMethods = 0;
+        foreach ($filteredMethodSignatureGroups as $methodSignatureGroup) {
+            $totalCountOfMethods += $methodSignatureGroup->getMethodsCollection()->count();
+        }
+        print(sprintf("We have to normalize %s methods\n", $totalCountOfMethods));
+        $currentMethodIndex = 0;
+
         $methodSignatureGroupsWithLanguageConstructNormalizedMethods = [];
         foreach ($filteredMethodSignatureGroups as $methodSignatureGroup) {
             $methods = $methodSignatureGroup->getMethodsCollection()->getAll();
@@ -238,6 +257,10 @@ class DetectClonesService
             $languageConstructNormalizedMethods = [];
 
             foreach ($methods as $method) {
+                $currentMethodIndex++;
+
+                print(sprintf("Now normalizing method %s/%s\n", $currentMethodIndex, $totalCountOfMethods));
+
                 $languageConstructNormalizedMethodCode = $this->constructNormalizeService->normalizeMethod(
                     $method->getContent()
                 );
