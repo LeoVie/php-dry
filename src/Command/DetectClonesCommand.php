@@ -130,6 +130,7 @@ class DetectClonesCommand extends Command
                         $methodContent = $methodModifiedToNonClassContext->getCode();
 
                         $ruleResults = FileRuleResults::create($method->getFilepath(), $this->cleanCodeCheckerService->checkCode('<?php ' . $methodContent));
+
                         $scoresResult = $this->cleanCodeScorerService->createScoresResult($ruleResults);
 
                         $methodScoresMappings[] = MethodScoresMapping::create(

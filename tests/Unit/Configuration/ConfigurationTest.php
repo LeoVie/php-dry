@@ -32,7 +32,7 @@ class ConfigurationTest extends TestCase
     /** @dataProvider minLinesForType1AndType2ClonesProvider */
     public function testMinSimilarTokens(int $expected, Configuration $configuration): void
     {
-        self::assertSame($expected, $configuration->minSimilarTokens());
+        self::assertSame($expected, $configuration->minSimilarTokensPercent());
     }
 
     public function minLinesForType1AndType2ClonesProvider(): array

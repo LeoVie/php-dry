@@ -25,6 +25,14 @@ class MethodsCollection
     /** @throws CollectionCannotBeEmpty */
     public static function create(Method ...$methods): self
     {
+        usort($methods, function (Method $m1, Method $m2): int {
+            if ($m1->identity() === $m2->identity()) {
+                return 0;
+            }
+
+            return $m1->identity() < $m2->identity() ? -1 : 1;
+        });
+
         return new self(...$methods);
     }
 
