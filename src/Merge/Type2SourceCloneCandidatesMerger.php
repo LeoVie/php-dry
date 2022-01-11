@@ -42,7 +42,7 @@ class Type2SourceCloneCandidatesMerger
         array                     $newType2SourceCloneCandidates,
     ): array
     {
-        $identity = $type2SourceCloneCandidate->getTokenSequence()->identity();
+        $identity = $type2SourceCloneCandidate->identity();
 
         $newNormalizedMethods = $type2SourceCloneCandidate->getMethodsCollection()->getAll();
         if (!array_key_exists($identity, $newType2SourceCloneCandidates)) {
@@ -58,6 +58,6 @@ class Type2SourceCloneCandidatesMerger
             $newType2SourceCloneCandidates[$identity]->getMethodsCollection()->add($newNormalizedMethod);
         }
 
-        return array_values($newType2SourceCloneCandidates);
+        return $newType2SourceCloneCandidates;
     }
 }

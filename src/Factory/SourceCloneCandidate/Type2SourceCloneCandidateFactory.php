@@ -27,14 +27,19 @@ class Type2SourceCloneCandidateFactory
      */
     public function createMultiple(array $type1SourceCloneCandidates): array
     {
-        return $this->type2SourceCloneCandidatesMerger->merge(
-            array_map(
-                function (Type1SourceCloneCandidate $scc): Type2SourceCloneCandidate {
-                    return Type2SourceCloneCandidate::create(
-                        $this->tokenSequenceNormalizer->normalizeLevel2($scc->getTokenSequence()),
-                        $scc->getMethodsCollection(),
-                    );
-                }, $type1SourceCloneCandidates)
+        $type2SourceCloneCandidates = array_map(
+            fn(Type1SourceCloneCandidate $type1SCC): Type2SourceCloneCandidate => $this->createFromType1SCC($type1SCC),
+            $type1SourceCloneCandidates
+        );
+
+        return $this->type2SourceCloneCandidatesMerger->merge($type2SourceCloneCandidates);
+    }
+
+    private function createFromType1SCC(Type1SourceCloneCandidate $type1SourceCloneCandidate): Type2SourceCloneCandidate
+    {
+        return Type2SourceCloneCandidate::create(
+            $this->tokenSequenceNormalizer->normalizeLevel2($type1SourceCloneCandidate->getTokenSequence()),
+            $type1SourceCloneCandidate->getMethodsCollection(),
         );
     }
 }
