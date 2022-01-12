@@ -17,4 +17,4 @@ COPY docker/project/install_composer.sh /var/install_composer.sh
 RUN chmod +x /var/install_composer.sh && /var/install_composer.sh
 RUN cd /var/www && export COMPOSER_DISCARD_CHANGES=true && php /var/composer.phar install --no-dev
 
-ENTRYPOINT ["/var/www/bin/console", "php-cd:check"]
+ENTRYPOINT ["/var/www/bin/console", "php-cd:check", "/project"]

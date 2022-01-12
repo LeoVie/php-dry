@@ -195,10 +195,7 @@ class DetectClonesCommand extends Command
 
     private function getIntArgument(InputInterface $input, string $name): int
     {
-        /** @var int $value */
-        $value = $input->getArgument($name);
-
-        return $value;
+        return (int)$input->getArgument($name);
     }
 
     private function getBoolOption(InputInterface $input, string $name): bool
