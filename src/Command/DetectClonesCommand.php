@@ -38,6 +38,7 @@ class DetectClonesCommand extends Command
     private const ARGUMENT_DIRECTORY = 'directory';
     private const ARGUMENT_MIN_SIMILAR_TOKENS_PERCENT = 'minSimilarTokensPercent';
     private const ARGUMENT_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES = 'countOfParamSetsForType4Clones';
+    private const ARGUMENT_HTML_REPORT_FILEPATH = 'htmlReportFilepath';
     private const ARGUMENT_MIN_TOKEN_LENGTH = 'minTokenLength';
     private const OPTION_SILENT_LONG = 'silent';
     private const OPTION_SILENT_SHORT = 's';
@@ -62,6 +63,11 @@ class DetectClonesCommand extends Command
                 self::ARGUMENT_DIRECTORY,
                 InputArgument::REQUIRED,
                 'Absolute path of directory in which clones should get detected.'
+            )->addArgument(
+                self::ARGUMENT_HTML_REPORT_FILEPATH,
+                InputArgument::OPTIONAL,
+                'Absolute path of report html file.',
+                __DIR__ . '/../../report.html',
             )->addArgument(
                 self::ARGUMENT_MIN_SIMILAR_TOKENS_PERCENT,
                 InputArgument::OPTIONAL,
@@ -109,7 +115,10 @@ class DetectClonesCommand extends Command
 
         $sourceCloneMethodScoresMappings = [];
         if (empty($clonesToReport)) {
-            $commandOutput->noClonesFound();
+            $commandOutput->noClonesFound()
+                ->stopTime();
+
+            return Command::SUCCESS;
         } else {
             foreach ($clonesToReport as $clone) {
                 $commandOutput
@@ -156,7 +165,7 @@ class DetectClonesCommand extends Command
 
         $commandOutput->stopTime();
 
-        return Command::SUCCESS;
+        return Command::FAILURE;
     }
 
     private function getOutputFormat(InputInterface $input, OutputInterface $output, Stopwatch $stopwatch): OutputFormat
@@ -180,7 +189,7 @@ class DetectClonesCommand extends Command
             $this->getStringArgument($input, self::ARGUMENT_DIRECTORY),
             $this->getIntArgument($input, self::ARGUMENT_MIN_SIMILAR_TOKENS_PERCENT),
             $this->getIntArgument($input, self::ARGUMENT_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES),
-            __DIR__ . '/../../report.html',
+            $this->getStringArgument($input, self::ARGUMENT_HTML_REPORT_FILEPATH),
             $this->getIntArgument($input, self::ARGUMENT_MIN_TOKEN_LENGTH),
         );
     }
