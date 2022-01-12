@@ -9,3 +9,6 @@ phpunit:
 
 test: phpstan
 	composer testall
+
+build_image:
+	docker build -f docker/project/Dockerfile -t php-cd:latest .
