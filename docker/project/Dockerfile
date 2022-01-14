@@ -8,4 +8,7 @@ COPY .env /var/www/.env
 COPY composer.json /var/www/composer.json
 COPY vendor /var/www/vendor
 
-ENTRYPOINT ["php", "-d", "memory_limit=-1", "/var/www/bin/console", "php-cd:check", "/project"]
+ENTRYPOINT [ \
+    "php", "-d", "memory_limit=-1", \
+    "/var/www/bin/console", "php-cd:check", "/project" \
+]
