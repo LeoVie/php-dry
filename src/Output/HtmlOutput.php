@@ -220,7 +220,7 @@ class HtmlOutput
     }
 
     /** @param MethodScoresMapping[] $methodScoresMappings */
-    private function createCard(string $title, string $id, array $methodScoresMappings): Tag
+    private function createCard(string $title, string $id, array $methodScoresMappings, bool $showScores): Tag
     {
         return Tag::create('card',
             [Attribute::create('class', 'card')],
@@ -245,7 +245,7 @@ class HtmlOutput
                                 ),
                             ]
                         ),
-                        $this->createTable($methodScoresMappings),
+                        $this->createTable($methodScoresMappings, $showScores),
                     ]
                 ),
             ]
@@ -253,18 +253,18 @@ class HtmlOutput
     }
 
     /** @param MethodScoresMapping[] $methodScoresMappings */
-    private function createTable(array $methodScoresMappings): Tag
+    private function createTable(array $methodScoresMappings, bool $showScores): Tag
     {
         return Tag::create('table',
             [Attribute::create('class', 'table')],
             [
-                $this->createTableHead(),
-                $this->createTableBody($methodScoresMappings),
+                $this->createTableHead($showScores),
+                $this->createTableBody($methodScoresMappings, $showScores),
             ]
         );
     }
 
-    private function createTableHead(): Tag
+    private function createTableHead(bool $showScores): Tag
     {
         return Tag::create('thead',
             [],
@@ -274,11 +274,10 @@ class HtmlOutput
                     [
                         $this->createColumnTh('#'),
                         $this->createColumnTh('File'),
-                        $this->createColumnTh('Method'),
                         $this->createColumnTh('Start'),
                         $this->createColumnTh('End'),
                         $this->createColumnTh('Lines'),
-                        $this->createColumnTh('Scores'),
+                        $showScores ? $this->createColumnTh('Scores') : null,
                         $this->createColumnTh('Content'),
                     ]
                 ),
@@ -295,11 +294,11 @@ class HtmlOutput
     }
 
     /** @param MethodScoresMapping[] $methodScoresMappings */
-    private function createTableBody(array $methodScoresMappings): Tag
+    private function createTableBody(array $methodScoresMappings, bool $showScores): Tag
     {
         $tableRows = [];
         foreach ($methodScoresMappings as $i => $methodScoresMapping) {
-            $tableRows[] = $this->createTableRow($i + 1, $methodScoresMapping);
+            $tableRows[] = $this->createTableRow($i + 1, $methodScoresMapping, $showScores);
         }
 
         return Tag::create('tbody',
@@ -308,7 +307,7 @@ class HtmlOutput
         );
     }
 
-    private function createTableRow(int $index, MethodScoresMapping $methodScoresMapping): Tag
+    private function createTableRow(int $index, MethodScoresMapping $methodScoresMapping, bool $showScores): Tag
     {
         $method = $methodScoresMapping->getMethod();
         $methodStart = $method->getCodePositionRange()->getStart();
@@ -318,16 +317,15 @@ class HtmlOutput
             [
                 $this->createRowTh((string)$index),
                 $this->createTd($method->getFilepath()),
-                $this->createTd($method->getName()),
                 $this->createTd($methodStart->getLine() . ':' . $methodStart->getFilePos()),
                 $this->createTd($methodEnd->getLine() . ':' . $methodEnd->getFilePos()),
                 $this->createTd((string)$method->getCodePositionRange()->countOfLines()),
-                Tag::create('td',
+                $showScores ? Tag::create('td',
                     [],
                     [
                         $this->createScoresList($methodScoresMapping->getScores()),
                     ]
-                ),
+                ) : null,
                 Tag::create('td',
                     [],
                     [
@@ -369,7 +367,12 @@ class HtmlOutput
     {
         $tables = [];
         foreach ($sourceCloneMethodScoresMappings as $i => $sourceCloneMethodScoresMapping) {
-            $tables[] = $this->createCard("Clone $i", "type_1_clone_$i", $sourceCloneMethodScoresMapping->getMethodScoresMappings());
+            $tables[] = $this->createCard(
+                "Clone $i",
+                "type_1_clone_$i",
+                $sourceCloneMethodScoresMapping->getMethodScoresMappings(),
+                false
+            );
         }
 
         return $this->createTab(
@@ -385,7 +388,11 @@ class HtmlOutput
     {
         return Tag::create('h3',
             [],
-            [Content::create('Detected ' . count($sourceCloneMethodScoresMappings) . ' clones')]
+            [Content::create(\Safe\sprintf(
+                'Detected %d clone%s',
+                count($sourceCloneMethodScoresMappings),
+                count($sourceCloneMethodScoresMappings) > 1 ? 's' : ''
+            ))]
         );
     }
 
@@ -394,7 +401,12 @@ class HtmlOutput
     {
         $tables = [];
         foreach ($sourceCloneMethodScoresMappings as $i => $sourceCloneMethodScoresMapping) {
-            $tables[] = $this->createCard("Clone $i", "type_2_clone_$i", $sourceCloneMethodScoresMapping->getMethodScoresMappings());
+            $tables[] = $this->createCard(
+                "Clone $i",
+                "type_2_clone_$i",
+                $sourceCloneMethodScoresMapping->getMethodScoresMappings(),
+                false
+            );
         }
 
         return $this->createTab(
@@ -410,7 +422,12 @@ class HtmlOutput
     {
         $tables = [];
         foreach ($sourceCloneMethodScoresMappings as $i => $sourceCloneMethodScoresMapping) {
-            $tables[] = $this->createCard("Clone $i", "type_3_clone_$i", $sourceCloneMethodScoresMapping->getMethodScoresMappings());
+            $tables[] = $this->createCard(
+                "Clone $i",
+                "type_3_clone_$i",
+                $sourceCloneMethodScoresMapping->getMethodScoresMappings(),
+                false
+            );
         }
 
         return $this->createTab(
@@ -426,7 +443,12 @@ class HtmlOutput
     {
         $tables = [];
         foreach ($sourceCloneMethodScoresMappings as $i => $sourceCloneMethodScoresMapping) {
-            $tables[] = $this->createCard("Clone $i", "type_4_clone_$i", $sourceCloneMethodScoresMapping->getMethodScoresMappings());
+            $tables[] = $this->createCard(
+                "Clone $i",
+                "type_4_clone_$i",
+                $sourceCloneMethodScoresMapping->getMethodScoresMappings(),
+                true
+            );
         }
 
         return $this->createTab(
