@@ -161,7 +161,7 @@ class DetectClonesCommand extends Command
             }
         }
 
-        $this->htmlOutput->createReport($sourceCloneMethodScoresMappings, $configuration->htmlReportFile());
+        $this->htmlOutput->createReport($sourceCloneMethodScoresMappings, $configuration);
 
         $commandOutput->stopTime();
 

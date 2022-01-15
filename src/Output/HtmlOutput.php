@@ -2,6 +2,8 @@
 
 namespace App\Output;
 
+use App\Configuration\Configuration;
+use App\Model\Method\Method;
 use App\Model\MethodScoresMapping;
 use App\Model\SourceClone\SourceClone;
 use App\Model\SourceCloneMethodScoresMapping;
@@ -33,7 +35,7 @@ class HtmlOutput
      * @param SourceCloneMethodScoresMapping[] $sourceCloneMethodScoresMappings
      * @throws FilesystemException
      */
-    public function createReport(array $sourceCloneMethodScoresMappings, string $reportPath): self
+    public function createReport(array $sourceCloneMethodScoresMappings, Configuration $configuration): self
     {
         $sortedSourceCloneMethodScoreMappings = [
             SourceClone::TYPE_1 => [],
@@ -43,8 +45,23 @@ class HtmlOutput
         ];
 
         foreach ($sourceCloneMethodScoresMappings as $sourceCloneMethodScoresMapping) {
-            $cloneType = $sourceCloneMethodScoresMapping->getSourceClone()->getType();
-            $sortedSourceCloneMethodScoreMappings[$cloneType][] = $sourceCloneMethodScoresMapping;
+            $methodScoresMappings = $sourceCloneMethodScoresMapping->getMethodScoresMappings();
+
+            $methodScoresMappingsWithRelativePath = [];
+            foreach ($methodScoresMappings as $methodScoresMapping) {
+                $methodScoresMappingsWithRelativePath[] = MethodScoresMapping::create(
+                    $this->convertMethodFilepathToProjectRelative($methodScoresMapping->getMethod(), $configuration->directory()),
+                    $methodScoresMapping->getScores()
+                );
+            }
+
+            $sourceCloneMethodScoresMappingWithRelativePath = SourceCloneMethodScoresMapping::create(
+                $sourceCloneMethodScoresMapping->getSourceClone(),
+                $methodScoresMappingsWithRelativePath
+            );
+
+            $cloneType = $sourceCloneMethodScoresMappingWithRelativePath->getSourceClone()->getType();
+            $sortedSourceCloneMethodScoreMappings[$cloneType][] = $sourceCloneMethodScoresMappingWithRelativePath;
         }
 
         $htmlDom = HtmlDOM::create();
@@ -58,9 +75,26 @@ class HtmlOutput
 
         $htmlDom->add($htmlTag);
 
-        \Safe\file_put_contents($reportPath, $htmlDom->asCode());
+        \Safe\file_put_contents($configuration->htmlReportFile(), $htmlDom->asCode());
 
         return $this;
+    }
+
+    private function convertMethodFilepathToProjectRelative(Method $method, string $projectRoot): Method
+    {
+        return Method::create(
+            $method->getMethodSignature(),
+            $method->getName(),
+            $this->convertAbsoluteFilepathToProjectRelative($method->getFilepath(), $projectRoot),
+            $method->getCodePositionRange(),
+            $method->getContent(),
+            $method->getParsedMethod()
+        );
+    }
+
+    private function convertAbsoluteFilepathToProjectRelative(string $absolute, string $projectRoot): string
+    {
+        return preg_replace("@^$projectRoot@", '', $absolute);
     }
 
     private function createHead(): Tag
@@ -97,7 +131,7 @@ class HtmlOutput
                 ),
                 Tag::create('title',
                     [],
-                    [Content::create('Source Code Clones')]
+                    [Content::create('php-cd: Report')]
                 ),
             ]
         );
@@ -132,7 +166,7 @@ class HtmlOutput
                     [
                         Tag::create('h1',
                             [],
-                            [Content::create('Source Code Clones')]
+                            [Content::create('php-cd: Report')]
                         ),
                         $this->createNavigation(),
                         Tag::create('div',
