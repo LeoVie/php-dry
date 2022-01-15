@@ -44,7 +44,17 @@ class MethodsCollection
     /** @return Method[] */
     public function getAll(): array
     {
-        return $this->methods;
+        $methods = $this->methods;
+
+        usort($methods, function (Method $m1, Method $m2): int {
+            if ($m1->identity() === $m2->identity()) {
+                return 0;
+            }
+
+            return $m1->identity() < $m2->identity() ? -1 : 1;
+        });
+
+        return $methods;
     }
 
     public function equals(self $other): bool
