@@ -308,8 +308,6 @@ class HtmlOutput
                     [
                         $this->createColumnTh('#'),
                         $this->createColumnTh('File'),
-                        $this->createColumnTh('Start'),
-                        $this->createColumnTh('End'),
                         $this->createColumnTh('Lines'),
                         $showScores ? $this->createColumnTh('Scores') : null,
                         $this->createColumnTh('Content'),
@@ -350,9 +348,13 @@ class HtmlOutput
             [],
             [
                 $this->createRowTh((string)$index),
-                $this->createTd($method->getFilepath()),
-                $this->createTd($methodStart->getLine() . ':' . $methodStart->getFilePos()),
-                $this->createTd($methodEnd->getLine() . ':' . $methodEnd->getFilePos()),
+                $this->createTd(
+                    $method->getFilepath()
+                    . '<br>'
+                    . $methodStart->getLine() . ':' . $methodStart->getFilePos()
+                    . ' - '
+                    . $methodEnd->getLine() . ':' . $methodEnd->getFilePos()
+                ),
                 $this->createTd((string)$method->getCodePositionRange()->countOfLines()),
                 $showScores ? Tag::create('td',
                     [],
