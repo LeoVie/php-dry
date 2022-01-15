@@ -94,7 +94,7 @@ class HtmlOutput
 
     private function convertAbsoluteFilepathToProjectRelative(string $absolute, string $projectRoot): string
     {
-        return preg_replace("@^$projectRoot@", '', $absolute);
+        return \Safe\preg_replace("@^$projectRoot@", '', $absolute);
     }
 
     private function createHead(): Tag
@@ -131,7 +131,7 @@ class HtmlOutput
                 ),
                 Tag::create('title',
                     [],
-                    [Content::create('php-cd: Report')]
+                    [Content::create('php-dry: Report')]
                 ),
             ]
         );
@@ -166,7 +166,7 @@ class HtmlOutput
                     [
                         Tag::create('h1',
                             [],
-                            [Content::create('php-cd: Report')]
+                            [Content::create('php-dry: Report')]
                         ),
                         $this->createNavigation(),
                         Tag::create('div',

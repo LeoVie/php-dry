@@ -14,7 +14,7 @@ build_image:
 	composer install --no-dev
 	rm -rf ./vendor/*/*/.git
 	rm -f generated/*.php
-	docker build -f docker/project/Dockerfile -t php-cd:latest . --no-cache
+	docker build -f docker/project/Dockerfile -t php-dry:latest . --no-cache
 	rm -rf ./vendor
 	composer install
 
@@ -25,7 +25,7 @@ build_and_push_image_queo_remote:
 	composer install --no-dev
 	rm -rf ./vendor/*/*/.git
 	rm -f generated/*.php
-	docker build -f docker/project/Dockerfile -t dockerhub.cloud.queo.org/queo.web/projects/php-cd-example/php-cd:latest . --no-cache
-	docker push dockerhub.cloud.queo.org/queo.web/projects/php-cd-example/php-cd:latest
+	docker build -f docker/project/Dockerfile -t dockerhub.cloud.queo.org/queo.web/projects/php-cd-example/php-dry:latest . --no-cache
+	docker push dockerhub.cloud.queo.org/queo.web/projects/php-cd-example/php-dry:latest
 	rm -rf ./vendor
 	composer install

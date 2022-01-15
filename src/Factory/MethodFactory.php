@@ -15,6 +15,7 @@ use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use Safe\Exceptions\FilesystemException;
+use Safe\Exceptions\PcreException;
 use Safe\Exceptions\StringsException;
 
 class MethodFactory
@@ -69,15 +70,30 @@ class MethodFactory
      * @throws FilesystemException
      * @throws StringsException
      * @throws InvalidBoundaries
+     * @throws PcreException
      */
     private function readMethodContent(string $filepath, CodePositionRange $codePositionRange): string
     {
-        return $this->filesystem->readFilePart(
+        $methodContent = $this->filesystem->readFilePart(
             $filepath,
             Boundaries::create(
                 $codePositionRange->getStart()->getFilePos(),
                 $codePositionRange->getEnd()->getFilePos() + 1
             )
         );
+
+        return $this->indentLinesCorrectly($methodContent);
+    }
+
+    /** @throws PcreException */
+    private function indentLinesCorrectly(string $methodContent): string
+    {
+        $lines = explode("\n", $methodContent);
+        $correctlyIndentedLines = [array_shift($lines)];
+        foreach ($lines as $line) {
+            $correctlyIndentedLines[] = \Safe\preg_replace("@^ {4}@", '', $line);
+        }
+
+        return join("\n", $correctlyIndentedLines);
     }
 }

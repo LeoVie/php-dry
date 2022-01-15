@@ -10,5 +10,5 @@ COPY vendor /var/www/vendor
 
 ENTRYPOINT [ \
     "php", "-d", "memory_limit=-1", \
-    "/var/www/bin/console", "php-cd:check", "/project" \
+    "/var/www/bin/console", "php-dry:check", "/project" \
 ]

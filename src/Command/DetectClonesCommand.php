@@ -42,7 +42,7 @@ class DetectClonesCommand extends Command
     private const ARGUMENT_MIN_TOKEN_LENGTH = 'minTokenLength';
     private const OPTION_SILENT_LONG = 'silent';
     private const OPTION_SILENT_SHORT = 's';
-    protected static $defaultName = 'php-cd:check';
+    protected static $defaultName = 'php-dry:check';
 
     public function __construct(
         private DetectClonesService     $detectClonesService,
