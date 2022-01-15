@@ -164,9 +164,36 @@ class HtmlOutput
                 Tag::create('div',
                     [Attribute::create('class', 'container')],
                     [
-                        Tag::create('h1',
-                            [],
-                            [Content::create('php-dry: Report')]
+                        Tag::create('div',
+                            [Attribute::create('class', 'row')],
+                            [
+                                Tag::create('div',
+                                    [Attribute::create('class', 'col-1')],
+                                    [
+                                        Tag::create('svg',
+                                            [
+                                                Attribute::create('viewbox', '0 0 64 64'),
+                                                Attribute::create('xmlns', 'http://www.w3.org/2000/svg'),
+                                            ],
+                                            [
+                                                Tag::create('path',
+                                                    [Attribute::create('d', 'M61,4H46V3a1,1,0,0,0-2,0V4H20V3a1,1,0,0,0-2,0V4H3A1,1,0,0,0,3,6H18V8H14a1,1,0,0,0-.633.226l-11,9a1,1,0,0,0-.211,1.311l7,11a1,1,0,0,0,.711.454,1.009,1.009,0,0,0,.806-.251L13,27.624V61a1,1,0,0,0,1,1H50a1,1,0,0,0,1-1V27.838l2.367,1.936a1,1,0,0,0,1.452-.2l7-10a1,1,0,0,0-.146-1.313l-11-10A1,1,0,0,0,50,8H46V6H61a1,1,0,0,0,0-2ZM49.613,10l10.063,9.148-5.877,8.4-3.166-2.589A1,1,0,0,0,49,25.728V60H15V25.364a1,1,0,0,0-1.673-.74l-3.121,2.837L4.32,18.212,14.357,10H18v1a1,1,0,0,0,2,0V10h5.071a7,7,0,0,0,13.858,0H44v1a1,1,0,0,0,2,0V10ZM44,8H38a1,1,0,0,0-1,1A5,5,0,0,1,27,9a1,1,0,0,0-1-1H20V6H44Z')],
+                                                    [],
+                                                ),
+                                            ]
+                                        ),
+                                    ]
+                                ),
+                                Tag::create('div',
+                                    [Attribute::create('class', 'col-11')],
+                                    [
+                                        Tag::create('h1',
+                                            [],
+                                            [Content::create('php-dry: Report')]
+                                        ),
+                                    ]
+                                ),
+                            ]
                         ),
                         $this->createNavigation(),
                         Tag::create('div',
@@ -279,7 +306,7 @@ class HtmlOutput
                                 ),
                             ]
                         ),
-                        $this->createTable($methodScoresMappings, $showScores),
+                        $this->createTable($methodScoresMappings, $id, $showScores),
                     ]
                 ),
             ]
@@ -287,13 +314,13 @@ class HtmlOutput
     }
 
     /** @param MethodScoresMapping[] $methodScoresMappings */
-    private function createTable(array $methodScoresMappings, bool $showScores): Tag
+    private function createTable(array $methodScoresMappings, string $cardId, bool $showScores): Tag
     {
         return Tag::create('table',
             [Attribute::create('class', 'table')],
             [
                 $this->createTableHead($showScores),
-                $this->createTableBody($methodScoresMappings, $showScores),
+                $this->createTableBody($methodScoresMappings, $cardId, $showScores),
             ]
         );
     }
@@ -326,11 +353,11 @@ class HtmlOutput
     }
 
     /** @param MethodScoresMapping[] $methodScoresMappings */
-    private function createTableBody(array $methodScoresMappings, bool $showScores): Tag
+    private function createTableBody(array $methodScoresMappings, string $cardId, bool $showScores): Tag
     {
         $tableRows = [];
         foreach ($methodScoresMappings as $i => $methodScoresMapping) {
-            $tableRows[] = $this->createTableRow($i + 1, $methodScoresMapping, $showScores);
+            $tableRows[] = $this->createTableRow($i + 1, $methodScoresMapping, $cardId, $showScores);
         }
 
         return Tag::create('tbody',
@@ -339,7 +366,7 @@ class HtmlOutput
         );
     }
 
-    private function createTableRow(int $index, MethodScoresMapping $methodScoresMapping, bool $showScores): Tag
+    private function createTableRow(int $index, MethodScoresMapping $methodScoresMapping, string $cardId, bool $showScores): Tag
     {
         $method = $methodScoresMapping->getMethod();
         $methodStart = $method->getCodePositionRange()->getStart();
@@ -365,17 +392,7 @@ class HtmlOutput
                 Tag::create('td',
                     [],
                     [
-                        Tag::create('pre',
-                            [],
-                            [
-                                Tag::create('code',
-                                    [
-                                        Attribute::create('class', 'language-php'),
-                                    ],
-                                    [Content::create($method->getContent())]
-                                ),
-                            ]
-                        ),
+                        $this->createContentAccordion($index, $method, $cardId),
                     ]
                 ),
             ]
@@ -395,6 +412,82 @@ class HtmlOutput
         return Tag::create('td',
             [],
             [Content::create($caption)]
+        );
+    }
+
+    private function createContentAccordion(int $index, Method $method, string $cardId): Tag
+    {
+        $accordionHeadingId = $cardId . "_codeAccordionHeading$index";
+        $accordionId = $cardId . "_codeAccordion$index";
+        return Tag::create('div',
+            [Attribute::create('class', 'accordion')],
+            [
+                Tag::create('div',
+                    [Attribute::create('class', 'accordion-item')],
+                    [
+                        Tag::create('h2',
+                            [
+                                Attribute::create('class', 'accordion-header'),
+                                Attribute::create('id', $accordionHeadingId)
+                            ],
+                            [
+                                Tag::create('a',
+                                    [
+                                        Attribute::create('class', 'btn accordion-button collapsed'),
+                                        Attribute::create('type', 'button'),
+                                        Attribute::create('data-bs-toggle', 'collapse'),
+                                        Attribute::create('data-bs-target', "#$accordionId"),
+                                        Attribute::create('aria-expanded', "false"),
+                                        Attribute::create('aria-controls', $accordionId),
+                                    ],
+                                    [
+                                        Tag::create('pre',
+                                            [],
+                                            [
+                                                Tag::create('code',
+                                                    [
+                                                        Attribute::create('class', 'language-php'),
+                                                    ],
+                                                    [
+                                                        Content::create(
+                                                            'function ' . $method->getName() . $method->getMethodSignature()->__toString()
+                                                        )
+                                                    ]
+                                                ),
+                                            ]
+                                        )
+                                    ]
+                                )
+                            ]
+                        ),
+                        Tag::create('div',
+                            [
+                                Attribute::create('id', $accordionId),
+                                Attribute::create('class', 'accordion-collapse collapse'),
+                                Attribute::create('aria-labelledby', $accordionHeadingId),
+                            ],
+                            [
+                                Tag::create('div',
+                                    [Attribute::create('class', 'accordion-body')],
+                                    [
+                                        Tag::create('pre',
+                                            [],
+                                            [
+                                                Tag::create('code',
+                                                    [
+                                                        Attribute::create('class', 'language-php'),
+                                                    ],
+                                                    [Content::create($method->getContent())]
+                                                ),
+                                            ]
+                                        )
+                                    ]
+                                )
+                            ]
+                        )
+                    ]
+                )
+            ]
         );
     }
 
