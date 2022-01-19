@@ -64,4 +64,9 @@ class OutputHelper
 
         return $this;
     }
+
+    public function createProgressBarIterator(iterable $iterable): iterable
+    {
+        return $this->io->createProgressBar()->iterate($iterable);
+    }
 }

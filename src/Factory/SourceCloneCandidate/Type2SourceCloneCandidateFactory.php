@@ -25,12 +25,12 @@ class Type2SourceCloneCandidateFactory
      * @return Type2SourceCloneCandidate[]
      * @throws CollectionCannotBeEmpty
      */
-    public function createMultiple(array $type1SourceCloneCandidates): array
+    public function createMultiple(iterable $type1SourceCloneCandidates): array
     {
-        $type2SourceCloneCandidates = array_map(
-            fn(Type1SourceCloneCandidate $type1SCC): Type2SourceCloneCandidate => $this->createFromType1SCC($type1SCC),
-            $type1SourceCloneCandidates
-        );
+        $type2SourceCloneCandidates = [];
+        foreach ($type1SourceCloneCandidates as $type1SourceCloneCandidate) {
+            $type2SourceCloneCandidates[] = $this->createFromType1SCC($type1SourceCloneCandidate);
+        }
 
         return $this->type2SourceCloneCandidatesMerger->merge($type2SourceCloneCandidates);
     }

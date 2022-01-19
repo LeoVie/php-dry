@@ -21,8 +21,8 @@ class Type1SourceCloneCandidateFactory
         private MethodTokenSequencesByTokenSequencesGrouper $methodTokenSequencesByTokenSequencesGrouper,
         private TokenSequenceFactory                        $tokenSequenceFactory,
         private TokenSequenceNormalizer                     $tokenSequenceNormalizer,
-        private ArrayUtil                                   $arrayUtil,
         private MethodsCollectionFactory                    $methodsCollectionFactory,
+        private ArrayUtil                                   $arrayUtil,
     )
     {
     }
@@ -33,15 +33,15 @@ class Type1SourceCloneCandidateFactory
      * @return Type1SourceCloneCandidate[]
      * @throws CollectionCannotBeEmpty
      */
-    public function createMultiple(array $methodSignatureGroups): array
+    public function createMultiple(iterable $methodSignatureGroups): array
     {
+        $sourceCloneCandidatesNested = [];
+        foreach ($methodSignatureGroups as $msg) {
+            $sourceCloneCandidatesNested[] = $this->createMultipleForOneMethodsCollection($msg);
+        }
+
         /** @var Type1SourceCloneCandidate[] $sourceClonesCandidates */
-        $sourceClonesCandidates = $this->arrayUtil->flatten(
-            array_map(
-                fn(MethodSignatureGroup $msg): array => $this->createMultipleForOneMethodsCollection($msg),
-                $methodSignatureGroups
-            )
-        );
+        $sourceClonesCandidates = $this->arrayUtil->flatten($sourceCloneCandidatesNested);
 
         return $sourceClonesCandidates;
     }

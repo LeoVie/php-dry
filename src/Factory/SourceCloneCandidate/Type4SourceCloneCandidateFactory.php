@@ -54,7 +54,7 @@ class Type4SourceCloneCandidateFactory
      * @throws FilesystemException
      * @throws NoParamGeneratorFoundForParamRequest
      */
-    public function createMultipleByRunningMethods(array $methodSignatureGroups): array
+    public function createMultipleByRunningMethods(iterable $methodSignatureGroups): array
     {
         $sourceCloneCandidates = [];
 
@@ -86,7 +86,7 @@ class Type4SourceCloneCandidateFactory
                 $runResultSetsArray[$runResultSet->hash()][] = $runResultSet;
             }
 
-            array_push($sourceCloneCandidates, ...$this->createSourceCloneCandidatesForRunResultSetsArray($runResultSetsArray));
+            array_push($sourceCloneCandidates, ...$this->createMultipleForRunResultSetsArray($runResultSetsArray));
         }
 
         return $sourceCloneCandidates;
@@ -170,11 +170,11 @@ class Type4SourceCloneCandidateFactory
      * @return Type4SourceCloneCandidate[]
      * @throws CollectionCannotBeEmpty
      */
-    private function createSourceCloneCandidatesForRunResultSetsArray(array $runResultSetsArray): array
+    private function createMultipleForRunResultSetsArray(array $runResultSetsArray): array
     {
         return array_values(
             array_map(
-                fn(array $runResultSets): Type4SourceCloneCandidate => $this->createSourceCloneCandidateForRunResultSets($runResultSets),
+                fn(array $runResultSets): Type4SourceCloneCandidate => $this->createForRunResultSets($runResultSets),
                 $runResultSetsArray
             )
         );
@@ -185,7 +185,7 @@ class Type4SourceCloneCandidateFactory
      *
      * @throws CollectionCannotBeEmpty
      */
-    private function createSourceCloneCandidateForRunResultSets(array $runResultSets): Type4SourceCloneCandidate
+    private function createForRunResultSets(array $runResultSets): Type4SourceCloneCandidate
     {
         $methods = array_map(fn(RunResultSet $rrs): \App\Model\Method\Method => $rrs->getMethod(), $runResultSets);
 

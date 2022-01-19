@@ -83,8 +83,13 @@ class QuietOutput implements OutputFormat
         return $this;
     }
 
-    public function detectionFinishedForType(string $type): self
+    public function detectionRunningForType(string $type): self
     {
         return $this;
+    }
+
+    public function createProgressBarIterator(iterable $iterable): iterable
+    {
+        return $iterable;
     }
 }

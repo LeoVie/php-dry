@@ -97,11 +97,16 @@ class HumanOutput implements OutputFormat
         return $this->single('No clones found.');
     }
 
-    public function detectionFinishedForType(string $type): self
+    public function detectionRunningForType(string $type): self
     {
         $this->verboseOutputHelper
-            ->info(\Safe\sprintf('Clone detection finished for type %s.', $type));
+            ->info(\Safe\sprintf('Detecting type %s clones', $type));
 
         return $this;
+    }
+
+    public function createProgressBarIterator(iterable $iterable): iterable
+    {
+        return $this->verboseOutputHelper->createProgressBarIterator($iterable);
     }
 }

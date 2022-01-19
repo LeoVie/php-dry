@@ -34,5 +34,7 @@ interface OutputFormat
 
     public function noClonesFound(): self;
 
-    public function detectionFinishedForType(string $type): self;
+    public function detectionRunningForType(string $type): self;
+
+    public function createProgressBarIterator(iterable $iterable): iterable;
 }
