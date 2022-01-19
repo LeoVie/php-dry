@@ -74,7 +74,7 @@ class DetectClonesService
 
         $methodSignatureGroups = $this->methodsBySignatureGrouper->group($methods);
 
-        return $this->detectClones($methodSignatureGroups, $configuration);
+        return $this->detectClones($methodSignatureGroups, $configuration, $output);
     }
 
     /**
@@ -87,12 +87,12 @@ class DetectClonesService
      * @throws NoParamGeneratorFoundForParamRequest
      * @throws MethodCannotBeModifiedToNonClassContext
      */
-    private function detectClones(array $methodSignatureGroups, Configuration $configuration, bool $includeType4Clones = true): array
+    private function detectClones(array $methodSignatureGroups, Configuration $configuration, OutputFormat $output, bool $includeType4Clones = true): array
     {
         $type1SCCs = $this->type1SourceCloneCandidateFactory->createMultiple($methodSignatureGroups);
         $type1Clones = $this->type1CloneDetector->detect($type1SCCs);
 
-        print("Type 1 done\n");
+        $output->detectionFinishedForType('1');
 
         /** @var Type1SourceCloneCandidate[] $filteredType1SCCs */
         $filteredType1SCCs = $this->removeSCCsFullyCoveredByCloneAndMethodSignatureGroup($methodSignatureGroups, $type1SCCs, $type1Clones);
@@ -100,7 +100,7 @@ class DetectClonesService
         $type2SCCs = $this->type2SourceCloneCandidateFactory->createMultiple($filteredType1SCCs);
         $type2Clones = $this->type2CloneDetector->detect($type2SCCs);
 
-        print("Type 2 done\n");
+        $output->detectionFinishedForType('2');
 
         /** @var Type2SourceCloneCandidate[] $filteredType2SCCs */
         $filteredType2SCCs = $this->removeSCCsFullyCoveredByCloneAndMethodSignatureGroup($methodSignatureGroups, $type2SCCs, $type2Clones);
@@ -108,7 +108,7 @@ class DetectClonesService
         $type3SCCs = $this->type3SourceCloneCandidateFactory->createMultiple($filteredType2SCCs, $configuration);
         $type3Clones = $this->type3CloneDetector->detect($type3SCCs);
 
-        print("Type 3 done\n");
+        $output->detectionFinishedForType('3');
 
         if (!$includeType4Clones) {
             return [
@@ -120,15 +120,15 @@ class DetectClonesService
 
         $filteredMethodSignatureGroups = $this->removeMethodSignatureGroupsFullyCoveredByClonesAlready($methodSignatureGroups, $type1Clones, $type2Clones, $type3Clones);
 
-//        $type4ClonesByConstructNormalization = $this->detectType4ClonesByConstructNormalization($filteredMethodSignatureGroups, $configuration);
+//        $type4ClonesByConstructNormalization = $this->detectType4ClonesByConstructNormalization($filteredMethodSignatureGroups, $configuration, $output);
         $type4ClonesByConstructNormalization = [];
 
-        print("Type 4.1 done\n");
-#
+        $output->detectionFinishedForType('4 by construct normalization');
+
         $type4SCCS = $this->type4SourceCloneCandidateFactory->createMultipleByRunningMethods($filteredMethodSignatureGroups);
         $type4ClonesByResultComparison = $this->type4CloneDetector->detect($type4SCCS);
 
-        print("Type 4.2 done\n");
+        $output->detectionFinishedForType('4 by running');
 
         $type4Clones = array_merge($type4ClonesByConstructNormalization, $type4ClonesByResultComparison);
 
@@ -241,7 +241,7 @@ class DetectClonesService
      * @throws MethodCannotBeModifiedToNonClassContext
      * @throws NoParamGeneratorFoundForParamRequest
      */
-    private function detectType4ClonesByConstructNormalization(array $filteredMethodSignatureGroups, Configuration $configuration): array
+    private function detectType4ClonesByConstructNormalization(array $filteredMethodSignatureGroups, Configuration $configuration, OutputFormat $output): array
     {
         $totalCountOfMethods = 0;
         foreach ($filteredMethodSignatureGroups as $methodSignatureGroup) {
@@ -281,7 +281,7 @@ class DetectClonesService
             );
         }
 
-        $clones = $this->detectClones($methodSignatureGroupsWithLanguageConstructNormalizedMethods, $configuration, false);
+        $clones = $this->detectClones($methodSignatureGroupsWithLanguageConstructNormalizedMethods, $configuration, $output, false);
 
         $allClonesTogether = array_merge(
             $clones[SourceClone::TYPE_1],

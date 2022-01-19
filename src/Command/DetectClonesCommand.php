@@ -125,7 +125,6 @@ class DetectClonesCommand extends Command
                     ->headline($clone->getType())
                     ->methodsCollection($clone->getMethodsCollection());
 
-
                 $methodScoresMappings = [];
                 foreach ($clone->getMethodsCollection()->getAll() as $method) {
                     if ($clone->getType() === SourceClone::TYPE_4) {

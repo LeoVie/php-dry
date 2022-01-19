@@ -96,4 +96,12 @@ class HumanOutput implements OutputFormat
     {
         return $this->single('No clones found.');
     }
+
+    public function detectionFinishedForType(string $type): self
+    {
+        $this->verboseOutputHelper
+            ->info(\Safe\sprintf('Clone detection finished for type %s.', $type));
+
+        return $this;
+    }
 }

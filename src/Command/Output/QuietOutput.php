@@ -82,4 +82,9 @@ class QuietOutput implements OutputFormat
     {
         return $this;
     }
+
+    public function detectionFinishedForType(string $type): self
+    {
+        return $this;
+    }
 }

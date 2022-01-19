@@ -33,4 +33,6 @@ interface OutputFormat
     public function stopTime(): self;
 
     public function noClonesFound(): self;
+
+    public function detectionFinishedForType(string $type): self;
 }

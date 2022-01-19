@@ -57,4 +57,11 @@ class OutputHelper
 
         return $this;
     }
+
+    public function info(string $message): self
+    {
+        $this->io->info($message);
+
+        return $this;
+    }
 }
