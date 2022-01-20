@@ -18,18 +18,14 @@ use App\Factory\SourceCloneCandidate\Type3SourceCloneCandidateFactory;
 use App\Factory\SourceCloneCandidate\Type4SourceCloneCandidateFactory;
 use App\File\FindFiles;
 use App\Grouper\MethodsBySignatureGrouper;
-use App\Merge\Type2SourceCloneCandidatesMerger;
 use App\Model\Method\Method;
 use App\Model\Method\MethodSignatureGroup;
 use App\Model\SourceClone\SourceClone;
 use App\Model\SourceCloneCandidate\SourceCloneCandidate;
 use App\Model\SourceCloneCandidate\Type1SourceCloneCandidate;
 use App\Model\SourceCloneCandidate\Type2SourceCloneCandidate;
-use App\Util\ArrayUtil;
-use App\Util\LongestCommonSubsequenceUtil;
 use LeoVie\PhpConstructNormalize\Service\ConstructNormalizeService;
 use LeoVie\PhpFilesystem\Exception\InvalidBoundaries;
-use LeoVie\PhpGrouper\Service\Grouper;
 use LeoVie\PhpMethodModifier\Exception\MethodCannotBeModifiedToNonClassContext;
 use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
 use LeoVie\PhpParamGenerator\Exception\NoParamGeneratorFoundForParamRequest;
@@ -51,10 +47,6 @@ class DetectClonesService
         private Type3SourceCloneCandidateFactory $type3SourceCloneCandidateFactory,
         private Type4SourceCloneCandidateFactory $type4SourceCloneCandidateFactory,
         private ConstructNormalizeService        $constructNormalizeService,
-        private ArrayUtil                        $arrayUtil,
-        private Type2SourceCloneCandidatesMerger $type2SourceCloneCandidatesMerger,
-        private Grouper                          $grouper,
-        private LongestCommonSubsequenceUtil     $longestCommonSubsequenceUtil,
     )
     {
     }
