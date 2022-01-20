@@ -51,9 +51,9 @@ class OutputHelper
         return str_repeat("    ", $level) . $message;
     }
 
-    public function emptyLine(): self
+    public function emptyLine(int $count = 1): self
     {
-        $this->io->newLine();
+        $this->io->newLine($count);
 
         return $this;
     }

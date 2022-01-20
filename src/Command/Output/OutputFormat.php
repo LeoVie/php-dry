@@ -17,6 +17,8 @@ interface OutputFormat
 
     public function single(string $line): self;
 
+    public function newLine(int $count = 1): self;
+
     /** @param string[] $items */
     public function listing(array $items): self;
 

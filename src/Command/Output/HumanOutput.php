@@ -46,6 +46,13 @@ class HumanOutput implements OutputFormat
         return $this;
     }
 
+    public function newLine(int $count = 1): self
+    {
+        $this->verboseOutputHelper->emptyLine($count);
+
+        return $this;
+    }
+
     /** @param string[] $items */
     public function listing(array $items): self
     {

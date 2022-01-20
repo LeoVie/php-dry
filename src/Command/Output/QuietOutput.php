@@ -42,6 +42,11 @@ class QuietOutput implements OutputFormat
         return $this;
     }
 
+    public function newLine(int $count = 1): self
+    {
+        return $this;
+    }
+
     /** @param string[] $items */
     public function listing(array $items): self
     {

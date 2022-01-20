@@ -104,7 +104,8 @@ class DetectClonesService
         );
         $type1Clones = $this->type1CloneDetector->detect($type1SCCs);
 
-        $output->detectionRunningForType('2');
+        $output->newLine()
+            ->detectionRunningForType('2');
         /** @var Type1SourceCloneCandidate[] $filteredType1SCCs */
         $filteredType1SCCs = $this->removeSCCsFullyCoveredByCloneAndMethodSignatureGroup($methodSignatureGroups, $type1SCCs, $type1Clones);
         $type2SCCs = $this->type2SourceCloneCandidateFactory->createMultiple(
@@ -112,7 +113,8 @@ class DetectClonesService
         );
         $type2Clones = $this->type2CloneDetector->detect($type2SCCs);
 
-        $output->detectionRunningForType('3');
+        $output->newLine()
+            ->detectionRunningForType('3');
         /** @var Type2SourceCloneCandidate[] $filteredType2SCCs */
         $filteredType2SCCs = $this->removeSCCsFullyCoveredByCloneAndMethodSignatureGroup($methodSignatureGroups, $type2SCCs, $type2Clones);
         $type3SCCs = $this->type3SourceCloneCandidateFactory->createMultiple(
@@ -135,14 +137,16 @@ class DetectClonesService
 
         $type4ClonesByConstructNormalization = [];
         if ($detectType4ClonesByConstructNormalization) {
-            $output->detectionRunningForType('4 by construct normalization');
+            $output->newLine()
+                ->detectionRunningForType('4 by construct normalization');
             $type4ClonesByConstructNormalization = $this->detectType4ClonesByConstructNormalization(
                 $output->createProgressBarIterator($filteredMethodSignatureGroups),
                 $configuration
             );
         }
 
-        $output->detectionRunningForType('4 by running');
+        $output->newLine()
+            ->detectionRunningForType('4 by running');
         $type4SCCS = $this->type4SourceCloneCandidateFactory->createMultipleByRunningMethods(
             $output->createProgressBarIterator($filteredMethodSignatureGroups)
         );

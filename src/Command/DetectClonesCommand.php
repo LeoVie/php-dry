@@ -120,7 +120,7 @@ class DetectClonesCommand extends Command
 
             return Command::SUCCESS;
         } else {
-            $commandOutput->single('')->single('');
+            $commandOutput->newLine(2);
             foreach ($clonesToReport as $clone) {
                 $commandOutput
                     ->headline($clone->getType())
