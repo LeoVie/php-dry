@@ -124,10 +124,8 @@ class DetectClonesService
 
         $filteredMethodSignatureGroups = $this->removeMethodSignatureGroupsFullyCoveredByClonesAlready($methodSignatureGroups, $type1Clones, $type2Clones, $type3Clones);
 
-        $detectType4ClonesByConstructNormalization = false;
-
         $type4ClonesByConstructNormalization = [];
-        if ($detectType4ClonesByConstructNormalization) {
+        if ($configuration->enableConstructNormalization()) {
             $output->newLine()
                 ->detectionRunningForType('4 by construct normalization');
             $type4ClonesByConstructNormalization = $this->detectType4ClonesByConstructNormalization(

@@ -6,11 +6,12 @@ namespace App\Factory\SourceCloneCandidate;
 
 use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
+use App\Exception\SubsequenceUtilNotFound;
 use App\Merge\Type3SourceCloneCandidatesMerger;
 use App\Model\SourceCloneCandidate\Type2SourceCloneCandidate;
 use App\Model\SourceCloneCandidate\Type3SourceCloneCandidate;
 use App\Util\ArrayUtil;
-use App\Util\LongestCommonSubsequenceUtil;
+use App\Util\Subsequence\SubsequenceUtilPicker;
 use LeoVie\PhpGrouper\Service\Grouper;
 
 class Type3SourceCloneCandidateFactory
@@ -19,7 +20,7 @@ class Type3SourceCloneCandidateFactory
         private ArrayUtil                        $arrayUtil,
         private Type3SourceCloneCandidatesMerger $type3SourceCloneCandidatesMerger,
         private Grouper                          $grouper,
-        private LongestCommonSubsequenceUtil     $longestCommonSubsequenceUtil,
+        private SubsequenceUtilPicker            $subsequenceUtilPicker,
     )
     {
     }
@@ -29,13 +30,20 @@ class Type3SourceCloneCandidateFactory
      *
      * @return Type3SourceCloneCandidate[]
      * @throws CollectionCannotBeEmpty
+     * @throws SubsequenceUtilNotFound
      */
     public function createMultiple(iterable $type2SourceCloneCandidates, Configuration $configuration): array
     {
+        $subsequenceUtil = $this->subsequenceUtilPicker->pick(
+            $configuration->enableLCSAlgorithm()
+                ? SubsequenceUtilPicker::STRATEGY_LCS
+                : SubsequenceUtilPicker::STRATEGY_SIMILAR_TEXT
+        );
+
         $type2SourceCloneCandidateGroups = $this->grouper->groupByCallback(
             $type2SourceCloneCandidates,
-            fn(Type2SourceCloneCandidate $a, Type2SourceCloneCandidate $b): bool => $this->longestCommonSubsequenceUtil
-                ->lcsIsOverThreshold(
+            fn(Type2SourceCloneCandidate $a, Type2SourceCloneCandidate $b): bool => $subsequenceUtil
+                ->isOverThreshold(
                     $a->identity(), $b->identity(), $configuration->minSimilarTokensPercent()
                 )
         );

@@ -40,6 +40,8 @@ class DetectClonesCommand extends Command
     private const ARGUMENT_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES = 'countOfParamSetsForType4Clones';
     private const ARGUMENT_HTML_REPORT_FILEPATH = 'htmlReportFilepath';
     private const ARGUMENT_MIN_TOKEN_LENGTH = 'minTokenLength';
+    private const OPTION_ENABLE_CONSTRUCT_NORMALIZATION = 'enableConstructNormalization';
+    private const OPTION_ENABLE_LCS_ALGORITHM = 'enableLCSAlgorithm';
     private const OPTION_SILENT_LONG = 'silent';
     private const OPTION_SILENT_SHORT = 's';
     protected static $defaultName = 'php-dry:check';
@@ -78,17 +80,29 @@ class DetectClonesCommand extends Command
                 InputArgument::OPTIONAL,
                 'How many param sets should get generated for each method signature set (type 4 clone detection)?',
                 10
+            )->addArgument(
+                self::ARGUMENT_MIN_TOKEN_LENGTH,
+                InputArgument::OPTIONAL,
+                'How many tokens should be each clone long at least?',
+                50
+            )->addOption(
+                self::OPTION_ENABLE_CONSTRUCT_NORMALIZATION,
+                null,
+                InputArgument::OPTIONAL,
+                'Detect clones by normalizing language constructs?',
+                false
+            )->addOption(
+                self::OPTION_ENABLE_LCS_ALGORITHM,
+                null,
+                InputArgument::OPTIONAL,
+                'Use the LCS algorithm which is slow, but precise?',
+                false
             )->addOption(
                 self::OPTION_SILENT_LONG,
                 self::OPTION_SILENT_SHORT,
                 InputArgument::OPTIONAL,
                 'Should the command be silent?',
                 false
-            )->addArgument(
-                self::ARGUMENT_MIN_TOKEN_LENGTH,
-                InputArgument::OPTIONAL,
-                'How many tokens should be each clone long at least?',
-                50
             );
     }
 
@@ -191,6 +205,8 @@ class DetectClonesCommand extends Command
             $this->getIntArgument($input, self::ARGUMENT_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES),
             $this->getStringArgument($input, self::ARGUMENT_HTML_REPORT_FILEPATH),
             $this->getIntArgument($input, self::ARGUMENT_MIN_TOKEN_LENGTH),
+            $this->getBoolOption($input, self::OPTION_ENABLE_CONSTRUCT_NORMALIZATION),
+            $this->getBoolOption($input, self::OPTION_ENABLE_LCS_ALGORITHM),
         );
     }
 

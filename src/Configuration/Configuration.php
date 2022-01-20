@@ -13,6 +13,8 @@ class Configuration
         private int    $countOfParamSetsForType4Clones,
         private string $htmlReportFile,
         private int    $minTokenLength,
+        private bool   $enableConstructNormalization,
+        private bool   $enableLCSAlgorithm,
     )
     {
     }
@@ -22,10 +24,20 @@ class Configuration
         int    $minSimilarTokensPercent,
         int    $countOfParamSetsForType4Clones,
         string $htmlReportFile,
-        int    $minTokenLength
+        int    $minTokenLength,
+        bool   $enableConstructNormalization,
+        bool   $enableLCSAlgorithm,
     ): self
     {
-        return new self($directory, $minSimilarTokensPercent, $countOfParamSetsForType4Clones, $htmlReportFile, $minTokenLength);
+        return new self(
+            $directory,
+            $minSimilarTokensPercent,
+            $countOfParamSetsForType4Clones,
+            $htmlReportFile,
+            $minTokenLength,
+            $enableConstructNormalization,
+            $enableLCSAlgorithm,
+        );
     }
 
     public function directory(): string
@@ -51,5 +63,15 @@ class Configuration
     public function minTokenLength(): int
     {
         return $this->minTokenLength;
+    }
+
+    public function enableConstructNormalization(): bool
+    {
+        return $this->enableConstructNormalization;
+    }
+
+    public function enableLCSAlgorithm(): bool
+    {
+        return $this->enableLCSAlgorithm;
     }
 }

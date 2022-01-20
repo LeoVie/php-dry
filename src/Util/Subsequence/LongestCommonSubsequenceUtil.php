@@ -1,20 +1,16 @@
 <?php
+
 declare(strict_types=1);
 
-namespace App\Util;
+namespace App\Util\Subsequence;
 
-class LongestCommonSubsequenceUtil
+class LongestCommonSubsequenceUtil implements SubsequenceUtil
 {
-    public function lcsIsOverThreshold(string $a, string $b, int $threshold): bool
+    public function isOverThreshold(string $a, string $b, int $threshold): bool
     {
         if ($a === $b) {
             return false;
         }
-
-        $similarText = similar_text($a, $b);
-        $percentageOfSimilarText = ($similarText / (max(strlen($a), strlen($b)))) * 100;
-
-        return $percentageOfSimilarText > $threshold;
 
         $lcs = $this->lcs($a, $b);
         $percentageOfEqualTokens = ($lcs / (max(strlen($a), strlen($b)))) * 100;
