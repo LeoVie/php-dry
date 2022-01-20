@@ -25,7 +25,6 @@ use App\Model\SourceClone\SourceClone;
 use App\Model\SourceCloneCandidate\SourceCloneCandidate;
 use App\Model\SourceCloneCandidate\Type1SourceCloneCandidate;
 use App\Model\SourceCloneCandidate\Type2SourceCloneCandidate;
-use App\Model\SourceCloneCandidate\Type3SourceCloneCandidate;
 use App\Util\ArrayUtil;
 use App\Util\LongestCommonSubsequenceUtil;
 use LeoVie\PhpConstructNormalize\Service\ConstructNormalizeService;
@@ -141,7 +140,8 @@ class DetectClonesService
                 ->detectionRunningForType('4 by construct normalization');
             $type4ClonesByConstructNormalization = $this->detectType4ClonesByConstructNormalization(
                 $output->createProgressBarIterator($filteredMethodSignatureGroups),
-                $configuration
+                $configuration,
+                $output,
             );
         }
 
@@ -263,7 +263,7 @@ class DetectClonesService
      * @throws MethodCannotBeModifiedToNonClassContext
      * @throws NoParamGeneratorFoundForParamRequest
      */
-    private function detectType4ClonesByConstructNormalization(iterable $filteredMethodSignatureGroups, Configuration $configuration): array
+    private function detectType4ClonesByConstructNormalization(iterable $filteredMethodSignatureGroups, Configuration $configuration, OutputFormat $output): array
     {
         $methodSignatureGroupsWithLanguageConstructNormalizedMethods = [];
         foreach ($filteredMethodSignatureGroups as $methodSignatureGroup) {
