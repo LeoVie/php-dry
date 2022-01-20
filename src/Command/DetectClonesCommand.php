@@ -36,12 +36,12 @@ use Symfony\Component\Stopwatch\Stopwatch;
 class DetectClonesCommand extends Command
 {
     private const ARGUMENT_DIRECTORY = 'directory';
-    private const ARGUMENT_MIN_SIMILAR_TOKENS_PERCENT = 'minSimilarTokensPercent';
-    private const ARGUMENT_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES = 'countOfParamSetsForType4Clones';
-    private const ARGUMENT_HTML_REPORT_FILEPATH = 'htmlReportFilepath';
-    private const ARGUMENT_MIN_TOKEN_LENGTH = 'minTokenLength';
-    private const OPTION_ENABLE_CONSTRUCT_NORMALIZATION = 'enableConstructNormalization';
-    private const OPTION_ENABLE_LCS_ALGORITHM = 'enableLCSAlgorithm';
+    private const OPTION_MIN_SIMILAR_TOKENS_PERCENTAGE = 'min_similar_tokens_percentage';
+    private const OPTION_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES = 'count_of_param_sets_for_type4_clones';
+    private const OPTION_HTML_REPORT_FILEPATH = 'html_report_filepath';
+    private const OPTION_MIN_TOKEN_LENGTH = 'min_token_length';
+    private const OPTION_ENABLE_CONSTRUCT_NORMALIZATION = 'enable_construct_normalization';
+    private const OPTION_ENABLE_LCS_ALGORITHM = 'enable_lcs_algorithm';
     private const OPTION_SILENT_LONG = 'silent';
     private const OPTION_SILENT_SHORT = 's';
     protected static $defaultName = 'php-dry:check';
@@ -65,23 +65,27 @@ class DetectClonesCommand extends Command
                 self::ARGUMENT_DIRECTORY,
                 InputArgument::REQUIRED,
                 'Absolute path of directory in which clones should get detected.'
-            )->addArgument(
-                self::ARGUMENT_HTML_REPORT_FILEPATH,
+            )->addOption(
+                self::OPTION_HTML_REPORT_FILEPATH,
+                null,
                 InputArgument::OPTIONAL,
                 'Absolute path of report html file.',
                 __DIR__ . '/../../report.html',
-            )->addArgument(
-                self::ARGUMENT_MIN_SIMILAR_TOKENS_PERCENT,
+            )->addOption(
+                self::OPTION_MIN_SIMILAR_TOKENS_PERCENTAGE,
+                null,
                 InputArgument::OPTIONAL,
                 'How many similar tokens should be in two fragments to treat them as clones.',
                 80
-            )->addArgument(
-                self::ARGUMENT_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES,
+            )->addOption(
+                self::OPTION_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES,
+                null,
                 InputArgument::OPTIONAL,
                 'How many param sets should get generated for each method signature set (type 4 clone detection)?',
                 10
-            )->addArgument(
-                self::ARGUMENT_MIN_TOKEN_LENGTH,
+            )->addOption(
+                self::OPTION_MIN_TOKEN_LENGTH,
+                null,
                 InputArgument::OPTIONAL,
                 'How many tokens should be each clone long at least?',
                 50
@@ -201,10 +205,10 @@ class DetectClonesCommand extends Command
     {
         return Configuration::create(
             $this->getStringArgument($input, self::ARGUMENT_DIRECTORY),
-            $this->getIntArgument($input, self::ARGUMENT_MIN_SIMILAR_TOKENS_PERCENT),
-            $this->getIntArgument($input, self::ARGUMENT_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES),
-            $this->getStringArgument($input, self::ARGUMENT_HTML_REPORT_FILEPATH),
-            $this->getIntArgument($input, self::ARGUMENT_MIN_TOKEN_LENGTH),
+            $this->getIntOption($input, self::OPTION_MIN_SIMILAR_TOKENS_PERCENTAGE),
+            $this->getIntOption($input, self::OPTION_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES),
+            $this->getStringOption($input, self::OPTION_HTML_REPORT_FILEPATH),
+            $this->getIntOption($input, self::OPTION_MIN_TOKEN_LENGTH),
             $this->getBoolOption($input, self::OPTION_ENABLE_CONSTRUCT_NORMALIZATION),
             $this->getBoolOption($input, self::OPTION_ENABLE_LCS_ALGORITHM),
         );
@@ -218,9 +222,17 @@ class DetectClonesCommand extends Command
         return $value;
     }
 
-    private function getIntArgument(InputInterface $input, string $name): int
+    private function getStringOption(InputInterface $input, string $name): string
     {
-        return (int)$input->getArgument($name);
+        /** @var string $value */
+        $value = $input->getOption($name);
+
+        return $value;
+    }
+
+    private function getIntOption(InputInterface $input, string $name): int
+    {
+        return (int)$input->getOption($name);
     }
 
     private function getBoolOption(InputInterface $input, string $name): bool
