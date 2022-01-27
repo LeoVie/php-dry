@@ -32,13 +32,13 @@ class ConfigurationTest extends TestCase
     private function createConfiguration(array $items): Configuration
     {
         return Configuration::create(
-            $items['directory'] ?: '',
-            $items['minSimilarTokensPercent'] ?: 0,
-            $items['countOfParamSetsForType4Clones'] ?: 0,
-            $items['htmlReportFile'] ?: '',
-            $items['minTokenLength'] ?: 0,
-            $items['enableConstructNormalization'] ?: true,
-            $items['enableLCSAlgorithm'] ?: true,
+            $items['directory'] ?? '',
+            $items['minSimilarTokensPercent'] ?? 0,
+            $items['countOfParamSetsForType4Clones'] ?? 0,
+            $items['htmlReportFile'] ?? '',
+            $items['minTokenLength'] ?? 0,
+            $items['enableConstructNormalization'] ?? true,
+            $items['enableLCSAlgorithm'] ?? true,
         );
     }
 

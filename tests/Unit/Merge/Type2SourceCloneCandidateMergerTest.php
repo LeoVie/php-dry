@@ -41,11 +41,11 @@ class Type2SourceCloneCandidateMergerTest extends TestCase
 
         yield 'not empty' => [
             'expected' => [
-                Type2SourceCloneCandidate::create(
+                '$x1' => Type2SourceCloneCandidate::create(
                     $tokenSequence1,
                     MethodsCollection::create($method1, $method2, $method4, $method5)
                 ),
-                Type2SourceCloneCandidate::create(
+                '1' => Type2SourceCloneCandidate::create(
                     $tokenSequence2,
                     MethodsCollection::create($method3, $method6)
                 ),

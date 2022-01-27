@@ -9,6 +9,10 @@ use App\Model\Method\Method;
 
 class MethodsCollection
 {
+    private const METHODS_EQUAL = 0;
+    private const METHOD_A_LOWER_B = -1;
+    private const METHOD_B_LOWER_A = 1;
+
     /** @var array<Method> */
     private array $methods;
 
@@ -25,15 +29,27 @@ class MethodsCollection
     /** @throws CollectionCannotBeEmpty */
     public static function create(Method ...$methods): self
     {
-        usort($methods, function (Method $m1, Method $m2): int {
-            if ($m1->identity() === $m2->identity()) {
-                return 0;
-            }
-
-            return $m1->identity() < $m2->identity() ? -1 : 1;
-        });
+        $methods = self::sortMethods($methods);
 
         return new self(...$methods);
+    }
+
+    /**
+     * @param array<Method> $methods
+     *
+     * @return array<Method>
+     */
+    private static function sortMethods(array $methods): array
+    {
+        usort($methods, function (Method $m1, Method $m2): int {
+            if ($m1->identity() === $m2->identity()) {
+                return self::METHODS_EQUAL;
+            }
+
+            return $m1->identity() <= $m2->identity() ? self::METHOD_A_LOWER_B : self::METHOD_B_LOWER_A;
+        });
+
+        return $methods;
     }
 
     public function getFirst(): Method
@@ -47,17 +63,7 @@ class MethodsCollection
     /** @return array<Method> */
     public function getAll(): array
     {
-        $methods = $this->methods;
-
-        usort($methods, function (Method $m1, Method $m2): int {
-            if ($m1->identity() === $m2->identity()) {
-                return 0;
-            }
-
-            return $m1->identity() < $m2->identity() ? -1 : 1;
-        });
-
-        return $methods;
+        return self::sortMethods($this->methods);
     }
 
     public function equals(self $other): bool

@@ -93,4 +93,110 @@ class MethodsCollectionTest extends TestCase
 
         return $method;
     }
+
+    /** @dataProvider getAllProvider */
+    public function testGetAll(array $expected, array $methods): void
+    {
+        self::assertSame($expected, MethodsCollection::create(...$methods)->getAll());
+    }
+
+    public function getAllProvider(): array
+    {
+        $methodA = $this->mockMethodWithIdentity('a');
+        $otherMethodA = $this->mockMethodWithIdentity('a');
+        $methodB = $this->mockMethodWithIdentity('b');
+        $methodC = $this->mockMethodWithIdentity('c');
+        return [
+            'one method' => [
+                'expected' => [$methodA],
+                'methods' => [$methodA],
+            ],
+            'multiple methods (same signature)' => [
+                'expected' => [
+                    $methodA,
+                    $otherMethodA,
+                ],
+                'methods' => [
+                    $methodA,
+                    $otherMethodA,
+                ],
+            ],
+            'multiple methods (already sorted)' => [
+                'expected' => [
+                    $methodA,
+                    $methodB,
+                ],
+                'methods' => [
+                    $methodA,
+                    $methodB,
+                ],
+            ],
+            'multiple methods (unsorted)' => [
+                'expected' => [
+                    $methodA,
+                    $methodB,
+                    $methodC,
+                ],
+                'methods' => [
+                    $methodB,
+                    $methodC,
+                    $methodA,
+                ],
+            ],
+        ];
+    }
+
+    private function mockMethodWithIdentity(string $identity): Method
+    {
+        $method = $this->createMock(Method::class);
+        $method->method('identity')->willReturn($identity);
+
+        return $method;
+    }
+
+    /** @dataProvider equalsProvider */
+    public function testEquals(bool $expected, MethodsCollection $a, MethodsCollection $b): void
+    {
+        self::assertSame($expected, $a->equals($b));
+    }
+
+    public function equalsProvider(): array
+    {
+        $methodA = $this->mockMethodWithIdentity('a');
+        $otherMethodA = $this->mockMethodWithIdentity('a');
+        $methodB = $this->mockMethodWithIdentity('b');
+        $methodC = $this->mockMethodWithIdentity('c');
+        return [
+            'one method (same)' => [
+                'expected' => true,
+                'a' => MethodsCollection::create($methodA),
+                'b' => MethodsCollection::create($methodA),
+            ],
+            'one method (not equals)' => [
+                'expected' => false,
+                'a' => MethodsCollection::create($methodA),
+                'b' => MethodsCollection::create($methodB),
+            ],
+            'multiple methods (same)' => [
+                'expected' => true,
+                'a' => MethodsCollection::create($methodA, $methodB),
+                'b' => MethodsCollection::create($methodA, $methodB)
+            ],
+            'multiple methods (not same, but equals)' => [
+                'expected' => true,
+                'a' => MethodsCollection::create($methodA, $methodB),
+                'b' => MethodsCollection::create($otherMethodA, $methodB)
+            ],
+            'multiple methods (not equals)' => [
+                'expected' => false,
+                'a' => MethodsCollection::create($methodA, $methodC),
+                'b' => MethodsCollection::create($methodB)
+            ],
+            'multiple methods (not equals, B has more)' => [
+                'expected' => false,
+                'a' => MethodsCollection::create($methodA, $methodC),
+                'b' => MethodsCollection::create($methodA, $methodC, $methodB)
+            ],
+        ];
+    }
 }
