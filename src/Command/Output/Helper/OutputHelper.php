@@ -65,6 +65,12 @@ class OutputHelper
         return $this;
     }
 
+    /**
+     * @template T
+     * @param iterable<T> $iterable
+     *
+     * @return iterable<T>
+     */
     public function createProgressBarIterator(iterable $iterable): iterable
     {
         return $this->io->createProgressBar()->iterate($iterable);

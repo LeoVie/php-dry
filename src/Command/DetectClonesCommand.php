@@ -232,7 +232,10 @@ class DetectClonesCommand extends Command
 
     private function getIntOption(InputInterface $input, string $name): int
     {
-        return (int)$input->getOption($name);
+        /** @var int $value */
+        $value = $input->getOption($name);
+
+        return $value;
     }
 
     private function getBoolOption(InputInterface $input, string $name): bool

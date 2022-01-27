@@ -112,6 +112,7 @@ class HumanOutput implements OutputFormat
         return $this;
     }
 
+    /** @inheritDoc */
     public function createProgressBarIterator(iterable $iterable): iterable
     {
         return $this->verboseOutputHelper->createProgressBarIterator($iterable);

@@ -51,7 +51,7 @@ class IgnoreClonesServiceTest extends TestCase
             $this->mockTokenSequence(20),
         ];
         $expected = [$clones[0], $clones[2]];
-        $configuration = Configuration::create('', 11, 0, '');
+        $configuration = $this->mockConfiguration(11);
         yield 'clones with 1 method each' => [
             'expected' => $expected,
             'clones' => $clones,
@@ -72,7 +72,7 @@ class IgnoreClonesServiceTest extends TestCase
             $this->mockTokenSequence(20),
         ];
         $expected = [$clones[0]];
-        $configuration = Configuration::create('', 10, 0, '');
+        $configuration = $this->mockConfiguration(11);
         yield '1 clone with multiple methods' => [
             'expected' => $expected,
             'clones' => $clones,
@@ -93,7 +93,7 @@ class IgnoreClonesServiceTest extends TestCase
             $this->mockTokenSequence(20),
         ];
         $expected = [];
-        $configuration = Configuration::create('', 21, 0, '');
+        $configuration = $this->mockConfiguration(21);
         yield '1 clone with multiple methods, every token sequence too short' => [
             'expected' => $expected,
             'clones' => $clones,
@@ -108,5 +108,13 @@ class IgnoreClonesServiceTest extends TestCase
         $tokenSequence->method('length')->willReturn($length);
 
         return $tokenSequence;
+    }
+
+    private function mockConfiguration(int $minTokenLength): Configuration
+    {
+        $configuration = $this->createMock(Configuration::class);
+        $configuration->method('minTokenLength')->willReturn($minTokenLength);
+
+        return $configuration;
     }
 }

@@ -94,7 +94,10 @@ class HtmlOutput
 
     private function convertAbsoluteFilepathToProjectRelative(string $absolute, string $projectRoot): string
     {
-        return \Safe\preg_replace("@^$projectRoot@", '', $absolute);
+        /** @var string $projectRelativePath */
+        $projectRelativePath = \Safe\preg_replace("@^$projectRoot@", '', $absolute);
+
+        return $projectRelativePath;
     }
 
     private function createHead(): Tag

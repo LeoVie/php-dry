@@ -38,5 +38,11 @@ interface OutputFormat
 
     public function detectionRunningForType(string $type): self;
 
+    /**
+     * @template T
+     * @param iterable<T> $iterable
+     *
+     * @return iterable<T>
+     */
     public function createProgressBarIterator(iterable $iterable): iterable;
 }

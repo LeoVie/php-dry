@@ -93,6 +93,7 @@ class QuietOutput implements OutputFormat
         return $this;
     }
 
+    /** @inheritDoc */
     public function createProgressBarIterator(iterable $iterable): iterable
     {
         return $iterable;

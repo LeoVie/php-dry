@@ -40,6 +40,7 @@ class Type3SourceCloneCandidateFactory
                 : SubsequenceUtilPicker::STRATEGY_SIMILAR_TEXT
         );
 
+        /** @var array<array<Type2SourceCloneCandidate>> $type2SourceCloneCandidateGroups */
         $type2SourceCloneCandidateGroups = $this->grouper->groupByCallback(
             $type2SourceCloneCandidates,
             fn(Type2SourceCloneCandidate $a, Type2SourceCloneCandidate $b): bool => $subsequenceUtil

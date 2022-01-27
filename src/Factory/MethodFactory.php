@@ -91,7 +91,9 @@ class MethodFactory
         $lines = explode("\n", $methodContent);
         $correctlyIndentedLines = [array_shift($lines)];
         foreach ($lines as $line) {
-            $correctlyIndentedLines[] = \Safe\preg_replace("@^ {4}@", '', $line);
+            /** @var string $correctlyIndentedLine */
+            $correctlyIndentedLine = \Safe\preg_replace("@^ {4}@", '', $line);
+            $correctlyIndentedLines[] = $correctlyIndentedLine;
         }
 
         return join("\n", $correctlyIndentedLines);

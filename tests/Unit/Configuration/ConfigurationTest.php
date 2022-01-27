@@ -20,31 +20,44 @@ class ConfigurationTest extends TestCase
         return [
             [
                 'expected' => '/var/www/foo/',
-                'configuration' => Configuration::create('/var/www/foo/', 0, 0, ''),
+                'configuration' => $this->createConfiguration(['directory' => '/var/www/foo/']),
             ],
             [
                 'expected' => '/mnt/c/bla/bla/',
-                'configuration' => Configuration::create('/mnt/c/bla/bla/', 0, 0, ''),
+                'configuration' => $this->createConfiguration(['directory' => '/mnt/c/bla/bla/']),
             ],
         ];
     }
 
-    /** @dataProvider minLinesForType1AndType2ClonesProvider */
+    private function createConfiguration(array $items): Configuration
+    {
+        return Configuration::create(
+            $items['directory'] ?: '',
+            $items['minSimilarTokensPercent'] ?: 0,
+            $items['countOfParamSetsForType4Clones'] ?: 0,
+            $items['htmlReportFile'] ?: '',
+            $items['minTokenLength'] ?: 0,
+            $items['enableConstructNormalization'] ?: true,
+            $items['enableLCSAlgorithm'] ?: true,
+        );
+    }
+
+    /** @dataProvider minSimilarTokensPercentProvider */
     public function testMinSimilarTokens(int $expected, Configuration $configuration): void
     {
         self::assertSame($expected, $configuration->minSimilarTokensPercent());
     }
 
-    public function minLinesForType1AndType2ClonesProvider(): array
+    public function minSimilarTokensPercentProvider(): array
     {
         return [
             [
                 'expected' => 10,
-                'configuration' => Configuration::create('', 10, 0, ''),
+                'configuration' => $this->createConfiguration(['minSimilarTokensPercent' => 10]),
             ],
             [
                 'expected' => 5,
-                'configuration' => Configuration::create('', 5, 0, ''),
+                'configuration' => $this->createConfiguration(['minSimilarTokensPercent' => 5]),
             ],
         ];
     }
@@ -60,11 +73,11 @@ class ConfigurationTest extends TestCase
         return [
             [
                 'expected' => 7,
-                'configuration' => Configuration::create('', 0, 7, ''),
+                'configuration' => $this->createConfiguration(['countOfParamSetsForType4Clones' => 7]),
             ],
             [
                 'expected' => 2,
-                'configuration' => Configuration::create('', 0,  2, ''),
+                'configuration' => $this->createConfiguration(['countOfParamSetsForType4Clones' => 2]),
             ],
         ];
     }
@@ -80,11 +93,11 @@ class ConfigurationTest extends TestCase
         return [
             [
                 'expected' => '/var/www/report.html',
-                'configuration' => Configuration::create('', 0, 0, '/var/www/report.html'),
+                'configuration' => $this->createConfiguration(['htmlReportFile' => '/var/www/report.html']),
             ],
             [
                 'expected' => 'bla/foo/bar.html',
-                'configuration' => Configuration::create('', 0,  0, 'bla/foo/bar.html'),
+                'configuration' => $this->createConfiguration(['htmlReportFile' => 'bla/foo/bar.html']),
             ],
         ];
     }
