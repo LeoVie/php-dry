@@ -40,6 +40,7 @@ class IgnoreClonesService
 
     private function cloneShouldBeIgnored(SourceClone $clone, Configuration $configuration): bool
     {
+        /** @var non-empty-array<int> $tokenLengths */
         $tokenLengths = array_map(
             fn(Method $m): int => $this->tokenSequenceFactory->createFromMethod($m)->length(),
             $clone->getMethodsCollection()->getAll()

@@ -26,7 +26,7 @@ class Type3SourceCloneCandidateFactory
     }
 
     /**
-     * @param Type2SourceCloneCandidate[] $type2SourceCloneCandidates
+     * @param iterable<Type2SourceCloneCandidate> $type2SourceCloneCandidates
      *
      * @return Type3SourceCloneCandidate[]
      * @throws CollectionCannotBeEmpty

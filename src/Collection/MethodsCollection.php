@@ -9,7 +9,7 @@ use App\Model\Method\Method;
 
 class MethodsCollection
 {
-    /** @var Method[] */
+    /** @var array<Method> */
     private array $methods;
 
     /** @throws CollectionCannotBeEmpty */
@@ -38,10 +38,13 @@ class MethodsCollection
 
     public function getFirst(): Method
     {
-        return $this->methods[array_key_first($this->methods)];
+        /** @var array-key $firstArrayKey */
+        $firstArrayKey = array_key_first($this->methods);
+
+        return $this->methods[$firstArrayKey];
     }
 
-    /** @return Method[] */
+    /** @return array<Method> */
     public function getAll(): array
     {
         $methods = $this->methods;

@@ -355,7 +355,7 @@ class HtmlOutput
         );
     }
 
-    /** @param MethodScoresMapping[] $methodScoresMappings */
+    /** @param array<int, MethodScoresMapping> $methodScoresMappings */
     private function createTableBody(array $methodScoresMappings, string $cardId, bool $showScores): Tag
     {
         $tableRows = [];

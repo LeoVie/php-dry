@@ -46,7 +46,7 @@ class Type4SourceCloneCandidateFactory
     }
 
     /**
-     * @param MethodSignatureGroup[] $methodSignatureGroups
+     * @param iterable<MethodSignatureGroup> $methodSignatureGroups
      *
      * @return Type4SourceCloneCandidate[]
      *

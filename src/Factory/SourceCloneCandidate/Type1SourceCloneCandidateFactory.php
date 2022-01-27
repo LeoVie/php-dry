@@ -28,7 +28,7 @@ class Type1SourceCloneCandidateFactory
     }
 
     /**
-     * @param MethodSignatureGroup[] $methodSignatureGroups
+     * @param iterable<MethodSignatureGroup> $methodSignatureGroups
      *
      * @return Type1SourceCloneCandidate[]
      * @throws CollectionCannotBeEmpty

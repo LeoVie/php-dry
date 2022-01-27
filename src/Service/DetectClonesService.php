@@ -244,7 +244,7 @@ class DetectClonesService
     }
 
     /**
-     * @param MethodSignatureGroup[] $filteredMethodSignatureGroups
+     * @param iterable<MethodSignatureGroup> $filteredMethodSignatureGroups
      *
      * @return SourceClone[]
      *
