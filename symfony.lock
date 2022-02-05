@@ -44,6 +44,9 @@
     "infection/infection": {
         "version": "0.25.3"
     },
+    "jetbrains/phpstorm-attributes": {
+        "version": "1.0"
+    },
     "justinrainbow/json-schema": {
         "version": "5.2.11"
     },

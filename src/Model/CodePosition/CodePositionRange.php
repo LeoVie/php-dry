@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Model\CodePosition;
 
+use JetBrains\PhpStorm\Internal\TentativeType;
+use JsonSerializable;
 use Safe\Exceptions\StringsException;
 use Stringable;
 
-class CodePositionRange implements Stringable
+class CodePositionRange implements Stringable, JsonSerializable
 {
     public static function create(CodePosition $start, CodePosition $end): self
     {
@@ -42,5 +44,15 @@ class CodePositionRange implements Stringable
             $this->getEnd()->__toString(),
             $this->countOfLines()
         );
+    }
+
+    /** @return array{'start': CodePosition, 'end': CodePosition, 'countOfLines': int} */
+    public function jsonSerialize(): array
+    {
+        return [
+            'start' => $this->getStart(),
+            'end' => $this->getEnd(),
+            'countOfLines' => $this->countOfLines(),
+        ];
     }
 }

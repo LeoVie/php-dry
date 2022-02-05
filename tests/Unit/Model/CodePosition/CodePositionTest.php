@@ -68,4 +68,24 @@ class CodePositionTest extends TestCase
             ],
         ];
     }
+
+    /** @dataProvider jsonSerializeProvider */
+    public function testJsonSerialize(string $expected, CodePosition $codePosition): void
+    {
+        self::assertJsonStringEqualsJsonString($expected, \Safe\json_encode($codePosition));
+    }
+
+    public function jsonSerializeProvider(): array
+    {
+        return [
+            [
+                'expected' => \Safe\json_encode(['line' => 10, 'filePos' => 15]),
+                CodePosition::create(10, 15),
+            ],
+            [
+                'expected' => \Safe\json_encode(['line' => 999, 'filePos' => 29]),
+                CodePosition::create(999, 29),
+            ],
+        ];
+    }
 }

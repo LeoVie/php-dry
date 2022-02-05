@@ -101,4 +101,35 @@ class CodePositionRangeTest extends TestCase
             ],
         ];
     }
+
+    /** @dataProvider jsonSerializeProvider */
+    public function testJsonSerialize(string $expected, CodePositionRange $codePositionRange): void
+    {
+        self::assertJsonStringEqualsJsonString($expected, \Safe\json_encode($codePositionRange));
+    }
+
+    public function jsonSerializeProvider(): Generator
+    {
+        $start = CodePosition::create(10, 15);
+        $end = CodePosition::create(11, 15);
+        yield [
+            'expected' => \Safe\json_encode([
+                'start' => $start,
+                'end' => $end,
+                'countOfLines' => 1,
+            ]),
+            'codePositionRange' => CodePositionRange::create($start, $end),
+        ];
+
+        $start = CodePosition::create(700, 16);
+        $end = CodePosition::create(1100, 15);
+        yield [
+            'expected' => \Safe\json_encode([
+                'start' => $start,
+                'end' => $end,
+                'countOfLines' => 400,
+            ]),
+            'codePositionRange' => CodePositionRange::create($start, $end),
+        ];
+    }
 }

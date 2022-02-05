@@ -74,4 +74,45 @@ class MethodSignatureTest extends TestCase
             MethodSignature::create(['int', 'string'], 'int')
         ];
     }
+
+    /** @dataProvider jsonSerializeProvider */
+    public function testJsonSerialize(string $expected, MethodSignature $methodSignature): void
+    {
+        self::assertJsonStringEqualsJsonString($expected, \Safe\json_encode($methodSignature));
+    }
+
+    public function jsonSerializeProvider(): Generator
+    {
+        yield [
+            'expected' => \Safe\json_encode([
+                'paramTypes' => [],
+                'returnType' => 'int',
+            ]),
+            MethodSignature::create([], 'int')
+        ];
+
+        yield [
+            'expected' => \Safe\json_encode([
+                'paramTypes' => [],
+                'returnType' => '?array',
+            ]),
+            MethodSignature::create([], '?array')
+        ];
+
+        yield [
+            'expected' => \Safe\json_encode([
+                'paramTypes' => ['int'],
+                'returnType' => 'int',
+            ]),
+            MethodSignature::create(['int'], 'int')
+        ];
+
+        yield [
+            'expected' => \Safe\json_encode([
+                'paramTypes' => ['int', 'string'],
+                'returnType' => 'int',
+            ]),
+            MethodSignature::create(['int', 'string'], 'int')
+        ];
+    }
 }

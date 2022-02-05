@@ -45,17 +45,4 @@ class MethodTokenSequenceTest extends TestCase
             )->identity()
         );
     }
-
-    public function testToString(): void
-    {
-        $tokenSequence = $this->createMock(TokenSequence::class);
-        $tokenSequence->method('identity')->willReturn('token sequence identity');
-
-        self::assertSame('token sequence identity',
-            MethodTokenSequence::create(
-                $this->createMock(Method::class),
-                $tokenSequence
-            )->__toString()
-        );
-    }
 }

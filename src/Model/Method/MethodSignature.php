@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Model\Method;
 
+use JsonSerializable;
 use Safe\Exceptions\StringsException;
 use Stringable;
 
-class MethodSignature implements Stringable
+class MethodSignature implements Stringable, JsonSerializable
 {
     /** @param string[] $paramTypes */
     private function __construct(
@@ -40,6 +41,19 @@ class MethodSignature implements Stringable
     /** @throws StringsException */
     public function __toString(): string
     {
-        return \Safe\sprintf('(%s): %s', join(', ', $this->getParamTypes()), $this->getReturnType());
+        return \Safe\sprintf(
+            '(%s): %s',
+            join(', ', $this->getParamTypes()),
+            $this->getReturnType()
+        );
+    }
+
+    /** @return array{'paramTypes': string[], "returnType": string} */
+    public function jsonSerialize(): array
+    {
+        return [
+            'paramTypes' => $this->getParamTypes(),
+            'returnType' => $this->getReturnType(),
+        ];
     }
 }

@@ -7,6 +7,9 @@ phpstan:
 phpunit:
 	composer phpunit
 
+unit:
+	composer phpunit -- --testsuite=unit
+
 functional:
 	composer phpunit -- --testsuite=functional
 

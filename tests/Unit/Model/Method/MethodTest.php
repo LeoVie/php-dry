@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Model\Method;
 
+use App\Model\CodePosition\CodePosition;
 use App\Model\CodePosition\CodePositionRange;
 use App\Model\Method\Method;
 use App\Model\Method\MethodSignature;
@@ -164,6 +165,55 @@ class MethodTest extends TestCase
         $codePositionRange->method('__toString')->willReturn('code position range 2');
         yield [
             'expected' => '/fp/bar.php: barfoo (code position range 2)',
+            'method' => Method::create(
+                $this->createMock(MethodSignature::class),
+                'barfoo',
+                '/fp/bar.php',
+                $codePositionRange,
+                '',
+                $this->createMock(ClassMethod::class),
+            ),
+        ];
+    }
+
+    /** @dataProvider jsonSerializeProvider */
+    public function testJsonSerialize(string $expected, Method $method): void
+    {
+        self::assertJsonStringEqualsJsonString($expected, \Safe\json_encode($method));
+    }
+
+    public function jsonSerializeProvider(): Generator
+    {
+        $codePositionRange = CodePositionRange::create(
+            CodePosition::create(1, 10),
+            CodePosition::create(3, 10),
+        );
+        yield [
+            'expected' => \Safe\json_encode([
+                'filepath' => '/var/www/foo.php',
+                'name' => 'foobar',
+                'codePositionRange' => $codePositionRange,
+            ]),
+            'method' => Method::create(
+                $this->createMock(MethodSignature::class),
+                'foobar',
+                '/var/www/foo.php',
+                $codePositionRange,
+                '',
+                $this->createMock(ClassMethod::class),
+            ),
+        ];
+
+        $codePositionRange = CodePositionRange::create(
+            CodePosition::create(1, 10),
+            CodePosition::create(3, 10),
+        );
+        yield [
+            'expected' => \Safe\json_encode([
+                'filepath' => '/fp/bar.php',
+                'name' => 'barfoo',
+                'codePositionRange' => $codePositionRange,
+            ]),
             'method' => Method::create(
                 $this->createMock(MethodSignature::class),
                 'barfoo',

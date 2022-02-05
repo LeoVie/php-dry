@@ -11,7 +11,7 @@ use PhpParser\Node\Stmt\Function_;
 use Safe\Exceptions\StringsException;
 use Stringable;
 
-class Method implements Stringable, Identity
+class Method implements Stringable, Identity, \JsonSerializable
 {
     private function __construct(
         private MethodSignature       $methodSignature,
@@ -80,5 +80,15 @@ class Method implements Stringable, Identity
             $this->getName(),
             $this->getCodePositionRange()->__toString()
         );
+    }
+
+    /** @return array{'filepath': string, 'name': string, 'codePositionRange': CodePositionRange} */
+    public function jsonSerialize(): array
+    {
+        return [
+            'filepath' => $this->getFilepath(),
+            'name' => $this->getName(),
+            'codePositionRange' => $this->getCodePositionRange(),
+        ];
     }
 }
