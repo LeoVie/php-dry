@@ -38,3 +38,5 @@ generated/*
 
 tests/testdata/template/generated/*
 !tests/testdata/template/generated/.gitkeep
+
+/report.html
