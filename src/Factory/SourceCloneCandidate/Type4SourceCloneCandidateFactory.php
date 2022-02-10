@@ -24,6 +24,7 @@ use LeoVie\PhpParamGenerator\Model\Param\Param;
 use LeoVie\PhpParamGenerator\Model\Param\ParamList\ParamList;
 use LeoVie\PhpParamGenerator\Model\Param\ParamList\ParamListSet;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ArrayRequest;
+use LeoVie\PhpParamGenerator\Model\ParamRequest\FloatRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\IntRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamList\ParamListRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamList\ParamListSetRequest;
@@ -112,6 +113,7 @@ class Type4SourceCloneCandidateFactory
     {
         return match ($paramType) {
             'int' => IntRequest::create(),
+            'float' => FloatRequest::create(),
             'string' => StringRequest::create(),
             'array' => ArrayRequest::create([IntRequest::create(), IntRequest::create(), IntRequest::create()]),
             default => throw NoParamRequestForParamType::create($paramType)
