@@ -1,5 +1,5 @@
 {
-    "name": "leovie/php-clone-detection",
+    "name": "leovie/php-dry",
     "description": "Detect clones in php code.",
     "type": "project",
     "license": "proprietary",
