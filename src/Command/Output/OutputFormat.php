@@ -2,9 +2,7 @@
 
 namespace App\Command\Output;
 
-use App\Collection\MethodsCollection;
 use App\Command\Output\Helper\OutputHelper;
-use App\Model\SourceClone\SourceClone;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Stopwatch\StopwatchEvent;
 
@@ -18,16 +16,12 @@ interface OutputFormat
 
     public function runtime(StopwatchEvent $runtime): void;
 
-    public function headline(string $headline): self;
-
     public function single(string $line): self;
 
     public function newLine(int $count = 1): self;
 
     /** @param string[] $items */
     public function listing(array $items): self;
-
-    public function methodsCollection(MethodsCollection $methodsCollection): self;
 
     public function foundFiles(int $filesCount): self;
 
@@ -50,7 +44,4 @@ interface OutputFormat
      * @return iterable<T>
      */
     public function createProgressBarIterator(iterable $iterable): iterable;
-
-    /** @param array<SourceClone> $sourceClones */
-    public function sourceClones(array $sourceClones): self;
 }

@@ -13,6 +13,8 @@ use App\Model\MethodScoresMapping;
 use App\Model\SourceClone\SourceClone;
 use App\Model\SourceCloneMethodScoresMapping;
 use App\Output\HtmlOutput;
+use App\Report\CommandLineReportBuilder;
+use App\Report\JsonReportBuilder;
 use App\Service\DetectClonesService;
 use App\Service\IgnoreClonesService;
 use App\ServiceFactory\StopwatchFactory;
@@ -45,13 +47,15 @@ class DetectClonesCommand extends Command
     protected static $defaultName = 'php-dry:check';
 
     public function __construct(
-        private DetectClonesService     $detectClonesService,
-        private IgnoreClonesService     $ignoreClonesService,
-        private CleanCodeCheckerService $cleanCodeCheckerService,
-        private CleanCodeScorerService  $cleanCodeScorerService,
-        private MethodModifierService   $methodModifierService,
-        private HtmlOutput              $htmlOutput,
-        private OutputFormatHolder      $outputFormatHolder,
+        private DetectClonesService      $detectClonesService,
+        private IgnoreClonesService      $ignoreClonesService,
+        private CleanCodeCheckerService  $cleanCodeCheckerService,
+        private CleanCodeScorerService   $cleanCodeScorerService,
+        private MethodModifierService    $methodModifierService,
+        private HtmlOutput               $htmlOutput,
+        private OutputFormatHolder       $outputFormatHolder,
+        private JsonReportBuilder        $jsonReportBuilder,
+        private CommandLineReportBuilder $commandLineReportBuilder,
     )
     {
         parent::__construct(self::$defaultName);
@@ -138,7 +142,13 @@ class DetectClonesCommand extends Command
             return Command::SUCCESS;
         } else {
             $commandOutput->newLine(2);
-            $commandOutput->sourceClones($clonesToReport);
+            $jsonReport = $this->jsonReportBuilder->build($clonesToReport);
+
+            if ($this->getStringOption($input, self::OPTION_OUTPUT_FORMAT) === 'json') {
+                $output->write($jsonReport);
+            } else if ($this->getStringOption($input, self::OPTION_OUTPUT_FORMAT) === 'human') {
+                $output->write($this->commandLineReportBuilder->build($jsonReport));
+            }
 
             foreach ($clonesToReport as $clone) {
                 $methodScoresMappings = [];

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Command\Output;
 
-use App\Collection\MethodsCollection;
 use App\Command\Output\Helper\OutputHelper;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Stopwatch\StopwatchEvent;
@@ -34,11 +33,6 @@ class JsonOutput implements OutputFormat
     {
     }
 
-    public function headline(string $headline): self
-    {
-        return $this;
-    }
-
     public function single(string $line): self
     {
         $this->outputHelper->single($line);
@@ -53,11 +47,6 @@ class JsonOutput implements OutputFormat
 
     /** @param string[] $items */
     public function listing(array $items): self
-    {
-        return $this;
-    }
-
-    public function methodsCollection(MethodsCollection $methodsCollection): self
     {
         return $this;
     }
@@ -101,10 +90,5 @@ class JsonOutput implements OutputFormat
     public function createProgressBarIterator(iterable $iterable): iterable
     {
         return $iterable;
-    }
-
-    public function sourceClones(array $sourceClones): self
-    {
-        return $this->single(\Safe\json_encode($sourceClones));
     }
 }

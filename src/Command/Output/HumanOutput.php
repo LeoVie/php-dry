@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command\Output;
 
-use App\Collection\MethodsCollection;
 use App\Command\Output\Helper\OutputHelper;
-use App\Model\Method\Method;
-use App\OutputFormatter\Model\Method\MethodOutputFormatter;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Stopwatch\StopwatchEvent;
 
@@ -15,10 +12,6 @@ class HumanOutput implements OutputFormat
 {
     private OutputHelper $outputHelper;
     private Stopwatch $stopwatch;
-    
-    public function __construct(private MethodOutputFormatter $methodOutputFormatter)
-    {
-    }
 
     public function setOutputHelper(OutputHelper $outputHelper): self
     {
@@ -46,13 +39,6 @@ class HumanOutput implements OutputFormat
             ->single($runtime->__toString());
     }
 
-    public function headline(string $headline): self
-    {
-        $this->outputHelper->headline($headline);
-
-        return $this;
-    }
-
     public function single(string $line): self
     {
         $this->outputHelper->single($line);
@@ -73,15 +59,6 @@ class HumanOutput implements OutputFormat
         $this->outputHelper->listing($items);
 
         return $this;
-    }
-
-    public function methodsCollection(MethodsCollection $methodsCollection): self
-    {
-        $methods = $methodsCollection->getAll();
-
-        return $this->listing(
-            array_map(fn(Method $m) => $this->methodOutputFormatter->format($m), $methods)
-        );
     }
 
     public function foundFiles(int $filesCount): self
@@ -132,15 +109,5 @@ class HumanOutput implements OutputFormat
     public function createProgressBarIterator(iterable $iterable): iterable
     {
         return $this->outputHelper->createProgressBarIterator($iterable);
-    }
-
-    public function sourceClones(array $sourceClones): self
-    {
-        foreach ($sourceClones as $sourceClone) {
-            $this->headline($sourceClone->getType())
-                ->methodsCollection($sourceClone->getMethodsCollection());
-        }
-
-        return $this;
     }
 }

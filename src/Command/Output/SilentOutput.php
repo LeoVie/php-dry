@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Command\Output;
 
-use App\Collection\MethodsCollection;
 use App\Command\Output\Helper\OutputHelper;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Stopwatch\StopwatchEvent;
@@ -12,7 +11,6 @@ use Symfony\Component\Stopwatch\StopwatchEvent;
 class SilentOutput implements OutputFormat
 {
     private OutputHelper $outputHelper;
-    private Stopwatch $stopwatch;
 
     public function setOutputHelper(OutputHelper $outputHelper): self
     {
@@ -23,8 +21,6 @@ class SilentOutput implements OutputFormat
 
     public function setStopwatch(Stopwatch $stopwatch): self
     {
-        $this->stopwatch = $stopwatch;
-
         return $this;
     }
 
@@ -40,11 +36,6 @@ class SilentOutput implements OutputFormat
             ->single($runtime->__toString());
     }
 
-    public function headline(string $headline): self
-    {
-        return $this;
-    }
-
     public function single(string $line): self
     {
         return $this;
@@ -57,11 +48,6 @@ class SilentOutput implements OutputFormat
 
     /** @param string[] $items */
     public function listing(array $items): self
-    {
-        return $this;
-    }
-
-    public function methodsCollection(MethodsCollection $methodsCollection): self
     {
         return $this;
     }
@@ -83,12 +69,12 @@ class SilentOutput implements OutputFormat
 
     public function lapTime(): self
     {
-        return $this->single($this->stopwatch->lap('detect-clones')->__toString());
+        return $this;
     }
 
     public function stopTime(): self
     {
-        return $this->single($this->stopwatch->stop('detect-clones')->__toString());
+        return $this;
     }
 
     public function noClonesFound(): self
@@ -105,10 +91,5 @@ class SilentOutput implements OutputFormat
     public function createProgressBarIterator(iterable $iterable): iterable
     {
         return $iterable;
-    }
-
-    public function sourceClones(array $sourceClones): self
-    {
-        return $this;
     }
 }
