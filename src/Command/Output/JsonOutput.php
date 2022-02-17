@@ -6,26 +6,28 @@ namespace App\Command\Output;
 
 use App\Collection\MethodsCollection;
 use App\Command\Output\Helper\OutputHelper;
-use App\ModelOutput\Method\MethodOutput;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Stopwatch\StopwatchEvent;
 
 class JsonOutput implements OutputFormat
 {
-    private function __construct
-    (
-        private OutputHelper $verboseOutputHelper,
-    )
+    private OutputHelper $outputHelper;
+
+    public function setOutputHelper(OutputHelper $outputHelper): self
     {
+        $this->outputHelper = $outputHelper;
+
+        return $this;
     }
 
-    public static function create(
-        OutputHelper $verboseOutputHelper,
-        Stopwatch    $stopwatch,
-        MethodOutput $methodOutput
-    ): self
+    public function setStopwatch(Stopwatch $stopwatch): self
     {
-        return new self($verboseOutputHelper);
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return 'json';
     }
 
     public function runtime(StopwatchEvent $runtime): void
@@ -39,7 +41,7 @@ class JsonOutput implements OutputFormat
 
     public function single(string $line): self
     {
-        $this->verboseOutputHelper->single($line);
+        $this->outputHelper->single($line);
 
         return $this;
     }

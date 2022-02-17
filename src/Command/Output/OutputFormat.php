@@ -5,17 +5,16 @@ namespace App\Command\Output;
 use App\Collection\MethodsCollection;
 use App\Command\Output\Helper\OutputHelper;
 use App\Model\SourceClone\SourceClone;
-use App\ModelOutput\Method\MethodOutput;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Stopwatch\StopwatchEvent;
 
 interface OutputFormat
 {
-    public static function create(
-        OutputHelper $verboseOutputHelper,
-        Stopwatch $stopwatch,
-        MethodOutput $methodOutput
-    ): self;
+    public function getName(): string;
+
+    public function setOutputHelper(OutputHelper $outputHelper): self;
+
+    public function setStopwatch(Stopwatch $stopwatch): self;
 
     public function runtime(StopwatchEvent $runtime): void;
 

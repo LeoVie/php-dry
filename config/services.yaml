@@ -27,6 +27,12 @@ services:
   Eloquent\Lcs\LcsSolver:
     factory: [ 'App\ServiceFactory\LcsSolverForPhpTokensFactory', 'create' ]
 
+  _instanceof:
+    App\Command\Output\OutputFormat:
+      tags: [ 'app.output_format' ]
+  App\Command\Output\OutputFormatHolder:
+    arguments: [ !tagged_iterator { tag: 'app.output_format' } ]
+
 php_method_runner:
   directories:
     template_directory: '%kernel.project_dir%/vendor/leovie/php-method-runner/template'

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Model\Method;
 
 use App\Collection\MethodsCollection;
+use App\ModelOutput\Method\MethodSignatureOutput;
 
 class MethodSignatureGroup
 {
@@ -28,10 +29,5 @@ class MethodSignatureGroup
     public function getMethodsCollection(): MethodsCollection
     {
         return $this->methodsCollection;
-    }
-
-    public function __toString(): string
-    {
-        return $this->methodSignature->__toString() . ': ' . $this->methodsCollection->__toString();
     }
 }

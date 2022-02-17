@@ -2,33 +2,33 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\ModelOutput\Method;
+namespace App\Tests\Unit\OutputFormatter\Model\Method;
 
 use App\Model\CodePosition\CodePosition;
 use App\Model\CodePosition\CodePositionRange;
 use App\Model\Method\Method;
 use App\Model\Method\MethodSignature;
-use App\ModelOutput\CodePosition\CodePositionOutput;
-use App\ModelOutput\CodePosition\CodePositionRangeOutput;
-use App\ModelOutput\Method\MethodOutput;
+use App\OutputFormatter\Model\CodePosition\CodePositionOutputFormatter;
+use App\OutputFormatter\Model\CodePosition\CodePositionRangeOutputFormatter;
+use App\OutputFormatter\Model\Method\MethodOutputFormatter;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPUnit\Framework\TestCase;
 
-class MethodOutputTest extends TestCase
+class MethodOutputFormatterTest extends TestCase
 {
-    /** @dataProvider toStringProvider */
-    public function testToString(string $expected, Method $method): void
+    /** @dataProvider formatProvider */
+    public function testFormat(string $expected, Method $method): void
     {
-        $methodOutput = new MethodOutput(
-            new CodePositionRangeOutput(
-                new CodePositionOutput()
+        $methodOutput = new MethodOutputFormatter(
+            new CodePositionRangeOutputFormatter(
+                new CodePositionOutputFormatter()
             )
         );
 
         self::assertSame($expected, $methodOutput->format($method));
     }
 
-    public function toStringProvider(): \Generator
+    public function formatProvider(): \Generator
     {
         $codePositionRange = CodePositionRange::create(
             CodePosition::create(1, 10),

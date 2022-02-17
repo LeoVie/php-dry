@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\ModelOutput\CodePosition;
+namespace App\OutputFormatter\Model\CodePosition;
 
 use App\Model\CodePosition\CodePosition;
 
-class CodePositionOutput
+class CodePositionOutputFormatter
 {
     public function format(CodePosition $codePosition): string
     {

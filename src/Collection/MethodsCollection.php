@@ -6,7 +6,6 @@ namespace App\Collection;
 
 use App\Exception\CollectionCannotBeEmpty;
 use App\Model\Method\Method;
-use App\ModelOutput\Method\MethodOutput;
 
 class MethodsCollection
 {
@@ -104,16 +103,5 @@ class MethodsCollection
     public function count(): int
     {
         return count($this->methods);
-    }
-
-    public function __toString(): string
-    {
-        return join(
-            "\n",
-            array_map(
-                fn(Method $m): string => MethodOutput::create($m)->format()
-                , $this->getAll()
-            )
-        );
     }
 }

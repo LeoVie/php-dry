@@ -6,9 +6,6 @@ namespace App\Model\Method;
 
 use App\Model\CodePosition\CodePositionRange;
 use App\Model\Identity;
-use App\ModelOutput\CodePosition\CodePositionOutput;
-use App\ModelOutput\CodePosition\CodePositionRangeOutput;
-use App\ModelOutput\Method\MethodOutput;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 
@@ -69,12 +66,12 @@ class Method implements Identity, \JsonSerializable
 
     public function identity(): string
     {
-        // TODO fix this
-        return (new MethodOutput(
-            new CodePositionRangeOutput(
-                new CodePositionOutput()
-            )
-        ))->format($this);
+        return $this->getFilepath()
+            . '_'
+            . $this->getName()
+            . '_'
+            . $this->getCodePositionRange()->getStart()->getLine()
+            . $this->getCodePositionRange()->getStart()->getFilePos();
     }
 
     /** @return array{'filepath': string, 'name': string, 'codePositionRange': CodePositionRange} */

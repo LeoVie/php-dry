@@ -46,35 +46,6 @@ class MethodSignatureTest extends TestCase
         yield [$returnType, MethodSignature::create([], $returnType)];
     }
 
-    /** @dataProvider toStringProvider */
-    public function testToString(string $expected, MethodSignature $methodSignature): void
-    {
-        self::assertSame($expected, $methodSignature->__toString());
-    }
-
-    public function toStringProvider(): Generator
-    {
-        yield [
-            '(): int',
-            MethodSignature::create([], 'int')
-        ];
-
-        yield [
-            '(): ?array',
-            MethodSignature::create([], '?array')
-        ];
-
-        yield [
-            '(int): int',
-            MethodSignature::create(['int'], 'int')
-        ];
-
-        yield [
-            '(int, string): int',
-            MethodSignature::create(['int', 'string'], 'int')
-        ];
-    }
-
     /** @dataProvider jsonSerializeProvider */
     public function testJsonSerialize(string $expected, MethodSignature $methodSignature): void
     {

@@ -5,18 +5,13 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Command\Output\Helper\VerboseOutputHelper;
-use App\Command\Output\HumanOutput;
-use App\Command\Output\JsonOutput;
 use App\Command\Output\OutputFormat;
-use App\Command\Output\QuietOutput;
+use App\Command\Output\OutputFormatHolder;
 use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
 use App\Model\MethodScoresMapping;
 use App\Model\SourceClone\SourceClone;
 use App\Model\SourceCloneMethodScoresMapping;
-use App\ModelOutput\CodePosition\CodePositionOutput;
-use App\ModelOutput\CodePosition\CodePositionRangeOutput;
-use App\ModelOutput\Method\MethodOutput;
 use App\Output\HtmlOutput;
 use App\Service\DetectClonesService;
 use App\Service\IgnoreClonesService;
@@ -55,7 +50,8 @@ class DetectClonesCommand extends Command
         private CleanCodeCheckerService $cleanCodeCheckerService,
         private CleanCodeScorerService  $cleanCodeScorerService,
         private MethodModifierService   $methodModifierService,
-        private HtmlOutput              $htmlOutput
+        private HtmlOutput              $htmlOutput,
+        private OutputFormatHolder      $outputFormatHolder,
     )
     {
         parent::__construct(self::$defaultName);
@@ -189,30 +185,13 @@ class DetectClonesCommand extends Command
 
     private function getOutputFormat(InputInterface $input, OutputInterface $output, Stopwatch $stopwatch): OutputFormat
     {
-        // TODO fix this
-        $methodOutput = new MethodOutput(
-            new CodePositionRangeOutput(
-                new CodePositionOutput()
-            )
+        $outputFormat = $this->outputFormatHolder->pickByName(
+            $this->getStringOption($input, self::OPTION_OUTPUT_FORMAT)
         );
 
-        return match ($this->getStringOption($input, self::OPTION_OUTPUT_FORMAT)) {
-            'json' => JsonOutput::create(
-                VerboseOutputHelper::create($input, $output),
-                $stopwatch,
-                $methodOutput
-            ),
-            'silent' => QuietOutput::create(
-                VerboseOutputHelper::create($input, $output),
-                $stopwatch,
-                $methodOutput
-            ),
-            default => HumanOutput::create(
-                VerboseOutputHelper::create($input, $output),
-                $stopwatch,
-                $methodOutput
-            )
-        };
+        return $outputFormat
+            ->setOutputHelper(VerboseOutputHelper::create($input, $output))
+            ->setStopwatch($stopwatch);
     }
 
     private function createConfiguration(InputInterface $input): Configuration

@@ -7,6 +7,7 @@ use App\Model\Method\Method;
 use App\Model\MethodScoresMapping;
 use App\Model\SourceClone\SourceClone;
 use App\Model\SourceCloneMethodScoresMapping;
+use App\OutputFormatter\Model\Method\MethodSignatureOutputFormatter;
 use LeoVie\PhpCleanCode\Model\Score;
 use LeoVie\PhpHtmlBuilder\Model\Attribute;
 use LeoVie\PhpHtmlBuilder\Model\Content;
@@ -30,6 +31,10 @@ class HtmlOutput
     private const BOOTSTRAP_JS_INTEGRITY = 'sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM';
     private const HIGHLIGHT_CSS_URL = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css';
     private const HIGHLIGHT_JS_URL = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js';
+
+    public function __construct(private MethodSignatureOutputFormatter $methodSignatureOutput)
+    {
+    }
 
     /**
      * @param SourceCloneMethodScoresMapping[] $sourceCloneMethodScoresMappings
@@ -453,7 +458,7 @@ class HtmlOutput
                                                     ],
                                                     [
                                                         Content::create(
-                                                            'function ' . $method->getName() . $method->getMethodSignature()->__toString()
+                                                            'function ' . $method->getName() . $this->methodSignatureOutput->format($method->getMethodSignature())
                                                         )
                                                     ]
                                                 ),

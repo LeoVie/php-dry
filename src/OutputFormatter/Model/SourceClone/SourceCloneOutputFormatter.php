@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\ModelOutput\SourceClone;
+namespace App\OutputFormatter\Model\SourceClone;
 
 use App\Model\Method\Method;
 use App\Model\SourceClone\SourceClone;
-use App\ModelOutput\Method\MethodOutput;
+use App\OutputFormatter\Model\Method\MethodOutputFormatter;
 
-class SourceCloneOutput
+class SourceCloneOutputFormatter
 {
-    public function __construct(private MethodOutput $methodOutput)
+    public function __construct(private MethodOutputFormatter $methodOutputFormatter)
     {
     }
 
@@ -22,7 +22,7 @@ class SourceCloneOutput
             join(
                 "\n\t",
                 array_map(
-                    fn(Method $m) => $this->methodOutput->format($m),
+                    fn(Method $m) => $this->methodOutputFormatter->format($m),
                     $sourceClone->getMethodsCollection()->getAll()
                 )
             )

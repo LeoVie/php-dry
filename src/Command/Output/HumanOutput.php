@@ -7,54 +7,62 @@ namespace App\Command\Output;
 use App\Collection\MethodsCollection;
 use App\Command\Output\Helper\OutputHelper;
 use App\Model\Method\Method;
-use App\ModelOutput\Method\MethodOutput;
+use App\OutputFormatter\Model\Method\MethodOutputFormatter;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Stopwatch\StopwatchEvent;
 
 class HumanOutput implements OutputFormat
 {
-    private function __construct
-    (
-        private OutputHelper $verboseOutputHelper,
-        private Stopwatch    $stopwatch,
-        private MethodOutput $methodOutput
-    )
+    private OutputHelper $outputHelper;
+    private Stopwatch $stopwatch;
+    
+    public function __construct(private MethodOutputFormatter $methodOutputFormatter)
     {
     }
 
-    public static function create(
-        OutputHelper $verboseOutputHelper,
-        Stopwatch $stopwatch,
-        MethodOutput $methodOutput
-    ): self
+    public function setOutputHelper(OutputHelper $outputHelper): self
     {
-        return new self($verboseOutputHelper, $stopwatch, $methodOutput);
+        $this->outputHelper = $outputHelper;
+
+        return $this;
+    }
+
+    public function setStopwatch(Stopwatch $stopwatch): self
+    {
+        $this->stopwatch = $stopwatch;
+
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return 'human';
     }
 
     public function runtime(StopwatchEvent $runtime): void
     {
-        $this->verboseOutputHelper
+        $this->outputHelper
             ->headline('Run information:')
             ->single($runtime->__toString());
     }
 
     public function headline(string $headline): self
     {
-        $this->verboseOutputHelper->headline($headline);
+        $this->outputHelper->headline($headline);
 
         return $this;
     }
 
     public function single(string $line): self
     {
-        $this->verboseOutputHelper->single($line);
+        $this->outputHelper->single($line);
 
         return $this;
     }
 
     public function newLine(int $count = 1): self
     {
-        $this->verboseOutputHelper->emptyLine($count);
+        $this->outputHelper->emptyLine($count);
 
         return $this;
     }
@@ -62,7 +70,7 @@ class HumanOutput implements OutputFormat
     /** @param string[] $items */
     public function listing(array $items): self
     {
-        $this->verboseOutputHelper->listing($items);
+        $this->outputHelper->listing($items);
 
         return $this;
     }
@@ -72,7 +80,7 @@ class HumanOutput implements OutputFormat
         $methods = $methodsCollection->getAll();
 
         return $this->listing(
-            array_map(fn(Method $m) => $this->methodOutput->format($m), $methods)
+            array_map(fn(Method $m) => $this->methodOutputFormatter->format($m), $methods)
         );
     }
 
@@ -114,7 +122,7 @@ class HumanOutput implements OutputFormat
 
     public function detectionRunningForType(string $type): self
     {
-        $this->verboseOutputHelper
+        $this->outputHelper
             ->info(\Safe\sprintf('Detecting type %s clones', $type));
 
         return $this;
@@ -123,7 +131,7 @@ class HumanOutput implements OutputFormat
     /** @inheritDoc */
     public function createProgressBarIterator(iterable $iterable): iterable
     {
-        return $this->verboseOutputHelper->createProgressBarIterator($iterable);
+        return $this->outputHelper->createProgressBarIterator($iterable);
     }
 
     public function sourceClones(array $sourceClones): self

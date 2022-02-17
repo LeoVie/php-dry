@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\ModelOutput\CodePosition;
+namespace App\Tests\Unit\OutputFormatter\Model\CodePosition;
 
 use App\Model\CodePosition\CodePosition;
 use App\Model\CodePosition\CodePositionRange;
-use App\ModelOutput\CodePosition\CodePositionOutput;
-use App\ModelOutput\CodePosition\CodePositionRangeOutput;
+use App\OutputFormatter\Model\CodePosition\CodePositionOutputFormatter;
+use App\OutputFormatter\Model\CodePosition\CodePositionRangeOutputFormatter;
 use PHPUnit\Framework\TestCase;
 
-class CodePositionRangeOutputTest extends TestCase
+class CodePositionRangeOutputFormatterTest extends TestCase
 {
     /** @dataProvider formatProvider */
     public function testFormat(string $expected, CodePositionRange $codePositionRange): void
     {
-        $codePositionRangeOutput = new CodePositionRangeOutput(
-            new CodePositionOutput()
+        $codePositionRangeOutput = new CodePositionRangeOutputFormatter(
+            new CodePositionOutputFormatter()
         );
 
         self::assertSame($expected, $codePositionRangeOutput->format($codePositionRange));

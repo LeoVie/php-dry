@@ -6,6 +6,7 @@ namespace App\Model\SourceClone;
 
 use App\Collection\MethodsCollection;
 use JsonSerializable;
+use App\Model\Method\Method;
 
 class SourceClone implements JsonSerializable
 {

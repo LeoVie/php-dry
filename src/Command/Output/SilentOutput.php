@@ -6,32 +6,36 @@ namespace App\Command\Output;
 
 use App\Collection\MethodsCollection;
 use App\Command\Output\Helper\OutputHelper;
-use App\ModelOutput\Method\MethodOutput;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Stopwatch\StopwatchEvent;
 
-class QuietOutput implements OutputFormat
+class SilentOutput implements OutputFormat
 {
-    private function __construct
-    (
-        private OutputHelper $verboseOutputHelper,
-        private Stopwatch    $stopwatch,
-    )
+    private OutputHelper $outputHelper;
+    private Stopwatch $stopwatch;
+
+    public function setOutputHelper(OutputHelper $outputHelper): self
     {
+        $this->outputHelper = $outputHelper;
+
+        return $this;
     }
 
-    public static function create(
-        OutputHelper $verboseOutputHelper,
-        Stopwatch    $stopwatch,
-        MethodOutput $methodOutput
-    ): self
+    public function setStopwatch(Stopwatch $stopwatch): self
     {
-        return new self($verboseOutputHelper, $stopwatch);
+        $this->stopwatch = $stopwatch;
+
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return 'silent';
     }
 
     public function runtime(StopwatchEvent $runtime): void
     {
-        $this->verboseOutputHelper
+        $this->outputHelper
             ->headline('Run information:')
             ->single($runtime->__toString());
     }
