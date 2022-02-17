@@ -9,7 +9,7 @@ use App\CloneDetection\Type2CloneDetector;
 use App\CloneDetection\Type3CloneDetector;
 use App\CloneDetection\Type4CloneDetector;
 use App\Collection\MethodsCollection;
-use App\Command\Output\OutputFormat;
+use App\Command\Output\DetectClonesCommandOutput;
 use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
 use App\Factory\SourceCloneCandidate\Type1SourceCloneCandidateFactory;
@@ -62,7 +62,7 @@ class DetectClonesService
      * @throws InvalidBoundaries
      * @throws MethodCannotBeModifiedToNonClassContext
      */
-    public function detectInDirectory(Configuration $configuration, OutputFormat $output): array
+    public function detectInDirectory(Configuration $configuration, DetectClonesCommandOutput $output): array
     {
         $filePaths = $this->findFiles->findPhpFilesInPath($configuration->directory());
 
@@ -87,7 +87,7 @@ class DetectClonesService
      * @throws NoParamGeneratorFoundForParamRequest
      * @throws MethodCannotBeModifiedToNonClassContext
      */
-    private function detectClones(array $methodSignatureGroups, Configuration $configuration, OutputFormat $output, bool $includeType4Clones = true): array
+    private function detectClones(array $methodSignatureGroups, Configuration $configuration, DetectClonesCommandOutput $output, bool $includeType4Clones = true): array
     {
         $output->detectionRunningForType('1');
         $type1SCCs = $this->type1SourceCloneCandidateFactory->createMultiple(
@@ -253,7 +253,7 @@ class DetectClonesService
      * @throws MethodCannotBeModifiedToNonClassContext
      * @throws NoParamGeneratorFoundForParamRequest
      */
-    private function detectType4ClonesByConstructNormalization(iterable $filteredMethodSignatureGroups, Configuration $configuration, OutputFormat $output): array
+    private function detectType4ClonesByConstructNormalization(iterable $filteredMethodSignatureGroups, Configuration $configuration, DetectClonesCommandOutput $output): array
     {
         $methodSignatureGroupsWithLanguageConstructNormalizedMethods = [];
         foreach ($filteredMethodSignatureGroups as $methodSignatureGroup) {

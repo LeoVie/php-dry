@@ -106,10 +106,18 @@ class DetectClonesCommandTest extends KernelTestCase
     public function testDetectsExpectedClones(): void
     {
         $testdataDir = __DIR__ . '/../../testdata/clone-detection-testdata/';
+        $reportsDir = __DIR__ . '/../../generated/reports';
+        $reportPath = $reportsDir . '/php-dry.json';
+
+        unlink($reportPath);
+
+        self::assertFileDoesNotExist($reportPath);
+
 
         $this->commandTester->execute([
             'directory' => $testdataDir,
-            '--outputFormat' => 'json'
+            '--report_format' => 'json',
+            '--reports_directory' => __DIR__ . '/../../generated/reports'
         ]);
 
         $output = $this->commandTester->getDisplay();
@@ -118,6 +126,7 @@ class DetectClonesCommandTest extends KernelTestCase
         $expectedOutput = str_replace('%testdata_dir%', $testdataDir, $expectedOutput);
 
         $this->assertCommandFailed();
-        self::assertJsonStringEqualsJsonString($expectedOutput, $output);
+        self::assertFileExists($reportPath);
+        self::assertJsonStringEqualsJsonString($expectedOutput, \Safe\file_get_contents($reportPath));
     }
 }

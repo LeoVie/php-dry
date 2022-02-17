@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Command\Output\DetectClonesCommandOutput;
 use App\Command\Output\Helper\VerboseOutputHelper;
-use App\Command\Output\OutputFormat;
-use App\Command\Output\OutputFormatHolder;
 use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
 use App\Model\MethodScoresMapping;
@@ -32,7 +31,6 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Stopwatch\Stopwatch;
 
 class DetectClonesCommand extends Command
 {
@@ -43,19 +41,21 @@ class DetectClonesCommand extends Command
     private const OPTION_MIN_TOKEN_LENGTH = 'min_token_length';
     private const OPTION_ENABLE_CONSTRUCT_NORMALIZATION = 'enable_construct_normalization';
     private const OPTION_ENABLE_LCS_ALGORITHM = 'enable_lcs_algorithm';
-    private const OPTION_OUTPUT_FORMAT = 'outputFormat';
+    private const OPTION_REPORT_FORMAT = 'report_format';
+    private const OPTION_REPORTS_DIRECTORY = 'reports_directory';
+    private const OPTION_SILENT = 'silent';
     protected static $defaultName = 'php-dry:check';
 
     public function __construct(
-        private DetectClonesService      $detectClonesService,
-        private IgnoreClonesService      $ignoreClonesService,
-        private CleanCodeCheckerService  $cleanCodeCheckerService,
-        private CleanCodeScorerService   $cleanCodeScorerService,
-        private MethodModifierService    $methodModifierService,
-        private HtmlOutput               $htmlOutput,
-        private OutputFormatHolder       $outputFormatHolder,
-        private JsonReportBuilder        $jsonReportBuilder,
-        private CommandLineReportBuilder $commandLineReportBuilder,
+        private DetectClonesService       $detectClonesService,
+        private IgnoreClonesService       $ignoreClonesService,
+        private CleanCodeCheckerService   $cleanCodeCheckerService,
+        private CleanCodeScorerService    $cleanCodeScorerService,
+        private MethodModifierService     $methodModifierService,
+        private HtmlOutput                $htmlOutput,
+        private JsonReportBuilder         $jsonReportBuilder,
+        private CommandLineReportBuilder  $commandLineReportBuilder,
+        private DetectClonesCommandOutput $detectClonesCommandOutput,
     )
     {
         parent::__construct(self::$defaultName);
@@ -105,11 +105,23 @@ class DetectClonesCommand extends Command
                 'Use the LCS algorithm which is slow, but precise?',
                 false
             )->addOption(
-                self::OPTION_OUTPUT_FORMAT,
+                self::OPTION_SILENT,
                 null,
                 InputArgument::OPTIONAL,
-                'Select output format [human, silent, json]',
-                'human'
+                'Should the command be silent?',
+                false
+            )->addOption(
+                self::OPTION_REPORT_FORMAT,
+                null,
+                InputArgument::OPTIONAL,
+                'Select report format [cli, json, html]',
+                'cli'
+            )->addOption(
+                self::OPTION_REPORTS_DIRECTORY,
+                null,
+                InputArgument::OPTIONAL,
+                'Select path for json / html report',
+                __DIR__
             );
     }
 
@@ -127,7 +139,9 @@ class DetectClonesCommand extends Command
         $stopwatch = StopwatchFactory::create();
         $stopwatch->start('detect-clones');
 
-        $commandOutput = $this->getOutputFormat($input, $output, $stopwatch);
+        $commandOutput = $this->detectClonesCommandOutput
+            ->setOutputHelper(VerboseOutputHelper::create($input, $output))
+            ->setStopwatch($stopwatch);
 
         $configuration = $this->createConfiguration($input);
 
@@ -144,9 +158,12 @@ class DetectClonesCommand extends Command
             $commandOutput->newLine(2);
             $jsonReport = $this->jsonReportBuilder->build($clonesToReport);
 
-            if ($this->getStringOption($input, self::OPTION_OUTPUT_FORMAT) === 'json') {
-                $output->write($jsonReport);
-            } else if ($this->getStringOption($input, self::OPTION_OUTPUT_FORMAT) === 'human') {
+            if ($this->getStringOption($input, self::OPTION_REPORT_FORMAT) === 'json') {
+                \Safe\file_put_contents(
+                    $this->getStringOption($input, self::OPTION_REPORTS_DIRECTORY) . '/' . 'php-dry.json',
+                    $jsonReport
+                );
+            } else if ($this->getStringOption($input, self::OPTION_REPORT_FORMAT) === 'cli') {
                 $output->write($this->commandLineReportBuilder->build($jsonReport));
             }
 
@@ -191,17 +208,6 @@ class DetectClonesCommand extends Command
         $commandOutput->stopTime();
 
         return Command::FAILURE;
-    }
-
-    private function getOutputFormat(InputInterface $input, OutputInterface $output, Stopwatch $stopwatch): OutputFormat
-    {
-        $outputFormat = $this->outputFormatHolder->pickByName(
-            $this->getStringOption($input, self::OPTION_OUTPUT_FORMAT)
-        );
-
-        return $outputFormat
-            ->setOutputHelper(VerboseOutputHelper::create($input, $output))
-            ->setStopwatch($stopwatch);
     }
 
     private function createConfiguration(InputInterface $input): Configuration
