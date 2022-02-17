@@ -10,32 +10,26 @@ use App\Model\Method\Method;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Stopwatch\StopwatchEvent;
 
-class HumanOutput implements OutputFormat
+class JsonOutput implements OutputFormat
 {
     private function __construct
     (
-        private OutputHelper $verboseOutputHelper,
-        private Stopwatch    $stopwatch
+        private OutputHelper $verboseOutputHelper
     )
     {
     }
 
     public static function create(OutputHelper $verboseOutputHelper, Stopwatch $stopwatch): self
     {
-        return new self($verboseOutputHelper, $stopwatch);
+        return new self($verboseOutputHelper);
     }
 
     public function runtime(StopwatchEvent $runtime): void
     {
-        $this->verboseOutputHelper
-            ->headline('Run information:')
-            ->single($runtime->__toString());
     }
 
     public function headline(string $headline): self
     {
-        $this->verboseOutputHelper->headline($headline);
-
         return $this;
     }
 
@@ -48,83 +42,63 @@ class HumanOutput implements OutputFormat
 
     public function newLine(int $count = 1): self
     {
-        $this->verboseOutputHelper->emptyLine($count);
-
         return $this;
     }
 
     /** @param string[] $items */
     public function listing(array $items): self
     {
-        $this->verboseOutputHelper->listing($items);
-
         return $this;
     }
 
     public function methodsCollection(MethodsCollection $methodsCollection): self
     {
-        $methods = $methodsCollection->getAll();
-
-        return $this->listing(array_map(fn(Method $m) => $m->__toString(), $methods));
+        return $this;
     }
 
     public function foundFiles(int $filesCount): self
     {
-        return $this
-            ->single(\Safe\sprintf('Found %s files:', $filesCount))
-            ->lapTime();
+        return $this;
     }
 
     public function foundMethods(int $methodsCount): self
     {
-        return $this
-            ->single(\Safe\sprintf('Found %s methods:', $methodsCount))
-            ->lapTime();
+        return $this;
     }
 
     public function foundClones(string $clonesType, int $clonesCount): self
     {
-        return $this
-            ->single(\Safe\sprintf('Found %s %s clones:', $clonesCount, $clonesType))
-            ->lapTime();
+        return $this;
     }
 
     public function lapTime(): self
     {
-        return $this->single($this->stopwatch->lap('detect-clones')->__toString());
+        return $this;
     }
 
     public function stopTime(): self
     {
-        return $this->single($this->stopwatch->stop('detect-clones')->__toString());
+        return $this;
     }
 
     public function noClonesFound(): self
     {
-        return $this->single('No clones found.');
+        return $this;
     }
 
     public function detectionRunningForType(string $type): self
     {
-        $this->verboseOutputHelper
-            ->info(\Safe\sprintf('Detecting type %s clones', $type));
-
         return $this;
     }
 
     /** @inheritDoc */
     public function createProgressBarIterator(iterable $iterable): iterable
     {
-        return $this->verboseOutputHelper->createProgressBarIterator($iterable);
+        return $iterable;
     }
 
     public function sourceClones(array $sourceClones): self
     {
-        foreach ($sourceClones as $sourceClone) {
-            $this->headline($sourceClone->getType())
-                ->methodsCollection($sourceClone->getMethodsCollection());
-        }
-
-        return $this;
+        return $this->single(json_encode($sourceClones));
     }
 }

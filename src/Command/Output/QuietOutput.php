@@ -98,4 +98,9 @@ class QuietOutput implements OutputFormat
     {
         return $iterable;
     }
+
+    public function sourceClones(array $sourceClones): self
+    {
+        return $this;
+    }
 }

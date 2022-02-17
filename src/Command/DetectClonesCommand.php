@@ -6,6 +6,7 @@ namespace App\Command;
 
 use App\Command\Output\Helper\VerboseOutputHelper;
 use App\Command\Output\HumanOutput;
+use App\Command\Output\JsonOutput;
 use App\Command\Output\OutputFormat;
 use App\Command\Output\QuietOutput;
 use App\Configuration\Configuration;
@@ -42,8 +43,7 @@ class DetectClonesCommand extends Command
     private const OPTION_MIN_TOKEN_LENGTH = 'min_token_length';
     private const OPTION_ENABLE_CONSTRUCT_NORMALIZATION = 'enable_construct_normalization';
     private const OPTION_ENABLE_LCS_ALGORITHM = 'enable_lcs_algorithm';
-    private const OPTION_SILENT_LONG = 'silent';
-    private const OPTION_SILENT_SHORT = 's';
+    private const OPTION_OUTPUT_FORMAT = 'outputFormat';
     protected static $defaultName = 'php-dry:check';
 
     public function __construct(
@@ -102,11 +102,11 @@ class DetectClonesCommand extends Command
                 'Use the LCS algorithm which is slow, but precise?',
                 false
             )->addOption(
-                self::OPTION_SILENT_LONG,
-                self::OPTION_SILENT_SHORT,
+                self::OPTION_OUTPUT_FORMAT,
+                null,
                 InputArgument::OPTIONAL,
-                'Should the command be silent?',
-                false
+                'Select output format [human, silent, json]',
+                'human'
             );
     }
 
@@ -139,11 +139,9 @@ class DetectClonesCommand extends Command
             return Command::SUCCESS;
         } else {
             $commandOutput->newLine(2);
-            foreach ($clonesToReport as $clone) {
-                $commandOutput
-                    ->headline($clone->getType())
-                    ->methodsCollection($clone->getMethodsCollection());
+            $commandOutput->sourceClones($clonesToReport);
 
+            foreach ($clonesToReport as $clone) {
                 $methodScoresMappings = [];
                 foreach ($clone->getMethodsCollection()->getAll() as $method) {
                     if ($clone->getType() === SourceClone::TYPE_4) {
@@ -188,17 +186,20 @@ class DetectClonesCommand extends Command
 
     private function getOutputFormat(InputInterface $input, OutputInterface $output, Stopwatch $stopwatch): OutputFormat
     {
-        if ($this->getBoolOption($input, self::OPTION_SILENT_LONG)) {
-            return QuietOutput::create(
+        return match ($this->getStringOption($input, self::OPTION_OUTPUT_FORMAT)) {
+            'json' => JsonOutput::create(
                 VerboseOutputHelper::create($input, $output),
                 $stopwatch
-            );
-        }
-
-        return HumanOutput::create(
-            VerboseOutputHelper::create($input, $output),
-            $stopwatch
-        );
+            ),
+            'silent' => QuietOutput::create(
+                VerboseOutputHelper::create($input, $output),
+                $stopwatch
+            ),
+            default => HumanOutput::create(
+                VerboseOutputHelper::create($input, $output),
+                $stopwatch
+            )
+        };
     }
 
     private function createConfiguration(InputInterface $input): Configuration

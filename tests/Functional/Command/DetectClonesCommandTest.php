@@ -23,21 +23,17 @@ class DetectClonesCommandTest extends KernelTestCase
 
     public function testHumanOutput(): void
     {
-        $testdataDir = __DIR__ . '/../../testdata/set-types/';
+        $testdataDir = __DIR__ . '/../../testdata/clone-detection-testdata/';
 
         $this->commandTester->execute([
-            // pass arguments to the helper
             'directory' => $testdataDir,
-
-            // prefix the key with two dashes when passing options,
-            // e.g: '--some-option' => 'option_value',
         ]);
 
         $output = $this->commandTester->getDisplay();
 
         $this->assertCommandFailed();
-        self::assertStringContainsString('Found 11 files', $output);
-        self::assertStringContainsString('Found 11 methods', $output);
+        self::assertStringContainsString('Found 13 files', $output);
+        self::assertStringContainsString('Found 13 methods', $output);
         self::assertStringContainsString('Detecting type 1 clones', $output);
         self::assertStringContainsString('Detecting type 2 clones', $output);
         self::assertStringContainsString('Detecting type 3 clones', $output);
@@ -49,26 +45,21 @@ class DetectClonesCommandTest extends KernelTestCase
         self::assertSame(Command::FAILURE, $this->commandTester->getStatusCode());
     }
 
-    /*public function testDetectsExpectedClones(): void
+    public function testDetectsExpectedClones(): void
     {
-        $testdataDir = __DIR__ . '/../../testdata/set-types/';
+        $testdataDir = __DIR__ . '/../../testdata/clone-detection-testdata/';
 
         $this->commandTester->execute([
-            // pass arguments to the helper
             'directory' => $testdataDir,
-
-            // prefix the key with two dashes when passing options,
-            // e.g: '--some-option' => 'option_value',
+            '--outputFormat' => 'json'
         ]);
 
         $output = $this->commandTester->getDisplay();
 
+        $expectedOutput = file_get_contents(__DIR__ . '/output.json');
+        $expectedOutput = str_replace('%testdata_dir%', $testdataDir, $expectedOutput);
+
         $this->assertCommandFailed();
-        self::assertStringContainsString('Found 11 files', $output);
-        self::assertStringContainsString('Found 11 methods', $output);
-        self::assertStringContainsString('Detecting type 1 clones', $output);
-        self::assertStringContainsString('Detecting type 2 clones', $output);
-        self::assertStringContainsString('Detecting type 3 clones', $output);
-        self::assertStringContainsString('Detecting type 4 by running clones', $output);
-    }*/
+        self::assertJsonStringEqualsJsonString($expectedOutput, $output);
+    }
 }

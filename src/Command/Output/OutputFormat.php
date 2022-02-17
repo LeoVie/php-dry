@@ -45,4 +45,6 @@ interface OutputFormat
      * @return iterable<T>
      */
     public function createProgressBarIterator(iterable $iterable): iterable;
+
+    public function sourceClones(array $sourceClones): self;
 }
