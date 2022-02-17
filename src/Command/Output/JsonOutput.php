@@ -99,6 +99,6 @@ class JsonOutput implements OutputFormat
 
     public function sourceClones(array $sourceClones): self
     {
-        return $this->single(json_encode($sourceClones));
+        return $this->single(\Safe\json_encode($sourceClones));
     }
 }
