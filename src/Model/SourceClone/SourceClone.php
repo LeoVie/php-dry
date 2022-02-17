@@ -6,11 +6,8 @@ namespace App\Model\SourceClone;
 
 use App\Collection\MethodsCollection;
 use JsonSerializable;
-use Safe\Exceptions\StringsException;
-use Stringable;
-use App\Model\Method\Method;
 
-class SourceClone implements Stringable, JsonSerializable
+class SourceClone implements JsonSerializable
 {
     public const TYPE_1 = 'TYPE_1';
     public const TYPE_2 = 'TYPE_2';
@@ -37,16 +34,6 @@ class SourceClone implements Stringable, JsonSerializable
     public function getMethodsCollection(): MethodsCollection
     {
         return $this->methodsCollection;
-    }
-
-    /** @throws StringsException */
-    public function __toString(): string
-    {
-        return \Safe\sprintf(
-            "CLONE: Type: %s, Methods: \n\t%s",
-            $this->getType(),
-            join("\n\t", $this->getMethodsCollection()->getAll())
-        );
     }
 
     /** @return array{'type': string, "methods": Method[]} */

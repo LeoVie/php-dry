@@ -14,6 +14,9 @@ use App\Exception\CollectionCannotBeEmpty;
 use App\Model\MethodScoresMapping;
 use App\Model\SourceClone\SourceClone;
 use App\Model\SourceCloneMethodScoresMapping;
+use App\ModelOutput\CodePosition\CodePositionOutput;
+use App\ModelOutput\CodePosition\CodePositionRangeOutput;
+use App\ModelOutput\Method\MethodOutput;
 use App\Output\HtmlOutput;
 use App\Service\DetectClonesService;
 use App\Service\IgnoreClonesService;
@@ -186,18 +189,28 @@ class DetectClonesCommand extends Command
 
     private function getOutputFormat(InputInterface $input, OutputInterface $output, Stopwatch $stopwatch): OutputFormat
     {
+        // TODO fix this
+        $methodOutput = new MethodOutput(
+            new CodePositionRangeOutput(
+                new CodePositionOutput()
+            )
+        );
+
         return match ($this->getStringOption($input, self::OPTION_OUTPUT_FORMAT)) {
             'json' => JsonOutput::create(
                 VerboseOutputHelper::create($input, $output),
-                $stopwatch
+                $stopwatch,
+                $methodOutput
             ),
             'silent' => QuietOutput::create(
                 VerboseOutputHelper::create($input, $output),
-                $stopwatch
+                $stopwatch,
+                $methodOutput
             ),
             default => HumanOutput::create(
                 VerboseOutputHelper::create($input, $output),
-                $stopwatch
+                $stopwatch,
+                $methodOutput
             )
         };
     }

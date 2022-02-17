@@ -6,12 +6,13 @@ namespace App\Model\Method;
 
 use App\Model\CodePosition\CodePositionRange;
 use App\Model\Identity;
+use App\ModelOutput\CodePosition\CodePositionOutput;
+use App\ModelOutput\CodePosition\CodePositionRangeOutput;
+use App\ModelOutput\Method\MethodOutput;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
-use Safe\Exceptions\StringsException;
-use Stringable;
 
-class Method implements Stringable, Identity, \JsonSerializable
+class Method implements Identity, \JsonSerializable
 {
     private function __construct(
         private MethodSignature       $methodSignature,
@@ -68,18 +69,12 @@ class Method implements Stringable, Identity, \JsonSerializable
 
     public function identity(): string
     {
-        return $this->__toString();
-    }
-
-    /** @throws StringsException */
-    public function __toString(): string
-    {
-        return \Safe\sprintf(
-            '%s: %s (%s)',
-            $this->getFilepath(),
-            $this->getName(),
-            $this->getCodePositionRange()->__toString()
-        );
+        // TODO fix this
+        return (new MethodOutput(
+            new CodePositionRangeOutput(
+                new CodePositionOutput()
+            )
+        ))->format($this);
     }
 
     /** @return array{'filepath': string, 'name': string, 'codePositionRange': CodePositionRange} */

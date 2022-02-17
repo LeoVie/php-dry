@@ -6,7 +6,7 @@ namespace App\Command\Output;
 
 use App\Collection\MethodsCollection;
 use App\Command\Output\Helper\OutputHelper;
-use App\Model\Method\Method;
+use App\ModelOutput\Method\MethodOutput;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Stopwatch\StopwatchEvent;
 
@@ -14,12 +14,16 @@ class JsonOutput implements OutputFormat
 {
     private function __construct
     (
-        private OutputHelper $verboseOutputHelper
+        private OutputHelper $verboseOutputHelper,
     )
     {
     }
 
-    public static function create(OutputHelper $verboseOutputHelper, Stopwatch $stopwatch): self
+    public static function create(
+        OutputHelper $verboseOutputHelper,
+        Stopwatch    $stopwatch,
+        MethodOutput $methodOutput
+    ): self
     {
         return new self($verboseOutputHelper);
     }

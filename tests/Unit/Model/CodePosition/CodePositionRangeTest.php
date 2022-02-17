@@ -53,29 +53,6 @@ class CodePositionRangeTest extends TestCase
         ];
     }
 
-    /** @dataProvider toStringProvider */
-    public function testToString(string $expected, CodePositionRange $codePositionRange): void
-    {
-        self::assertSame($expected, $codePositionRange->__toString());
-    }
-
-    public function toStringProvider(): Generator
-    {
-        $start = CodePosition::create(10, 15);
-        $end = CodePosition::create(11, 15);
-        yield [
-            'expected' => '10 (position 15) - 11 (position 15) (1 lines)',
-            'codePositionRange' => CodePositionRange::create($start, $end),
-        ];
-
-        $start = CodePosition::create(700, 16);
-        $end = CodePosition::create(1100, 15);
-        yield [
-            'expected' => '700 (position 16) - 1100 (position 15) (400 lines)',
-            'codePositionRange' => CodePositionRange::create($start, $end),
-        ];
-    }
-
     /** @dataProvider countOfLinesProvider */
     public function testCountOfLines(int $expected, CodePositionRange $codePositionRange): void
     {

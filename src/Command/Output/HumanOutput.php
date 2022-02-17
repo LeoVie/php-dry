@@ -7,6 +7,7 @@ namespace App\Command\Output;
 use App\Collection\MethodsCollection;
 use App\Command\Output\Helper\OutputHelper;
 use App\Model\Method\Method;
+use App\ModelOutput\Method\MethodOutput;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Stopwatch\StopwatchEvent;
 
@@ -15,14 +16,19 @@ class HumanOutput implements OutputFormat
     private function __construct
     (
         private OutputHelper $verboseOutputHelper,
-        private Stopwatch    $stopwatch
+        private Stopwatch    $stopwatch,
+        private MethodOutput $methodOutput
     )
     {
     }
 
-    public static function create(OutputHelper $verboseOutputHelper, Stopwatch $stopwatch): self
+    public static function create(
+        OutputHelper $verboseOutputHelper,
+        Stopwatch $stopwatch,
+        MethodOutput $methodOutput
+    ): self
     {
-        return new self($verboseOutputHelper, $stopwatch);
+        return new self($verboseOutputHelper, $stopwatch, $methodOutput);
     }
 
     public function runtime(StopwatchEvent $runtime): void
@@ -65,7 +71,9 @@ class HumanOutput implements OutputFormat
     {
         $methods = $methodsCollection->getAll();
 
-        return $this->listing(array_map(fn(Method $m) => $m->__toString(), $methods));
+        return $this->listing(
+            array_map(fn(Method $m) => $this->methodOutput->format($m), $methods)
+        );
     }
 
     public function foundFiles(int $filesCount): self

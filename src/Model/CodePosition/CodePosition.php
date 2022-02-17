@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace App\Model\CodePosition;
 
 use JsonSerializable;
-use Safe\Exceptions\StringsException;
-use Stringable;
 
-class CodePosition implements Stringable, JsonSerializable
+class CodePosition implements JsonSerializable
 {
     public static function create(int $line, int $filePos): self
     {
@@ -27,12 +25,6 @@ class CodePosition implements Stringable, JsonSerializable
     public function getFilePos(): int
     {
         return $this->filePos;
-    }
-
-    /** @throws StringsException */
-    public function __toString(): string
-    {
-        return \Safe\sprintf('%s (position %s)', $this->getLine(), $this->getFilePos());
     }
 
     /** @return array{'line': int, 'filePos': int} */

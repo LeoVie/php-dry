@@ -43,27 +43,6 @@ class SourceCloneTest extends TestCase
         yield [$methodsCollection, SourceClone::create(SourceClone::TYPE_1, $methodsCollection)];
     }
 
-    public function testToString(): void
-    {
-        $methodsCollection = $this->createMock(MethodsCollection::class);
-        $methodsCollection->method('getAll')->willReturn([
-            $this->mockStringableMethod('firstMethod'),
-            $this->mockStringableMethod('secondMethod'),
-        ]);
-        self::assertSame(
-            "CLONE: Type: TYPE_1, Methods: \n\tfirstMethod\n\tsecondMethod",
-            SourceClone::create(SourceClone::TYPE_1, $methodsCollection)->__toString()
-        );
-    }
-
-    private function mockStringableMethod(string $asString): Method
-    {
-        $method = $this->createMock(Method::class);
-        $method->method('__toString')->willReturn($asString);
-
-        return $method;
-    }
-
     private function mockJsonSerializableMethod(array $asJson): Method
     {
         $method = $this->createMock(Method::class);
