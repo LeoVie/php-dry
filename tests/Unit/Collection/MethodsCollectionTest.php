@@ -58,12 +58,6 @@ class MethodsCollectionTest extends TestCase
         ];
     }
 
-    /** @dataProvider extractParamTypesProvider */
-    public function testExtractParamTypes(array $expected, MethodsCollection $methodsCollection): void
-    {
-        self::assertSame($expected, $methodsCollection->extractParamTypes());
-    }
-
     public function extractParamTypesProvider(): \Generator
     {
         $paramTypes = ['int', 'string'];
