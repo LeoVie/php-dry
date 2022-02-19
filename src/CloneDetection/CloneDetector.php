@@ -24,19 +24,24 @@ class CloneDetector
      *
      * @return SourceClone[]
      */
-    private function findSourceCloneCandidatesWithMultipleMethods(array $sourceCloneCandidates): array
-    {
-        return array_filter(
-            $sourceCloneCandidates,
-            fn(SourceCloneCandidate $sc): bool => $sc->getMethodsCollection()->count() > 1
-        );
-    }
-
     private function createSourceClonesFromSourceCloneCandidates(string $type, array $sourceCloneCandidates): array
     {
         return array_map(
             fn(SourceCloneCandidate $scc): SourceClone => SourceClone::create($type, $scc->getMethodsCollection()),
             $this->findSourceCloneCandidatesWithMultipleMethods($sourceCloneCandidates)
+        );
+    }
+
+    /**
+     * @param SourceCloneCandidate[] $sourceCloneCandidates
+     *
+     * @return SourceCloneCandidate[]
+     */
+    private function findSourceCloneCandidatesWithMultipleMethods(array $sourceCloneCandidates): array
+    {
+        return array_filter(
+            $sourceCloneCandidates,
+            fn(SourceCloneCandidate $sc): bool => $sc->getMethodsCollection()->count() > 1
         );
     }
 }
