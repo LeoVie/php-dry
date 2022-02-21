@@ -21,17 +21,6 @@ class DetectClonesCommandTest extends KernelTestCase
         $this->commandTester = new CommandTester($command);
     }
 
-    private function normalizeCommandLineOutput(string $commandLineOutput): string
-    {
-        return join('', array_filter(
-            array_map(
-                fn(string $s): string => trim($s),
-                explode("\n", str_replace("\r", '', $commandLineOutput))
-            ),
-            fn(string $line): bool => $line !== ''
-        ));
-    }
-
     public function testHumanOutput(): void
     {
         $testdataDir = __DIR__ . '/../../testdata/clone-detection-testdata/';
@@ -119,12 +108,22 @@ class DetectClonesCommandTest extends KernelTestCase
         );
     }
 
+    private function normalizeCommandLineOutput(string $commandLineOutput): string
+    {
+        return join('', array_filter(
+            array_map(
+                fn(string $s): string => trim($s),
+                explode("\n", str_replace("\r", '', $commandLineOutput))
+            ),
+            fn(string $line): bool => $line !== ''
+        ));
+    }
+
     private function assertCommandFailed(): void
     {
         self::assertSame(Command::FAILURE, $this->commandTester->getStatusCode());
     }
 
-    /** @group jj */
     public function testDetectsExpectedClones(): void
     {
         $testdataDir = __DIR__ . '/../../testdata/clone-detection-testdata/';
@@ -135,18 +134,23 @@ class DetectClonesCommandTest extends KernelTestCase
 
         self::assertFileDoesNotExist($reportPath);
 
-
         $this->commandTester->execute([
             'directory' => $testdataDir,
             '--report_format' => 'json',
             '--reports_directory' => __DIR__ . '/../../generated/reports',
         ]);
 
-        $expectedOutput = file_get_contents(__DIR__ . '/output.json');
-        $expectedOutput = str_replace('%testdata_dir%', $testdataDir, $expectedOutput);
+        $expectedJson = str_replace(
+            '%testdata_dir%',
+            $testdataDir,
+            \Safe\file_get_contents(__DIR__ . '/output.json')
+        );
 
         $this->assertCommandFailed();
+
         self::assertFileExists($reportPath);
-        self::assertJsonStringEqualsJsonString($expectedOutput, \Safe\file_get_contents($reportPath));
+
+        $actualJson = \Safe\file_get_contents($reportPath);
+        self::assertJsonStringEqualsJsonString($expectedJson, $actualJson);
     }
 }
