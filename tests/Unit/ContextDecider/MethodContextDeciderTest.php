@@ -134,7 +134,7 @@ class MethodContextDeciderTest extends TestCase
         $returnType = $this->createMock(Name::class);
         $returnType->method('isSpecialClassName')->willReturn(false);
         $parsedMethod->method('getReturnType')->willReturn($returnType);
-        yield 'does not require class context' => [
+        yield 'does not require class context (no special return type)' => [
             'expected' => false,
             'method' => Method::create(
                 $this->createMock(MethodSignature::class),
@@ -142,6 +142,20 @@ class MethodContextDeciderTest extends TestCase
                 'foo.php',
                 $this->createMock(CodePositionRange::class),
                 'function foo(): Foo { return 100; }',
+                $parsedMethod
+            ),
+        ];
+
+        $parsedMethod = $this->createMock(ClassMethod::class);
+        $parsedMethod->method('getReturnType')->willReturn(null);
+        yield 'does not require class context (returns nothing)' => [
+            'expected' => false,
+            'method' => Method::create(
+                $this->createMock(MethodSignature::class),
+                'foo',
+                'foo.php',
+                $this->createMock(CodePositionRange::class),
+                'function foo(): void { $x = 100; }',
                 $parsedMethod
             ),
         ];
