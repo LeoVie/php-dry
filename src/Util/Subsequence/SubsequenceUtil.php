@@ -6,5 +6,5 @@ namespace App\Util\Subsequence;
 
 interface SubsequenceUtil
 {
-    public function isOverThreshold(string $a, string $b, int $threshold): bool;
+    public function percentageOfSimilarText(string $a, string $b): int;
 }

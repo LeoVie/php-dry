@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Util;
+namespace App\Tests\Unit\Util\Subsequence;
 
 use App\Exception\SubsequenceUtilNotFound;
 use App\Util\Subsequence\LongestCommonSubsequenceUtil;

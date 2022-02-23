@@ -6,16 +6,9 @@ namespace App\Util\Subsequence;
 
 class LongestCommonSubsequenceUtil implements SubsequenceUtil
 {
-    public function isOverThreshold(string $a, string $b, int $threshold): bool
+    public function percentageOfSimilarText(string $a, string $b): int
     {
-        if ($a === $b) {
-            return false;
-        }
-
-        $lcs = $this->lcs($a, $b);
-        $percentageOfEqualTokens = ($lcs / (max(strlen($a), strlen($b)))) * 100;
-
-        return $percentageOfEqualTokens > $threshold;
+        return (int)round(($this->lcs($a, $b) / (max(strlen($a), strlen($b)))) * 100);
     }
 
     private function lcs(string $a, string $b): int

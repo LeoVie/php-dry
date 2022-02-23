@@ -6,15 +6,8 @@ namespace App\Util\Subsequence;
 
 class SimilarTextSubsequenceUtil implements SubsequenceUtil
 {
-    public function isOverThreshold(string $a, string $b, int $threshold): bool
+    public function percentageOfSimilarText(string $a, string $b): int
     {
-        if ($a === $b) {
-            return false;
-        }
-
-        $similarText = similar_text($a, $b);
-        $percentageOfSimilarText = ($similarText / (max(strlen($a), strlen($b)))) * 100;
-
-        return $percentageOfSimilarText > $threshold;
+        return (int)round((similar_text($a, $b) / (max(strlen($a), strlen($b)))) * 100);
     }
 }

@@ -43,10 +43,10 @@ class Type3SourceCloneCandidateFactory
         /** @var array<array<Type2SourceCloneCandidate>> $type2SourceCloneCandidateGroups */
         $type2SourceCloneCandidateGroups = $this->grouper->groupByCallback(
             $type2SourceCloneCandidates,
-            fn(Type2SourceCloneCandidate $a, Type2SourceCloneCandidate $b): bool => $subsequenceUtil
-                ->isOverThreshold(
-                    $a->identity(), $b->identity(), $configuration->minSimilarTokensPercent()
-                )
+            fn(Type2SourceCloneCandidate $a, Type2SourceCloneCandidate $b): bool => $a->identity() !== $b->identity()
+                && $subsequenceUtil->percentageOfSimilarText(
+                    $a->identity(), $b->identity()
+                ) > $configuration->minSimilarTokensPercent()
         );
 
         return $this->createMultipleFromGroups($type2SourceCloneCandidateGroups);
