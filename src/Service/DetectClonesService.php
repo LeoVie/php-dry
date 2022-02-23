@@ -12,6 +12,7 @@ use App\Collection\MethodsCollection;
 use App\Command\Output\DetectClonesCommandOutput;
 use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
+use App\Exception\SubsequenceUtilNotFound;
 use App\Factory\SourceCloneCandidate\Type1SourceCloneCandidateFactory;
 use App\Factory\SourceCloneCandidate\Type2SourceCloneCandidateFactory;
 use App\Factory\SourceCloneCandidate\Type3SourceCloneCandidateFactory;
@@ -86,6 +87,7 @@ class DetectClonesService
      * @throws FilesystemException
      * @throws NoParamGeneratorFoundForParamRequest
      * @throws MethodCannotBeModifiedToNonClassContext
+     * @throws SubsequenceUtilNotFound
      */
     private function detectClones(array $methodSignatureGroups, Configuration $configuration, DetectClonesCommandOutput $output, bool $includeType4Clones = true): array
     {
@@ -95,8 +97,8 @@ class DetectClonesService
         );
         $type1Clones = $this->type1CloneDetector->detect($type1SCCs);
 
-        $output->newLine()
-            ->detectionRunningForType('2');
+        $output->newLine()->detectionRunningForType('2');
+
         /** @var Type1SourceCloneCandidate[] $filteredType1SCCs */
         $filteredType1SCCs = $this->removeSCCsFullyCoveredByCloneAndMethodSignatureGroup($methodSignatureGroups, $type1SCCs, $type1Clones);
         $type2SCCs = $this->type2SourceCloneCandidateFactory->createMultiple(
@@ -104,8 +106,8 @@ class DetectClonesService
         );
         $type2Clones = $this->type2CloneDetector->detect($type2SCCs);
 
-        $output->newLine()
-            ->detectionRunningForType('3');
+        $output->newLine()->detectionRunningForType('3');
+
         /** @var Type2SourceCloneCandidate[] $filteredType2SCCs */
         $filteredType2SCCs = $this->removeSCCsFullyCoveredByCloneAndMethodSignatureGroup($methodSignatureGroups, $type2SCCs, $type2Clones);
         $type3SCCs = $this->type3SourceCloneCandidateFactory->createMultiple(
@@ -126,8 +128,8 @@ class DetectClonesService
 
         $type4ClonesByConstructNormalization = [];
         if ($configuration->enableConstructNormalization()) {
-            $output->newLine()
-                ->detectionRunningForType('4 by construct normalization');
+            $output->newLine()->detectionRunningForType('4 by construct normalization');
+
             $type4ClonesByConstructNormalization = $this->detectType4ClonesByConstructNormalization(
                 $output->createProgressBarIterator($filteredMethodSignatureGroups),
                 $configuration,
@@ -135,8 +137,8 @@ class DetectClonesService
             );
         }
 
-        $output->newLine()
-            ->detectionRunningForType('4 by running');
+        $output->newLine()->detectionRunningForType('4 by running');
+
         $type4SCCS = $this->type4SourceCloneCandidateFactory->createMultipleByRunningMethods(
             $output->createProgressBarIterator($filteredMethodSignatureGroups)
         );
