@@ -49,10 +49,10 @@ class MethodContextDecider
     {
         $returnType = $method->getParsedMethod()->getReturnType();
 
-        return match (true) {
-            $returnType instanceof Identifier => $returnType->isSpecialClassName(),
-            $returnType instanceof Name => $returnType->isSpecialClassName(),
-            default => false,
-        };
+        if (!($returnType instanceof Identifier || $returnType instanceof Name)) {
+            return false;
+        }
+
+        return $returnType->isSpecialClassName();
     }
 }

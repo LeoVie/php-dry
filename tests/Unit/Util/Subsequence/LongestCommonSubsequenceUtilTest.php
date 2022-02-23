@@ -43,6 +43,16 @@ class LongestCommonSubsequenceUtilTest extends TestCase
                 'a' => 'abc',
                 'b' => 'a_b_c',
             ],
+            'abc <-> empty' => [
+                'expected' => 0,
+                'a' => 'abc',
+                'b' => '',
+            ],
+            'empty <-> abc' => [
+                'expected' => 0,
+                'a' => '',
+                'b' => 'abc',
+            ],
         ];
     }
 }
