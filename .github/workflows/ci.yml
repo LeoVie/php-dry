@@ -42,6 +42,7 @@ jobs:
         run: |
           make build_phpstan_image
           make phpstan
+          make psalm
       - name: "Unit Testing"
         run: |
           make unit

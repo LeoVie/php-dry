@@ -16,6 +16,9 @@ functional:
 test: phpstan
 	composer testall
 
+psalm:
+	composer psalm
+
 infection:
 	composer infection
 
