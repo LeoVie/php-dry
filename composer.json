@@ -2,7 +2,7 @@
     "name": "leovie/php-dry",
     "description": "Detect clones in php code.",
     "type": "project",
-    "license": "proprietary",
+    "license": "BSD-3-Clause",
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
