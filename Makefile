@@ -16,6 +16,9 @@ functional:
 test: phpstan
 	composer testall
 
+infection:
+	composer infection
+
 build_image:
 	composer install --no-dev
 	rm -rf ./vendor/*/*/.git

@@ -1,5 +1,5 @@
 name: CI Pipeline
-on: [push]
+on: [ push ]
 jobs:
   Test:
     runs-on: ubuntu-latest
@@ -27,3 +27,12 @@ jobs:
         run: |
           make build_phpstan_image
           make phpstan
+      - name: "Unit Testing"
+        run: |
+          make unit
+      - name: "Functional Testing"
+        run: |
+          make functional
+      - name: "Mutation Testing"
+        run: |
+          make infection
