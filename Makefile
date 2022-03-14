@@ -19,6 +19,9 @@ test: phpstan
 infection:
 	composer infection
 
+infection-after-phpunit:
+	composer infection-after-phpunit
+
 build_image:
 	composer install --no-dev
 	rm -rf ./vendor/*/*/.git
