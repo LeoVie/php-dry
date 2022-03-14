@@ -21,6 +21,7 @@
         "leovie/php-param-generator": "dev-main",
         "leovie/php-token-normalize": "dev-main",
         "nikic/php-parser": "^4.13",
+        "roave/security-advisories": "dev-latest",
         "symfony/console": "5.4.*",
         "symfony/dotenv": "5.4.*",
         "symfony/finder": "5.4.*",
@@ -103,7 +104,7 @@
     "scripts": {
         "psalm": "psalm -c build/config/psalm.xml --show-info=true",
         "phpunit": "phpunit -c build/config/phpunit.xml",
-        "infection": "infection --only-covered --configuration=build/config/infection.json --min-msi=100 --min-covered-msi=100 --coverage=../coverage --threads=4 --test-framework-options='--no-coverage --test-suite=unit'",
+        "infection": "infection --only-covered --configuration=build/config/infection.json --min-msi=100 --min-covered-msi=100 --coverage=../coverage --threads=4 --test-framework-options='--no-coverage --testsuite=unit'",
         "infection-after-phpunit": "@infection --skip-initial-tests",
         "test": [
             "@psalm",

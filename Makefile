@@ -1,8 +1,8 @@
 build_phpstan_image:
-	cd docker && docker build . -f phpstan.Dockerfile -t php-clone-detection/phpstan:latest && cd -
+	cd docker && docker build . -f phpstan.Dockerfile -t php-dry/phpstan:latest && cd -
 
 phpstan:
-	docker run -v ${PWD}:/app --rm php-clone-detection/phpstan:latest analyse -c /app/build/config/phpstan.neon
+	docker run -v ${PWD}:/app --rm php-dry/phpstan:latest analyse -c /app/build/config/phpstan.neon
 
 phpunit:
 	composer phpunit
@@ -15,6 +15,12 @@ functional:
 
 test: phpstan
 	composer testall
+
+infection:
+	composer infection
+
+infection-after-phpunit:
+	composer infection-after-phpunit
 
 build_image:
 	composer install --no-dev

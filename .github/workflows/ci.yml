@@ -1,0 +1,53 @@
+name: CI Pipeline
+on: [ push ]
+jobs:
+  Test:
+
+    runs-on: ${{ matrix.operating-system }}
+
+    strategy:
+      matrix:
+        operating-system: [ ubuntu-latest ]
+        php-version: [ '8.0' ]
+        coverage-driver: [ xdebug ]
+        include:
+          - { operating-system: 'ubuntu-latest', php-version: '8.0', coverage-driver: 'xdebug'}
+          - { operating-system: 'ubuntu-latest', php-version: '8.1', coverage-driver: 'xdebug'}
+
+    name: CI on ${{ matrix.operating-system }} with PHP ${{ matrix.php-version }}, using ${{ matrix.coverage-driver }}
+
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: "Check out repository code"
+        uses: actions/checkout@v3
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: ${{ matrix.coverage-driver }}
+          ini-values: memory_limit=512M, xdebug.mode=coverage
+          tools: composer:v2.1
+          extensions: ctype, iconv, mbstring
+      - name: "Install requirements"
+        run: |
+          cp .env.test .env
+          composer config -g github-oauth.github.com ${{ secrets.PRIVATE_REPO_ACCESS_TOKEN }}
+          composer update --no-interaction --no-progress --ignore-platform-reqs
+      - name: "Static Analysis"
+        run: |
+          make build_phpstan_image
+          make phpstan
+      - name: "Unit Testing"
+        run: |
+          make unit
+      - name: "Functional Testing"
+        run: |
+          make functional
+      - name: "Mutation Testing"
+        run: |
+          make infection

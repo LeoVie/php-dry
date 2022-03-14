@@ -43,7 +43,7 @@ class RunResultSet
 
     public function hash(): string
     {
-        return $this->paramListSet->__toString()
+        return $this->paramListSet->hash()
             . '=>'
             . join('&', array_map(fn(MethodResult $mr): string => serialize($mr), $this->methodResults));
     }
