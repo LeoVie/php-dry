@@ -2,7 +2,21 @@ name: CI Pipeline
 on: [ push ]
 jobs:
   Test:
-    runs-on: ubuntu-latest
+
+    runs-on: ${{ matrix.operating-system }}
+
+    strategy:
+      matrix:
+        operating-system: [ ubuntu-latest ]
+        php-version: [ '8.0' ]
+        coverage-driver: [ xdebug ]
+        include:
+          - { operating-system: 'windows-latest', php-version: '8.0', coverage-driver: 'xdebug'}
+          - { operating-system: 'ubuntu-latest', php-version: '8.0', coverage-driver: 'xdebug'}
+          - { operating-system: 'ubuntu-latest', php-version: '8.1', coverage-driver: 'xdebug'}
+
+    name: CI on ${{ matrix.operating-system }} with PHP ${{ matrix.php-version }}, using ${{ matrix.coverage-driver }}
+
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
@@ -15,8 +29,10 @@ jobs:
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
         with:
-          coverage: "none"
-          php-version: "8.1"
+          php-version: ${{ matrix.php-version }}
+          coverage: ${{ matrix.coverage-driver }}
+          ini-values: memory_limit=512M, xdebug.mode=coverage
+          tools: composer:v2.1
           extensions: ctype, iconv, mbstring
       - name: "Install requirements"
         run: |
