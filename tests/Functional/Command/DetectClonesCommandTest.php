@@ -130,7 +130,9 @@ class DetectClonesCommandTest extends KernelTestCase
         $reportsDir = __DIR__ . '/../../generated/reports';
         $reportPath = $reportsDir . '/php-dry.json';
 
-        unlink($reportPath);
+        if (file_exists($reportPath)) {
+            unlink($reportPath);
+        }
 
         self::assertFileDoesNotExist($reportPath);
 
