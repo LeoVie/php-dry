@@ -51,4 +51,4 @@ jobs:
           make functional
       - name: "Mutation Testing"
         run: |
-          make infection
+          make infection-after-phpunit
