@@ -11,7 +11,6 @@ jobs:
         php-version: [ '8.0' ]
         coverage-driver: [ xdebug ]
         include:
-          - { operating-system: 'windows-latest', php-version: '8.0', coverage-driver: 'xdebug'}
           - { operating-system: 'ubuntu-latest', php-version: '8.0', coverage-driver: 'xdebug'}
           - { operating-system: 'ubuntu-latest', php-version: '8.1', coverage-driver: 'xdebug'}
 
