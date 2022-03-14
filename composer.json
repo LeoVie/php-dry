@@ -21,6 +21,7 @@
         "leovie/php-param-generator": "dev-main",
         "leovie/php-token-normalize": "dev-main",
         "nikic/php-parser": "^4.13",
+        "roave/security-advisories": "dev-latest",
         "symfony/console": "5.4.*",
         "symfony/dotenv": "5.4.*",
         "symfony/finder": "5.4.*",

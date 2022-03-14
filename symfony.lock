@@ -163,6 +163,9 @@
     "rector/rector": {
         "version": "0.12.9"
     },
+    "roave/security-advisories": {
+        "version": "dev-latest"
+    },
     "sanmai/later": {
         "version": "0.1.2"
     },
