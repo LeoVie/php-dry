@@ -33,7 +33,7 @@ if (\in_array(\PHP_SAPI, ['cli', 'phpdbg', 'embed'], true) === false) {
         <<<'ERROR'
 You need to set up the project dependencies using Composer:
     $ composer install
-You can learn all about Composer on https://getcomposer.org/.
+See https://getcomposer.org/.
 
 ERROR
     );
