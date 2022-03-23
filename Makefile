@@ -26,9 +26,9 @@ infection-after-phpunit:
 	composer infection-after-phpunit
 
 build_image:
-	ifndef tag
+ifndef tag
 	$(error tag is not set)
-	endif
+endif
 	composer install --no-dev
 	rm -rf ./vendor/*/*/.git
 	rm -f generated/*.php

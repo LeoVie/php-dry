@@ -16,10 +16,19 @@ services:
   App\:
     resource: '../src/'
     exclude:
-      - '../src/DependencyInjection/'
-      - '../src/Entity/'
-      - '../src/Kernel.php'
-      - '../src/Tests/'
+    - '../src/DependencyInjection/'
+    - '../src/Entity/'
+    - '../src/Kernel.php'
+    - '../src/Tests/'
+
+  _instanceof:
+    Symfony\Component\Console\Command\Command:
+      tags: [ 'command' ]
+
+  App\Application:
+    public: true
+    arguments:
+      - !tagged command
 
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones
