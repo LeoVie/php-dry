@@ -19,6 +19,7 @@
         "leovie/php-method-runner": "^1.0",
         "leovie/php-methods-parser": "^1.0",
         "leovie/php-param-generator": "^1.0",
+        "leovie/php-token-normalize": "^1.0",
         "nikic/php-parser": "^4.13",
         "roave/security-advisories": "dev-latest",
         "symfony/console": "5.4.*",
