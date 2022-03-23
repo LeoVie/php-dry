@@ -125,3 +125,7 @@ function isNumberValid(int $a): bool
     return floor($half) === ceil($half);
 }
 ```
+
+## Thanks
+Special thank you belongs to [queo GmbH](https://www.queo.de) for sponsoring
+the development and maintenance of php-dry.
