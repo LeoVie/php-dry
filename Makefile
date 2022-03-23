@@ -26,21 +26,15 @@ infection-after-phpunit:
 	composer infection-after-phpunit
 
 build_image:
+ifndef tag
+$(error tag is not set)
+endif
 	composer install --no-dev
 	rm -rf ./vendor/*/*/.git
 	rm -f generated/*.php
-	docker build -f docker/project/Dockerfile -t php-dry:latest . --no-cache
+	docker build -f docker/project/Dockerfile -t leovie/php-dry:$(tag) . --no-cache
 	rm -rf ./vendor
 	composer install
 
-queo_registry_login:
-	docker login dockerhub.cloud.queo.org
-
-build_and_push_image_queo_remote:
-	composer install --no-dev
-	rm -rf ./vendor/*/*/.git
-	rm -f generated/*.php
-	docker build -f docker/project/Dockerfile -t dockerhub.cloud.queo.org/queo.web/projects/php-cd-example/php-dry:latest . --no-cache
-	docker push dockerhub.cloud.queo.org/queo.web/projects/php-cd-example/php-dry:latest
-	rm -rf ./vendor
-	composer install
+build_and_push_image: build_image
+	docker push leovie/php-dry:$(tag)
