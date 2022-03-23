@@ -1,6 +1,6 @@
 FROM php:8.1.1-alpine
 
-COPY bin/console /var/www/bin/console
+COPY php-dry /var/www/php-dry
 COPY config /var/www/config
 COPY generated /var/www/generated
 COPY src /var/www/src
@@ -10,5 +10,5 @@ COPY vendor /var/www/vendor
 
 ENTRYPOINT [ \
     "php", "-d", "memory_limit=-1", \
-    "/var/www/bin/console", "php-dry:check", "/project" \
+    "/var/www/php-dry", "/project" \
 ]
