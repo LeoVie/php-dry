@@ -3,9 +3,11 @@
 namespace App;
 
 use Symfony\Component\Console\Application as BaseApplication;
+use Symfony\Component\Console\Command\Command;
 
 class Application extends BaseApplication
 {
+    /** @param iterable<Command> $commands */
     public function __construct(iterable $commands)
     {
         $commands = $commands instanceof \Traversable ? \iterator_to_array($commands) : $commands;
