@@ -92,7 +92,7 @@
         }
     },
     "require-dev": {
-        "infection/infection": "^0.25.3",
+        "infection/infection": "^0.26.6",
         "jetbrains/phpstorm-attributes": "^1.0",
         "phpunit/phpunit": "^9.5",
         "psalm/plugin-symfony": "^3.0",
