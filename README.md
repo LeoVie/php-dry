@@ -9,6 +9,11 @@ the duplicated passages are implemented completely different to each other.
 docker run -v {path_to_project}:/project leovie/php-dry -h
 ```
 
+### Run via binary
+```bash
+vendor/bin/php-dry -h
+```
+
 ## Theoretical background
 (Practically) every application source code contains clones.
 A clone has multiple clone instances, which are similar logic at different
