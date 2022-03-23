@@ -36,7 +36,6 @@ jobs:
       - name: "Install requirements"
         run: |
           cp .env.test .env
-          composer config -g github-oauth.github.com ${{ secrets.PRIVATE_REPO_ACCESS_TOKEN }}
           composer update --no-interaction --no-progress --ignore-platform-reqs
       - name: "Static Analysis"
         run: |

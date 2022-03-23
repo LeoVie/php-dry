@@ -10,16 +10,15 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-mbstring": "*",
-        "leovie/php-clean-code-bundle": "dev-main",
-        "leovie/php-construct-normalize": "dev-main",
-        "leovie/php-filesystem": "dev-main",
-        "leovie/php-grouper": "dev-main",
-        "leovie/php-html-builder": "dev-main",
-        "leovie/php-method-modifier": "dev-main",
-        "leovie/php-method-runner": "dev-main",
-        "leovie/php-methods-parser": "dev-main",
-        "leovie/php-param-generator": "dev-main",
-        "leovie/php-token-normalize": "dev-main",
+        "leovie/php-clean-code-bundle": "^1.0",
+        "leovie/php-construct-normalize": "^1.0",
+        "leovie/php-filesystem": "^1.0",
+        "leovie/php-grouper": "^1.0",
+        "leovie/php-html-builder": "^1.0",
+        "leovie/php-method-modifier": "^1.0",
+        "leovie/php-method-runner": "^1.0",
+        "leovie/php-methods-parser": "^1.0",
+        "leovie/php-param-generator": "^1.0",
         "nikic/php-parser": "^4.13",
         "roave/security-advisories": "dev-latest",
         "symfony/console": "5.4.*",
@@ -44,48 +43,6 @@
             "symfony/runtime": true
         }
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/LeoVie/php-token-normalize.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/LeoVie/php-methods-parser.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/LeoVie/php-filesystem.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/LeoVie/php-grouper.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/LeoVie/php-param-generator.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/LeoVie/php-method-runner.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/LeoVie/php-clean-code-bundle.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/LeoVie/php-method-modifier.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/LeoVie/php-html-builder.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/LeoVie/php-construct-normalize.git"
-        }
-    ],
     "autoload": {
         "psr-4": {
             "App\\": "src/"

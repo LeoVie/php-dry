@@ -60,7 +60,7 @@
         "version": "dev-main"
     },
     "leovie/php-grouper": {
-        "version": "dev-main"
+        "version": "v1.0.1"
     },
     "leovie/php-html-builder": {
         "version": "dev-main"
