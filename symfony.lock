@@ -51,34 +51,34 @@
         "version": "5.2.11"
     },
     "leovie/php-clean-code-bundle": {
-        "version": "dev-main"
+        "version": "v1.0.1"
     },
     "leovie/php-construct-normalize": {
-        "version": "dev-main"
+        "version": "v1.0.1"
     },
     "leovie/php-filesystem": {
-        "version": "dev-main"
+        "version": "v1.0.1"
     },
     "leovie/php-grouper": {
-        "version": "dev-main"
+        "version": "v1.0.1"
     },
     "leovie/php-html-builder": {
-        "version": "dev-main"
+        "version": "v1.0.1"
     },
     "leovie/php-method-modifier": {
-        "version": "dev-main"
+        "version": "v1.0.1"
     },
     "leovie/php-method-runner": {
-        "version": "dev-main"
+        "version": "v1.0.1"
     },
     "leovie/php-methods-parser": {
-        "version": "dev-main"
+        "version": "v1.0.1"
     },
     "leovie/php-param-generator": {
-        "version": "dev-main"
+        "version": "v1.0.1"
     },
     "leovie/php-token-normalize": {
-        "version": "dev-main"
+        "version": "v1.0.1"
     },
     "myclabs/deep-copy": {
         "version": "1.10.2"
