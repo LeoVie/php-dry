@@ -4,6 +4,12 @@ setup_dev_environment:
 	make setup_ci_images
 	make install
 
+.PHONY: setup_test_environment
+setup_test_environment:
+	make setup_env env=test
+	make setup_ci_images
+	make install
+
 .PHONY: setup_ci_images
 setup_ci_images: build_composer_image build_phpstan_image build_phpunit_image build_psalm_image build_infection_image
 

@@ -35,11 +35,7 @@ jobs:
           extensions: ctype, iconv, mbstring
       - name: "Install requirements"
         run: |
-          make setup_env env=test
-          composer update --no-interaction --no-progress --ignore-platform-reqs
-      - name: "Setup images"
-        run: |
-          make setup_ci_images
+          make setup_test_environment
       - name: "Static Analysis"
         run: |
           make phpstan
