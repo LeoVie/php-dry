@@ -11,6 +11,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: "Check out repository code"
+        uses: actions/checkout@v3
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: 8.1
+          ini-values: memory_limit=-1
+          tools: composer:v2.1
+          extensions: ctype, iconv, mbstring
       - name: Build and push image
         run: |
           make build_and_push_image tag=${{ github.ref }}
