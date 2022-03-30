@@ -21,6 +21,9 @@ jobs:
           ini-values: memory_limit=-1
           tools: composer:v2.1
           extensions: ctype, iconv, mbstring
+      - name: Setup env
+        run: |
+          cp .env.prod .env
       - name: Build and push image
         run: |
           make build_and_push_image tag=${{ github.ref }}
