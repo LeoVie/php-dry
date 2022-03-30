@@ -15,8 +15,7 @@ class Type2SourceCloneCandidateFactory
     public function __construct(
         private TokenSequenceNormalizer          $tokenSequenceNormalizer,
         private Type2SourceCloneCandidatesMerger $type2SourceCloneCandidatesMerger,
-    )
-    {
+    ) {
     }
 
     /**

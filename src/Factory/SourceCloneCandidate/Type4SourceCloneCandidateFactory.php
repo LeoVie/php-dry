@@ -42,8 +42,7 @@ class Type4SourceCloneCandidateFactory
         private TokenSequenceFactory    $tokenSequenceFactory,
         private TokenSequenceNormalizer $tokenSequenceNormalizer,
         private MethodContextDecider    $methodContextDecider,
-    )
-    {
+    ) {
     }
 
     /**
@@ -144,7 +143,7 @@ class Type4SourceCloneCandidateFactory
     private function runMethodMultipleTimes(\App\Model\Method\Method $method, ParamListSet $paramListSet): array
     {
         return array_map(
-            fn(ParamList $paramList): MethodResult => $this->runMethod($method, $paramList),
+            fn (ParamList $paramList): MethodResult => $this->runMethod($method, $paramList),
             $paramListSet->getParamLists()
         );
     }
@@ -160,7 +159,7 @@ class Type4SourceCloneCandidateFactory
                 $method->getName(),
                 $this->tokenSequenceNormalizer->normalizeLevel4($this->tokenSequenceFactory->createFromMethod($method))->toCode()
             ),
-            array_map(fn(Param $p): mixed => $p->flatten(), $paramList->getParams())
+            array_map(fn (Param $p): mixed => $p->flatten(), $paramList->getParams())
         );
 
         return $this->methodRunner->run($methodRunRequest);
@@ -176,7 +175,7 @@ class Type4SourceCloneCandidateFactory
     {
         return array_values(
             array_map(
-                fn(array $runResultSets): Type4SourceCloneCandidate => $this->createForRunResultSets($runResultSets),
+                fn (array $runResultSets): Type4SourceCloneCandidate => $this->createForRunResultSets($runResultSets),
                 $runResultSetsArray
             )
         );
@@ -189,7 +188,7 @@ class Type4SourceCloneCandidateFactory
      */
     private function createForRunResultSets(array $runResultSets): Type4SourceCloneCandidate
     {
-        $methods = array_map(fn(RunResultSet $rrs): \App\Model\Method\Method => $rrs->getMethod(), $runResultSets);
+        $methods = array_map(fn (RunResultSet $rrs): \App\Model\Method\Method => $rrs->getMethod(), $runResultSets);
 
         return Type4SourceCloneCandidate::create(MethodsCollection::create(...$methods));
     }

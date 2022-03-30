@@ -17,6 +17,6 @@ class MethodsCollectionFactory
      */
     public function fromMethodTokenSequence(array $methodTokenSequences): MethodsCollection
     {
-        return MethodsCollection::create(...array_map(fn(MethodTokenSequence $mts): Method => $mts->getMethod(), $methodTokenSequences));
+        return MethodsCollection::create(...array_map(fn (MethodTokenSequence $mts): Method => $mts->getMethod(), $methodTokenSequences));
     }
 }

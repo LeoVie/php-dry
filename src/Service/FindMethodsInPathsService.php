@@ -17,8 +17,7 @@ class FindMethodsInPathsService
     public function __construct(
         private FilepathMethodsFactory $filepathMethodsFactory,
         private MethodFactory          $methodFactory,
-    )
-    {
+    ) {
     }
 
     /**

@@ -12,7 +12,8 @@ use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 class Type2SourceCloneCandidate implements SourceCloneCandidate, Identity, \Stringable, GroupIdentifiable
 {
     private function __construct(private TokenSequence $tokenSequence, private MethodsCollection $methodsCollection)
-    {}
+    {
+    }
 
     public static function create(TokenSequence $tokenSequence, MethodsCollection $methodsCollection): self
     {

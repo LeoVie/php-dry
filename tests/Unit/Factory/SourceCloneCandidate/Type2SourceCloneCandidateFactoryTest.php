@@ -21,8 +21,7 @@ class Type2SourceCloneCandidateFactoryTest extends TestCase
         array                   $expected,
         TokenSequenceNormalizer $tokenSequenceNormalizer,
         array                   $sourceCloneCandidates,
-    ): void
-    {
+    ): void {
         $type2SourceCloneCandidatesMerger = $this->createMock(Type2SourceCloneCandidatesMerger::class);
         $type2SourceCloneCandidatesMerger->method('merge')->willReturnArgument(0);
 

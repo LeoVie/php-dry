@@ -48,8 +48,7 @@ class DetectClonesService
         private Type3SourceCloneCandidateFactory $type3SourceCloneCandidateFactory,
         private Type4SourceCloneCandidateFactory $type4SourceCloneCandidateFactory,
         private ConstructNormalizeService        $constructNormalizeService,
-    )
-    {
+    ) {
     }
 
     /**

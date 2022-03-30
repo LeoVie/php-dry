@@ -4,6 +4,7 @@ $finder = PhpCsFixer\Finder::create()
     ->exclude('vendor')
     ->exclude('var')
     ->exclude('generated')
+    ->exclude('tests/testdata')
     ->in(__DIR__ . '/../../');
 
 $config = new PhpCsFixer\Config();

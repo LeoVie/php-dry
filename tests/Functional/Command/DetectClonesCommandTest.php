@@ -43,11 +43,11 @@ class DetectClonesCommandTest extends KernelTestCase
         $type1ClonesOutput = "TYPE_1
         ------
         
-         * ${testdataDir}01_A.php: foo (5 (position 50) - 13 (position 231) (8 lines))
-         * ${testdataDir}03_A_Exact_Copy.php: foo (5 (position 61) - 13 (position 242) (8 lines))
-         * ${testdataDir}04_A_Additional_Whitespaces.php: foo (5 (position 73) - 14 (position 276) (9 lines))
-         * ${testdataDir}05_A_Additional_Comments.php: foo (5 (position 70) - 20 (position 440) (15 lines))
-         * ${testdataDir}06_A_Changed_Layout.php: foo (5 (position 65) - 9 (position 210) (4 lines))";
+         * ${testdataDir}01_A.php: foo (5 (position 46) - 13 (position 219) (8 lines))
+         * ${testdataDir}03_A_Exact_Copy.php: foo (5 (position 57) - 13 (position 230) (8 lines))
+         * ${testdataDir}04_A_Additional_Whitespaces.php: foo (5 (position 69) - 14 (position 263) (9 lines))
+         * ${testdataDir}05_A_Additional_Comments.php: foo (5 (position 66) - 20 (position 421) (15 lines))
+         * ${testdataDir}06_A_Changed_Layout.php: foo (5 (position 61) - 9 (position 202) (4 lines))";
 
         self::assertStringContainsString(
             $this->normalizeCommandLineOutput($type1ClonesOutput),
@@ -57,14 +57,14 @@ class DetectClonesCommandTest extends KernelTestCase
         $type2ClonesOutput = "TYPE_2
         ------
         
-         * ${testdataDir}01_A.php: foo (5 (position 50) - 13 (position 231) (8 lines))
-         * ${testdataDir}03_A_Exact_Copy.php: foo (5 (position 61) - 13 (position 242) (8 lines))
-         * ${testdataDir}04_A_Additional_Whitespaces.php: foo (5 (position 73) - 14 (position 276) (9 lines))
-         * ${testdataDir}05_A_Additional_Comments.php: foo (5 (position 70) - 20 (position 440) (15 lines))
-         * ${testdataDir}06_A_Changed_Layout.php: foo (5 (position 65) - 9 (position 210) (4 lines))
-         * ${testdataDir}07_A_Changed_Variable_Names.php: foo (5 (position 73) - 13 (position 268) (8 lines))
-         * ${testdataDir}08_A_Changed_Method_Names.php: bar (5 (position 71) - 13 (position 252) (8 lines))
-         * ${testdataDir}09_A_Changed_Literals.php: foo (5 (position 67) - 13 (position 248) (8 lines))";
+         * ${testdataDir}01_A.php: foo (5 (position 46) - 13 (position 219) (8 lines))
+         * ${testdataDir}03_A_Exact_Copy.php: foo (5 (position 57) - 13 (position 230) (8 lines))
+         * ${testdataDir}04_A_Additional_Whitespaces.php: foo (5 (position 69) - 14 (position 263) (9 lines))
+         * ${testdataDir}05_A_Additional_Comments.php: foo (5 (position 66) - 20 (position 421) (15 lines))
+         * ${testdataDir}06_A_Changed_Layout.php: foo (5 (position 61) - 9 (position 202) (4 lines))
+         * ${testdataDir}07_A_Changed_Variable_Names.php: foo (5 (position 69) - 13 (position 256) (8 lines))
+         * ${testdataDir}08_A_Changed_Method_Names.php: bar (5 (position 67) - 13 (position 240) (8 lines))
+         * ${testdataDir}09_A_Changed_Literals.php: foo (5 (position 63) - 13 (position 236) (8 lines))";
         self::assertStringContainsString(
             $this->normalizeCommandLineOutput($type2ClonesOutput),
             $this->normalizeCommandLineOutput($output)
@@ -73,16 +73,16 @@ class DetectClonesCommandTest extends KernelTestCase
         $type3ClonesOutput = "TYPE_3
         ------
         
-         * ${testdataDir}01_A.php: foo (5 (position 50) - 13 (position 231) (8 lines))
-         * ${testdataDir}03_A_Exact_Copy.php: foo (5 (position 61) - 13 (position 242) (8 lines))
-         * ${testdataDir}04_A_Additional_Whitespaces.php: foo (5 (position 73) - 14 (position 276) (9 lines))
-         * ${testdataDir}05_A_Additional_Comments.php: foo (5 (position 70) - 20 (position 440) (15 lines))
-         * ${testdataDir}06_A_Changed_Layout.php: foo (5 (position 65) - 9 (position 210) (4 lines))
-         * ${testdataDir}07_A_Changed_Variable_Names.php: foo (5 (position 73) - 13 (position 268) (8 lines))
-         * ${testdataDir}08_A_Changed_Method_Names.php: bar (5 (position 71) - 13 (position 252) (8 lines))
-         * ${testdataDir}09_A_Changed_Literals.php: foo (5 (position 67) - 13 (position 248) (8 lines))
-         * ${testdataDir}11_A_Removed_Statements.php: foo (5 (position 69) - 12 (position 231) (7 lines))
-         * ${testdataDir}12_A_Changed_Statement_Order.php: foo (5 (position 74) - 13 (position 255) (8 lines))";
+         * ${testdataDir}01_A.php: foo (5 (position 46) - 13 (position 219) (8 lines))
+         * ${testdataDir}03_A_Exact_Copy.php: foo (5 (position 57) - 13 (position 230) (8 lines))
+         * ${testdataDir}04_A_Additional_Whitespaces.php: foo (5 (position 69) - 14 (position 263) (9 lines))
+         * ${testdataDir}05_A_Additional_Comments.php: foo (5 (position 66) - 20 (position 421) (15 lines))
+         * ${testdataDir}06_A_Changed_Layout.php: foo (5 (position 61) - 9 (position 202) (4 lines))
+         * ${testdataDir}07_A_Changed_Variable_Names.php: foo (5 (position 69) - 13 (position 256) (8 lines))
+         * ${testdataDir}08_A_Changed_Method_Names.php: bar (5 (position 67) - 13 (position 240) (8 lines))
+         * ${testdataDir}09_A_Changed_Literals.php: foo (5 (position 63) - 13 (position 236) (8 lines))
+         * ${testdataDir}11_A_Removed_Statements.php: foo (5 (position 65) - 12 (position 220) (7 lines))
+         * ${testdataDir}12_A_Changed_Statement_Order.php: foo (5 (position 70) - 13 (position 243) (8 lines))";
         self::assertStringContainsString(
             $this->normalizeCommandLineOutput($type3ClonesOutput),
             $this->normalizeCommandLineOutput($output)
@@ -91,18 +91,18 @@ class DetectClonesCommandTest extends KernelTestCase
         $type4ClonesOutput = "TYPE_4
         ------
         
-         * ${testdataDir}01_A.php: foo (5 (position 50) - 13 (position 231) (8 lines))
-         * ${testdataDir}03_A_Exact_Copy.php: foo (5 (position 61) - 13 (position 242) (8 lines))
-         * ${testdataDir}04_A_Additional_Whitespaces.php: foo (5 (position 73) - 14 (position 276) (9 lines))
-         * ${testdataDir}05_A_Additional_Comments.php: foo (5 (position 70) - 20 (position 440) (15 lines))
-         * ${testdataDir}06_A_Changed_Layout.php: foo (5 (position 65) - 9 (position 210) (4 lines))
-         * ${testdataDir}07_A_Changed_Variable_Names.php: foo (5 (position 73) - 13 (position 268) (8 lines))
-         * ${testdataDir}08_A_Changed_Method_Names.php: bar (5 (position 71) - 13 (position 252) (8 lines))
-         * ${testdataDir}09_A_Changed_Literals.php: foo (5 (position 67) - 13 (position 248) (8 lines))
-         * ${testdataDir}10_A_Additional_Statements.php: foo (5 (position 72) - 14 (position 290) (9 lines))
-         * ${testdataDir}11_A_Removed_Statements.php: foo (5 (position 69) - 12 (position 231) (7 lines))
-         * ${testdataDir}12_A_Changed_Statement_Order.php: foo (5 (position 74) - 13 (position 255) (8 lines))
-         * ${testdataDir}13_A_Changed_Syntax.php: foo (5 (position 65) - 11 (position 210) (6 lines))";
+         * ${testdataDir}01_A.php: foo (5 (position 46) - 13 (position 219) (8 lines))
+         * ${testdataDir}03_A_Exact_Copy.php: foo (5 (position 57) - 13 (position 230) (8 lines))
+         * ${testdataDir}04_A_Additional_Whitespaces.php: foo (5 (position 69) - 14 (position 263) (9 lines))
+         * ${testdataDir}05_A_Additional_Comments.php: foo (5 (position 66) - 20 (position 421) (15 lines))
+         * ${testdataDir}06_A_Changed_Layout.php: foo (5 (position 61) - 9 (position 202) (4 lines))
+         * ${testdataDir}07_A_Changed_Variable_Names.php: foo (5 (position 69) - 13 (position 256) (8 lines))
+         * ${testdataDir}08_A_Changed_Method_Names.php: bar (5 (position 67) - 13 (position 240) (8 lines))
+         * ${testdataDir}09_A_Changed_Literals.php: foo (5 (position 63) - 13 (position 236) (8 lines))
+         * ${testdataDir}10_A_Additional_Statements.php: foo (5 (position 68) - 14 (position 277) (9 lines))
+         * ${testdataDir}11_A_Removed_Statements.php: foo (5 (position 65) - 12 (position 220) (7 lines))
+         * ${testdataDir}12_A_Changed_Statement_Order.php: foo (5 (position 70) - 13 (position 243) (8 lines))
+         * ${testdataDir}13_A_Changed_Syntax.php: foo (5 (position 61) - 11 (position 200) (6 lines))";
         self::assertStringContainsString(
             $this->normalizeCommandLineOutput($type4ClonesOutput),
             $this->normalizeCommandLineOutput($output)
@@ -113,10 +113,10 @@ class DetectClonesCommandTest extends KernelTestCase
     {
         return join('', array_filter(
             array_map(
-                fn(string $s): string => trim($s),
+                fn (string $s): string => trim($s),
                 explode("\n", str_replace("\r", '', $commandLineOutput))
             ),
-            fn(string $line): bool => $line !== ''
+            fn (string $line): bool => $line !== ''
         ));
     }
 
@@ -154,6 +154,7 @@ class DetectClonesCommandTest extends KernelTestCase
         self::assertFileExists($reportPath);
 
         $actualJson = \Safe\file_get_contents($reportPath);
+
         self::assertJsonStringEqualsJsonString($expectedJson, $actualJson);
     }
 }

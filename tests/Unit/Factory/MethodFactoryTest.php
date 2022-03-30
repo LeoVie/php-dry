@@ -25,8 +25,7 @@ class MethodFactoryTest extends TestCase
         CodePositionRangeFactory $codePositionRangeFactory,
         Filesystem               $filesystem,
         MethodSignatureFactory   $methodSignatureFactory,
-    ): void
-    {
+    ): void {
         self::assertEquals(
             $expected,
             (new MethodFactory($codePositionRangeFactory, $filesystem, $methodSignatureFactory))

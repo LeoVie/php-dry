@@ -57,8 +57,7 @@ class DetectClonesCommand extends Command
         private JsonReportBuilder         $jsonReportBuilder,
         private CommandLineReportBuilder  $commandLineReportBuilder,
         private DetectClonesCommandOutput $detectClonesCommandOutput,
-    )
-    {
+    ) {
         parent::__construct(self::$defaultName);
     }
 
@@ -164,7 +163,7 @@ class DetectClonesCommand extends Command
                     $this->getStringOption($input, self::OPTION_REPORTS_DIRECTORY) . '/' . 'php-dry.json',
                     $jsonReport
                 );
-            } else if ($this->getStringOption($input, self::OPTION_REPORT_FORMAT) === 'cli') {
+            } elseif ($this->getStringOption($input, self::OPTION_REPORT_FORMAT) === 'cli') {
                 $output->write($this->commandLineReportBuilder->build($jsonReport));
             }
 

@@ -15,8 +15,7 @@ class IgnoreClonesService
     public function __construct(
         private ArrayUtil            $arrayUtil,
         private TokenSequenceFactory $tokenSequenceFactory,
-    )
-    {
+    ) {
     }
 
     /**
@@ -31,7 +30,7 @@ class IgnoreClonesService
         $nonIgnoredClones = array_values(
             array_filter(
                 $this->arrayUtil->flatten($cloneGroups),
-                fn(SourceClone $c): bool => !$this->cloneShouldBeIgnored($c, $configuration)
+                fn (SourceClone $c): bool => !$this->cloneShouldBeIgnored($c, $configuration)
             )
         );
 
@@ -42,7 +41,7 @@ class IgnoreClonesService
     {
         /** @var non-empty-array<int> $tokenLengths */
         $tokenLengths = array_map(
-            fn(Method $m): int => $this->tokenSequenceFactory->createFromMethod($m)->length(),
+            fn (Method $m): int => $this->tokenSequenceFactory->createFromMethod($m)->length(),
             $clone->getMethodsCollection()->getAll()
         );
 

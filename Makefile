@@ -44,7 +44,7 @@ build_php-cs-fixer_image:
 
 .PHONY: php-cs-fixer
 php-cs-fixer:
-	docker run -v ${PWD}:/app --rm php-dry/php-cs-fixer:latest fix --config /app/build/config/.php-cs-fixer.php --dry-run
+	docker run -v ${PWD}:/app --rm php-dry/php-cs-fixer:latest fix --config /app/build/config/.php-cs-fixer.php
 
 .PHONY: build_phpstan_image
 build_phpstan_image:

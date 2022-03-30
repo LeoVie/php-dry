@@ -72,7 +72,10 @@
   "scripts": {
     "psalm": "psalm -c build/config/psalm.xml --show-info=true",
     "phpunit": "phpunit -c build/config/phpunit.xml",
-    "infection": "infection --only-covered --configuration=build/config/infection.json --min-msi=98 --min-covered-msi=98 --coverage=../coverage --threads=4 --test-framework-options='--no-coverage --testsuite=unit'",
+    "infection": [
+      "Composer\\Config::disableProcessTimeout",
+      "infection --only-covered --configuration=build/config/infection.json --min-msi=98 --min-covered-msi=98 --coverage=../coverage --threads=4 --test-framework-options='--no-coverage --testsuite=unit'"
+    ],
     "test": [
       "@psalm",
       "@phpunit"

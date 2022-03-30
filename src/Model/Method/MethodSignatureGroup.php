@@ -12,8 +12,7 @@ class MethodSignatureGroup
     private function __construct(
         private MethodSignature   $methodSignature,
         private MethodsCollection $methodsCollection,
-    )
-    {
+    ) {
     }
 
     public static function create(MethodSignature $methodSignature, MethodsCollection $methodsCollection): self

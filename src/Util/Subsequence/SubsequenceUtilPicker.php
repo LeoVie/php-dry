@@ -14,8 +14,7 @@ class SubsequenceUtilPicker
     public function __construct(
         private LongestCommonSubsequenceUtil $longestCommonSubsequenceUtil,
         private SimilarTextSubsequenceUtil   $similarTextSubsequenceUtil,
-    )
-    {
+    ) {
     }
 
     /** @throws SubsequenceUtilNotFound */

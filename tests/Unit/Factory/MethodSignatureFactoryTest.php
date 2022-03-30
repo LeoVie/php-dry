@@ -20,8 +20,7 @@ class MethodSignatureFactoryTest extends TestCase
         ClassMethod|Function_ $method,
         ReturnTypeExtractor   $returnTypeExtractor,
         ParamTypesExtractor   $paramTypesExtractor
-    ): void
-    {
+    ): void {
         self::assertEquals(
             $expected,
             (new MethodSignatureFactory($returnTypeExtractor, $paramTypesExtractor))->create($method)

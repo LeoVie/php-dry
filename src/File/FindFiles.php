@@ -17,7 +17,7 @@ class FindFiles
     public function findPhpFilesInPath(string $path): array
     {
         return array_map(
-            fn(SplFileInfo $f) => $f->__toString(),
+            fn (SplFileInfo $f) => $f->__toString(),
             iterator_to_array($this->finderFactory->instance()->in($path)->name('*.php')->files())
         );
     }

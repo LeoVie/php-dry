@@ -11,8 +11,7 @@ class MethodScoresMapping
     private function __construct(
         private Method $method,
         private array  $scores
-    )
-    {
+    ) {
     }
 
     /** @param Score[] $scores */
