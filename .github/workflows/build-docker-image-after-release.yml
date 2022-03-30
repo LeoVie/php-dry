@@ -7,6 +7,9 @@ jobs:
   Build_and_push:
     runs-on: ubuntu-latest
     steps:
+      - name: Get tag
+        id: get_tag
+        run: echo ::set-output name=TAG::${GITHUB_REF#refs/tags/v}
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
@@ -26,4 +29,4 @@ jobs:
           cp .env.prod .env
       - name: Build and push image
         run: |
-          make build_and_push_image tag=${{ github.ref }}
+          make build_and_push_image tag=${{ steps.get_tag.outputs.TAG }}
