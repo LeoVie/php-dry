@@ -30,3 +30,4 @@ jobs:
       - name: Build and push image
         run: |
           make build_and_push_image tag=${{ steps.get_tag.outputs.TAG }}
+          make build_and_push_image tag=latest
