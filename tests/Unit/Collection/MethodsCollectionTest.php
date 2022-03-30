@@ -10,7 +10,6 @@ use App\Model\Method\Method;
 use App\Model\Method\MethodSignature;
 use PHPUnit\Framework\TestCase;
 
-/** @group now */
 class MethodsCollectionTest extends TestCase
 {
     /** @dataProvider createProvider */

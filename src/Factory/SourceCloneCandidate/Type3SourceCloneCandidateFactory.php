@@ -34,7 +34,7 @@ class Type3SourceCloneCandidateFactory
     public function createMultiple(iterable $type2SourceCloneCandidates, Configuration $configuration): array
     {
         $subsequenceUtil = $this->subsequenceUtilPicker->pick(
-            $configuration->enableLCSAlgorithm()
+            $configuration->isEnableLcsAlgorithm()
                 ? SubsequenceUtilPicker::STRATEGY_LCS
                 : SubsequenceUtilPicker::STRATEGY_SIMILAR_TEXT
         );
@@ -46,7 +46,7 @@ class Type3SourceCloneCandidateFactory
                 && $subsequenceUtil->percentageOfSimilarText(
                     $a->identity(),
                     $b->identity()
-                ) > $configuration->minSimilarTokensPercent()
+                ) > $configuration->getMinSimilarTokensPercentage()
         );
 
         return $this->createMultipleFromGroups($type2SourceCloneCandidateGroups);
