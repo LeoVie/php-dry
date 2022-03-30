@@ -1,30 +1,50 @@
+.PHONY: setup_ci_images
+setup_ci_images: build_phpstan_image build_phpunit_image build_psalm_image build_infection_image
+
+.PHONY: test
+test: phpstan psalm phpunit infection
+
+.PHONY: build_phpstan_image
 build_phpstan_image:
 	cd docker && docker build . -f phpstan.Dockerfile -t php-dry/phpstan:latest && cd -
 
+.PHONY: phpstan
 phpstan:
 	docker run -v ${PWD}:/app --rm php-dry/phpstan:latest analyse -c /app/build/config/phpstan.neon
 
+.PHONY: build_phpunit_image
+build_phpunit_image:
+	cd docker && docker build . -f phpunit.Dockerfile -t php-dry/phpunit:latest && cd -
+
+.PHONY: phpunit
 phpunit:
-	composer phpunit
+	docker run -v ${PWD}:/app --rm php-dry/phpunit:latest
 
+.PHONY: unit
 unit:
-	composer phpunit -- --testsuite=unit
+	docker run -v ${PWD}:/app --rm php-dry/phpunit:latest -- --testsuite=unit
 
+.PHONY: functional
 functional:
-	composer phpunit -- --testsuite=functional
+	docker run -v ${PWD}:/app --rm php-dry/phpunit:latest -- --testsuite=functional
 
-test: phpstan
-	composer testall
+.PHONY: build_psalm_image
+build_psalm_image:
+	cd docker && docker build . -f psalm.Dockerfile -t php-dry/psalm:latest && cd -
 
+.PHONY: psalm
 psalm:
-	composer psalm
+	docker run -v ${PWD}:/app --rm php-dry/psalm:latest
 
+.PHONY: build_infection_image
+build_infection_image:
+	cd docker && docker build . -f infection.Dockerfile -t php-dry/infection:latest && cd -
+
+.PHONY: infection
 infection:
-	composer infection
+	docker run -v ${PWD}:/app --rm php-dry/infection:latest
 
-infection-after-phpunit:
-	composer infection-after-phpunit
-
+.PHONY: build_image
 build_image:
 ifndef tag
 	$(error tag is not set)
@@ -36,5 +56,6 @@ endif
 	rm -rf ./vendor
 	composer install
 
+.PHONY: build_and_push_image
 build_and_push_image: build_image
 	docker push leovie/php-dry:$(tag)

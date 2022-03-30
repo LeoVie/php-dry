@@ -37,9 +37,11 @@ jobs:
         run: |
           cp .env.test .env
           composer update --no-interaction --no-progress --ignore-platform-reqs
+      - name: "Setup images"
+        run: |
+          make setup_ci_images
       - name: "Static Analysis"
         run: |
-          make build_phpstan_image
           make phpstan
           make psalm
       - name: "Unit Testing"
