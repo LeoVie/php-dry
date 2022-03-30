@@ -1,5 +1,33 @@
+.PHONY: setup_dev_environment
+setup_dev_environment:
+	make setup_env env=dev
+	make setup_ci_images
+	make install
+
 .PHONY: setup_ci_images
-setup_ci_images: build_phpstan_image build_phpunit_image build_psalm_image build_infection_image
+setup_ci_images: build_composer_image build_phpstan_image build_phpunit_image build_psalm_image build_infection_image
+
+.PHONY: build_composer_image
+build_composer_image:
+	cd docker && docker build . -f composer.Dockerfile -t php-dry/composer:latest && cd -
+
+.PHONY: composer
+composer:
+ifndef command
+	$(error command is not set)
+endif
+	docker run -v $(shell pwd):/app php-dry/composer:latest $(command)
+
+.PHONY: install
+install:
+	make composer command="install"
+
+.PHONY: setup_env
+setup_env:
+ifndef env
+	$(error env is not set)
+endif
+	cp .env.$(env) .env
 
 .PHONY: test
 test: phpstan psalm phpunit infection

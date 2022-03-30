@@ -35,7 +35,7 @@ jobs:
           extensions: ctype, iconv, mbstring
       - name: "Install requirements"
         run: |
-          cp .env.test .env
+          make setup_env env=test
           composer update --no-interaction --no-progress --ignore-platform-reqs
       - name: "Setup images"
         run: |
