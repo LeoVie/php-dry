@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Command;
 
+use App\Command\DetectClonesCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Command\Command;
@@ -17,7 +18,7 @@ class DetectClonesCommandTest extends KernelTestCase
     {
         $kernel = self::bootKernel();
         $application = new Application($kernel);
-        $command = $application->find('php-dry:check');
+        $command = $application->find(DetectClonesCommand::NAME);
         $this->commandTester = new CommandTester($command);
     }
 
@@ -26,7 +27,7 @@ class DetectClonesCommandTest extends KernelTestCase
         $testdataDir = __DIR__ . '/../../testdata/clone-detection-testdata/';
 
         $this->commandTester->execute([
-            'directory' => $testdataDir,
+            DetectClonesCommand::ARGUMENT_DIRECTORY => $testdataDir,
         ]);
 
         $output = $this->commandTester->getDisplay();
@@ -137,9 +138,9 @@ class DetectClonesCommandTest extends KernelTestCase
         self::assertFileDoesNotExist($reportPath);
 
         $this->commandTester->execute([
-            'directory' => $testdataDir,
-            '--report_format' => 'json',
-            '--reports_directory' => __DIR__ . '/../../generated/reports',
+            DetectClonesCommand::ARGUMENT_DIRECTORY => $testdataDir,
+            '--' . DetectClonesCommand::OPTION_REPORT_FORMAT => 'json',
+            '--' . DetectClonesCommand::OPTION_REPORTS_DIRECTORY => __DIR__ . '/../../generated/reports',
         ]);
 
         $expectedJson = str_replace(

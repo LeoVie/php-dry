@@ -72,7 +72,7 @@
   "scripts": {
     "psalm": "psalm -c build/config/psalm.xml --show-info=true",
     "phpunit": "phpunit -c build/config/phpunit.xml",
-    "infection": "infection --only-covered --configuration=build/config/infection.json --min-msi=100 --min-covered-msi=100 --coverage=../coverage --threads=4 --test-framework-options='--no-coverage --testsuite=unit'",
+    "infection": "infection --only-covered --configuration=build/config/infection.json --min-msi=98 --min-covered-msi=98 --coverage=../coverage --threads=4 --test-framework-options='--no-coverage --testsuite=unit'",
     "infection-after-phpunit": "@infection --skip-initial-tests",
     "test": [
       "@psalm",

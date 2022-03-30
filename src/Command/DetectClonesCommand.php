@@ -34,17 +34,18 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class DetectClonesCommand extends Command
 {
-    private const ARGUMENT_DIRECTORY = 'directory';
-    private const OPTION_MIN_SIMILAR_TOKENS_PERCENTAGE = 'min-similar-tokens-percentage';
-    private const OPTION_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES = 'count-of-param-sets-for-type4-clones';
-    private const OPTION_HTML_REPORT_FILEPATH = 'html-report-filepath';
-    private const OPTION_MIN_TOKEN_LENGTH = 'min-token-length';
-    private const OPTION_ENABLE_CONSTRUCT_NORMALIZATION = 'enable-construct-normalization';
-    private const OPTION_ENABLE_LCS_ALGORITHM = 'enable-lcs-algorithm';
-    private const OPTION_REPORT_FORMAT = 'report-format';
-    private const OPTION_REPORTS_DIRECTORY = 'reports-directory';
-    private const OPTION_SILENT = 'silent';
-    protected static $defaultName = 'php-dry:check';
+    public const NAME = 'php-dry:check';
+    public const ARGUMENT_DIRECTORY = 'directory';
+    public const OPTION_MIN_SIMILAR_TOKENS_PERCENTAGE = 'min-similar-tokens-percentage';
+    public const OPTION_COUNT_OF_PARAM_SETS_FOR_TYPE4_CLONES = 'count-of-param-sets-for-type4-clones';
+    public const OPTION_HTML_REPORT_FILEPATH = 'html-report-filepath';
+    public const OPTION_MIN_TOKEN_LENGTH = 'min-token-length';
+    public const OPTION_ENABLE_CONSTRUCT_NORMALIZATION = 'enable-construct-normalization';
+    public const OPTION_ENABLE_LCS_ALGORITHM = 'enable-lcs-algorithm';
+    public const OPTION_REPORT_FORMAT = 'report-format';
+    public const OPTION_REPORTS_DIRECTORY = 'reports-directory';
+    public const OPTION_SILENT = 'silent';
+    protected static $defaultName = self::NAME;
 
     public function __construct(
         private DetectClonesService       $detectClonesService,
@@ -78,7 +79,8 @@ class DetectClonesCommand extends Command
                 self::OPTION_HTML_REPORT_FILEPATH,
                 null,
                 InputArgument::OPTIONAL,
-                'Absolute path of report html file.'
+                'Absolute path of report html file.',
+                __DIR__ . '/report.html'
             )->addOption(
                 self::OPTION_MIN_SIMILAR_TOKENS_PERCENTAGE,
                 null,
