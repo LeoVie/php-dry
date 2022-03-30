@@ -11,7 +11,7 @@ setup_test_environment:
 	make install
 
 .PHONY: setup_ci_images
-setup_ci_images: build_composer_image build_phpstan_image build_phpunit_image build_psalm_image build_infection_image
+setup_ci_images: build_composer_image build_php-cs-fixer_image build_phpstan_image build_phpunit_image build_psalm_image build_infection_image
 
 .PHONY: build_composer_image
 build_composer_image:
@@ -37,6 +37,14 @@ endif
 
 .PHONY: test
 test: phpstan psalm phpunit infection
+
+.PHONY: build_php-cs-fixer_image
+build_php-cs-fixer_image:
+	cd docker && docker build . -f php-cs-fixer.Dockerfile -t php-dry/php-cs-fixer:latest && cd -
+
+.PHONY: php-cs-fixer
+php-cs-fixer:
+	docker run -v ${PWD}:/app --rm php-dry/php-cs-fixer:latest fix --config /app/build/config/.php-cs-fixer.php --dry-run
 
 .PHONY: build_phpstan_image
 build_phpstan_image:
