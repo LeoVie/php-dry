@@ -28,7 +28,7 @@
     "roave/security-advisories": "dev-latest",
     "symfony/console": "5.4.*",
     "symfony/css-selector": "5.3.*",
-    "symfony/dom-crawler": "5.3.*",
+    "symfony/dom-crawler": "6.0.*",
     "symfony/dotenv": "5.4.*",
     "symfony/finder": "5.4.*",
     "symfony/flex": "2.1.*",
