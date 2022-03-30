@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3a26184b869ce8d71453d3d169dd0088",
+    "content-hash": "68495de16b42c85c85560f81a7e0c3cc",
     "packages": [
         {
             "name": "fakerphp/faker",
@@ -2008,31 +2008,29 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v5.3.14",
+            "version": "v6.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "076dd4b4de41d060b1397319dfbed8cd56a6a484"
+                "reference": "9b4126901a6146c151d95af3868b1e0e30519ea6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/076dd4b4de41d060b1397319dfbed8cd56a6a484",
-                "reference": "076dd4b4de41d060b1397319dfbed8cd56a6a484",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/9b4126901a6146c151d95af3868b1e0e30519ea6",
+                "reference": "9b4126901a6146c151d95af3868b1e0e30519ea6",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2.5",
-                "symfony/deprecation-contracts": "^2.1",
+                "php": ">=8.0.2",
                 "symfony/polyfill-ctype": "~1.8",
-                "symfony/polyfill-mbstring": "~1.0",
-                "symfony/polyfill-php80": "^1.16"
+                "symfony/polyfill-mbstring": "~1.0"
             },
             "conflict": {
                 "masterminds/html5": "<2.6"
             },
             "require-dev": {
                 "masterminds/html5": "^2.6",
-                "symfony/css-selector": "^4.4|^5.0"
+                "symfony/css-selector": "^5.4|^6.0"
             },
             "suggest": {
                 "symfony/css-selector": ""
@@ -2063,7 +2061,7 @@
             "description": "Eases DOM navigation for HTML and XML documents",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/dom-crawler/tree/v5.3.14"
+                "source": "https://github.com/symfony/dom-crawler/tree/v6.0.6"
             },
             "funding": [
                 {
@@ -2079,7 +2077,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-02T09:51:59+00:00"
+            "time": "2022-03-02T12:58:14+00:00"
         },
         {
             "name": "symfony/dotenv",
@@ -7804,8 +7802,9 @@
         "php": ">=8.0.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "ext-dom": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.2.0"
 }
