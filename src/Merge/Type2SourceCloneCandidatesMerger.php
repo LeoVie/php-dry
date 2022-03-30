@@ -40,8 +40,7 @@ class Type2SourceCloneCandidatesMerger
     private function addToExistingType2SourceCloneCandidateOrCreateNewOne(
         Type2SourceCloneCandidate $type2SourceCloneCandidate,
         array                     $newType2SourceCloneCandidates,
-    ): array
-    {
+    ): array {
         $identity = $type2SourceCloneCandidate->identity();
 
         $newNormalizedMethods = $type2SourceCloneCandidate->getMethodsCollection()->getAll();

@@ -15,8 +15,7 @@ class RunResultSet
         private Method       $method,
         private ParamListSet $paramListSet,
         private array        $methodResults
-    )
-    {
+    ) {
     }
 
     /** @param MethodResult[] $methodResults */
@@ -45,6 +44,6 @@ class RunResultSet
     {
         return $this->paramListSet->hash()
             . '=>'
-            . join('&', array_map(fn(MethodResult $mr): string => serialize($mr), $this->methodResults));
+            . join('&', array_map(fn (MethodResult $mr): string => serialize($mr), $this->methodResults));
     }
 }

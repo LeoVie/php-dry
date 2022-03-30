@@ -22,7 +22,7 @@ class FilepathMethodsFactory
      */
     public function create(array $filepaths): array
     {
-        return array_map(fn(string $f) => $this->createOne($f), $filepaths);
+        return array_map(fn (string $f) => $this->createOne($f), $filepaths);
     }
 
     /** @throws FilesystemException */

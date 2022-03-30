@@ -15,8 +15,7 @@ class Configuration
         private int    $minTokenLength,
         private bool   $enableConstructNormalization,
         private bool   $enableLCSAlgorithm,
-    )
-    {
+    ) {
     }
 
     public static function create(
@@ -27,8 +26,7 @@ class Configuration
         int    $minTokenLength,
         bool   $enableConstructNormalization,
         bool   $enableLCSAlgorithm,
-    ): self
-    {
+    ): self {
         return new self(
             $directory,
             $minSimilarTokensPercent,

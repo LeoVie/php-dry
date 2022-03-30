@@ -12,16 +12,14 @@ class MethodSignature implements JsonSerializable
     private function __construct(
         private array  $paramTypes,
         private string $returnType,
-    )
-    {
+    ) {
     }
 
     /** @param string[] $paramTypes */
     public static function create(
         array  $paramTypes,
         string $returnType,
-    ): self
-    {
+    ): self {
         return new self($paramTypes, $returnType);
     }
 

@@ -23,8 +23,7 @@ class Type1SourceCloneCandidateFactory
         private TokenSequenceNormalizer                     $tokenSequenceNormalizer,
         private MethodsCollectionFactory                    $methodsCollectionFactory,
         private ArrayUtil                                   $arrayUtil,
-    )
-    {
+    ) {
     }
 
     /**
@@ -72,7 +71,7 @@ class Type1SourceCloneCandidateFactory
      */
     private function createMultipleForMultipleMethodTokenSequencesGroups(array $groupedMethodTokenSequences): array
     {
-        return array_map(fn(array $methodTokenSequences): Type1SourceCloneCandidate => Type1SourceCloneCandidate::create(
+        return array_map(fn (array $methodTokenSequences): Type1SourceCloneCandidate => Type1SourceCloneCandidate::create(
             $methodTokenSequences[0]->getTokenSequence(),
             $this->methodsCollectionFactory->fromMethodTokenSequence($methodTokenSequences),
         ), $groupedMethodTokenSequences);

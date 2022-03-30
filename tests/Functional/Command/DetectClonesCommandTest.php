@@ -113,10 +113,10 @@ class DetectClonesCommandTest extends KernelTestCase
     {
         return join('', array_filter(
             array_map(
-                fn(string $s): string => trim($s),
+                fn (string $s): string => trim($s),
                 explode("\n", str_replace("\r", '', $commandLineOutput))
             ),
-            fn(string $line): bool => $line !== ''
+            fn (string $line): bool => $line !== ''
         ));
     }
 

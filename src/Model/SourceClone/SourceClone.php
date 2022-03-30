@@ -18,8 +18,7 @@ class SourceClone implements JsonSerializable
     private function __construct(
         private string            $type,
         private MethodsCollection $methodsCollection,
-    )
-    {
+    ) {
     }
 
     public static function create(string $type, MethodsCollection $methodsCollection): self
