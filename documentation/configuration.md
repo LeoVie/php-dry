@@ -1,26 +1,46 @@
-# `--report-format`
-- Possible values: `cli`, `json`, `html`
-- Default: `cli`
+# Configuration
+php-dry can be configured via it's xml configuration. Pass the path to your configuration via the `--config` option
+to php-dry.
 
+An example of a valid configuration:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<php-dry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://github.com/LeoVie/php-dry/tree/main/xsd/php-dry.xsd"
+         silent="false"
+         minTokenLength="50"
+         minSimilarTokensPercentage="80"
+         enableLcsAlgorithm="false"
+         countOfParamSets="10"
+         enableConstructNormalization="false">
+
+    <report>
+        <cli/>
+        <html filepath="reports/php-dry.html"/>
+        <json filepath="reports/php-dry.json"/>
+    </report>
+</php-dry>
+```
+
+## `report`
 In which format should php-dry report detected clones?
 
 There are [examples](examples/report-format) for each report format.
 
-# `--html-report-filepath`
-- Possible values: A path to an html file
+### `cli`
+- Attributes: none
 
-Where to save the html report?
+### `html`
+- Attributes: `filepath`
 
-This is only relevant, if `report-format` is `html`.
+### `json`
+- Attributes: `filepath`
 
-# `--reports_directory`
-- Possible values: A path to a directory
+## `php-dry`
+Attributes:
 
-Where to save the json report?
-
-This is only relevant, if `report-format` is `json`.
-
-# `--silent`
+### `silent`
 - Possible values: `true`, `false`
 - Default: `false`
 
@@ -28,7 +48,7 @@ Should command be a silent as possible?
 
 This can be useful, if you are only interested in the html or json report anyhow and don't look at the cli output.
 
-# `--min_token_length`
+### `minTokenLength`
 - Possible values: An integer value `>= 1`
 
 How many tokens should a clone instances contain at least?
@@ -36,7 +56,7 @@ How many tokens should a clone instances contain at least?
 Use this, to prevent reporting very small clone instances. For example, probably you don't want to detect the `setUid`
 method of all your entities as clones.
 
-# `--min_similar_tokens_percentage`
+### `minSimilarTokensPercentage`
 - Possible values: An integer value between `1` and `100`
 - Default: `80`
 
@@ -54,7 +74,7 @@ The token sequence `a -> c -> d` exists in both methods. The similar tokens perc
 If you specify `--min_similar_tokens_percentage = 60`, these two methods will be reported as type-3 clone instances. \
 If you specify `--min_similar_tokens_percentage = 61`, they won't.
 
-# `--enable_lcs_algorithm`
+### `enableLcsAlgorithm`
 - Possible values: `true`, `false`
 - Default: `false`
 
@@ -66,7 +86,7 @@ For deciding, how many similar tokens (in same order) two methods have, there ex
 
 Using the LCS algorithm is very (very very) slow at the moment. You should use this only, if you really need it.
 
-# `--count_of_param_sets_for_type4_clones`
+### `countOfParamSets`
 - Possible values: An integer value between `>= 1`
 - Default: `10`
 
@@ -80,7 +100,7 @@ type-4 clone instances.
 You can interpret this option as: How many times should both methods get called with different parameters
 until considering them to be type-4 clone instances (if they both return same result on each run)?
 
-# `--enable_construct_normalization`
+### `enableConstructNormalization`
 - Possible values: `true`, `false`
 - Default: `false`
 

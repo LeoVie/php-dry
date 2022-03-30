@@ -40,8 +40,12 @@ class HtmlOutput
      * @param SourceCloneMethodScoresMapping[] $sourceCloneMethodScoresMappings
      * @throws FilesystemException
      */
-    public function createReport(array $sourceCloneMethodScoresMappings, Configuration $configuration): self
+    public function createReport(array $sourceCloneMethodScoresMappings, Configuration $configuration): void
     {
+        if (!$configuration->getReportConfiguration()->getHtml()) {
+            return;
+        }
+
         $sortedSourceCloneMethodScoreMappings = [
             SourceClone::TYPE_1 => [],
             SourceClone::TYPE_2 => [],
@@ -55,7 +59,7 @@ class HtmlOutput
             $methodScoresMappingsWithRelativePath = [];
             foreach ($methodScoresMappings as $methodScoresMapping) {
                 $methodScoresMappingsWithRelativePath[] = MethodScoresMapping::create(
-                    $this->convertMethodFilepathToProjectRelative($methodScoresMapping->getMethod(), $configuration->directory()),
+                    $this->convertMethodFilepathToProjectRelative($methodScoresMapping->getMethod(), $configuration->getDirectory()),
                     $methodScoresMapping->getScores()
                 );
             }
@@ -81,9 +85,7 @@ class HtmlOutput
 
         $htmlDom->add($htmlTag);
 
-        \Safe\file_put_contents($configuration->htmlReportFile(), $htmlDom->asCode());
-
-        return $this;
+        \Safe\file_put_contents($configuration->getReportConfiguration()->getHtml()->getFilepath(), $htmlDom->asCode());
     }
 
     private function convertMethodFilepathToProjectRelative(Method $method, string $projectRoot): Method

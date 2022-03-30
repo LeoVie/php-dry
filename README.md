@@ -23,8 +23,8 @@ After installation, you can run php-dry via
 vendor/bin/php-dry {path_to_project} -h
 ```
 
-## Command line options
-see [here](documentation/command_line_options.md)
+## Configuration
+see [here](documentation/configuration.md)
 
 ## Thanks
 

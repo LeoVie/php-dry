@@ -28,6 +28,7 @@ class DetectClonesCommandTest extends KernelTestCase
 
         $this->commandTester->execute([
             DetectClonesCommand::ARGUMENT_DIRECTORY => $testdataDir,
+            '--' . DetectClonesCommand::OPTION_CONFIG => __DIR__ . '/php-dry.xml'
         ]);
 
         $output = $this->commandTester->getDisplay();
@@ -139,8 +140,7 @@ class DetectClonesCommandTest extends KernelTestCase
 
         $this->commandTester->execute([
             DetectClonesCommand::ARGUMENT_DIRECTORY => $testdataDir,
-            '--' . DetectClonesCommand::OPTION_REPORT_FORMAT => 'json',
-            '--' . DetectClonesCommand::OPTION_REPORTS_DIRECTORY => __DIR__ . '/../../generated/reports',
+            '--' . DetectClonesCommand::OPTION_CONFIG => __DIR__ . '/php-dry.xml'
         ]);
 
         $expectedJson = str_replace(

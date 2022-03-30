@@ -64,7 +64,7 @@ class DetectClonesService
      */
     public function detectInDirectory(Configuration $configuration, DetectClonesCommandOutput $output): array
     {
-        $filePaths = $this->findFiles->findPhpFilesInPath($configuration->directory());
+        $filePaths = $this->findFiles->findPhpFilesInPath($configuration->getDirectory());
 
         $output->foundFiles(count($filePaths));
 
@@ -126,7 +126,7 @@ class DetectClonesService
         $filteredMethodSignatureGroups = $this->removeMethodSignatureGroupsFullyCoveredByClonesAlready($methodSignatureGroups, $type1Clones, $type2Clones, $type3Clones);
 
         $type4ClonesByConstructNormalization = [];
-        if ($configuration->enableConstructNormalization()) {
+        if ($configuration->getEnableConstructNormalization()) {
             $output->newLine()->detectionRunningForType('4 by construct normalization');
 
             $type4ClonesByConstructNormalization = $this->detectType4ClonesByConstructNormalization(
