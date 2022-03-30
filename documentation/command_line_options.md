@@ -30,6 +30,7 @@ This can be useful, if you are only interested in the html or json report anyhow
 
 # `--min-token-length`
 - Possible values: An integer value `>= 1`
+- Default: 50
 
 How many tokens should a clone instances contain at least?
 
