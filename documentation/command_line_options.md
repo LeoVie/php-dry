@@ -4,7 +4,7 @@
 
 In which format should php-dry report detected clones?
 
-There are examples for each report format in `examples/report-format`
+There are [examples](examples) for each report format.
 
 # `--html-report-filepath`
 - Possible values: A path to an html file
