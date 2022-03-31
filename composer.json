@@ -32,7 +32,7 @@
     "symfony/dotenv": "5.4.*",
     "symfony/finder": "5.4.*",
     "symfony/flex": "2.1.*",
-    "symfony/framework-bundle": "5.4.*",
+    "symfony/framework-bundle": "6.0.*",
     "symfony/runtime": "5.4.*",
     "symfony/stopwatch": "6.0.*",
     "symfony/yaml": "5.4.*",
