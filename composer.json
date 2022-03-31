@@ -34,7 +34,7 @@
     "symfony/flex": "2.1.*",
     "symfony/framework-bundle": "6.0.*",
     "symfony/runtime": "5.4.*",
-    "symfony/stopwatch": "5.4.*",
+    "symfony/stopwatch": "6.0.*",
     "symfony/yaml": "5.4.*",
     "thecodingmachine/safe": "^1.3"
   },
