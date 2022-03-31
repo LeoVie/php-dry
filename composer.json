@@ -26,7 +26,7 @@
     "leovie/php-token-normalize": "^1.0",
     "nikic/php-parser": "^4.13",
     "roave/security-advisories": "dev-latest",
-    "symfony/console": "5.4.*",
+    "symfony/console": "6.0.*",
     "symfony/css-selector": "6.0.*",
     "symfony/dom-crawler": "6.0.*",
     "symfony/dotenv": "5.4.*",
