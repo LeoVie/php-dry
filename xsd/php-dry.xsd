@@ -34,6 +34,8 @@
         <xs:attribute type="xs:boolean" name="enableLcsAlgorithm" default="false"/>
         <xs:attribute type="xs:integer" name="countOfParamSets" default="10"/>
         <xs:attribute type="xs:boolean" name="enableConstructNormalization" default="false"/>
+        <xs:attribute type="xs:string" name="phpDocumentorReportPath" use="required"/>
+        <xs:attribute type="xs:string" name="phpDocumentorExecutablePath" default="vendor/bin/phpdoc"/>
     </xs:complexType>
 </xs:element>
 </xs:schema>

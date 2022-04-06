@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <php-dry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="php-dry.xsd"
+         xsi:noNamespaceSchemaLocation="../../xsd/php-dry.xsd"
          silent="true"
          minTokenLength="60"
          minSimilarTokensPercentage="75"
          enableLcsAlgorithm="true"
          countOfParamSets="15"
-         enableConstructNormalization="true">
+         enableConstructNormalization="true"
+         phpDocumentorReportPath="report_of_phpdoc"
+         phpDocumentorExecutablePath="bla_foo">
 
     <report>
         <cli/>

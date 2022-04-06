@@ -3,10 +3,10 @@
         abstract="{{ method.abstract | export }}"
         static="{{ method.static | export }}"
         namespace="{{ method.namespace }}"
-        startLine="{{ method.line }}"
-        startColumn="{{ method.column }}"
-        endLine="{{ method.endLine }}"
-        endColumn="{{ method.endColumn }}"
+        startLine="{{ method.startLocation.lineNumber }}"
+        startColumn="{{ method.startLocation.columnNumber }}"
+        endLine="{{ method.endLocation.lineNumber }}"
+        endColumn="{{ method.endLocation.columnNumber }}"
         visibility="{{ method.visibility }}"
         returnByReference="{{ method.hasReturnByReference | export }}">
     <name>{{ method.name }}</name>

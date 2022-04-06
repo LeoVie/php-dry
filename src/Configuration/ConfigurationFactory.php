@@ -25,6 +25,8 @@ class ConfigurationFactory
             $this->getAsBool($crawler, 'php-dry', 'enableLcsAlgorithm', false),
             $this->getAsInt($crawler, 'php-dry', 'countOfParamSets', 10),
             $this->getAsBool($crawler, 'php-dry', 'enableConstructNormalization', false),
+            $this->getAsString($crawler, 'php-dry', 'phpDocumentorReportPath', ''),
+            $this->getAsString($crawler, 'php-dry', 'phpDocumentorExecutablePath', 'vendor/bin/phpdoc'),
             ReportConfiguration::create(
                 $this->nodeExists($crawler, 'php-dry > report > cli') ? Cli::create() : null,
                 $this->nodeExists($crawler, 'php-dry > report > html')

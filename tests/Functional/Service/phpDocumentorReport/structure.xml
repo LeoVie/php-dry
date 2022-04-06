@@ -1,0 +1,981 @@
+<?xml version="1.0"?>
+<project name="Documentation">
+                <file path="01_A.php" hash="b4c12f2e7c54ee8b2c35dd0b8df92c21">
+            <docblock line="0">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+
+            
+            
+
+            
+                        
+                        
+                                        <class final="false" abstract="false" namespace="\" line="3">
+                    <name>A</name>
+                    <full_name>\A</full_name>
+                    <docblock line="3">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="noinspection"
+                description="ALL"
+                                                                                                />
+                            <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+                    
+                    
+                                        
+                                        
+                                            <method final="false"
+        abstract="false"
+        static="false"
+        namespace=""
+        startLine="5"
+        startColumn="46"
+        endLine="13"
+        endColumn="219"
+        visibility="public"
+        returnByReference="false">
+    <name>foo</name>
+    <full_name>\A::foo()</full_name>
+    <value></value>
+                <argument line="5" by_reference="false">
+    <name>p1</name>
+    <default></default>
+    <type>array</type>
+</argument>
+
+            <argument line="5" by_reference="false">
+    <name>p2</name>
+    <default></default>
+    <type>int</type>
+</argument>
+
+        <docblock line="5">
+    <description></description>
+    <long-description></long-description>
+                </docblock>
+
+</method>
+
+                                                        </class>
+            
+                        
+            
+            <parse_markers></parse_markers>
+        </file>
+            <file path="02_B.php" hash="e19ec1a64df5406f50ed33c511108941">
+            <docblock line="0">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+
+            
+            
+
+            
+                        
+                        
+                                        <class final="false" abstract="false" namespace="\" line="3">
+                    <name>B</name>
+                    <full_name>\B</full_name>
+                    <docblock line="3">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="noinspection"
+                description="ALL"
+                                                                                                />
+                            <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+                    
+                    
+                                        
+                                        
+                                            <method final="false"
+        abstract="false"
+        static="false"
+        namespace=""
+        startLine="5"
+        startColumn="46"
+        endLine="8"
+        endColumn="126"
+        visibility="public"
+        returnByReference="false">
+    <name>foo</name>
+    <full_name>\B::foo()</full_name>
+    <value></value>
+                <argument line="5" by_reference="false">
+    <name>p1</name>
+    <default></default>
+    <type>array</type>
+</argument>
+
+            <argument line="5" by_reference="false">
+    <name>p2</name>
+    <default></default>
+    <type>int</type>
+</argument>
+
+        <docblock line="5">
+    <description></description>
+    <long-description></long-description>
+                </docblock>
+
+</method>
+
+                                                        </class>
+            
+                        
+            
+            <parse_markers></parse_markers>
+        </file>
+            <file path="03_A_Exact_Copy.php" hash="1c63aeb4ff942e2d46e50a93df5aee34">
+            <docblock line="0">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+
+            
+            
+
+            
+                        
+                        
+                                        <class final="false" abstract="false" namespace="\" line="3">
+                    <name>A_Exact_Copy</name>
+                    <full_name>\A_Exact_Copy</full_name>
+                    <docblock line="3">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="noinspection"
+                description="ALL"
+                                                                                                />
+                            <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+                    
+                    
+                                        
+                                        
+                                            <method final="false"
+        abstract="false"
+        static="false"
+        namespace=""
+        startLine="5"
+        startColumn="57"
+        endLine="13"
+        endColumn="230"
+        visibility="public"
+        returnByReference="false">
+    <name>foo</name>
+    <full_name>\A_Exact_Copy::foo()</full_name>
+    <value></value>
+                <argument line="5" by_reference="false">
+    <name>p1</name>
+    <default></default>
+    <type>array</type>
+</argument>
+
+            <argument line="5" by_reference="false">
+    <name>p2</name>
+    <default></default>
+    <type>int</type>
+</argument>
+
+        <docblock line="5">
+    <description></description>
+    <long-description></long-description>
+                </docblock>
+
+</method>
+
+                                                        </class>
+            
+                        
+            
+            <parse_markers></parse_markers>
+        </file>
+            <file path="04_A_Additional_Whitespaces.php" hash="e8e0a0fe3cd80b608642c80fce51ef01">
+            <docblock line="0">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+
+            
+            
+
+            
+                        
+                        
+                                        <class final="false" abstract="false" namespace="\" line="3">
+                    <name>A_Additional_Whitespaces</name>
+                    <full_name>\A_Additional_Whitespaces</full_name>
+                    <docblock line="3">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="noinspection"
+                description="ALL"
+                                                                                                />
+                            <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+                    
+                    
+                                        
+                                        
+                                            <method final="false"
+        abstract="false"
+        static="false"
+        namespace=""
+        startLine="5"
+        startColumn="69"
+        endLine="14"
+        endColumn="263"
+        visibility="public"
+        returnByReference="false">
+    <name>foo</name>
+    <full_name>\A_Additional_Whitespaces::foo()</full_name>
+    <value></value>
+                <argument line="5" by_reference="false">
+    <name>p1</name>
+    <default></default>
+    <type>array</type>
+</argument>
+
+            <argument line="5" by_reference="false">
+    <name>p2</name>
+    <default></default>
+    <type>int</type>
+</argument>
+
+        <docblock line="5">
+    <description></description>
+    <long-description></long-description>
+                </docblock>
+
+</method>
+
+                                                        </class>
+            
+                        
+            
+            <parse_markers></parse_markers>
+        </file>
+            <file path="05_A_Additional_Comments.php" hash="cebf9b524d1952c7f5c2bb5cd7553701">
+            <docblock line="0">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+
+            
+            
+
+            
+                        
+                        
+                                        <class final="false" abstract="false" namespace="\" line="3">
+                    <name>A_Additional_Comments</name>
+                    <full_name>\A_Additional_Comments</full_name>
+                    <docblock line="3">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="noinspection"
+                description="ALL"
+                                                                                                />
+                            <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+                    
+                    
+                                        
+                                        
+                                            <method final="false"
+        abstract="false"
+        static="false"
+        namespace=""
+        startLine="5"
+        startColumn="66"
+        endLine="20"
+        endColumn="421"
+        visibility="public"
+        returnByReference="false">
+    <name>foo</name>
+    <full_name>\A_Additional_Comments::foo()</full_name>
+    <value></value>
+                <argument line="5" by_reference="false">
+    <name>p1</name>
+    <default></default>
+    <type>array</type>
+</argument>
+
+            <argument line="5" by_reference="false">
+    <name>p2</name>
+    <default></default>
+    <type>int</type>
+</argument>
+
+        <docblock line="5">
+    <description></description>
+    <long-description></long-description>
+                </docblock>
+
+</method>
+
+                                                        </class>
+            
+                        
+            
+            <parse_markers></parse_markers>
+        </file>
+            <file path="06_A_Changed_Layout.php" hash="88dd4b8d861518811b9d3687479d497b">
+            <docblock line="0">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+
+            
+            
+
+            
+                        
+                        
+                                        <class final="false" abstract="false" namespace="\" line="3">
+                    <name>A_Changed_Layout</name>
+                    <full_name>\A_Changed_Layout</full_name>
+                    <docblock line="3">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="noinspection"
+                description="ALL"
+                                                                                                />
+                            <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+                    
+                    
+                                        
+                                        
+                                            <method final="false"
+        abstract="false"
+        static="false"
+        namespace=""
+        startLine="5"
+        startColumn="61"
+        endLine="9"
+        endColumn="202"
+        visibility="public"
+        returnByReference="false">
+    <name>foo</name>
+    <full_name>\A_Changed_Layout::foo()</full_name>
+    <value></value>
+                <argument line="5" by_reference="false">
+    <name>p1</name>
+    <default></default>
+    <type>array</type>
+</argument>
+
+            <argument line="5" by_reference="false">
+    <name>p2</name>
+    <default></default>
+    <type>int</type>
+</argument>
+
+        <docblock line="5">
+    <description></description>
+    <long-description></long-description>
+                </docblock>
+
+</method>
+
+                                                        </class>
+            
+                        
+            
+            <parse_markers></parse_markers>
+        </file>
+            <file path="07_A_Changed_Variable_Names.php" hash="44d243ee37818f886d7f725da7d60ff2">
+            <docblock line="0">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+
+            
+            
+
+            
+                        
+                        
+                                        <class final="false" abstract="false" namespace="\" line="3">
+                    <name>A_Changed_Variable_Names</name>
+                    <full_name>\A_Changed_Variable_Names</full_name>
+                    <docblock line="3">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="noinspection"
+                description="ALL"
+                                                                                                />
+                            <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+                    
+                    
+                                        
+                                        
+                                            <method final="false"
+        abstract="false"
+        static="false"
+        namespace=""
+        startLine="5"
+        startColumn="69"
+        endLine="13"
+        endColumn="256"
+        visibility="public"
+        returnByReference="false">
+    <name>foo</name>
+    <full_name>\A_Changed_Variable_Names::foo()</full_name>
+    <value></value>
+                <argument line="5" by_reference="false">
+    <name>first</name>
+    <default></default>
+    <type>array</type>
+</argument>
+
+            <argument line="5" by_reference="false">
+    <name>second</name>
+    <default></default>
+    <type>int</type>
+</argument>
+
+        <docblock line="5">
+    <description></description>
+    <long-description></long-description>
+                </docblock>
+
+</method>
+
+                                                        </class>
+            
+                        
+            
+            <parse_markers></parse_markers>
+        </file>
+            <file path="08_A_Changed_Method_Names.php" hash="39aedbf21652fbe9c618c14a5435e8b6">
+            <docblock line="0">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+
+            
+            
+
+            
+                        
+                        
+                                        <class final="false" abstract="false" namespace="\" line="3">
+                    <name>A_Changed_Method_Names</name>
+                    <full_name>\A_Changed_Method_Names</full_name>
+                    <docblock line="3">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="noinspection"
+                description="ALL"
+                                                                                                />
+                            <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+                    
+                    
+                                        
+                                        
+                                            <method final="false"
+        abstract="false"
+        static="false"
+        namespace=""
+        startLine="5"
+        startColumn="67"
+        endLine="13"
+        endColumn="240"
+        visibility="public"
+        returnByReference="false">
+    <name>bar</name>
+    <full_name>\A_Changed_Method_Names::bar()</full_name>
+    <value></value>
+                <argument line="5" by_reference="false">
+    <name>p1</name>
+    <default></default>
+    <type>array</type>
+</argument>
+
+            <argument line="5" by_reference="false">
+    <name>p2</name>
+    <default></default>
+    <type>int</type>
+</argument>
+
+        <docblock line="5">
+    <description></description>
+    <long-description></long-description>
+                </docblock>
+
+</method>
+
+                                                        </class>
+            
+                        
+            
+            <parse_markers></parse_markers>
+        </file>
+            <file path="09_A_Changed_Literals.php" hash="94ef6692d6b80e6cfd9772d519ab2e55">
+            <docblock line="0">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+
+            
+            
+
+            
+                        
+                        
+                                        <class final="false" abstract="false" namespace="\" line="3">
+                    <name>A_Changed_Literals</name>
+                    <full_name>\A_Changed_Literals</full_name>
+                    <docblock line="3">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="noinspection"
+                description="ALL"
+                                                                                                />
+                            <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+                    
+                    
+                                        
+                                        
+                                            <method final="false"
+        abstract="false"
+        static="false"
+        namespace=""
+        startLine="5"
+        startColumn="63"
+        endLine="13"
+        endColumn="236"
+        visibility="public"
+        returnByReference="false">
+    <name>foo</name>
+    <full_name>\A_Changed_Literals::foo()</full_name>
+    <value></value>
+                <argument line="5" by_reference="false">
+    <name>p1</name>
+    <default></default>
+    <type>array</type>
+</argument>
+
+            <argument line="5" by_reference="false">
+    <name>p2</name>
+    <default></default>
+    <type>int</type>
+</argument>
+
+        <docblock line="5">
+    <description></description>
+    <long-description></long-description>
+                </docblock>
+
+</method>
+
+                                                        </class>
+            
+                        
+            
+            <parse_markers></parse_markers>
+        </file>
+            <file path="10_A_Additional_Statements.php" hash="e344a66493066a64049c0abf88682922">
+            <docblock line="0">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+
+            
+            
+
+            
+                        
+                        
+                                        <class final="false" abstract="false" namespace="\" line="3">
+                    <name>A_Additional_Statements</name>
+                    <full_name>\A_Additional_Statements</full_name>
+                    <docblock line="3">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="noinspection"
+                description="ALL"
+                                                                                                />
+                            <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+                    
+                    
+                                        
+                                        
+                                            <method final="false"
+        abstract="false"
+        static="false"
+        namespace=""
+        startLine="5"
+        startColumn="68"
+        endLine="14"
+        endColumn="277"
+        visibility="public"
+        returnByReference="false">
+    <name>foo</name>
+    <full_name>\A_Additional_Statements::foo()</full_name>
+    <value></value>
+                <argument line="5" by_reference="false">
+    <name>p1</name>
+    <default></default>
+    <type>array</type>
+</argument>
+
+            <argument line="5" by_reference="false">
+    <name>p2</name>
+    <default></default>
+    <type>int</type>
+</argument>
+
+        <docblock line="5">
+    <description></description>
+    <long-description></long-description>
+                </docblock>
+
+</method>
+
+                                                        </class>
+            
+                        
+            
+            <parse_markers></parse_markers>
+        </file>
+            <file path="11_A_Removed_Statements.php" hash="e448fc48e80ed2add75ab3b25fa492f6">
+            <docblock line="0">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+
+            
+            
+
+            
+                        
+                        
+                                        <class final="false" abstract="false" namespace="\" line="3">
+                    <name>A_Removed_Statements</name>
+                    <full_name>\A_Removed_Statements</full_name>
+                    <docblock line="3">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="noinspection"
+                description="ALL"
+                                                                                                />
+                            <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+                    
+                    
+                                        
+                                        
+                                            <method final="false"
+        abstract="false"
+        static="false"
+        namespace=""
+        startLine="5"
+        startColumn="65"
+        endLine="12"
+        endColumn="220"
+        visibility="public"
+        returnByReference="false">
+    <name>foo</name>
+    <full_name>\A_Removed_Statements::foo()</full_name>
+    <value></value>
+                <argument line="5" by_reference="false">
+    <name>p1</name>
+    <default></default>
+    <type>array</type>
+</argument>
+
+            <argument line="5" by_reference="false">
+    <name>p2</name>
+    <default></default>
+    <type>int</type>
+</argument>
+
+        <docblock line="5">
+    <description></description>
+    <long-description></long-description>
+                </docblock>
+
+</method>
+
+                                                        </class>
+            
+                        
+            
+            <parse_markers></parse_markers>
+        </file>
+            <file path="12_A_Changed_Statement_Order.php" hash="f0e1f276d5a94003e5f90df7a8ac3d19">
+            <docblock line="0">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+
+            
+            
+
+            
+                        
+                        
+                                        <class final="false" abstract="false" namespace="\" line="3">
+                    <name>A_Changed_Statement_Order</name>
+                    <full_name>\A_Changed_Statement_Order</full_name>
+                    <docblock line="3">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="noinspection"
+                description="ALL"
+                                                                                                />
+                            <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+                    
+                    
+                                        
+                                        
+                                            <method final="false"
+        abstract="false"
+        static="false"
+        namespace=""
+        startLine="5"
+        startColumn="70"
+        endLine="13"
+        endColumn="243"
+        visibility="public"
+        returnByReference="false">
+    <name>foo</name>
+    <full_name>\A_Changed_Statement_Order::foo()</full_name>
+    <value></value>
+                <argument line="5" by_reference="false">
+    <name>p1</name>
+    <default></default>
+    <type>array</type>
+</argument>
+
+            <argument line="5" by_reference="false">
+    <name>p2</name>
+    <default></default>
+    <type>int</type>
+</argument>
+
+        <docblock line="5">
+    <description></description>
+    <long-description></long-description>
+                </docblock>
+
+</method>
+
+                                                        </class>
+            
+                        
+            
+            <parse_markers></parse_markers>
+        </file>
+            <file path="13_A_Changed_Syntax.php" hash="0f021ef823a0c7fb1baff08689918210">
+            <docblock line="0">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+
+            
+            
+
+            
+                        
+                        
+                                        <class final="false" abstract="false" namespace="\" line="3">
+                    <name>A_Changed_Syntax</name>
+                    <full_name>\A_Changed_Syntax</full_name>
+                    <docblock line="3">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="noinspection"
+                description="ALL"
+                                                                                                />
+                            <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+                    
+                    
+                                        
+                                        
+                                            <method final="false"
+        abstract="false"
+        static="false"
+        namespace=""
+        startLine="5"
+        startColumn="61"
+        endLine="11"
+        endColumn="200"
+        visibility="public"
+        returnByReference="false">
+    <name>foo</name>
+    <full_name>\A_Changed_Syntax::foo()</full_name>
+    <value></value>
+                <argument line="5" by_reference="false">
+    <name>p1</name>
+    <default></default>
+    <type>array</type>
+</argument>
+
+            <argument line="5" by_reference="false">
+    <name>p2</name>
+    <default></default>
+    <type>int</type>
+</argument>
+
+        <docblock line="5">
+    <description></description>
+    <long-description></long-description>
+                </docblock>
+
+</method>
+
+                                                        </class>
+            
+                        
+            
+            <parse_markers></parse_markers>
+        </file>
+    
+            <namespace name="\" full_name="\" />
+
+    </project>
