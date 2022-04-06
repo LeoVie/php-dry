@@ -1,6 +1,6 @@
 on:
   release:
-    types: [published]
+    types: [ published ]
   workflow_dispatch: ~
 
 jobs:
@@ -17,6 +17,14 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: "Check out repository code"
         uses: actions/checkout@v3
+      - name: Update VERSION file
+        run: echo ${{ steps.get_tag.outputs.TAG }} > VERSION
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update VERSION file
+          file_pattern: VERSION
+          push_options: '--force'
+          token: ${{ secrets.PAT_FOR_PHP_DRY_VERSION_UPDATING }}
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
         with:
