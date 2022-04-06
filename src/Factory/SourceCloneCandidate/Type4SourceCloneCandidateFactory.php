@@ -12,7 +12,6 @@ use App\Factory\TokenSequenceFactory;
 use App\Model\Method\MethodSignature;
 use App\Model\Method\MethodSignatureGroup;
 use App\Model\RunResult\RunResultSet;
-use App\Model\SourceCloneCandidate\SourceCloneCandidate;
 use App\Model\SourceCloneCandidate\Type4SourceCloneCandidate;
 use LeoVie\PhpMethodRunner\Exception\CommandFailed;
 use LeoVie\PhpMethodRunner\Model\Method;
@@ -32,6 +31,14 @@ use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\StringRequest;
 use LeoVie\PhpParamGenerator\Service\ParamGeneratorService;
 use LeoVie\PhpTokenNormalize\Service\TokenSequenceNormalizer;
+use phpDocumentor\Reflection\Type;
+use phpDocumentor\Reflection\TypeResolver;
+use phpDocumentor\Reflection\Types\AggregatedType;
+use phpDocumentor\Reflection\Types\Array_;
+use phpDocumentor\Reflection\Types\Float_;
+use phpDocumentor\Reflection\Types\Integer;
+use phpDocumentor\Reflection\Types\Iterable_;
+use phpDocumentor\Reflection\Types\String_;
 use Safe\Exceptions\FilesystemException;
 
 class Type4SourceCloneCandidateFactory
@@ -42,7 +49,9 @@ class Type4SourceCloneCandidateFactory
         private TokenSequenceFactory    $tokenSequenceFactory,
         private TokenSequenceNormalizer $tokenSequenceNormalizer,
         private MethodContextDecider    $methodContextDecider,
-    ) {
+        private TypeResolver            $typeResolver,
+    )
+    {
     }
 
     /**
@@ -63,7 +72,7 @@ class Type4SourceCloneCandidateFactory
 
             try {
                 $paramRequests = $this->createParamRequests($signature);
-            } catch (NoParamRequestForParamType) {
+            } catch (NoParamRequestForParamType $e) {
                 continue;
             }
 
@@ -72,6 +81,7 @@ class Type4SourceCloneCandidateFactory
             /** @var array<RunResultSet[]> $runResultSetsArray */
             $runResultSetsArray = [];
             foreach ($methodSignatureGroup->getMethodsCollection()->getAll() as $method) {
+
                 if ($this->methodContextDecider->requiresClassContext($method)) {
                     continue;
                 }
@@ -101,21 +111,47 @@ class Type4SourceCloneCandidateFactory
     {
         $paramRequests = [];
         foreach ($methodSignature->getParamTypes() as $paramType) {
-            $paramRequests[] = $this->createParamRequest($paramType);
+            $paramRequests[] = $this->createParamRequest($this->typeResolver->resolve($paramType));
         }
 
         return $paramRequests;
     }
 
     /** @throws NoParamRequestForParamType */
-    private function createParamRequest(string $paramType): ParamRequest
+    private function createParamRequest(Type $paramType): ParamRequest
     {
-        return match ($paramType) {
-            'int' => IntRequest::create(),
-            'float' => FloatRequest::create(),
-            'string' => StringRequest::create(),
-            'array' => ArrayRequest::create([IntRequest::create(), IntRequest::create(), IntRequest::create()]),
-            default => throw NoParamRequestForParamType::create($paramType)
+        if (
+            $paramType instanceof Array_
+            || $paramType instanceof Iterable_
+        ) {
+            // TODO: make configurable
+            $arrayLength = 3;
+
+            $arrayTypeRequests = [];
+
+            for ($i = 0; $i < $arrayLength; $i++) {
+                $arrayTypeRequests[] = $this->createParamRequest($paramType->getValueType());
+            }
+
+            return ArrayRequest::create($arrayTypeRequests);
+        }
+
+        if ($paramType instanceof AggregatedType) {
+            $randomPickedType = $paramType->get(rand(0, count($paramType->getIterator()) - 1));
+
+            if ($randomPickedType === null) {
+                throw NoParamRequestForParamType::create('null');
+            }
+
+            return $this->createParamRequest($randomPickedType);
+        }
+
+        return match (true) {
+            is_a($paramType, String_::class) => StringRequest::create(),
+            is_a($paramType, Integer::class) => IntRequest::create(),
+            is_a($paramType, Float_::class) => FloatRequest::create(),
+//            is_a($resolvedParamType, Boolean::class) => BooleanRequest::create(),
+            default => throw NoParamRequestForParamType::create($paramType->__toString())
         };
     }
 
@@ -135,15 +171,15 @@ class Type4SourceCloneCandidateFactory
     }
 
     /**
-     * @throws FilesystemException
+     * @return MethodResult[]
      * @throws CommandFailed
      *
-     * @return MethodResult[]
+     * @throws FilesystemException
      */
     private function runMethodMultipleTimes(\App\Model\Method\Method $method, ParamListSet $paramListSet): array
     {
         return array_map(
-            fn (ParamList $paramList): MethodResult => $this->runMethod($method, $paramList),
+            fn(ParamList $paramList): MethodResult => $this->runMethod($method, $paramList),
             $paramListSet->getParamLists()
         );
     }
@@ -159,7 +195,7 @@ class Type4SourceCloneCandidateFactory
                 $method->getName(),
                 $this->tokenSequenceNormalizer->normalizeLevel4($this->tokenSequenceFactory->createFromMethod($method))->toCode()
             ),
-            array_map(fn (Param $p): mixed => $p->flatten(), $paramList->getParams())
+            array_map(fn(Param $p): mixed => $p->flatten(), $paramList->getParams())
         );
 
         return $this->methodRunner->run($methodRunRequest);
@@ -175,7 +211,7 @@ class Type4SourceCloneCandidateFactory
     {
         return array_values(
             array_map(
-                fn (array $runResultSets): Type4SourceCloneCandidate => $this->createForRunResultSets($runResultSets),
+                fn(array $runResultSets): Type4SourceCloneCandidate => $this->createForRunResultSets($runResultSets),
                 $runResultSetsArray
             )
         );
@@ -188,7 +224,7 @@ class Type4SourceCloneCandidateFactory
      */
     private function createForRunResultSets(array $runResultSets): Type4SourceCloneCandidate
     {
-        $methods = array_map(fn (RunResultSet $rrs): \App\Model\Method\Method => $rrs->getMethod(), $runResultSets);
+        $methods = array_map(fn(RunResultSet $rrs): \App\Model\Method\Method => $rrs->getMethod(), $runResultSets);
 
         return Type4SourceCloneCandidate::create(MethodsCollection::create(...$methods));
     }

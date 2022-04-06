@@ -17,7 +17,6 @@ use App\Factory\SourceCloneCandidate\Type1SourceCloneCandidateFactory;
 use App\Factory\SourceCloneCandidate\Type2SourceCloneCandidateFactory;
 use App\Factory\SourceCloneCandidate\Type3SourceCloneCandidateFactory;
 use App\Factory\SourceCloneCandidate\Type4SourceCloneCandidateFactory;
-use App\File\FindFiles;
 use App\Grouper\MethodsBySignatureGrouper;
 use App\Model\Method\Method;
 use App\Model\Method\MethodSignatureGroup;
@@ -36,7 +35,6 @@ use Safe\Exceptions\StringsException;
 class DetectClonesService
 {
     public function __construct(
-        private FindFiles                        $findFiles,
         private FindMethodsInPathsService        $findMethodsInPathsService,
         private MethodsBySignatureGrouper        $methodsBySignatureGrouper,
         private Type1CloneDetector               $type1CloneDetector,
@@ -48,7 +46,9 @@ class DetectClonesService
         private Type3SourceCloneCandidateFactory $type3SourceCloneCandidateFactory,
         private Type4SourceCloneCandidateFactory $type4SourceCloneCandidateFactory,
         private ConstructNormalizeService        $constructNormalizeService,
-    ) {
+        private PhpDocumentorRunner              $phpDocumentorRunner,
+    )
+    {
     }
 
     /**
@@ -56,19 +56,15 @@ class DetectClonesService
      *
      * @throws CollectionCannotBeEmpty
      * @throws FilesystemException
-     * @throws NodeTypeNotConvertable
-     * @throws StringsException
-     * @throws NoParamGeneratorFoundForParamRequest
-     * @throws InvalidBoundaries
      * @throws MethodCannotBeModifiedToNonClassContext
+     * @throws NoParamGeneratorFoundForParamRequest
+     * @throws SubsequenceUtilNotFound
      */
     public function detectInDirectory(Configuration $configuration, DetectClonesCommandOutput $output): array
     {
-        $filePaths = $this->findFiles->findPhpFilesInPath($configuration->getDirectory());
+        $this->phpDocumentorRunner->run($configuration);
 
-        $output->foundFiles(count($filePaths));
-
-        $methods = $this->findMethodsInPathsService->find($filePaths);
+        $methods = $this->findMethodsInPathsService->findAll($configuration);
 
         $output->foundMethods(count($methods));
 
@@ -273,7 +269,6 @@ class DetectClonesService
                     $method->getFilepath(),
                     $method->getCodePositionRange(),
                     $languageConstructNormalizedMethodCode,
-                    $method->getParsedMethod()
                 );
             }
 

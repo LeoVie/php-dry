@@ -67,7 +67,7 @@ ifndef group
 	$(error group is not set)
 endif
 phpunit-group:
-	docker run -v ${PWD}:/app--rm php-dry/phpunit:latest -- --group $(group)
+	docker run -v ${PWD}:/app -v /home/ubuntu/projects/phpDocumentor:/home/ubuntu/projects/phpDocumentor -v /home/ubuntu/projects/experimental/clone-detection-testdata/:/home/ubuntu/projects/experimental/clone-detection-testdata/ --rm php-dry/phpunit:latest -- --group $(group)
 
 .PHONY: unit
 unit:

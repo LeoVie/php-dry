@@ -96,7 +96,6 @@ class HtmlOutput
             $this->convertAbsoluteFilepathToProjectRelative($method->getFilepath(), $projectRoot),
             $method->getCodePositionRange(),
             $method->getContent(),
-            $method->getParsedMethod()
         );
     }
 

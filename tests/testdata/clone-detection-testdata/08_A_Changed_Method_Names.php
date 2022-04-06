@@ -2,6 +2,11 @@
 
 class A_Changed_Method_Names
 {
+    /**
+     * @param array<int, int> $p1
+     *
+     * @return array<int, int>
+     */
     function bar(array $p1, int $p2): array
     {
         $r = [];

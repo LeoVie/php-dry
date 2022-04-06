@@ -8,7 +8,8 @@
         endLine="{{ method.endLocation.lineNumber }}"
         endColumn="{{ method.endLocation.columnNumber }}"
         visibility="{{ method.visibility }}"
-        returnByReference="{{ method.hasReturnByReference | export }}">
+        returnByReference="{{ method.hasReturnByReference | export }}"
+        response="{{ method.response.type }}">
     <name>{{ method.name }}</name>
     <full_name>{{ method.fullyQualifiedStructuralElementName }}</full_name>
     <value>{{ method.value }}</value>
