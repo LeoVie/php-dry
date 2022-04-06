@@ -1,16 +1,14 @@
 {# @var method phpDocumentor\Descriptor\MethodDescriptor #}
-<method
-        final="{{ method.final | export }}"
+<method final="{{ method.final | export }}"
         abstract="{{ method.abstract | export }}"
         static="{{ method.static | export }}"
         namespace="{{ method.namespace }}"
-        start_line="{{ method.line }}"
-        start_column="{{ method.column }}"
-        end_line="{{ method.endLine }}"
-        end_column="{{ method.endColumn }}"
+        startLine="{{ method.line }}"
+        startColumn="{{ method.column }}"
+        endLine="{{ method.endLine }}"
+        endColumn="{{ method.endColumn }}"
         visibility="{{ method.visibility }}"
-        returnByReference="{{ method.hasReturnByReference | export }}"
->
+        returnByReference="{{ method.hasReturnByReference | export }}">
     <name>{{ method.name }}</name>
     <full_name>{{ method.fullyQualifiedStructuralElementName }}</full_name>
     <value>{{ method.value }}</value>
