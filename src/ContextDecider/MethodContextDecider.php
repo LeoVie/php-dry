@@ -13,8 +13,7 @@ class MethodContextDecider
     public function __construct(
         private TokenSequenceFactory    $tokenSequenceFactory,
         private TokenSequenceNormalizer $tokenSequenceNormalizer,
-    )
-    {
+    ) {
     }
 
     public function requiresClassContext(Method $method): bool

@@ -9,7 +9,7 @@ use App\Model\SourceClone\SourceClone;
 class CommandLineReportBuilder
 {
     private string $report = '';
-    
+
     public function build(string $jsonReport): string
     {
         /** @var array{0: array{'type': string, 'methods': array{0: array{'filepath': string, 'name': string, 'codePositionRange': array{'start': array{'line': int, 'filePos': int }, 'end': array{'line': int, 'filePos': int }, 'countOfLines': int }}}}} $clones */
@@ -33,11 +33,11 @@ class CommandLineReportBuilder
 
         return $this->popReport();
     }
-    
+
     private function addLine(string $line): self
     {
         $this->report .= $line . "\n";
-        
+
         return $this;
     }
 

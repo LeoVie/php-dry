@@ -14,7 +14,6 @@ use App\Util\ArrayUtil;
 use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 use PHPUnit\Framework\TestCase;
 
-/** @group now */
 class IgnoreClonesServiceTest extends TestCase
 {
     /** @dataProvider extractNonIgnoredClonesProvider */
@@ -113,7 +112,7 @@ class IgnoreClonesServiceTest extends TestCase
     private function mockConfiguration(int $minTokenLength): Configuration
     {
         $configuration = $this->createMock(Configuration::class);
-        $configuration->method('minTokenLength')->willReturn($minTokenLength);
+        $configuration->method('getMinTokenLength')->willReturn($minTokenLength);
 
         return $configuration;
     }

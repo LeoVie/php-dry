@@ -18,8 +18,7 @@ class Method implements Identity, \JsonSerializable
         private CodePositionRange     $codePositionRange,
         private string                $content,
         private ClassMethod|Function_ $parsedMethod
-    )
-    {
+    ) {
     }
 
     public static function create(
@@ -29,8 +28,7 @@ class Method implements Identity, \JsonSerializable
         CodePositionRange     $codePositionRange,
         string                $content,
         ClassMethod|Function_ $parsedMethod
-    ): self
-    {
+    ): self {
         return new self($methodSignature, $name, $filepath, $codePositionRange, $content, $parsedMethod);
     }
 

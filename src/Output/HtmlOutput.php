@@ -40,8 +40,12 @@ class HtmlOutput
      * @param SourceCloneMethodScoresMapping[] $sourceCloneMethodScoresMappings
      * @throws FilesystemException
      */
-    public function createReport(array $sourceCloneMethodScoresMappings, Configuration $configuration): self
+    public function createReport(array $sourceCloneMethodScoresMappings, Configuration $configuration): void
     {
+        if (!$configuration->getReportConfiguration()->getHtml()) {
+            return;
+        }
+
         $sortedSourceCloneMethodScoreMappings = [
             SourceClone::TYPE_1 => [],
             SourceClone::TYPE_2 => [],
@@ -55,7 +59,7 @@ class HtmlOutput
             $methodScoresMappingsWithRelativePath = [];
             foreach ($methodScoresMappings as $methodScoresMapping) {
                 $methodScoresMappingsWithRelativePath[] = MethodScoresMapping::create(
-                    $this->convertMethodFilepathToProjectRelative($methodScoresMapping->getMethod(), $configuration->directory()),
+                    $this->convertMethodFilepathToProjectRelative($methodScoresMapping->getMethod(), $configuration->getDirectory()),
                     $methodScoresMapping->getScores()
                 );
             }
@@ -70,7 +74,8 @@ class HtmlOutput
         }
 
         $htmlDom = HtmlDOM::create();
-        $htmlTag = Tag::create('html',
+        $htmlTag = Tag::create(
+            'html',
             [Attribute::create('lang', 'en')],
             [
                 $this->createHead(),
@@ -80,9 +85,7 @@ class HtmlOutput
 
         $htmlDom->add($htmlTag);
 
-        \Safe\file_put_contents($configuration->htmlReportFile(), $htmlDom->asCode());
-
-        return $this;
+        \Safe\file_put_contents($configuration->getReportConfiguration()->getHtml()->getFilepath(), $htmlDom->asCode());
     }
 
     private function convertMethodFilepathToProjectRelative(Method $method, string $projectRoot): Method
@@ -107,21 +110,25 @@ class HtmlOutput
 
     private function createHead(): Tag
     {
-        return Tag::create('head',
+        return Tag::create(
+            'head',
             [],
             [
-                Tag::create('meta',
+                Tag::create(
+                    'meta',
                     [Attribute::create('charset', 'utf-8')],
                     []
                 ),
-                Tag::create('meta',
+                Tag::create(
+                    'meta',
                     [
                         Attribute::create('name', 'viewport'),
                         Attribute::create('content', 'width=device-width, initial-scale=1'),
                     ],
                     []
                 ),
-                Tag::create('link',
+                Tag::create(
+                    'link',
                     [
                         Attribute::create('href', self::BOOTSTRAP_CSS_URL),
                         Attribute::create('integrity', self::BOOTSTRAP_CSS_INTEGRITY),
@@ -130,14 +137,16 @@ class HtmlOutput
                     ],
                     []
                 ),
-                Tag::create('link',
+                Tag::create(
+                    'link',
                     [
                         Attribute::create('href', self::HIGHLIGHT_CSS_URL),
                         Attribute::create('rel', 'stylesheet'),
                     ],
                     []
                 ),
-                Tag::create('title',
+                Tag::create(
+                    'title',
                     [],
                     [Content::create('php-dry: Report')]
                 ),
@@ -148,10 +157,12 @@ class HtmlOutput
     /** @param SourceCloneMethodScoresMapping[][] $sortedSourceCloneMethodScoreMappings */
     private function createBody(array $sortedSourceCloneMethodScoreMappings): Tag
     {
-        return Tag::create('body',
+        return Tag::create(
+            'body',
             [],
             [
-                Tag::create('script',
+                Tag::create(
+                    'script',
                     [
                         Attribute::create('src', self::BOOTSTRAP_JS_URL),
                         Attribute::create('integrity', self::BOOTSTRAP_JS_INTEGRITY),
@@ -159,32 +170,39 @@ class HtmlOutput
                     ],
                     []
                 ),
-                Tag::create('script',
+                Tag::create(
+                    'script',
                     [
                         Attribute::create('src', self::HIGHLIGHT_JS_URL),
                     ],
                     []
                 ),
-                Tag::create('script',
+                Tag::create(
+                    'script',
                     [],
                     [Content::create('hljs.highlightAll();')]
                 ),
-                Tag::create('div',
+                Tag::create(
+                    'div',
                     [Attribute::create('class', 'container')],
                     [
-                        Tag::create('div',
+                        Tag::create(
+                            'div',
                             [Attribute::create('class', 'row')],
                             [
-                                Tag::create('div',
+                                Tag::create(
+                                    'div',
                                     [Attribute::create('class', 'col-1')],
                                     [
-                                        Tag::create('svg',
+                                        Tag::create(
+                                            'svg',
                                             [
                                                 Attribute::create('viewbox', '0 0 64 64'),
                                                 Attribute::create('xmlns', 'http://www.w3.org/2000/svg'),
                                             ],
                                             [
-                                                Tag::create('path',
+                                                Tag::create(
+                                                    'path',
                                                     [Attribute::create('d', 'M61,4H46V3a1,1,0,0,0-2,0V4H20V3a1,1,0,0,0-2,0V4H3A1,1,0,0,0,3,6H18V8H14a1,1,0,0,0-.633.226l-11,9a1,1,0,0,0-.211,1.311l7,11a1,1,0,0,0,.711.454,1.009,1.009,0,0,0,.806-.251L13,27.624V61a1,1,0,0,0,1,1H50a1,1,0,0,0,1-1V27.838l2.367,1.936a1,1,0,0,0,1.452-.2l7-10a1,1,0,0,0-.146-1.313l-11-10A1,1,0,0,0,50,8H46V6H61a1,1,0,0,0,0-2ZM49.613,10l10.063,9.148-5.877,8.4-3.166-2.589A1,1,0,0,0,49,25.728V60H15V25.364a1,1,0,0,0-1.673-.74l-3.121,2.837L4.32,18.212,14.357,10H18v1a1,1,0,0,0,2,0V10h5.071a7,7,0,0,0,13.858,0H44v1a1,1,0,0,0,2,0V10ZM44,8H38a1,1,0,0,0-1,1A5,5,0,0,1,27,9a1,1,0,0,0-1-1H20V6H44Z')],
                                                     [],
                                                 ),
@@ -192,10 +210,12 @@ class HtmlOutput
                                         ),
                                     ]
                                 ),
-                                Tag::create('div',
+                                Tag::create(
+                                    'div',
                                     [Attribute::create('class', 'col-11')],
                                     [
-                                        Tag::create('h1',
+                                        Tag::create(
+                                            'h1',
                                             [],
                                             [Content::create('php-dry: Report')]
                                         ),
@@ -204,7 +224,8 @@ class HtmlOutput
                             ]
                         ),
                         $this->createNavigation(),
-                        Tag::create('div',
+                        Tag::create(
+                            'div',
                             [
                                 Attribute::create('class', 'tab-content'),
                                 Attribute::create('id', 'nav-tabContent'),
@@ -224,10 +245,12 @@ class HtmlOutput
 
     private function createNavigation(): Tag
     {
-        return Tag::create('nav',
+        return Tag::create(
+            'nav',
             [],
             [
-                Tag::create('div',
+                Tag::create(
+                    'div',
                     [
                         Attribute::create('class', 'nav nav-tabs'),
                         Attribute::create('id', 'nav-tab'),
@@ -263,7 +286,8 @@ class HtmlOutput
 
     private function createNavigationItem(string $id, string $target, string $caption, bool $active = false): Tag
     {
-        return Tag::create('button',
+        return Tag::create(
+            'button',
             [
                 Attribute::create('class', 'nav-link' . ($active ? ' active' : '')),
                 Attribute::create('id', $id),
@@ -277,7 +301,8 @@ class HtmlOutput
     /** @param Tag[] $childs */
     private function createTab(string $id, string $labeledBy, bool $active, array $childs): Tag
     {
-        return Tag::create('div',
+        return Tag::create(
+            'div',
             [
                 Attribute::create('class', 'tab-pane fade show' . ($active ? ' active' : '')),
                 Attribute::create('id', $id),
@@ -291,22 +316,27 @@ class HtmlOutput
     /** @param MethodScoresMapping[] $methodScoresMappings */
     private function createCard(string $title, string $id, array $methodScoresMappings, bool $showScores): Tag
     {
-        return Tag::create('card',
+        return Tag::create(
+            'card',
             [Attribute::create('class', 'card')],
             [
-                Tag::create('card-body',
+                Tag::create(
+                    'card-body',
                     [Attribute::create('class', 'card-body')],
                     [
-                        Tag::create('h5',
+                        Tag::create(
+                            'h5',
                             [Attribute::create('class', 'card-title')],
                             [
-                                Tag::create('a',
+                                Tag::create(
+                                    'a',
                                     [
                                         Attribute::create('id', $id),
                                         Attribute::create('href', '#' . $id),
                                     ],
                                     [
-                                        Tag::create('span',
+                                        Tag::create(
+                                            'span',
                                             [Attribute::create('class', 'badge bg-secondary')],
                                             [Content::create($title)]
                                         ),
@@ -324,7 +354,8 @@ class HtmlOutput
     /** @param MethodScoresMapping[] $methodScoresMappings */
     private function createTable(array $methodScoresMappings, string $cardId, bool $showScores): Tag
     {
-        return Tag::create('table',
+        return Tag::create(
+            'table',
             [Attribute::create('class', 'table')],
             [
                 $this->createTableHead($showScores),
@@ -335,10 +366,12 @@ class HtmlOutput
 
     private function createTableHead(bool $showScores): Tag
     {
-        return Tag::create('thead',
+        return Tag::create(
+            'thead',
             [],
             [
-                Tag::create('tr',
+                Tag::create(
+                    'tr',
                     [],
                     [
                         $this->createColumnTh('#'),
@@ -354,7 +387,8 @@ class HtmlOutput
 
     private function createColumnTh(string $caption): Tag
     {
-        return Tag::create('th',
+        return Tag::create(
+            'th',
             [Attribute::create('scope', 'col')],
             [Content::create($caption)]
         );
@@ -368,7 +402,8 @@ class HtmlOutput
             $tableRows[] = $this->createTableRow($i + 1, $methodScoresMapping, $cardId, $showScores);
         }
 
-        return Tag::create('tbody',
+        return Tag::create(
+            'tbody',
             [],
             $tableRows
         );
@@ -379,7 +414,8 @@ class HtmlOutput
         $method = $methodScoresMapping->getMethod();
         $methodStart = $method->getCodePositionRange()->getStart();
         $methodEnd = $method->getCodePositionRange()->getEnd();
-        return Tag::create('tr',
+        return Tag::create(
+            'tr',
             [],
             [
                 $this->createRowTh((string)$index),
@@ -391,13 +427,15 @@ class HtmlOutput
                     . $methodEnd->getLine() . ':' . $methodEnd->getFilePos()
                 ),
                 $this->createTd((string)$method->getCodePositionRange()->countOfLines()),
-                $showScores ? Tag::create('td',
+                $showScores ? Tag::create(
+                    'td',
                     [],
                     [
                         $this->createScoresList($methodScoresMapping->getScores()),
                     ]
                 ) : null,
-                Tag::create('td',
+                Tag::create(
+                    'td',
                     [],
                     [
                         $this->createContentAccordion($index, $method, $cardId),
@@ -409,7 +447,8 @@ class HtmlOutput
 
     private function createRowTh(string $caption): Tag
     {
-        return Tag::create('th',
+        return Tag::create(
+            'th',
             [Attribute::create('scope', 'row')],
             [Content::create($caption)]
         );
@@ -417,7 +456,8 @@ class HtmlOutput
 
     private function createTd(string $caption): Tag
     {
-        return Tag::create('td',
+        return Tag::create(
+            'td',
             [],
             [Content::create($caption)]
         );
@@ -427,19 +467,23 @@ class HtmlOutput
     {
         $accordionHeadingId = $cardId . "_codeAccordionHeading$index";
         $accordionId = $cardId . "_codeAccordion$index";
-        return Tag::create('div',
+        return Tag::create(
+            'div',
             [Attribute::create('class', 'accordion')],
             [
-                Tag::create('div',
+                Tag::create(
+                    'div',
                     [Attribute::create('class', 'accordion-item')],
                     [
-                        Tag::create('h2',
+                        Tag::create(
+                            'h2',
                             [
                                 Attribute::create('class', 'accordion-header'),
                                 Attribute::create('id', $accordionHeadingId)
                             ],
                             [
-                                Tag::create('a',
+                                Tag::create(
+                                    'a',
                                     [
                                         Attribute::create('class', 'btn accordion-button collapsed'),
                                         Attribute::create('type', 'button'),
@@ -449,10 +493,12 @@ class HtmlOutput
                                         Attribute::create('aria-controls', $accordionId),
                                     ],
                                     [
-                                        Tag::create('pre',
+                                        Tag::create(
+                                            'pre',
                                             [],
                                             [
-                                                Tag::create('code',
+                                                Tag::create(
+                                                    'code',
                                                     [
                                                         Attribute::create('class', 'language-php'),
                                                     ],
@@ -468,20 +514,24 @@ class HtmlOutput
                                 )
                             ]
                         ),
-                        Tag::create('div',
+                        Tag::create(
+                            'div',
                             [
                                 Attribute::create('id', $accordionId),
                                 Attribute::create('class', 'accordion-collapse collapse'),
                                 Attribute::create('aria-labelledby', $accordionHeadingId),
                             ],
                             [
-                                Tag::create('div',
+                                Tag::create(
+                                    'div',
                                     [Attribute::create('class', 'accordion-body')],
                                     [
-                                        Tag::create('pre',
+                                        Tag::create(
+                                            'pre',
                                             [],
                                             [
-                                                Tag::create('code',
+                                                Tag::create(
+                                                    'code',
                                                     [
                                                         Attribute::create('class', 'language-php'),
                                                     ],
@@ -523,7 +573,8 @@ class HtmlOutput
     /** @param SourceCloneMethodScoresMapping[] $sourceCloneMethodScoresMappings */
     private function createTabHeadline(array $sourceCloneMethodScoresMappings): Tag
     {
-        return Tag::create('h3',
+        return Tag::create(
+            'h3',
             [],
             [Content::create(\Safe\sprintf(
                 'Detected %d clone%s',
@@ -600,11 +651,12 @@ class HtmlOutput
     private function createScoresList(array $scores): Tag
     {
         $lis = array_map(
-            fn(Score $score): Tag => $this->createScoreLi($score->getScoreType(), $score->getPoints()),
+            fn (Score $score): Tag => $this->createScoreLi($score->getScoreType(), $score->getPoints()),
             $scores
         );
 
-        return Tag::create('ul',
+        return Tag::create(
+            'ul',
             [],
             $lis,
         );
@@ -612,7 +664,8 @@ class HtmlOutput
 
     private function createScoreLi(string $scoreType, int $points): Tag
     {
-        return Tag::create('li',
+        return Tag::create(
+            'li',
             [],
             [Content::create("$scoreType: $points")],
         );

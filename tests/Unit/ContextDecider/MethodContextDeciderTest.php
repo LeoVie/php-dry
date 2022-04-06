@@ -27,7 +27,7 @@ class MethodContextDeciderTest extends TestCase
 
         $tokenSequenceNormalizer = $this->createMock(TokenSequenceNormalizer::class);
         $tokenSequenceNormalizer->method('normalizeLevel4')->willReturnCallback(
-            fn(TokenSequence $_) => $normalizedTokenSequence
+            fn (TokenSequence $_) => $normalizedTokenSequence
         );
 
         self::assertSame(

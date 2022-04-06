@@ -7,6 +7,7 @@ parameters:
         - %currentWorkingDirectory%/tests/Unit
     excludePaths:
         - %currentWorkingDirectory%/template/generated/*
+        - %currentWorkingDirectory%/src/ServiceFactory/CrawlerFactory.php
     ignoreErrors:
         - '#Method App\\Tests.+ has parameter .+ with no value type specified in iterable type .+#'
         - '#Method App\\Tests.+ return type has no value type specified in iterable type .+#'

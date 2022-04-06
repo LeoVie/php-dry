@@ -10,8 +10,7 @@ class SourceCloneMethodScoresMapping
     private function __construct(
         private SourceClone $sourceClone,
         private array       $methodScoresMappings,
-    )
-    {
+    ) {
     }
 
     /** @param MethodScoresMapping[] $methodScoresMappings */

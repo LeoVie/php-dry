@@ -42,7 +42,7 @@ class MethodsBySignatureGrouperTest extends TestCase
             MethodSignature::create(['int', 'int'], 'string'),
             MethodSignature::create(['string'], 'array')
         ];
-        $methods = array_map(fn(MethodSignature $ms): Method => $this->createMethod($ms), $methodSignatures);
+        $methods = array_map(fn (MethodSignature $ms): Method => $this->createMethod($ms), $methodSignatures);
         yield 'only methods with different signatures' => [
             'expected' => [
                 MethodSignatureGroup::create($methodSignatures[0], MethodsCollection::create($methods[0])),

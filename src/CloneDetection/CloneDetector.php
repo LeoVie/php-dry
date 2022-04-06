@@ -27,7 +27,7 @@ class CloneDetector
     private function createSourceClonesFromSourceCloneCandidates(string $type, array $sourceCloneCandidates): array
     {
         return array_map(
-            fn(SourceCloneCandidate $scc): SourceClone => SourceClone::create($type, $scc->getMethodsCollection()),
+            fn (SourceCloneCandidate $scc): SourceClone => SourceClone::create($type, $scc->getMethodsCollection()),
             $this->findSourceCloneCandidatesWithMultipleMethods($sourceCloneCandidates)
         );
     }
@@ -41,7 +41,7 @@ class CloneDetector
     {
         return array_filter(
             $sourceCloneCandidates,
-            fn(SourceCloneCandidate $sc): bool => $sc->getMethodsCollection()->count() > 1
+            fn (SourceCloneCandidate $sc): bool => $sc->getMethodsCollection()->count() > 1
         );
     }
 }

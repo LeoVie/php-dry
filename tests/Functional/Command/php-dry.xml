@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<php-dry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="php-dry.xsd"
+         silent="false"
+         minTokenLength="50"
+         minSimilarTokensPercentage="80"
+         enableLcsAlgorithm="false"
+         countOfParamSets="10"
+         enableConstructNormalization="false">
+
+    <report>
+        <cli/>
+        <html filepath="../../generated/reports/php-dry.html"/>
+        <json filepath="../../generated/reports/php-dry.json"/>
+    </report>
+</php-dry>

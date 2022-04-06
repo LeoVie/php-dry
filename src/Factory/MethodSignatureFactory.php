@@ -17,8 +17,7 @@ class MethodSignatureFactory
     public function __construct(
         private ReturnTypeExtractor $returnTypeExtractor,
         private ParamTypesExtractor $paramTypesExtractor,
-    )
-    {
+    ) {
     }
 
     /**

@@ -24,8 +24,7 @@ class MethodFactory
         private CodePositionRangeFactory $codePositionRangeFactory,
         private Filesystem               $filesystem,
         private MethodSignatureFactory   $methodSignatureFactory,
-    )
-    {
+    ) {
     }
 
     /**
@@ -41,7 +40,7 @@ class MethodFactory
         $filepath = $filepathMethods->getFilepath();
 
         return array_map(
-            fn(Function_|ClassMethod $m): Method => $this->oneFromFilepath($filepath, $m),
+            fn (Function_|ClassMethod $m): Method => $this->oneFromFilepath($filepath, $m),
             $filepathMethods->getMethods()
         );
     }

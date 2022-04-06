@@ -4,74 +4,85 @@ declare(strict_types=1);
 
 namespace App\Configuration;
 
-// TODO: Replace with symfony config
 class Configuration
 {
+    private string $directory;
+
     private function __construct(
-        private string $directory,
-        private int    $minSimilarTokensPercent,
-        private int    $countOfParamSetsForType4Clones,
-        private string $htmlReportFile,
-        private int    $minTokenLength,
-        private bool   $enableConstructNormalization,
-        private bool   $enableLCSAlgorithm,
+        private bool                $silent,
+        private int                 $minTokenLength,
+        private int                 $minSimilarTokensPercentage,
+        private bool                $enableLcsAlgorithm,
+        private int                 $countOfParamSets,
+        private bool                $enableConstructNormalization,
+        private ReportConfiguration $reportConfiguration
     )
     {
     }
 
     public static function create(
-        string $directory,
-        int    $minSimilarTokensPercent,
-        int    $countOfParamSetsForType4Clones,
-        string $htmlReportFile,
-        int    $minTokenLength,
-        bool   $enableConstructNormalization,
-        bool   $enableLCSAlgorithm,
+        bool                $silent,
+        int                 $minTokenLength,
+        int                 $minSimilarTokensPercentage,
+        bool                $enableLcsAlgorithm,
+        int                 $countOfParamSets,
+        bool                $enableConstructNormalization,
+        ReportConfiguration $reportConfiguration
     ): self
     {
         return new self(
-            $directory,
-            $minSimilarTokensPercent,
-            $countOfParamSetsForType4Clones,
-            $htmlReportFile,
+            $silent,
             $minTokenLength,
+            $minSimilarTokensPercentage,
+            $enableLcsAlgorithm,
+            $countOfParamSets,
             $enableConstructNormalization,
-            $enableLCSAlgorithm,
+            $reportConfiguration
         );
     }
 
-    public function directory(): string
+    public function setDirectory(string $directory): void
+    {
+        $this->directory = $directory;
+    }
+
+    public function getDirectory(): string
     {
         return $this->directory;
     }
 
-    public function minSimilarTokensPercent(): int
+    public function isSilent(): bool
     {
-        return $this->minSimilarTokensPercent;
+        return $this->silent;
     }
 
-    public function countOfParamSetsForType4Clones(): int
-    {
-        return $this->countOfParamSetsForType4Clones;
-    }
-
-    public function htmlReportFile(): string
-    {
-        return $this->htmlReportFile;
-    }
-
-    public function minTokenLength(): int
+    public function getMinTokenLength(): int
     {
         return $this->minTokenLength;
     }
 
-    public function enableConstructNormalization(): bool
+    public function getMinSimilarTokensPercentage(): int
+    {
+        return $this->minSimilarTokensPercentage;
+    }
+
+    public function isEnableLcsAlgorithm(): bool
+    {
+        return $this->enableLcsAlgorithm;
+    }
+
+    public function getCountOfParamSets(): int
+    {
+        return $this->countOfParamSets;
+    }
+
+    public function getEnableConstructNormalization(): bool
     {
         return $this->enableConstructNormalization;
     }
 
-    public function enableLCSAlgorithm(): bool
+    public function getReportConfiguration(): ReportConfiguration
     {
-        return $this->enableLCSAlgorithm;
+        return $this->reportConfiguration;
     }
 }

@@ -34,7 +34,7 @@ class OutputHelper
     /** @param string[] $items */
     public function listing(array $items, int $level = 0): self
     {
-        $this->io->listing(array_map(fn(string $l) => $this->formatLine($l, $level), $items));
+        $this->io->listing(array_map(fn (string $l) => $this->formatLine($l, $level), $items));
 
         return $this;
     }

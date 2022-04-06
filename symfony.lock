@@ -244,11 +244,17 @@
             "bin/console"
         ]
     },
+    "symfony/css-selector": {
+        "version": "v5.3.14"
+    },
     "symfony/dependency-injection": {
         "version": "v5.3.8"
     },
     "symfony/deprecation-contracts": {
         "version": "v2.4.0"
+    },
+    "symfony/dom-crawler": {
+        "version": "v5.3.14"
     },
     "symfony/dotenv": {
         "version": "v5.3.8"

@@ -12,7 +12,8 @@ class Type3SourceCloneCandidate implements Identity, \Stringable, SourceCloneCan
 {
     /** @param TokenSequence[] $tokenSequences */
     private function __construct(private array $tokenSequences, private MethodsCollection $methodsCollection)
-    {}
+    {
+    }
 
     /** @param TokenSequence[] $tokenSequences */
     public static function create(array $tokenSequences, MethodsCollection $methodsCollection): self
@@ -33,7 +34,7 @@ class Type3SourceCloneCandidate implements Identity, \Stringable, SourceCloneCan
 
     public function identity(): string
     {
-        return join('-', array_map(fn(TokenSequence $ts): string => $ts->identity(), $this->getTokenSequences()));
+        return join('-', array_map(fn (TokenSequence $ts): string => $ts->identity(), $this->getTokenSequences()));
     }
 
     public function __toString(): string

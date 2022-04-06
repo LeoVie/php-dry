@@ -22,7 +22,7 @@ class SourceCloneOutputFormatter
             join(
                 "\n\t",
                 array_map(
-                    fn(Method $m) => $this->methodOutputFormatter->format($m),
+                    fn (Method $m) => $this->methodOutputFormatter->format($m),
                     $sourceClone->getMethodsCollection()->getAll()
                 )
             )
