@@ -12,5 +12,5 @@ COPY tools /var/www/tools
 
 ENTRYPOINT [ \
     "php", "-d", "memory_limit=-1", \
-    "/var/www/php-dry", "/project" \
+    "/var/www/php-dry" \
 ]
