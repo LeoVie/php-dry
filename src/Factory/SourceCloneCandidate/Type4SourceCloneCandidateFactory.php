@@ -26,6 +26,7 @@ use LeoVie\PhpParamGenerator\Model\ParamRequest\ArrayRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\BoolRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\FloatRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\IntRequest;
+use LeoVie\PhpParamGenerator\Model\ParamRequest\NullRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamList\ParamListRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamList\ParamListSetRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamRequest;
@@ -40,6 +41,7 @@ use phpDocumentor\Reflection\Types\Boolean;
 use phpDocumentor\Reflection\Types\Float_;
 use phpDocumentor\Reflection\Types\Integer;
 use phpDocumentor\Reflection\Types\Iterable_;
+use phpDocumentor\Reflection\Types\Null_;
 use phpDocumentor\Reflection\Types\String_;
 use Safe\Exceptions\FilesystemException;
 
@@ -153,6 +155,7 @@ class Type4SourceCloneCandidateFactory
             is_a($paramType, Integer::class) => IntRequest::create(),
             is_a($paramType, Float_::class) => FloatRequest::create(),
             is_a($paramType, Boolean::class) => BoolRequest::create(),
+            is_a($paramType, Null_::class) => NullRequest::create(),
             default => throw NoParamRequestForParamType::create($paramType->__toString())
         };
     }
