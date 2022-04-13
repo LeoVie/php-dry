@@ -435,7 +435,7 @@
             ],
             "description": "Generate parameters in php.",
             "support": {
-                "issues": "https://github.com/LeoVie/php-param-generator/issues
+                "issues": "https://github.com/LeoVie/php-param-generator/issues",
                 "source": "https://github.com/LeoVie/php-param-generator/tree/v1.0.4"
             },
             "time": "2022-04-13T15:47:23+00:00"
