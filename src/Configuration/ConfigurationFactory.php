@@ -38,7 +38,7 @@ class ConfigurationFactory
                 $this->nodeExists($crawler, 'php-dry > report > html')
                     ? Html::create(
                         $this->relativePathToAbsolutePath(
-                            $this->getAsString($crawler, 'php-dry > report > html', 'filepath', ''),
+                            $this->getAsString($crawler, 'php-dry > report > html', 'directory', ''),
                             $configurationXmlDirectory
                         )
                 )

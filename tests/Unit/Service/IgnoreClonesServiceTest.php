@@ -16,7 +16,11 @@ use PHPUnit\Framework\TestCase;
 
 class IgnoreClonesServiceTest extends TestCase
 {
-    /** @dataProvider extractNonIgnoredClonesProvider */
+    /**
+     * @dataProvider extractNonIgnoredClonesProvider
+     *
+     * @group now
+     */
     public function testExtractNonIgnoredClones(array $expected, array $clones, array $tokenSequences, Configuration $configuration): void
     {
         $arrayUtil = $this->createMock(ArrayUtil::class);
@@ -43,13 +47,17 @@ class IgnoreClonesServiceTest extends TestCase
             SourceClone::create(SourceClone::TYPE_1, MethodsCollection::create(
                 $this->createMock(Method::class),
             )),
+            SourceClone::create(SourceClone::TYPE_1, MethodsCollection::create(
+                $this->createMock(Method::class),
+            )),
         ];
         $tokenSequences = [
             $this->mockTokenSequence(15),
             $this->mockTokenSequence(10),
             $this->mockTokenSequence(20),
+            $this->mockTokenSequence(11),
         ];
-        $expected = [$clones[0], $clones[2]];
+        $expected = [$clones[0], $clones[2], $clones[3]];
         $configuration = $this->mockConfiguration(11);
         yield 'clones with 1 method each' => [
             'expected' => $expected,

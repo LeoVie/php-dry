@@ -11,7 +11,7 @@
 
     <report>
         <cli/>
-        <html filepath="reports/php-dry.html"/>
+        <html directory="reports"/>
         <json filepath="reports/php-dry.json"/>
     </report>
 </php-dry>
