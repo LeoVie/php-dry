@@ -10,6 +10,7 @@ COPY vendor /var/www/vendor
 COPY VERSION /var/www/VERSION
 COPY tools /var/www/tools
 COPY templates /var/www/templates
+COPY resources /var/www/resources
 
 ENTRYPOINT [ \
     "php", "-d", "memory_limit=-1", \
