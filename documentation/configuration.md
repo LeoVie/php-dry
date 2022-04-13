@@ -19,7 +19,7 @@ An example of a valid configuration:
 
     <report>
         <cli/>
-        <html filepath="reports/php-dry.html"/>
+        <html directory="reports"/>
         <json filepath="reports/php-dry.json"/>
     </report>
 </php-dry>
@@ -34,7 +34,8 @@ There are [examples](examples/report-format) for each report format.
 - Attributes: none
 
 ### `html`
-- Attributes: `filepath`
+- Attributes: `directory` \
+php-dry will automatically create a directory for the html report and all required resources in this directory.
 
 ### `json`
 - Attributes: `filepath`

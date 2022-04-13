@@ -29,7 +29,7 @@ class ConfigurationFactoryTest extends TestCase
                 __DIR__ . '/../../testdata/tools/phpDocumentor.phar',
                 ReportConfiguration::create(
                     ReportConfiguration\Cli::create(),
-                    ReportConfiguration\Html::create(__DIR__ . '/../../testdata/reports/php-dry.html'),
+                    ReportConfiguration\Html::create(__DIR__ . '/../../testdata/reports'),
                     ReportConfiguration\Json::create(__DIR__ . '/../../testdata/reports/php-dry.json'),
                 )
             ),

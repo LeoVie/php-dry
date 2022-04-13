@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet"
+          crossorigin="anonymous"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css"
+          rel="stylesheet"/>
+    <title>php-dry: Report</title></head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<div class="container">
+    <div class="row">
+        <div class="col-1"><img src="resources/icons/php-dry.svg"
+                                alt="The logo of php-dry: A T-shirt on a clothesline rope."/></div>
+        <div class="col-11"><h1>php-dry: Report</h1></div>
+    </div>
+    {{ include('nav.html.twig') }}
+    <div class="tab-content" id="nav-tabContent">
+        {{ include('tabpanel.html.twig', {active: true, type: 1, output: output['TYPE_1'], showScores: false}) }}
+        {{ include('tabpanel.html.twig', {active: false, type: 2, output: output['TYPE_2'], showScores: false}) }}
+        {{ include('tabpanel.html.twig', {active: false, type: 3, output: output['TYPE_3'], showScores: false}) }}
+        {{ include('tabpanel.html.twig', {active: false, type: 4, output: output['TYPE_4'], showScores: true}) }}
+    </div>
+</div>
+</body>
+</html>

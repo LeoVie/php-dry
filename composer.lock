@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "62507e51fb8de754927feba2a3977a25",
+    "content-hash": "311fcd4eeac951a9d9795065582f68dd",
     "packages": [
         {
             "name": "fakerphp/faker",
@@ -284,51 +284,6 @@
                 "source": "https://github.com/LeoVie/php-grouper/tree/v1.0.1"
             },
             "time": "2022-03-23T08:02:10+00:00"
-        },
-        {
-            "name": "leovie/php-html-builder",
-            "version": "v1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/LeoVie/php-html-builder.git",
-                "reference": "37982ae18b147ef890a44eaa678bc58f2ad5ae8e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/LeoVie/php-html-builder/zipball/37982ae18b147ef890a44eaa678bc58f2ad5ae8e",
-                "reference": "37982ae18b147ef890a44eaa678bc58f2ad5ae8e",
-                "shasum": ""
-            },
-            "require": {
-                "thecodingmachine/safe": "^1.3"
-            },
-            "require-dev": {
-                "infection/infection": "^0.25",
-                "phpunit/phpunit": "^9.5",
-                "vimeo/psalm": "^4.14"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "LeoVie\\PhpHtmlBuilder\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Leo Viezens",
-                    "email": "leo.viezens@web.de"
-                }
-            ],
-            "description": "Build HTML in PHP",
-            "support": {
-                "issues": "https://github.com/LeoVie/php-html-builder/issues",
-                "source": "https://github.com/LeoVie/php-html-builder/tree/v1.0.1"
-            },
-            "time": "2022-03-23T08:35:50+00:00"
         },
         {
             "name": "leovie/php-method-modifier",
@@ -4202,6 +4157,82 @@
                 "source": "https://github.com/thecodingmachine/safe/tree/v1.3.3"
             },
             "time": "2020-10-28T17:51:34+00:00"
+        },
+        {
+            "name": "twig/twig",
+            "version": "v3.3.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/Twig.git",
+                "reference": "8442df056c51b706793adf80a9fd363406dd3674"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/8442df056c51b706793adf80a9fd363406dd3674",
+                "reference": "8442df056c51b706793adf80a9fd363406dd3674",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/polyfill-ctype": "^1.8",
+                "symfony/polyfill-mbstring": "^1.3"
+            },
+            "require-dev": {
+                "psr/container": "^1.0",
+                "symfony/phpunit-bridge": "^4.4.9|^5.0.9|^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Twig\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Twig Team",
+                    "role": "Contributors"
+                },
+                {
+                    "name": "Armin Ronacher",
+                    "email": "armin.ronacher@active-4.com",
+                    "role": "Project Founder"
+                }
+            ],
+            "description": "Twig, the flexible, fast, and secure template language for PHP",
+            "homepage": "https://twig.symfony.com",
+            "keywords": [
+                "templating"
+            ],
+            "support": {
+                "issues": "https://github.com/twigphp/Twig/issues",
+                "source": "https://github.com/twigphp/Twig/tree/v3.3.10"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/twig/twig",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-04-06T06:47:41+00:00"
         }
     ],
     "packages-dev": [
@@ -7738,6 +7769,8 @@
         "ext-iconv": "*",
         "ext-mbstring": "*"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {
+        "ext-libxml": "*"
+    },
+    "plugin-api-version": "2.1.0"
 }

@@ -62,9 +62,6 @@
     "leovie/php-grouper": {
         "version": "v1.0.1"
     },
-    "leovie/php-html-builder": {
-        "version": "v1.0.1"
-    },
     "leovie/php-method-modifier": {
         "version": "v1.0.1"
     },
@@ -368,6 +365,9 @@
     },
     "theseer/tokenizer": {
         "version": "1.2.1"
+    },
+    "twig/twig": {
+        "version": "v3.3.10"
     },
     "vimeo/psalm": {
         "version": "4.10.0"

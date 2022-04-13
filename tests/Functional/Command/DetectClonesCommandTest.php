@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Functional\Command;
 
 use App\Command\DetectClonesCommand;
+use DOMDocument;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Command\Command;
@@ -124,7 +125,7 @@ class DetectClonesCommandTest extends KernelTestCase
         self::assertSame(Command::FAILURE, $this->commandTester->getStatusCode());
     }
 
-    public function testDetectsExpectedClones(): void
+    public function testJsonReport(): void
     {
         $testdataDir = __DIR__ . '/../../testdata/clone-detection-testdata/';
         $reportsDir = __DIR__ . '/../../generated/reports';
@@ -144,7 +145,7 @@ class DetectClonesCommandTest extends KernelTestCase
         $expectedJson = str_replace(
             '%testdata_dir%',
             $testdataDir,
-            \Safe\file_get_contents(__DIR__ . '/output.json')
+            \Safe\file_get_contents(__DIR__ . '/expected_php-dry.json')
         );
 
         $this->assertCommandFailed();
@@ -154,5 +155,62 @@ class DetectClonesCommandTest extends KernelTestCase
         $actualJson = \Safe\file_get_contents($reportPath);
 
         self::assertJsonStringEqualsJsonString($expectedJson, $actualJson);
+    }
+
+    public function testHtmlReport(): void
+    {
+        $testdataDir = __DIR__ . '/../../testdata/clone-detection-testdata/';
+        $reportsDir = __DIR__ . '/../../generated/reports';
+        $reportPath = $reportsDir . '/php-dry_html-report/php-dry.html';
+
+        if (file_exists($reportPath)) {
+            unlink($reportPath);
+        }
+
+        self::assertFileDoesNotExist($reportPath);
+
+        $this->commandTester->execute([
+            DetectClonesCommand::ARGUMENT_DIRECTORY => $testdataDir,
+            '--' . DetectClonesCommand::OPTION_CONFIG => __DIR__ . '/php-dry.xml'
+        ]);
+
+        $expectedHtml = str_replace(
+            '%testdata_dir%',
+            $testdataDir,
+            \Safe\file_get_contents(__DIR__ . '/expected_php-dry.html')
+        );
+
+        $this->assertCommandFailed();
+
+        self::assertFileExists($reportPath);
+
+        $actualHtml = \Safe\file_get_contents($reportPath);
+
+        self::assertHtmlStringEqualsHtmlString($expectedHtml, $actualHtml);
+    }
+
+    protected function assertHtmlStringEqualsHtmlString(string $expectedHtml, string $actualHtml)
+    {
+        $this->assertEqualsCanonicalizing(
+            $this->convertToDomDocument($expectedHtml),
+            $this->convertToDomDocument($actualHtml),
+        );
+    }
+
+    protected function convertToDomDocument(string $html): DOMDocument
+    {
+        $html = preg_replace(' @\r@', '', $html);
+        $html = preg_replace(' @\n@', '', $html);
+        $html = preg_replace('/>\s+</', '><', $html);
+        $html = preg_replace('@\s+</@', '</', $html);
+        $html = preg_replace('@>\s\s+@', '>', $html);
+        $html = html_entity_decode($html);
+
+        $domDocument = new DOMDocument();
+
+        $domDocument->loadHTML($html, LIBXML_NOERROR);
+        $domDocument->preserveWhiteSpace = false;
+
+        return $domDocument;
     }
 }

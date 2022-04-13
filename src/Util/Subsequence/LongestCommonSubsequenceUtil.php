@@ -16,7 +16,7 @@ class LongestCommonSubsequenceUtil implements SubsequenceUtil
         $aLength = strlen($a);
         $bLength = strlen($b);
 
-        if ($aLength === 0 || $bLength === 0) {
+        if (empty($aLength) || empty($bLength)) {
             return 0;
         }
 
