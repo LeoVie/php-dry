@@ -16,6 +16,6 @@ class Application extends BaseApplication
             $this->add($command);
         }
 
-        parent::__construct();
+        parent::__construct('php-dry', \Safe\file_get_contents(__DIR__ . '/../VERSION'));
     }
 }
