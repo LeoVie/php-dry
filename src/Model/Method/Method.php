@@ -6,30 +6,28 @@ namespace App\Model\Method;
 
 use App\Model\CodePosition\CodePositionRange;
 use App\Model\Identity;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Function_;
 
 class Method implements Identity, \JsonSerializable
 {
     private function __construct(
-        private MethodSignature       $methodSignature,
-        private string                $name,
-        private string                $filepath,
-        private CodePositionRange     $codePositionRange,
-        private string                $content,
-        private ClassMethod|Function_ $parsedMethod
-    ) {
+        private MethodSignature   $methodSignature,
+        private string            $name,
+        private string            $filepath,
+        private CodePositionRange $codePositionRange,
+        private string            $content,
+    )
+    {
     }
 
     public static function create(
-        MethodSignature       $methodSignature,
-        string                $name,
-        string                $filepath,
-        CodePositionRange     $codePositionRange,
-        string                $content,
-        ClassMethod|Function_ $parsedMethod
-    ): self {
-        return new self($methodSignature, $name, $filepath, $codePositionRange, $content, $parsedMethod);
+        MethodSignature   $methodSignature,
+        string            $name,
+        string            $filepath,
+        CodePositionRange $codePositionRange,
+        string            $content
+    ): self
+    {
+        return new self($methodSignature, $name, $filepath, $codePositionRange, $content);
     }
 
     public function getMethodSignature(): MethodSignature
@@ -55,11 +53,6 @@ class Method implements Identity, \JsonSerializable
     public function getContent(): string
     {
         return $this->content;
-    }
-
-    public function getParsedMethod(): ClassMethod|Function_
-    {
-        return $this->parsedMethod;
     }
 
     public function identity(): string

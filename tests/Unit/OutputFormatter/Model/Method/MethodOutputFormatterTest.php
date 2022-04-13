@@ -11,7 +11,6 @@ use App\Model\Method\MethodSignature;
 use App\OutputFormatter\Model\CodePosition\CodePositionOutputFormatter;
 use App\OutputFormatter\Model\CodePosition\CodePositionRangeOutputFormatter;
 use App\OutputFormatter\Model\Method\MethodOutputFormatter;
-use PhpParser\Node\Stmt\ClassMethod;
 use PHPUnit\Framework\TestCase;
 
 class MethodOutputFormatterTest extends TestCase
@@ -42,7 +41,6 @@ class MethodOutputFormatterTest extends TestCase
                 '/var/www/foo.php',
                 $codePositionRange,
                 '',
-                $this->createMock(ClassMethod::class),
             ),
         ];
 
@@ -54,7 +52,6 @@ class MethodOutputFormatterTest extends TestCase
                 '/fp/bar.php',
                 $codePositionRange,
                 '',
-                $this->createMock(ClassMethod::class),
             ),
         ];
     }

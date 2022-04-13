@@ -13,7 +13,9 @@ An example of a valid configuration:
          minSimilarTokensPercentage="80"
          enableLcsAlgorithm="false"
          countOfParamSets="10"
-         enableConstructNormalization="false">
+         enableConstructNormalization="false"
+         phpDocumentorReportPath="/tmp/phpDocumentorReport"
+         phpDocumentorExecutablePath="/usr/bin/phpDocumentor.phar">
 
     <report>
         <cli/>
@@ -111,3 +113,17 @@ the normalized codes. For example, every `array_map` call can get transformed in
 which can be transformed into a `for` loop, which can be transformed into a `while` loop.
 
 This is very (very very) slow at the moment. You should use this only, if you really need it.
+
+### `phpDocumentorReportPath`
+- Possible values: A valid path to a directory
+- Default: `/tmp/phpDocumentorReport`
+
+php-dry uses [phpDocumentor](https://www.phpdoc.org/) for preprocessing PHP files. Specify, where the report of
+phpDocumentor should get stored. This path has to merely exist at execution time.
+
+### `phpDocumentorExecutablePath`
+- Possible values: A valid path to an executable of phpDocumentor. \
+    Can be e.g. the phpDocumentor phar, the phpDocumentor binary or a `docker run` command
+- Default: `tools/phpDocumentor.phar`
+
+Where is phpDocumentor located?

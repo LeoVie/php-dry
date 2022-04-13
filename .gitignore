@@ -39,3 +39,9 @@ tests/testdata/template/generated/*
 !tests/testdata/template/generated/.gitkeep
 
 /report.html
+
+.phpdoc
+tests/generated/reports/*
+!/tests/generated/reports/.gitkeep
+
+tests/Functional/Command/phpDocumentorReport

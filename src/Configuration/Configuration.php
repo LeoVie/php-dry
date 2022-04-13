@@ -15,6 +15,8 @@ class Configuration
         private bool                $enableLcsAlgorithm,
         private int                 $countOfParamSets,
         private bool                $enableConstructNormalization,
+        private string              $phpDocumentorReportPath,
+        private string              $phpDocumentorExecutablePath,
         private ReportConfiguration $reportConfiguration
     )
     {
@@ -27,6 +29,8 @@ class Configuration
         bool                $enableLcsAlgorithm,
         int                 $countOfParamSets,
         bool                $enableConstructNormalization,
+        string              $phpDocumentorReportPath,
+        string              $phpDocumentorExecutablePath,
         ReportConfiguration $reportConfiguration
     ): self
     {
@@ -37,6 +41,8 @@ class Configuration
             $enableLcsAlgorithm,
             $countOfParamSets,
             $enableConstructNormalization,
+            $phpDocumentorReportPath,
+            $phpDocumentorExecutablePath,
             $reportConfiguration
         );
     }
@@ -79,6 +85,16 @@ class Configuration
     public function getEnableConstructNormalization(): bool
     {
         return $this->enableConstructNormalization;
+    }
+
+    public function getPhpDocumentorReportPath(): string
+    {
+        return $this->phpDocumentorReportPath;
+    }
+
+    public function getPhpDocumentorExecutablePath(): string
+    {
+        return $this->phpDocumentorExecutablePath;
     }
 
     public function getReportConfiguration(): ReportConfiguration

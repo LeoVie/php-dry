@@ -62,6 +62,13 @@ build_phpunit_image:
 phpunit:
 	docker run -v ${PWD}:/app --rm php-dry/phpunit:latest
 
+.PHONY: phpunit-group
+ifndef group
+	$(error group is not set)
+endif
+phpunit-group:
+	docker run -v ${PWD}:/app --rm php-dry/phpunit:latest -- --group $(group)
+
 .PHONY: unit
 unit:
 	docker run -v ${PWD}:/app --rm php-dry/phpunit:latest -- --testsuite=unit

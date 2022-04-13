@@ -71,9 +71,6 @@
     "leovie/php-method-runner": {
         "version": "v1.0.1"
     },
-    "leovie/php-methods-parser": {
-        "version": "v1.0.1"
-    },
     "leovie/php-param-generator": {
         "version": "v1.0.1"
     },
