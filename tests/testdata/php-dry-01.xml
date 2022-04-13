@@ -7,7 +7,7 @@
          enableLcsAlgorithm="false"
          countOfParamSets="10"
          enableConstructNormalization="false"
-         phpDocumentorReportPath="var/phpDocumentorReport">
+         phpDocumentorReportPath="/var/phpDocumentorReport">
 
     <report>
         <cli/>

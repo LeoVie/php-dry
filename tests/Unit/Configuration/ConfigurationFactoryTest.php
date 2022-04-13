@@ -25,8 +25,8 @@ class ConfigurationFactoryTest extends TestCase
                 false,
                 10,
                 false,
-                'var/phpDocumentorReport',
-                'vendor/bin/phpdoc',
+                '/var/phpDocumentorReport',
+                __DIR__ . '/../../testdata/tools/phpDocumentor.phar',
                 ReportConfiguration::create(
                     ReportConfiguration\Cli::create(),
                     ReportConfiguration\Html::create(__DIR__ . '/../../testdata/reports/php-dry.html'),
@@ -44,8 +44,8 @@ class ConfigurationFactoryTest extends TestCase
                 true,
                 15,
                 true,
-                'report_of_phpdoc',
-                'bla_foo',
+                __DIR__ . '/../../testdata/report_of_phpdoc',
+                __DIR__ . '/../../testdata/bla_foo',
                 ReportConfiguration::create(
                     ReportConfiguration\Cli::create(),
                     null,

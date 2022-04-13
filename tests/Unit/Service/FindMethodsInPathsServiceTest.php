@@ -20,7 +20,7 @@ class FindMethodsInPathsServiceTest extends TestCase
         $configuration = $this->createMock(Configuration::class);
         $configuration
             ->method('getPhpDocumentorReportPath')
-            ->willReturn(__DIR__ . '/../../testdata/phpDocumentor_structure_small.xml');
+            ->willReturn(__DIR__ . '/../../testdata/phpDocumentor/small_report');
 
         $filesystem = $this->createMock(Filesystem::class);
         $filesystem->method('readFilePart')->willReturnArgument(0);
