@@ -23,6 +23,7 @@ use LeoVie\PhpParamGenerator\Model\Param\Param;
 use LeoVie\PhpParamGenerator\Model\Param\ParamList\ParamList;
 use LeoVie\PhpParamGenerator\Model\Param\ParamList\ParamListSet;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ArrayRequest;
+use LeoVie\PhpParamGenerator\Model\ParamRequest\BoolRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\FloatRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\IntRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamList\ParamListRequest;
@@ -35,6 +36,7 @@ use phpDocumentor\Reflection\Type;
 use phpDocumentor\Reflection\TypeResolver;
 use phpDocumentor\Reflection\Types\AggregatedType;
 use phpDocumentor\Reflection\Types\Array_;
+use phpDocumentor\Reflection\Types\Boolean;
 use phpDocumentor\Reflection\Types\Float_;
 use phpDocumentor\Reflection\Types\Integer;
 use phpDocumentor\Reflection\Types\Iterable_;
@@ -150,7 +152,7 @@ class Type4SourceCloneCandidateFactory
             is_a($paramType, String_::class) => StringRequest::create(),
             is_a($paramType, Integer::class) => IntRequest::create(),
             is_a($paramType, Float_::class) => FloatRequest::create(),
-//            is_a($resolvedParamType, Boolean::class) => BooleanRequest::create(),
+            is_a($paramType, Boolean::class) => BoolRequest::create(),
             default => throw NoParamRequestForParamType::create($paramType->__toString())
         };
     }
