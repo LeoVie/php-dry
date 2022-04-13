@@ -34,6 +34,7 @@ if (\in_array(\PHP_SAPI, ['cli', 'phpdbg', 'embed'], true) === false) {
 You need to set up the project dependencies using Composer:
     $ composer install
 See https://getcomposer.org/.
+
 ERROR
     );
 
