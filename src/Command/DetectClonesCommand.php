@@ -9,6 +9,7 @@ use App\Command\Output\Helper\VerboseOutputHelper;
 use App\Configuration\Configuration;
 use App\Configuration\ConfigurationFactory;
 use App\Exception\CollectionCannotBeEmpty;
+use App\Exception\SubsequenceUtilNotFound;
 use App\Model\MethodScoresMapping;
 use App\Model\SourceClone\SourceClone;
 use App\Model\SourceCloneMethodScoresMapping;
@@ -74,11 +75,9 @@ class DetectClonesCommand extends Command
     /**
      * @throws CollectionCannotBeEmpty
      * @throws FilesystemException
-     * @throws NodeTypeNotConvertable
-     * @throws StringsException
      * @throws NoParamGeneratorFoundForParamRequest
-     * @throws InvalidBoundaries
      * @throws MethodCannotBeModifiedToNonClassContext
+     * @throws SubsequenceUtilNotFound
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {

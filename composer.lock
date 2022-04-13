@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3f7c5fd24a6eed0d5ab812b3c1b65318",
+    "content-hash": "62507e51fb8de754927feba2a3977a25",
     "packages": [
         {
             "name": "fakerphp/faker",
@@ -431,61 +431,6 @@
                 "source": "https://github.com/LeoVie/php-method-runner/tree/v1.0.1"
             },
             "time": "2022-03-23T08:32:12+00:00"
-        },
-        {
-            "name": "leovie/php-methods-parser",
-            "version": "v1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/LeoVie/php-methods-parser.git",
-                "reference": "f90e0639af1a9532e005dbbc5136008bf4a14fa6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/LeoVie/php-methods-parser/zipball/f90e0639af1a9532e005dbbc5136008bf4a14fa6",
-                "reference": "f90e0639af1a9532e005dbbc5136008bf4a14fa6",
-                "shasum": ""
-            },
-            "require": {
-                "leovie/php-filesystem": "^1.0",
-                "nikic/php-parser": "^4.13",
-                "roave/security-advisories": "dev-latest",
-                "symfony/config": "^5.3",
-                "symfony/dependency-injection": "^5.3",
-                "symfony/http-kernel": "^5.3",
-                "symfony/yaml": "^5.3",
-                "thecodingmachine/safe": "^1.3"
-            },
-            "require-dev": {
-                "infection/infection": "^0.25.3",
-                "phpunit/phpunit": "^9.5",
-                "psalm/plugin-symfony": "^3.0",
-                "symfony/phpunit-bridge": "^6.0",
-                "symfony/test-pack": "^1.0",
-                "vimeo/psalm": "^4.10"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-4": {
-                    "LeoVie\\PhpMethodsParser\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Leo Viezens",
-                    "email": "leo.viezens@web.de"
-                }
-            ],
-            "description": "Parse php methods.",
-            "support": {
-                "issues": "https://github.com/LeoVie/php-methods-parser/issues",
-                "source": "https://github.com/LeoVie/php-methods-parser/tree/v1.0.1"
-            },
-            "time": "2022-03-23T08:50:55+00:00"
         },
         {
             "name": "leovie/php-param-generator",
@@ -7793,5 +7738,5 @@
         "ext-mbstring": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.3.0"
 }

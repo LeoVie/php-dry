@@ -21,7 +21,6 @@
     "leovie/php-html-builder": "^1.0",
     "leovie/php-method-modifier": "^1.0",
     "leovie/php-method-runner": "^1.0",
-    "leovie/php-methods-parser": "^1.0",
     "leovie/php-param-generator": "^1.0",
     "leovie/php-token-normalize": "^1.0",
     "nikic/php-parser": "^4.13",

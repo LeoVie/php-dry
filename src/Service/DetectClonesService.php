@@ -25,12 +25,9 @@ use App\Model\SourceCloneCandidate\SourceCloneCandidate;
 use App\Model\SourceCloneCandidate\Type1SourceCloneCandidate;
 use App\Model\SourceCloneCandidate\Type2SourceCloneCandidate;
 use LeoVie\PhpConstructNormalize\Service\ConstructNormalizeService;
-use LeoVie\PhpFilesystem\Exception\InvalidBoundaries;
 use LeoVie\PhpMethodModifier\Exception\MethodCannotBeModifiedToNonClassContext;
-use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
 use LeoVie\PhpParamGenerator\Exception\NoParamGeneratorFoundForParamRequest;
 use Safe\Exceptions\FilesystemException;
-use Safe\Exceptions\StringsException;
 
 class DetectClonesService
 {
