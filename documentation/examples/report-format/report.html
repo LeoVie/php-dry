@@ -17,11 +17,8 @@
 <script>hljs.highlightAll();</script>
 <div class="container">
     <div class="row">
-        <div class="col-1">
-            <svg viewbox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                <path d="M61,4H46V3a1,1,0,0,0-2,0V4H20V3a1,1,0,0,0-2,0V4H3A1,1,0,0,0,3,6H18V8H14a1,1,0,0,0-.633.226l-11,9a1,1,0,0,0-.211,1.311l7,11a1,1,0,0,0,.711.454,1.009,1.009,0,0,0,.806-.251L13,27.624V61a1,1,0,0,0,1,1H50a1,1,0,0,0,1-1V27.838l2.367,1.936a1,1,0,0,0,1.452-.2l7-10a1,1,0,0,0-.146-1.313l-11-10A1,1,0,0,0,50,8H46V6H61a1,1,0,0,0,0-2ZM49.613,10l10.063,9.148-5.877,8.4-3.166-2.589A1,1,0,0,0,49,25.728V60H15V25.364a1,1,0,0,0-1.673-.74l-3.121,2.837L4.32,18.212,14.357,10H18v1a1,1,0,0,0,2,0V10h5.071a7,7,0,0,0,13.858,0H44v1a1,1,0,0,0,2,0V10ZM44,8H38a1,1,0,0,0-1,1A5,5,0,0,1,27,9a1,1,0,0,0-1-1H20V6H44Z"></path>
-            </svg>
-        </div>
+        <div class="col-1"><img src="resources/icons/php-dry.svg"
+                                alt="The logo of php-dry: A T-shirt on a clothesline rope."></img></div>
         <div class="col-11"><h1>php-dry: Report</h1></div>
     </div>
     <nav>
@@ -44,7 +41,7 @@
         <div class="tab-pane fade show active" id="nav-type-1-clones" role="tabpanel"
              aria-labelledby="nav-type-1-clones-tab"><h3>Detected 1 clone</h3>
             <card class="card">
-                <card-body class="card-body"><h5 class="card-title"><a id="type_1_clone_0" href="#type_1_clone_0"><span
+                <div class="card-body"><h5 class="card-title"><a id="type_1_clone_0" href="#type_1_clone_0"><span
                         class="badge bg-secondary">Clone 0</span></a></h5>
                     <table class="table">
                         <thead>
@@ -58,7 +55,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">1</th>
-                            <td>/01_A.php<br>5:50 - 13:231</td>
+                            <td>01_A.php<br>10:143 - 18:324</td>
                             <td>8</td>
                             <td>
                                 <div class="accordion">
@@ -68,19 +65,19 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_1_clone_0_codeAccordion1" aria-expanded="false"
                                                 aria-controls="type_1_clone_0_codeAccordion1">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_1_clone_0_codeAccordion1" class="accordion-collapse collapse"
                                              aria-labelledby="type_1_clone_0_codeAccordionHeading1">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    $r = [];
-    $f = 100;
-    foreach ($p1 as $i) {
-        $r[] = $i * $p2;
-    }
-    return $r;
-}</code></pre>
+    {
+        $r = [];
+        $f = 100;
+        foreach ($p1 as $i) {
+            $r[] = $i * $p2;
+        }
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -89,7 +86,7 @@
                         </tr>
                         <tr>
                             <th scope="row">2</th>
-                            <td>/03_A_Exact_Copy.php<br>5:61 - 13:242</td>
+                            <td>03_A_Exact_Copy.php<br>10:154 - 18:335</td>
                             <td>8</td>
                             <td>
                                 <div class="accordion">
@@ -99,19 +96,19 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_1_clone_0_codeAccordion2" aria-expanded="false"
                                                 aria-controls="type_1_clone_0_codeAccordion2">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_1_clone_0_codeAccordion2" class="accordion-collapse collapse"
                                              aria-labelledby="type_1_clone_0_codeAccordionHeading2">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    $r = [];
-    $f = 100;
-    foreach ($p1 as $i) {
-        $r[] = $i * $p2;
-    }
-    return $r;
-}</code></pre>
+    {
+        $r = [];
+        $f = 100;
+        foreach ($p1 as $i) {
+            $r[] = $i * $p2;
+        }
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -120,7 +117,7 @@
                         </tr>
                         <tr>
                             <th scope="row">3</th>
-                            <td>/04_A_Additional_Whitespaces.php<br>5:73 - 14:276</td>
+                            <td>04_A_Additional_Whitespaces.php<br>10:166 - 19:369</td>
                             <td>9</td>
                             <td>
                                 <div class="accordion">
@@ -130,20 +127,20 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_1_clone_0_codeAccordion3" aria-expanded="false"
                                                 aria-controls="type_1_clone_0_codeAccordion3">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_1_clone_0_codeAccordion3" class="accordion-collapse collapse"
                                              aria-labelledby="type_1_clone_0_codeAccordionHeading3">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    $r          = [];
-    $f = 100    ;
-    foreach ($p1 as     $i) {
-        $r[]    = $i * $p2;
-    }
+    {
+        $r          = [];
+        $f = 100    ;
+        foreach ($p1 as     $i) {
+            $r[]    = $i * $p2;
+        }
 
-    return $r;
-}</code></pre>
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -152,7 +149,7 @@
                         </tr>
                         <tr>
                             <th scope="row">4</th>
-                            <td>/05_A_Additional_Comments.php<br>5:70 - 20:440</td>
+                            <td>05_A_Additional_Comments.php<br>10:163 - 25:533</td>
                             <td>15</td>
                             <td>
                                 <div class="accordion">
@@ -162,26 +159,26 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_1_clone_0_codeAccordion4" aria-expanded="false"
                                                 aria-controls="type_1_clone_0_codeAccordion4">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_1_clone_0_codeAccordion4" class="accordion-collapse collapse"
                                              aria-labelledby="type_1_clone_0_codeAccordionHeading4">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    /*
-     * Some actions are following:
-     */
-    // first we do this
-    $r = [];
-    $f = 100;
-    // then in the loop
-    foreach ($p1 as $i) {
-        // we do this
-        $r[] = $i * $p2;
-    }
-    // and after that, we do this
-    return $r;
-}</code></pre>
+    {
+        /*
+         * Some actions are following:
+         */
+        // first we do this
+        $r = [];
+        $f = 100;
+        // then in the loop
+        foreach ($p1 as $i) {
+            // we do this
+            $r[] = $i * $p2;
+        }
+        // and after that, we do this
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -190,7 +187,7 @@
                         </tr>
                         <tr>
                             <th scope="row">5</th>
-                            <td>/06_A_Changed_Layout.php<br>5:65 - 9:210</td>
+                            <td>06_A_Changed_Layout.php<br>10:158 - 14:303</td>
                             <td>4</td>
                             <td>
                                 <div class="accordion">
@@ -200,15 +197,15 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_1_clone_0_codeAccordion5" aria-expanded="false"
                                                 aria-controls="type_1_clone_0_codeAccordion5">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_1_clone_0_codeAccordion5" class="accordion-collapse collapse"
                                              aria-labelledby="type_1_clone_0_codeAccordionHeading5">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array {
-    $r = []; $f = 100;
-    foreach ($p1 as $i) { $r[] = $i * $p2; }
-    return $r;
-}</code></pre>
+        $r = []; $f = 100;
+        foreach ($p1 as $i) { $r[] = $i * $p2; }
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -217,13 +214,13 @@
                         </tr>
                         </tbody>
                     </table>
-                </card-body>
+                </div>
             </card>
         </div>
         <div class="tab-pane fade show" id="nav-type-2-clones" role="tabpanel" aria-labelledby="nav-type-2-clones-tab">
             <h3>Detected 1 clone</h3>
             <card class="card">
-                <card-body class="card-body"><h5 class="card-title"><a id="type_2_clone_0" href="#type_2_clone_0"><span
+                <div class="card-body"><h5 class="card-title"><a id="type_2_clone_0" href="#type_2_clone_0"><span
                         class="badge bg-secondary">Clone 0</span></a></h5>
                     <table class="table">
                         <thead>
@@ -237,7 +234,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">1</th>
-                            <td>/01_A.php<br>5:50 - 13:231</td>
+                            <td>01_A.php<br>10:143 - 18:324</td>
                             <td>8</td>
                             <td>
                                 <div class="accordion">
@@ -247,19 +244,19 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_2_clone_0_codeAccordion1" aria-expanded="false"
                                                 aria-controls="type_2_clone_0_codeAccordion1">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_2_clone_0_codeAccordion1" class="accordion-collapse collapse"
                                              aria-labelledby="type_2_clone_0_codeAccordionHeading1">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    $r = [];
-    $f = 100;
-    foreach ($p1 as $i) {
-        $r[] = $i * $p2;
-    }
-    return $r;
-}</code></pre>
+    {
+        $r = [];
+        $f = 100;
+        foreach ($p1 as $i) {
+            $r[] = $i * $p2;
+        }
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -268,7 +265,7 @@
                         </tr>
                         <tr>
                             <th scope="row">2</th>
-                            <td>/03_A_Exact_Copy.php<br>5:61 - 13:242</td>
+                            <td>03_A_Exact_Copy.php<br>10:154 - 18:335</td>
                             <td>8</td>
                             <td>
                                 <div class="accordion">
@@ -278,19 +275,19 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_2_clone_0_codeAccordion2" aria-expanded="false"
                                                 aria-controls="type_2_clone_0_codeAccordion2">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_2_clone_0_codeAccordion2" class="accordion-collapse collapse"
                                              aria-labelledby="type_2_clone_0_codeAccordionHeading2">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    $r = [];
-    $f = 100;
-    foreach ($p1 as $i) {
-        $r[] = $i * $p2;
-    }
-    return $r;
-}</code></pre>
+    {
+        $r = [];
+        $f = 100;
+        foreach ($p1 as $i) {
+            $r[] = $i * $p2;
+        }
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -299,7 +296,7 @@
                         </tr>
                         <tr>
                             <th scope="row">3</th>
-                            <td>/04_A_Additional_Whitespaces.php<br>5:73 - 14:276</td>
+                            <td>04_A_Additional_Whitespaces.php<br>10:166 - 19:369</td>
                             <td>9</td>
                             <td>
                                 <div class="accordion">
@@ -309,20 +306,20 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_2_clone_0_codeAccordion3" aria-expanded="false"
                                                 aria-controls="type_2_clone_0_codeAccordion3">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_2_clone_0_codeAccordion3" class="accordion-collapse collapse"
                                              aria-labelledby="type_2_clone_0_codeAccordionHeading3">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    $r          = [];
-    $f = 100    ;
-    foreach ($p1 as     $i) {
-        $r[]    = $i * $p2;
-    }
+    {
+        $r          = [];
+        $f = 100    ;
+        foreach ($p1 as     $i) {
+            $r[]    = $i * $p2;
+        }
 
-    return $r;
-}</code></pre>
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -331,7 +328,7 @@
                         </tr>
                         <tr>
                             <th scope="row">4</th>
-                            <td>/05_A_Additional_Comments.php<br>5:70 - 20:440</td>
+                            <td>05_A_Additional_Comments.php<br>10:163 - 25:533</td>
                             <td>15</td>
                             <td>
                                 <div class="accordion">
@@ -341,26 +338,26 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_2_clone_0_codeAccordion4" aria-expanded="false"
                                                 aria-controls="type_2_clone_0_codeAccordion4">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_2_clone_0_codeAccordion4" class="accordion-collapse collapse"
                                              aria-labelledby="type_2_clone_0_codeAccordionHeading4">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    /*
-     * Some actions are following:
-     */
-    // first we do this
-    $r = [];
-    $f = 100;
-    // then in the loop
-    foreach ($p1 as $i) {
-        // we do this
-        $r[] = $i * $p2;
-    }
-    // and after that, we do this
-    return $r;
-}</code></pre>
+    {
+        /*
+         * Some actions are following:
+         */
+        // first we do this
+        $r = [];
+        $f = 100;
+        // then in the loop
+        foreach ($p1 as $i) {
+            // we do this
+            $r[] = $i * $p2;
+        }
+        // and after that, we do this
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -369,7 +366,7 @@
                         </tr>
                         <tr>
                             <th scope="row">5</th>
-                            <td>/06_A_Changed_Layout.php<br>5:65 - 9:210</td>
+                            <td>06_A_Changed_Layout.php<br>10:158 - 14:303</td>
                             <td>4</td>
                             <td>
                                 <div class="accordion">
@@ -379,15 +376,15 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_2_clone_0_codeAccordion5" aria-expanded="false"
                                                 aria-controls="type_2_clone_0_codeAccordion5">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_2_clone_0_codeAccordion5" class="accordion-collapse collapse"
                                              aria-labelledby="type_2_clone_0_codeAccordionHeading5">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array {
-    $r = []; $f = 100;
-    foreach ($p1 as $i) { $r[] = $i * $p2; }
-    return $r;
-}</code></pre>
+        $r = []; $f = 100;
+        foreach ($p1 as $i) { $r[] = $i * $p2; }
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -396,7 +393,7 @@
                         </tr>
                         <tr>
                             <th scope="row">6</th>
-                            <td>/07_A_Changed_Variable_Names.php<br>5:73 - 13:268</td>
+                            <td>07_A_Changed_Variable_Names.php<br>10:169 - 18:364</td>
                             <td>8</td>
                             <td>
                                 <div class="accordion">
@@ -406,19 +403,19 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_2_clone_0_codeAccordion6" aria-expanded="false"
                                                 aria-controls="type_2_clone_0_codeAccordion6">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_2_clone_0_codeAccordion6" class="accordion-collapse collapse"
                                              aria-labelledby="type_2_clone_0_codeAccordionHeading6">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $first, int $second): array
-{
-    $x = [];
-    $k = 100;
-    foreach ($first as $y) {
-        $x[] = $y * $second;
-    }
-    return $x;
-}</code></pre>
+    {
+        $x = [];
+        $k = 100;
+        foreach ($first as $y) {
+            $x[] = $y * $second;
+        }
+        return $x;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -427,7 +424,7 @@
                         </tr>
                         <tr>
                             <th scope="row">7</th>
-                            <td>/08_A_Changed_Method_Names.php<br>5:71 - 13:252</td>
+                            <td>08_A_Changed_Method_Names.php<br>10:164 - 18:345</td>
                             <td>8</td>
                             <td>
                                 <div class="accordion">
@@ -437,19 +434,19 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_2_clone_0_codeAccordion7" aria-expanded="false"
                                                 aria-controls="type_2_clone_0_codeAccordion7">
-                                            <pre><code class="language-php">function bar(array, int): array</code></pre>
+                                            <pre><code class="language-php">function bar(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_2_clone_0_codeAccordion7" class="accordion-collapse collapse"
                                              aria-labelledby="type_2_clone_0_codeAccordionHeading7">
                                             <div class="accordion-body"><pre><code class="language-php">function bar(array $p1, int $p2): array
-{
-    $r = [];
-    $f = 100;
-    foreach ($p1 as $i) {
-        $r[] = $i * $p2;
-    }
-    return $r;
-}</code></pre>
+    {
+        $r = [];
+        $f = 100;
+        foreach ($p1 as $i) {
+            $r[] = $i * $p2;
+        }
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -458,7 +455,7 @@
                         </tr>
                         <tr>
                             <th scope="row">8</th>
-                            <td>/09_A_Changed_Literals.php<br>5:67 - 13:248</td>
+                            <td>09_A_Changed_Literals.php<br>10:160 - 18:341</td>
                             <td>8</td>
                             <td>
                                 <div class="accordion">
@@ -468,19 +465,19 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_2_clone_0_codeAccordion8" aria-expanded="false"
                                                 aria-controls="type_2_clone_0_codeAccordion8">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_2_clone_0_codeAccordion8" class="accordion-collapse collapse"
                                              aria-labelledby="type_2_clone_0_codeAccordionHeading8">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    $r = [];
-    $f = -20;
-    foreach ($p1 as $i) {
-        $r[] = $i * $p2;
-    }
-    return $r;
-}</code></pre>
+    {
+        $r = [];
+        $f = -20;
+        foreach ($p1 as $i) {
+            $r[] = $i * $p2;
+        }
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -489,13 +486,13 @@
                         </tr>
                         </tbody>
                     </table>
-                </card-body>
+                </div>
             </card>
         </div>
         <div class="tab-pane fade show" id="nav-type-3-clones" role="tabpanel" aria-labelledby="nav-type-3-clones-tab">
             <h3>Detected 1 clone</h3>
             <card class="card">
-                <card-body class="card-body"><h5 class="card-title"><a id="type_3_clone_0" href="#type_3_clone_0"><span
+                <div class="card-body"><h5 class="card-title"><a id="type_3_clone_0" href="#type_3_clone_0"><span
                         class="badge bg-secondary">Clone 0</span></a></h5>
                     <table class="table">
                         <thead>
@@ -509,7 +506,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">1</th>
-                            <td>/01_A.php<br>5:50 - 13:231</td>
+                            <td>01_A.php<br>10:143 - 18:324</td>
                             <td>8</td>
                             <td>
                                 <div class="accordion">
@@ -519,19 +516,19 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_3_clone_0_codeAccordion1" aria-expanded="false"
                                                 aria-controls="type_3_clone_0_codeAccordion1">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_3_clone_0_codeAccordion1" class="accordion-collapse collapse"
                                              aria-labelledby="type_3_clone_0_codeAccordionHeading1">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    $r = [];
-    $f = 100;
-    foreach ($p1 as $i) {
-        $r[] = $i * $p2;
-    }
-    return $r;
-}</code></pre>
+    {
+        $r = [];
+        $f = 100;
+        foreach ($p1 as $i) {
+            $r[] = $i * $p2;
+        }
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -540,7 +537,7 @@
                         </tr>
                         <tr>
                             <th scope="row">2</th>
-                            <td>/03_A_Exact_Copy.php<br>5:61 - 13:242</td>
+                            <td>03_A_Exact_Copy.php<br>10:154 - 18:335</td>
                             <td>8</td>
                             <td>
                                 <div class="accordion">
@@ -550,19 +547,19 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_3_clone_0_codeAccordion2" aria-expanded="false"
                                                 aria-controls="type_3_clone_0_codeAccordion2">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_3_clone_0_codeAccordion2" class="accordion-collapse collapse"
                                              aria-labelledby="type_3_clone_0_codeAccordionHeading2">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    $r = [];
-    $f = 100;
-    foreach ($p1 as $i) {
-        $r[] = $i * $p2;
-    }
-    return $r;
-}</code></pre>
+    {
+        $r = [];
+        $f = 100;
+        foreach ($p1 as $i) {
+            $r[] = $i * $p2;
+        }
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -571,7 +568,7 @@
                         </tr>
                         <tr>
                             <th scope="row">3</th>
-                            <td>/04_A_Additional_Whitespaces.php<br>5:73 - 14:276</td>
+                            <td>04_A_Additional_Whitespaces.php<br>10:166 - 19:369</td>
                             <td>9</td>
                             <td>
                                 <div class="accordion">
@@ -581,20 +578,20 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_3_clone_0_codeAccordion3" aria-expanded="false"
                                                 aria-controls="type_3_clone_0_codeAccordion3">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_3_clone_0_codeAccordion3" class="accordion-collapse collapse"
                                              aria-labelledby="type_3_clone_0_codeAccordionHeading3">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    $r          = [];
-    $f = 100    ;
-    foreach ($p1 as     $i) {
-        $r[]    = $i * $p2;
-    }
+    {
+        $r          = [];
+        $f = 100    ;
+        foreach ($p1 as     $i) {
+            $r[]    = $i * $p2;
+        }
 
-    return $r;
-}</code></pre>
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -603,7 +600,7 @@
                         </tr>
                         <tr>
                             <th scope="row">4</th>
-                            <td>/05_A_Additional_Comments.php<br>5:70 - 20:440</td>
+                            <td>05_A_Additional_Comments.php<br>10:163 - 25:533</td>
                             <td>15</td>
                             <td>
                                 <div class="accordion">
@@ -613,26 +610,26 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_3_clone_0_codeAccordion4" aria-expanded="false"
                                                 aria-controls="type_3_clone_0_codeAccordion4">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_3_clone_0_codeAccordion4" class="accordion-collapse collapse"
                                              aria-labelledby="type_3_clone_0_codeAccordionHeading4">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    /*
-     * Some actions are following:
-     */
-    // first we do this
-    $r = [];
-    $f = 100;
-    // then in the loop
-    foreach ($p1 as $i) {
-        // we do this
-        $r[] = $i * $p2;
-    }
-    // and after that, we do this
-    return $r;
-}</code></pre>
+    {
+        /*
+         * Some actions are following:
+         */
+        // first we do this
+        $r = [];
+        $f = 100;
+        // then in the loop
+        foreach ($p1 as $i) {
+            // we do this
+            $r[] = $i * $p2;
+        }
+        // and after that, we do this
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -641,7 +638,7 @@
                         </tr>
                         <tr>
                             <th scope="row">5</th>
-                            <td>/06_A_Changed_Layout.php<br>5:65 - 9:210</td>
+                            <td>06_A_Changed_Layout.php<br>10:158 - 14:303</td>
                             <td>4</td>
                             <td>
                                 <div class="accordion">
@@ -651,15 +648,15 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_3_clone_0_codeAccordion5" aria-expanded="false"
                                                 aria-controls="type_3_clone_0_codeAccordion5">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_3_clone_0_codeAccordion5" class="accordion-collapse collapse"
                                              aria-labelledby="type_3_clone_0_codeAccordionHeading5">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array {
-    $r = []; $f = 100;
-    foreach ($p1 as $i) { $r[] = $i * $p2; }
-    return $r;
-}</code></pre>
+        $r = []; $f = 100;
+        foreach ($p1 as $i) { $r[] = $i * $p2; }
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -668,7 +665,7 @@
                         </tr>
                         <tr>
                             <th scope="row">6</th>
-                            <td>/07_A_Changed_Variable_Names.php<br>5:73 - 13:268</td>
+                            <td>07_A_Changed_Variable_Names.php<br>10:169 - 18:364</td>
                             <td>8</td>
                             <td>
                                 <div class="accordion">
@@ -678,19 +675,19 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_3_clone_0_codeAccordion6" aria-expanded="false"
                                                 aria-controls="type_3_clone_0_codeAccordion6">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_3_clone_0_codeAccordion6" class="accordion-collapse collapse"
                                              aria-labelledby="type_3_clone_0_codeAccordionHeading6">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $first, int $second): array
-{
-    $x = [];
-    $k = 100;
-    foreach ($first as $y) {
-        $x[] = $y * $second;
-    }
-    return $x;
-}</code></pre>
+    {
+        $x = [];
+        $k = 100;
+        foreach ($first as $y) {
+            $x[] = $y * $second;
+        }
+        return $x;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -699,7 +696,7 @@
                         </tr>
                         <tr>
                             <th scope="row">7</th>
-                            <td>/08_A_Changed_Method_Names.php<br>5:71 - 13:252</td>
+                            <td>08_A_Changed_Method_Names.php<br>10:164 - 18:345</td>
                             <td>8</td>
                             <td>
                                 <div class="accordion">
@@ -709,19 +706,19 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_3_clone_0_codeAccordion7" aria-expanded="false"
                                                 aria-controls="type_3_clone_0_codeAccordion7">
-                                            <pre><code class="language-php">function bar(array, int): array</code></pre>
+                                            <pre><code class="language-php">function bar(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_3_clone_0_codeAccordion7" class="accordion-collapse collapse"
                                              aria-labelledby="type_3_clone_0_codeAccordionHeading7">
                                             <div class="accordion-body"><pre><code class="language-php">function bar(array $p1, int $p2): array
-{
-    $r = [];
-    $f = 100;
-    foreach ($p1 as $i) {
-        $r[] = $i * $p2;
-    }
-    return $r;
-}</code></pre>
+    {
+        $r = [];
+        $f = 100;
+        foreach ($p1 as $i) {
+            $r[] = $i * $p2;
+        }
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -730,7 +727,7 @@
                         </tr>
                         <tr>
                             <th scope="row">8</th>
-                            <td>/09_A_Changed_Literals.php<br>5:67 - 13:248</td>
+                            <td>09_A_Changed_Literals.php<br>10:160 - 18:341</td>
                             <td>8</td>
                             <td>
                                 <div class="accordion">
@@ -740,19 +737,19 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_3_clone_0_codeAccordion8" aria-expanded="false"
                                                 aria-controls="type_3_clone_0_codeAccordion8">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_3_clone_0_codeAccordion8" class="accordion-collapse collapse"
                                              aria-labelledby="type_3_clone_0_codeAccordionHeading8">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    $r = [];
-    $f = -20;
-    foreach ($p1 as $i) {
-        $r[] = $i * $p2;
-    }
-    return $r;
-}</code></pre>
+    {
+        $r = [];
+        $f = -20;
+        foreach ($p1 as $i) {
+            $r[] = $i * $p2;
+        }
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -761,7 +758,7 @@
                         </tr>
                         <tr>
                             <th scope="row">9</th>
-                            <td>/11_A_Removed_Statements.php<br>5:69 - 12:231</td>
+                            <td>11_A_Removed_Statements.php<br>10:162 - 17:324</td>
                             <td>7</td>
                             <td>
                                 <div class="accordion">
@@ -771,18 +768,18 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_3_clone_0_codeAccordion9" aria-expanded="false"
                                                 aria-controls="type_3_clone_0_codeAccordion9">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_3_clone_0_codeAccordion9" class="accordion-collapse collapse"
                                              aria-labelledby="type_3_clone_0_codeAccordionHeading9">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    $r = [];
-    foreach ($p1 as $i) {
-        $r[] = $i * $p2;
-    }
-    return $r;
-}</code></pre>
+    {
+        $r = [];
+        foreach ($p1 as $i) {
+            $r[] = $i * $p2;
+        }
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -791,7 +788,7 @@
                         </tr>
                         <tr>
                             <th scope="row">10</th>
-                            <td>/12_A_Changed_Statement_Order.php<br>5:74 - 13:255</td>
+                            <td>12_A_Changed_Statement_Order.php<br>10:167 - 18:348</td>
                             <td>8</td>
                             <td>
                                 <div class="accordion">
@@ -801,19 +798,19 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_3_clone_0_codeAccordion10" aria-expanded="false"
                                                 aria-controls="type_3_clone_0_codeAccordion10">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_3_clone_0_codeAccordion10" class="accordion-collapse collapse"
                                              aria-labelledby="type_3_clone_0_codeAccordionHeading10">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    $f = 100;
-    $r = [];
-    foreach ($p1 as $i) {
-        $r[] = $i * $p2;
-    }
-    return $r;
-}</code></pre>
+    {
+        $f = 100;
+        $r = [];
+        foreach ($p1 as $i) {
+            $r[] = $i * $p2;
+        }
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -822,13 +819,13 @@
                         </tr>
                         </tbody>
                     </table>
-                </card-body>
+                </div>
             </card>
         </div>
         <div class="tab-pane fade show" id="nav-type-4-clones" role="tabpanel" aria-labelledby="nav-type-4-clones-tab">
             <h3>Detected 1 clone</h3>
             <card class="card">
-                <card-body class="card-body"><h5 class="card-title"><a id="type_4_clone_0" href="#type_4_clone_0"><span
+                <div class="card-body"><h5 class="card-title"><a id="type_4_clone_0" href="#type_4_clone_0"><span
                         class="badge bg-secondary">Clone 0</span></a></h5>
                     <table class="table">
                         <thead>
@@ -843,7 +840,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">1</th>
-                            <td>/01_A.php<br>5:50 - 13:231</td>
+                            <td>01_A.php<br>10:143 - 18:324</td>
                             <td>8</td>
                             <td>
                                 <ul>
@@ -859,19 +856,19 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_4_clone_0_codeAccordion1" aria-expanded="false"
                                                 aria-controls="type_4_clone_0_codeAccordion1">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_4_clone_0_codeAccordion1" class="accordion-collapse collapse"
                                              aria-labelledby="type_4_clone_0_codeAccordionHeading1">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    $r = [];
-    $f = 100;
-    foreach ($p1 as $i) {
-        $r[] = $i * $p2;
-    }
-    return $r;
-}</code></pre>
+    {
+        $r = [];
+        $f = 100;
+        foreach ($p1 as $i) {
+            $r[] = $i * $p2;
+        }
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -880,7 +877,7 @@
                         </tr>
                         <tr>
                             <th scope="row">2</th>
-                            <td>/03_A_Exact_Copy.php<br>5:61 - 13:242</td>
+                            <td>03_A_Exact_Copy.php<br>10:154 - 18:335</td>
                             <td>8</td>
                             <td>
                                 <ul>
@@ -896,19 +893,19 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_4_clone_0_codeAccordion2" aria-expanded="false"
                                                 aria-controls="type_4_clone_0_codeAccordion2">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_4_clone_0_codeAccordion2" class="accordion-collapse collapse"
                                              aria-labelledby="type_4_clone_0_codeAccordionHeading2">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    $r = [];
-    $f = 100;
-    foreach ($p1 as $i) {
-        $r[] = $i * $p2;
-    }
-    return $r;
-}</code></pre>
+    {
+        $r = [];
+        $f = 100;
+        foreach ($p1 as $i) {
+            $r[] = $i * $p2;
+        }
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -917,7 +914,7 @@
                         </tr>
                         <tr>
                             <th scope="row">3</th>
-                            <td>/04_A_Additional_Whitespaces.php<br>5:73 - 14:276</td>
+                            <td>04_A_Additional_Whitespaces.php<br>10:166 - 19:369</td>
                             <td>9</td>
                             <td>
                                 <ul>
@@ -933,20 +930,20 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_4_clone_0_codeAccordion3" aria-expanded="false"
                                                 aria-controls="type_4_clone_0_codeAccordion3">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_4_clone_0_codeAccordion3" class="accordion-collapse collapse"
                                              aria-labelledby="type_4_clone_0_codeAccordionHeading3">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    $r          = [];
-    $f = 100    ;
-    foreach ($p1 as     $i) {
-        $r[]    = $i * $p2;
-    }
+    {
+        $r          = [];
+        $f = 100    ;
+        foreach ($p1 as     $i) {
+            $r[]    = $i * $p2;
+        }
 
-    return $r;
-}</code></pre>
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -955,7 +952,7 @@
                         </tr>
                         <tr>
                             <th scope="row">4</th>
-                            <td>/05_A_Additional_Comments.php<br>5:70 - 20:440</td>
+                            <td>05_A_Additional_Comments.php<br>10:163 - 25:533</td>
                             <td>15</td>
                             <td>
                                 <ul>
@@ -971,26 +968,26 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_4_clone_0_codeAccordion4" aria-expanded="false"
                                                 aria-controls="type_4_clone_0_codeAccordion4">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_4_clone_0_codeAccordion4" class="accordion-collapse collapse"
                                              aria-labelledby="type_4_clone_0_codeAccordionHeading4">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    /*
-     * Some actions are following:
-     */
-    // first we do this
-    $r = [];
-    $f = 100;
-    // then in the loop
-    foreach ($p1 as $i) {
-        // we do this
-        $r[] = $i * $p2;
-    }
-    // and after that, we do this
-    return $r;
-}</code></pre>
+    {
+        /*
+         * Some actions are following:
+         */
+        // first we do this
+        $r = [];
+        $f = 100;
+        // then in the loop
+        foreach ($p1 as $i) {
+            // we do this
+            $r[] = $i * $p2;
+        }
+        // and after that, we do this
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -999,7 +996,7 @@
                         </tr>
                         <tr>
                             <th scope="row">5</th>
-                            <td>/06_A_Changed_Layout.php<br>5:65 - 9:210</td>
+                            <td>06_A_Changed_Layout.php<br>10:158 - 14:303</td>
                             <td>4</td>
                             <td>
                                 <ul>
@@ -1015,15 +1012,15 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_4_clone_0_codeAccordion5" aria-expanded="false"
                                                 aria-controls="type_4_clone_0_codeAccordion5">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_4_clone_0_codeAccordion5" class="accordion-collapse collapse"
                                              aria-labelledby="type_4_clone_0_codeAccordionHeading5">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array {
-    $r = []; $f = 100;
-    foreach ($p1 as $i) { $r[] = $i * $p2; }
-    return $r;
-}</code></pre>
+        $r = []; $f = 100;
+        foreach ($p1 as $i) { $r[] = $i * $p2; }
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -1032,7 +1029,7 @@
                         </tr>
                         <tr>
                             <th scope="row">6</th>
-                            <td>/07_A_Changed_Variable_Names.php<br>5:73 - 13:268</td>
+                            <td>07_A_Changed_Variable_Names.php<br>10:169 - 18:364</td>
                             <td>8</td>
                             <td>
                                 <ul>
@@ -1048,19 +1045,19 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_4_clone_0_codeAccordion6" aria-expanded="false"
                                                 aria-controls="type_4_clone_0_codeAccordion6">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_4_clone_0_codeAccordion6" class="accordion-collapse collapse"
                                              aria-labelledby="type_4_clone_0_codeAccordionHeading6">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $first, int $second): array
-{
-    $x = [];
-    $k = 100;
-    foreach ($first as $y) {
-        $x[] = $y * $second;
-    }
-    return $x;
-}</code></pre>
+    {
+        $x = [];
+        $k = 100;
+        foreach ($first as $y) {
+            $x[] = $y * $second;
+        }
+        return $x;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -1069,7 +1066,7 @@
                         </tr>
                         <tr>
                             <th scope="row">7</th>
-                            <td>/08_A_Changed_Method_Names.php<br>5:71 - 13:252</td>
+                            <td>08_A_Changed_Method_Names.php<br>10:164 - 18:345</td>
                             <td>8</td>
                             <td>
                                 <ul>
@@ -1085,19 +1082,19 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_4_clone_0_codeAccordion7" aria-expanded="false"
                                                 aria-controls="type_4_clone_0_codeAccordion7">
-                                            <pre><code class="language-php">function bar(array, int): array</code></pre>
+                                            <pre><code class="language-php">function bar(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_4_clone_0_codeAccordion7" class="accordion-collapse collapse"
                                              aria-labelledby="type_4_clone_0_codeAccordionHeading7">
                                             <div class="accordion-body"><pre><code class="language-php">function bar(array $p1, int $p2): array
-{
-    $r = [];
-    $f = 100;
-    foreach ($p1 as $i) {
-        $r[] = $i * $p2;
-    }
-    return $r;
-}</code></pre>
+    {
+        $r = [];
+        $f = 100;
+        foreach ($p1 as $i) {
+            $r[] = $i * $p2;
+        }
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -1106,7 +1103,7 @@
                         </tr>
                         <tr>
                             <th scope="row">8</th>
-                            <td>/09_A_Changed_Literals.php<br>5:67 - 13:248</td>
+                            <td>09_A_Changed_Literals.php<br>10:160 - 18:341</td>
                             <td>8</td>
                             <td>
                                 <ul>
@@ -1122,19 +1119,19 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_4_clone_0_codeAccordion8" aria-expanded="false"
                                                 aria-controls="type_4_clone_0_codeAccordion8">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_4_clone_0_codeAccordion8" class="accordion-collapse collapse"
                                              aria-labelledby="type_4_clone_0_codeAccordionHeading8">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    $r = [];
-    $f = -20;
-    foreach ($p1 as $i) {
-        $r[] = $i * $p2;
-    }
-    return $r;
-}</code></pre>
+    {
+        $r = [];
+        $f = -20;
+        foreach ($p1 as $i) {
+            $r[] = $i * $p2;
+        }
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -1143,7 +1140,7 @@
                         </tr>
                         <tr>
                             <th scope="row">9</th>
-                            <td>/10_A_Additional_Statements.php<br>5:72 - 14:290</td>
+                            <td>10_A_Additional_Statements.php<br>10:165 - 19:383</td>
                             <td>9</td>
                             <td>
                                 <ul>
@@ -1159,20 +1156,20 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_4_clone_0_codeAccordion9" aria-expanded="false"
                                                 aria-controls="type_4_clone_0_codeAccordion9">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_4_clone_0_codeAccordion9" class="accordion-collapse collapse"
                                              aria-labelledby="type_4_clone_0_codeAccordionHeading9">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    $r = [];
-    $f = 100;
-    foreach ($p1 as $i) {
-        print($i * $p2 . "\n");
-        $r[] = $i * $p2;
-    }
-    return $r;
-}</code></pre>
+    {
+        $r = [];
+        $f = 100;
+        foreach ($p1 as $i) {
+            print($i * $p2 . "\n");
+            $r[] = $i * $p2;
+        }
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -1181,7 +1178,7 @@
                         </tr>
                         <tr>
                             <th scope="row">10</th>
-                            <td>/11_A_Removed_Statements.php<br>5:69 - 12:231</td>
+                            <td>11_A_Removed_Statements.php<br>10:162 - 17:324</td>
                             <td>7</td>
                             <td>
                                 <ul>
@@ -1197,18 +1194,18 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_4_clone_0_codeAccordion10" aria-expanded="false"
                                                 aria-controls="type_4_clone_0_codeAccordion10">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_4_clone_0_codeAccordion10" class="accordion-collapse collapse"
                                              aria-labelledby="type_4_clone_0_codeAccordionHeading10">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    $r = [];
-    foreach ($p1 as $i) {
-        $r[] = $i * $p2;
-    }
-    return $r;
-}</code></pre>
+    {
+        $r = [];
+        foreach ($p1 as $i) {
+            $r[] = $i * $p2;
+        }
+        return $r;
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -1217,7 +1214,7 @@
                         </tr>
                         <tr>
                             <th scope="row">11</th>
-                            <td>/12_A_Changed_Statement_Order.php<br>5:74 - 13:255</td>
+                            <td>12_A_Changed_Statement_Order.php<br>10:167 - 18:348</td>
                             <td>8</td>
                             <td>
                                 <ul>
@@ -1233,19 +1230,54 @@
                                                 data-bs-toggle="collapse"
                                                 data-bs-target="#type_4_clone_0_codeAccordion11" aria-expanded="false"
                                                 aria-controls="type_4_clone_0_codeAccordion11">
-                                            <pre><code class="language-php">function foo(array, int): array</code></pre>
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
                                         </a></h2>
                                         <div id="type_4_clone_0_codeAccordion11" class="accordion-collapse collapse"
                                              aria-labelledby="type_4_clone_0_codeAccordionHeading11">
                                             <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
-{
-    $f = 100;
-    $r = [];
-    foreach ($p1 as $i) {
-        $r[] = $i * $p2;
-    }
-    return $r;
-}</code></pre>
+    {
+        $f = 100;
+        $r = [];
+        foreach ($p1 as $i) {
+            $r[] = $i * $p2;
+        }
+        return $r;
+    }</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">12</th>
+                            <td>13_A_Changed_Syntax.php<br>10:158 - 16:299</td>
+                            <td>6</td>
+                            <td>
+                                <ul>
+                                    <li>CompliancesAndViolationsMatter: 18</li>
+                                    <li>OnlyViolationsMatter: 50</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <div class="accordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="type_4_clone_0_codeAccordionHeading12"><a
+                                                class="btn accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#type_4_clone_0_codeAccordion12" aria-expanded="false"
+                                                aria-controls="type_4_clone_0_codeAccordion12">
+                                            <pre><code class="language-php">function foo(array<int,int>, int): array<int,int></code></pre>
+                                        </a></h2>
+                                        <div id="type_4_clone_0_codeAccordion12" class="accordion-collapse collapse"
+                                             aria-labelledby="type_4_clone_0_codeAccordionHeading12">
+                                            <div class="accordion-body"><pre><code class="language-php">function foo(array $p1, int $p2): array
+    {
+        return array_map(
+            fn($i) => $i * $p2,
+            $p1
+        );
+    }</code></pre>
                                             </div>
                                         </div>
                                     </div>
@@ -1254,7 +1286,7 @@
                         </tr>
                         </tbody>
                     </table>
-                </card-body>
+                </div>
             </card>
         </div>
     </div>

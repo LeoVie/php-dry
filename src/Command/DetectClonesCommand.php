@@ -13,22 +13,23 @@ use App\Exception\SubsequenceUtilNotFound;
 use App\Model\MethodScoresMapping;
 use App\Model\SourceClone\SourceClone;
 use App\Model\SourceCloneMethodScoresMapping;
-use App\Output\HtmlOutput;
-use App\Report\CommandLineReportBuilder;
-use App\Report\JsonReportBuilder;
+use App\Report\Formatter\CliReportFormatter;
+use App\Report\Formatter\HtmlReportFormatter;
+use App\Report\Formatter\JsonReportFormatter;
+use App\Report\ReportBuilder;
+use App\Report\Saver\CliReportReporter;
+use App\Report\Saver\HtmlReportReporter;
+use App\Report\Saver\JsonReportReporter;
 use App\Service\DetectClonesService;
 use App\Service\IgnoreClonesService;
 use App\ServiceFactory\StopwatchFactory;
 use LeoVie\PhpCleanCode\Rule\FileRuleResults;
 use LeoVie\PhpCleanCode\Service\CleanCodeCheckerService;
 use LeoVie\PhpCleanCode\Service\CleanCodeScorerService;
-use LeoVie\PhpFilesystem\Exception\InvalidBoundaries;
 use LeoVie\PhpMethodModifier\Exception\MethodCannotBeModifiedToNonClassContext;
 use LeoVie\PhpMethodModifier\Service\MethodModifierService;
-use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
 use LeoVie\PhpParamGenerator\Exception\NoParamGeneratorFoundForParamRequest;
 use Safe\Exceptions\FilesystemException;
-use Safe\Exceptions\StringsException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -49,10 +50,14 @@ class DetectClonesCommand extends Command
         private CleanCodeCheckerService   $cleanCodeCheckerService,
         private CleanCodeScorerService    $cleanCodeScorerService,
         private MethodModifierService     $methodModifierService,
-        private HtmlOutput                $htmlOutput,
-        private JsonReportBuilder         $jsonReportBuilder,
-        private CommandLineReportBuilder  $commandLineReportBuilder,
+        private HtmlReportFormatter       $htmlReportFormatter,
+        private JsonReportFormatter       $jsonReportFormatter,
+        private CliReportFormatter        $cliReportFormatter,
         private DetectClonesCommandOutput $detectClonesCommandOutput,
+        private HtmlReportReporter        $htmlReportReporter,
+        private JsonReportReporter        $jsonReportReporter,
+        private CliReportReporter         $cliReportReporter,
+        private ReportBuilder             $reportBuilder,
     )
     {
         parent::__construct(self::$defaultName);
@@ -101,19 +106,6 @@ class DetectClonesCommand extends Command
             return Command::SUCCESS;
         } else {
             $commandOutput->newLine(2);
-            $jsonReport = $this->jsonReportBuilder->build($clonesToReport);
-
-            $jsonConfig = $configuration->getReportConfiguration()->getJson();
-            if ($jsonConfig !== null) {
-                \Safe\file_put_contents(
-                    $jsonConfig->getFilepath(),
-                    $jsonReport
-                );
-            }
-
-            if ($configuration->getReportConfiguration()->getCli()) {
-                $output->write($this->commandLineReportBuilder->build($jsonReport));
-            }
 
             foreach ($clonesToReport as $clone) {
                 $methodScoresMappings = [];
@@ -151,7 +143,7 @@ class DetectClonesCommand extends Command
             }
         }
 
-        $this->htmlOutput->createReport($sourceCloneMethodScoresMappings, $configuration);
+        $this->report($sourceCloneMethodScoresMappings, $configuration);
 
         $commandOutput->stopTime();
 
@@ -183,5 +175,27 @@ class DetectClonesCommand extends Command
         $value = $input->getOption($name);
 
         return $value;
+    }
+
+    /** @param array<SourceCloneMethodScoresMapping> $sourceCloneMethodScoresMappings */
+    private function report(array $sourceCloneMethodScoresMappings, Configuration $configuration): void
+    {
+        $report = $this->reportBuilder->createReport($sourceCloneMethodScoresMappings, $configuration);
+
+        if ($configuration->getReportConfiguration()->getHtml()) {
+            $htmlReport = $this->htmlReportFormatter->format($report);
+
+            $this->htmlReportReporter->report($htmlReport, $configuration);
+        }
+        if ($configuration->getReportConfiguration()->getJson()) {
+            $jsonReport = $this->jsonReportFormatter->format($report);
+
+            $this->jsonReportReporter->report($jsonReport, $configuration);
+        }
+        if ($configuration->getReportConfiguration()->getCli()) {
+            $cliReport = $this->cliReportFormatter->format($report);
+
+            $this->cliReportReporter->report($cliReport, $configuration);
+        }
     }
 }
