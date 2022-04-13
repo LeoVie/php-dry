@@ -20,26 +20,24 @@ class MethodContextDeciderTest extends TestCase
     /** @dataProvider requiresClassContextProvider */
     public function testRequiresClassContext(bool $expected, Method $method): void
     {
-        self::markTestSkipped();
+        $tokenSequenceFactory = $this->createMock(TokenSequenceFactory::class);
+        $tokenSequenceFactory->method('createFromMethod')->willReturn(TokenSequence::create([]));
 
-//        $tokenSequenceFactory = $this->createMock(TokenSequenceFactory::class);
-//        $tokenSequenceFactory->method('createFromMethod')->willReturn(TokenSequence::create([]));
-//
-//        $normalizedTokenSequence = $this->createMock(TokenSequence::class);
-//        $normalizedTokenSequence->method('toCode')->willReturn($method->getContent());
-//
-//        $tokenSequenceNormalizer = $this->createMock(TokenSequenceNormalizer::class);
-//        $tokenSequenceNormalizer->method('normalizeLevel4')->willReturnCallback(
-//            fn (TokenSequence $_) => $normalizedTokenSequence
-//        );
-//
-//        $typeResolver = $this->createMock(TypeResolver::class);
-//
-//        self::assertSame(
-//            $expected,
-//            (new MethodContextDecider($tokenSequenceFactory, $tokenSequenceNormalizer, $typeResolver))
-//                ->requiresClassContext($method)
-//        );
+        $normalizedTokenSequence = $this->createMock(TokenSequence::class);
+        $normalizedTokenSequence->method('toCode')->willReturn($method->getContent());
+
+        $tokenSequenceNormalizer = $this->createMock(TokenSequenceNormalizer::class);
+        $tokenSequenceNormalizer->method('normalizeLevel4')->willReturnCallback(
+            fn(TokenSequence $_) => $normalizedTokenSequence
+        );
+
+        $typeResolver = new TypeResolver();
+
+        self::assertSame(
+            $expected,
+            (new MethodContextDecider($tokenSequenceFactory, $tokenSequenceNormalizer, $typeResolver))
+                ->requiresClassContext($method)
+        );
     }
 
     public function requiresClassContextProvider(): \Generator
@@ -47,7 +45,7 @@ class MethodContextDeciderTest extends TestCase
         yield 'body requires class context (contains $this)' => [
             'expected' => true,
             'method' => Method::create(
-                $this->createMock(MethodSignature::class),
+                MethodSignature::create([], 'int'),
                 'foo',
                 'foo.php',
                 $this->createMock(CodePositionRange::class),
@@ -58,7 +56,7 @@ class MethodContextDeciderTest extends TestCase
         yield 'body requires class context (contains self::)' => [
             'expected' => true,
             'method' => Method::create(
-                $this->createMock(MethodSignature::class),
+                MethodSignature::create([], 'int'),
                 'foo',
                 'foo.php',
                 $this->createMock(CodePositionRange::class),
@@ -69,7 +67,7 @@ class MethodContextDeciderTest extends TestCase
         yield 'body requires class context (contains self ::)' => [
             'expected' => true,
             'method' => Method::create(
-                $this->createMock(MethodSignature::class),
+                MethodSignature::create([], 'int'),
                 'foo',
                 'foo.php',
                 $this->createMock(CodePositionRange::class),
@@ -80,7 +78,7 @@ class MethodContextDeciderTest extends TestCase
         yield 'body requires class context (contains parent::)' => [
             'expected' => true,
             'method' => Method::create(
-                $this->createMock(MethodSignature::class),
+                MethodSignature::create([], 'int'),
                 'foo',
                 'foo.php',
                 $this->createMock(CodePositionRange::class),
@@ -91,7 +89,7 @@ class MethodContextDeciderTest extends TestCase
         yield 'body requires class context (contains parent ::)' => [
             'expected' => true,
             'method' => Method::create(
-                $this->createMock(MethodSignature::class),
+                MethodSignature::create([], 'int'),
                 'foo',
                 'foo.php',
                 $this->createMock(CodePositionRange::class),
@@ -103,25 +101,10 @@ class MethodContextDeciderTest extends TestCase
         $returnType = $this->createMock(Identifier::class);
         $returnType->method('isSpecialClassName')->willReturn(true);
         $parsedMethod->method('getReturnType')->willReturn($returnType);
-        yield 'return type requires class context (return type is Identifier)' => [
+        yield 'return type requires class context (return type is class)' => [
             'expected' => true,
             'method' => Method::create(
-                $this->createMock(MethodSignature::class),
-                'foo',
-                'foo.php',
-                $this->createMock(CodePositionRange::class),
-                'function foo(): Foo { return 100; }',
-            ),
-        ];
-
-        $parsedMethod = $this->createMock(ClassMethod::class);
-        $returnType = $this->createMock(Name::class);
-        $returnType->method('isSpecialClassName')->willReturn(true);
-        $parsedMethod->method('getReturnType')->willReturn($returnType);
-        yield 'return type requires class context (return type is Name)' => [
-            'expected' => true,
-            'method' => Method::create(
-                $this->createMock(MethodSignature::class),
+                MethodSignature::create([], 'Foo'),
                 'foo',
                 'foo.php',
                 $this->createMock(CodePositionRange::class),
@@ -136,11 +119,11 @@ class MethodContextDeciderTest extends TestCase
         yield 'does not require class context (no special return type)' => [
             'expected' => false,
             'method' => Method::create(
-                $this->createMock(MethodSignature::class),
+                MethodSignature::create([], 'int'),
                 'foo',
                 'foo.php',
                 $this->createMock(CodePositionRange::class),
-                'function foo(): Foo { return 100; }',
+                'function foo(): int { return 100; }',
             ),
         ];
 
@@ -149,7 +132,7 @@ class MethodContextDeciderTest extends TestCase
         yield 'does not require class context (returns nothing)' => [
             'expected' => false,
             'method' => Method::create(
-                $this->createMock(MethodSignature::class),
+                MethodSignature::create([], 'void'),
                 'foo',
                 'foo.php',
                 $this->createMock(CodePositionRange::class),

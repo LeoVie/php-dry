@@ -10,6 +10,7 @@ use phpDocumentor\Reflection\TypeResolver;
 use phpDocumentor\Reflection\Types\AggregatedType;
 use phpDocumentor\Reflection\Types\Array_;
 use phpDocumentor\Reflection\Types\Boolean;
+use phpDocumentor\Reflection\Types\Callable_;
 use phpDocumentor\Reflection\Types\Float_;
 use phpDocumentor\Reflection\Types\Integer;
 use phpDocumentor\Reflection\Types\Iterable_;
@@ -86,6 +87,7 @@ class MethodContextDecider
             || is_a($type, Mixed_::class)
             || is_a($type, Never_::class)
             || is_a($type, Void_::class)
+            // TODO: should we support callables -> requires changes in phpdocumentor/type-resolver?
 //            || is_a($type, Callable_::class)
         );
     }
