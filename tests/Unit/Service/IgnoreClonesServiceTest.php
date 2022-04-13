@@ -16,11 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 class IgnoreClonesServiceTest extends TestCase
 {
-    /**
-     * @dataProvider extractNonIgnoredClonesProvider
-     *
-     * @group now
-     */
+    /** @dataProvider extractNonIgnoredClonesProvider */
     public function testExtractNonIgnoredClones(array $expected, array $clones, array $tokenSequences, Configuration $configuration): void
     {
         $arrayUtil = $this->createMock(ArrayUtil::class);
