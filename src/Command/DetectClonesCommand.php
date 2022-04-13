@@ -104,9 +104,10 @@ class DetectClonesCommand extends Command
             $commandOutput->newLine(2);
             $jsonReport = $this->jsonReportBuilder->build($clonesToReport);
 
-            if ($configuration->getReportConfiguration()->getJson()) {
+            $jsonConfig = $configuration->getReportConfiguration()->getJson();
+            if ($jsonConfig !== null) {
                 \Safe\file_put_contents(
-                    $configuration->getReportConfiguration()->getJson()->getFilepath(),
+                    $jsonConfig->getFilepath(),
                     $jsonReport
                 );
             }
