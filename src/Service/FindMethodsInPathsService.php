@@ -28,10 +28,10 @@ class FindMethodsInPathsService
      */
     public function findAll(Configuration $configuration): array
     {
-//        $reportPath = $configuration->getPhpDocumentorReportPath();
-        $reportPath = __DIR__ . '/../../tests/testdata/phpDocumentor_structure.xml';
+        $reportPath = $configuration->getPhpDocumentorReportPath();
+        $reportXmlFilepath = rtrim($reportPath, '/') . '/structure.xml';
 
-        $crawler = CrawlerFactory::create(\Safe\file_get_contents($reportPath));
+        $crawler = CrawlerFactory::create(\Safe\file_get_contents($reportXmlFilepath));
 
         return $this->findMethodsInProject($crawler->filter('project')->first(), $configuration->getDirectory());
     }

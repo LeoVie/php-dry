@@ -10,11 +10,11 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class ConfigurationFactory
 {
-    public function createConfigurationFromXmlFile(string $xmlFilepath): Configuration
+    public function createConfigurationFromXmlFile(string $configurationXmlFilepath): Configuration
     {
-        $xmlPath = dirname($xmlFilepath);
+        $configurationXmlDirectory = dirname($configurationXmlFilepath);
 
-        $crawler = CrawlerFactory::create(\Safe\file_get_contents($xmlFilepath));
+        $crawler = CrawlerFactory::create(\Safe\file_get_contents($configurationXmlFilepath));
 
         $this->nodeExists($crawler, 'php-dry > report');
 
@@ -25,18 +25,30 @@ class ConfigurationFactory
             $this->getAsBool($crawler, 'php-dry', 'enableLcsAlgorithm', false),
             $this->getAsInt($crawler, 'php-dry', 'countOfParamSets', 10),
             $this->getAsBool($crawler, 'php-dry', 'enableConstructNormalization', false),
-            $this->getAsString($crawler, 'php-dry', 'phpDocumentorReportPath', ''),
-            $this->getAsString($crawler, 'php-dry', 'phpDocumentorExecutablePath', 'vendor/bin/phpdoc'),
+            $this->relativePathToAbsolutePath(
+                $this->getAsString($crawler, 'php-dry', 'phpDocumentorReportPath', ''),
+                $configurationXmlDirectory
+            ),
+            $this->relativePathToAbsolutePath(
+                $this->getAsString($crawler, 'php-dry', 'phpDocumentorExecutablePath', 'tools/phpDocumentor.phar'),
+                $configurationXmlDirectory
+            ),
             ReportConfiguration::create(
                 $this->nodeExists($crawler, 'php-dry > report > cli') ? Cli::create() : null,
                 $this->nodeExists($crawler, 'php-dry > report > html')
                     ? Html::create(
-                    $xmlPath . '/' . $this->getAsString($crawler, 'php-dry > report > html', 'filepath', '')
+                        $this->relativePathToAbsolutePath(
+                            $this->getAsString($crawler, 'php-dry > report > html', 'filepath', ''),
+                            $configurationXmlDirectory
+                        )
                 )
                     : null,
                 $this->nodeExists($crawler, 'php-dry > report > json')
                     ? Json::create(
-                    $xmlPath . '/' . $this->getAsString($crawler, 'php-dry > report > json', 'filepath', '')
+                    $this->relativePathToAbsolutePath(
+                        $this->getAsString($crawler, 'php-dry > report > json', 'filepath', ''),
+                        $configurationXmlDirectory
+                    )
                 )
                     : null,
             )
@@ -76,5 +88,15 @@ class ConfigurationFactory
         $value = $rawValue === 'true';
 
         return $value;
+    }
+
+    private function relativePathToAbsolutePath(string $path, string $configurationXmlDirectory): string
+    {
+        $isAbsolutePath = str_starts_with($path, '/');
+        if ($isAbsolutePath) {
+            return $path;
+        }
+
+        return $configurationXmlDirectory . '/' . $path;
     }
 }
