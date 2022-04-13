@@ -7,6 +7,8 @@ COPY src /var/www/src
 COPY .env /var/www/.env
 COPY composer.json /var/www/composer.json
 COPY vendor /var/www/vendor
+COPY VERSION /var/www/VERSION
+COPY tools /var/www/tools
 
 ENTRYPOINT [ \
     "php", "-d", "memory_limit=-1", \

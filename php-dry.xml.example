@@ -7,8 +7,8 @@
          enableLcsAlgorithm="false"
          countOfParamSets="10"
          enableConstructNormalization="false"
-         phpDocumentorReportPath="var/phpDocumentor"
-         phpDocumentorExecutablePath="/home/ubuntu/projects/phpDocumentor/bin/phpdoc">
+         phpDocumentorReportPath="/tmp/phpDocumentor"
+         phpDocumentorExecutablePath="/var/www/tools/phpDocumentor.phar">
 
     <report>
         <cli/>

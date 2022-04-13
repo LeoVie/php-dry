@@ -34,12 +34,12 @@ class FindMethodsInPathsServiceTest extends TestCase
                     'array<int,int>'
                 ),
                 'foo',
-                '01_A.php',
+                '/01_A.php',
                 CodePositionRange::create(
                     CodePosition::create(10, 143),
                     CodePosition::create(18, 324),
                 ),
-                '01_A.php'
+                '/01_A.php'
             ),
             Method::create(
                 MethodSignature::create(
@@ -47,12 +47,12 @@ class FindMethodsInPathsServiceTest extends TestCase
                     'array<int,array<int,int>|int>'
                 ),
                 'bar',
-                '02_B.php',
+                '/02_B.php',
                 CodePositionRange::create(
                     CodePosition::create(10, 159),
                     CodePosition::create(13, 239),
                 ),
-                '02_B.php'
+                '/02_B.php'
             ),
         ];
 

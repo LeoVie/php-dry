@@ -33,7 +33,9 @@ class FindMethodsInPathsService
 
         $crawler = CrawlerFactory::create(\Safe\file_get_contents($reportXmlFilepath));
 
-        return $this->findMethodsInProject($crawler->filter('project')->first(), $configuration->getDirectory());
+        $directory = rtrim($configuration->getDirectory(), '/') . '/';
+
+        return $this->findMethodsInProject($crawler->filter('project')->first(), $directory);
     }
 
     /** @return array<Method> */
