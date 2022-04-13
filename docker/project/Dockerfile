@@ -9,6 +9,7 @@ COPY composer.json /var/www/composer.json
 COPY vendor /var/www/vendor
 COPY VERSION /var/www/VERSION
 COPY tools /var/www/tools
+COPY templates /var/www/templates
 
 ENTRYPOINT [ \
     "php", "-d", "memory_limit=-1", \
