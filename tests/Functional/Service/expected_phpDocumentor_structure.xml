@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
-<project name="phpDocumentor">
+<project name="Documentation">
     <file path="01_A.php" hash="4273da57afe10c209b0a79960a2a8617">
         <docblock line="0">
             <description></description>
             <long-description></long-description>
             <tag
                     name="package"
-                    description="phpDocumentor"
+                    description="Application"
             />
         </docblock>
 
@@ -23,7 +23,7 @@
                 />
                 <tag
                         name="package"
-                        description="phpDocumentor"
+                        description="Application"
                 />
             </docblock>
 
@@ -80,7 +80,7 @@
             <long-description></long-description>
             <tag
                     name="package"
-                    description="phpDocumentor"
+                    description="Application"
             />
         </docblock>
 
@@ -97,7 +97,7 @@
                 />
                 <tag
                         name="package"
-                        description="phpDocumentor"
+                        description="Application"
                 />
             </docblock>
 
@@ -154,7 +154,7 @@
             <long-description></long-description>
             <tag
                     name="package"
-                    description="phpDocumentor"
+                    description="Application"
             />
         </docblock>
 
@@ -171,7 +171,7 @@
                 />
                 <tag
                         name="package"
-                        description="phpDocumentor"
+                        description="Application"
                 />
             </docblock>
 
@@ -228,7 +228,7 @@
             <long-description></long-description>
             <tag
                     name="package"
-                    description="phpDocumentor"
+                    description="Application"
             />
         </docblock>
 
@@ -245,7 +245,7 @@
                 />
                 <tag
                         name="package"
-                        description="phpDocumentor"
+                        description="Application"
                 />
             </docblock>
 
@@ -302,7 +302,7 @@
             <long-description></long-description>
             <tag
                     name="package"
-                    description="phpDocumentor"
+                    description="Application"
             />
         </docblock>
 
@@ -319,7 +319,7 @@
                 />
                 <tag
                         name="package"
-                        description="phpDocumentor"
+                        description="Application"
                 />
             </docblock>
 
@@ -376,7 +376,7 @@
             <long-description></long-description>
             <tag
                     name="package"
-                    description="phpDocumentor"
+                    description="Application"
             />
         </docblock>
 
@@ -393,7 +393,7 @@
                 />
                 <tag
                         name="package"
-                        description="phpDocumentor"
+                        description="Application"
                 />
             </docblock>
 
@@ -450,7 +450,7 @@
             <long-description></long-description>
             <tag
                     name="package"
-                    description="phpDocumentor"
+                    description="Application"
             />
         </docblock>
 
@@ -467,7 +467,7 @@
                 />
                 <tag
                         name="package"
-                        description="phpDocumentor"
+                        description="Application"
                 />
             </docblock>
 
@@ -524,7 +524,7 @@
             <long-description></long-description>
             <tag
                     name="package"
-                    description="phpDocumentor"
+                    description="Application"
             />
         </docblock>
 
@@ -541,7 +541,7 @@
                 />
                 <tag
                         name="package"
-                        description="phpDocumentor"
+                        description="Application"
                 />
             </docblock>
 
@@ -598,7 +598,7 @@
             <long-description></long-description>
             <tag
                     name="package"
-                    description="phpDocumentor"
+                    description="Application"
             />
         </docblock>
 
@@ -615,7 +615,7 @@
                 />
                 <tag
                         name="package"
-                        description="phpDocumentor"
+                        description="Application"
                 />
             </docblock>
 
@@ -672,7 +672,7 @@
             <long-description></long-description>
             <tag
                     name="package"
-                    description="phpDocumentor"
+                    description="Application"
             />
         </docblock>
 
@@ -689,7 +689,7 @@
                 />
                 <tag
                         name="package"
-                        description="phpDocumentor"
+                        description="Application"
                 />
             </docblock>
 
@@ -746,7 +746,7 @@
             <long-description></long-description>
             <tag
                     name="package"
-                    description="phpDocumentor"
+                    description="Application"
             />
         </docblock>
 
@@ -763,7 +763,7 @@
                 />
                 <tag
                         name="package"
-                        description="phpDocumentor"
+                        description="Application"
                 />
             </docblock>
 
@@ -820,7 +820,7 @@
             <long-description></long-description>
             <tag
                     name="package"
-                    description="phpDocumentor"
+                    description="Application"
             />
         </docblock>
 
@@ -837,7 +837,7 @@
                 />
                 <tag
                         name="package"
-                        description="phpDocumentor"
+                        description="Application"
                 />
             </docblock>
 
@@ -894,7 +894,7 @@
             <long-description></long-description>
             <tag
                     name="package"
-                    description="phpDocumentor"
+                    description="Application"
             />
         </docblock>
 
@@ -911,7 +911,7 @@
                 />
                 <tag
                         name="package"
-                        description="phpDocumentor"
+                        description="Application"
                 />
             </docblock>
 

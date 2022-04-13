@@ -8,7 +8,7 @@
          countOfParamSets="10"
          enableConstructNormalization="false"
          phpDocumentorReportPath="./phpDocumentorReport"
-         phpDocumentorExecutablePath="/home/ubuntu/projects/phpDocumentor/bin/phpdoc">
+         phpDocumentorExecutablePath="tools/phpDocumentor.phar">
 
     <report>
         <cli/>

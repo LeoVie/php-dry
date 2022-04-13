@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project name="Documentation">
-                <file path="01_A.php" hash="b4c12f2e7c54ee8b2c35dd0b8df92c21">
+                <file path="01_A.php" hash="4273da57afe10c209b0a79960a2a8617">
             <docblock line="0">
     <description></description>
     <long-description></long-description>
@@ -41,31 +41,40 @@
         abstract="false"
         static="false"
         namespace=""
-        startLine="5"
-        startColumn="46"
-        endLine="13"
-        endColumn="219"
+        startLine="10"
+        startColumn="143"
+        endLine="18"
+        endColumn="324"
         visibility="public"
-        returnByReference="false">
+        returnByReference="false"
+        response="array&lt;int,int&gt;">
     <name>foo</name>
     <full_name>\A::foo()</full_name>
     <value></value>
-                <argument line="5" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
-    <type>array</type>
+    <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="5" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="5">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
-                </docblock>
+                    <tag
+                name="param"
+                description=""
+                                                                 variable="p1"                                 type="array&lt;int,int&gt;"/>
+                            <tag
+                name="return"
+                description=""
+                                                                                                 type="array&lt;int,int&gt;"/>
+            </docblock>
 
 </method>
 
@@ -75,7 +84,7 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="02_B.php" hash="e19ec1a64df5406f50ed33c511108941">
+            <file path="02_B.php" hash="349dde51b977be66ccf7fcdb72117006">
             <docblock line="0">
     <description></description>
     <long-description></long-description>
@@ -116,31 +125,40 @@
         abstract="false"
         static="false"
         namespace=""
-        startLine="5"
-        startColumn="46"
-        endLine="8"
-        endColumn="126"
+        startLine="10"
+        startColumn="159"
+        endLine="13"
+        endColumn="239"
         visibility="public"
-        returnByReference="false">
+        returnByReference="false"
+        response="array&lt;int,array&lt;int,int&gt;|int&gt;">
     <name>foo</name>
     <full_name>\B::foo()</full_name>
     <value></value>
-                <argument line="5" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
-    <type>array</type>
+    <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="5" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="5">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
-                </docblock>
+                    <tag
+                name="param"
+                description=""
+                                                                 variable="p1"                                 type="array&lt;int,int&gt;"/>
+                            <tag
+                name="return"
+                description=""
+                                                                                                 type="array&lt;int,array&lt;int,int&gt;|int&gt;"/>
+            </docblock>
 
 </method>
 
@@ -150,7 +168,7 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="03_A_Exact_Copy.php" hash="1c63aeb4ff942e2d46e50a93df5aee34">
+            <file path="03_A_Exact_Copy.php" hash="39bc5c6531e7721a2d97a51fa717113c">
             <docblock line="0">
     <description></description>
     <long-description></long-description>
@@ -191,31 +209,40 @@
         abstract="false"
         static="false"
         namespace=""
-        startLine="5"
-        startColumn="57"
-        endLine="13"
-        endColumn="230"
+        startLine="10"
+        startColumn="154"
+        endLine="18"
+        endColumn="335"
         visibility="public"
-        returnByReference="false">
+        returnByReference="false"
+        response="array&lt;int,int&gt;">
     <name>foo</name>
     <full_name>\A_Exact_Copy::foo()</full_name>
     <value></value>
-                <argument line="5" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
-    <type>array</type>
+    <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="5" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="5">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
-                </docblock>
+                    <tag
+                name="param"
+                description=""
+                                                                 variable="p1"                                 type="array&lt;int,int&gt;"/>
+                            <tag
+                name="return"
+                description=""
+                                                                                                 type="array&lt;int,int&gt;"/>
+            </docblock>
 
 </method>
 
@@ -225,7 +252,7 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="04_A_Additional_Whitespaces.php" hash="e8e0a0fe3cd80b608642c80fce51ef01">
+            <file path="04_A_Additional_Whitespaces.php" hash="44fff7ab0ebc0b0085dffefbfa1046bd">
             <docblock line="0">
     <description></description>
     <long-description></long-description>
@@ -266,31 +293,40 @@
         abstract="false"
         static="false"
         namespace=""
-        startLine="5"
-        startColumn="69"
-        endLine="14"
-        endColumn="263"
+        startLine="10"
+        startColumn="166"
+        endLine="19"
+        endColumn="369"
         visibility="public"
-        returnByReference="false">
+        returnByReference="false"
+        response="array&lt;int,int&gt;">
     <name>foo</name>
     <full_name>\A_Additional_Whitespaces::foo()</full_name>
     <value></value>
-                <argument line="5" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
-    <type>array</type>
+    <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="5" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="5">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
-                </docblock>
+                    <tag
+                name="param"
+                description=""
+                                                                 variable="p1"                                 type="array&lt;int,int&gt;"/>
+                            <tag
+                name="return"
+                description=""
+                                                                                                 type="array&lt;int,int&gt;"/>
+            </docblock>
 
 </method>
 
@@ -300,7 +336,7 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="05_A_Additional_Comments.php" hash="cebf9b524d1952c7f5c2bb5cd7553701">
+            <file path="05_A_Additional_Comments.php" hash="6db8907d94f2a6fb3bd2265495a6df42">
             <docblock line="0">
     <description></description>
     <long-description></long-description>
@@ -341,31 +377,40 @@
         abstract="false"
         static="false"
         namespace=""
-        startLine="5"
-        startColumn="66"
-        endLine="20"
-        endColumn="421"
+        startLine="10"
+        startColumn="163"
+        endLine="25"
+        endColumn="533"
         visibility="public"
-        returnByReference="false">
+        returnByReference="false"
+        response="array&lt;int,int&gt;">
     <name>foo</name>
     <full_name>\A_Additional_Comments::foo()</full_name>
     <value></value>
-                <argument line="5" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
-    <type>array</type>
+    <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="5" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="5">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
-                </docblock>
+                    <tag
+                name="param"
+                description=""
+                                                                 variable="p1"                                 type="array&lt;int,int&gt;"/>
+                            <tag
+                name="return"
+                description=""
+                                                                                                 type="array&lt;int,int&gt;"/>
+            </docblock>
 
 </method>
 
@@ -375,7 +420,7 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="06_A_Changed_Layout.php" hash="88dd4b8d861518811b9d3687479d497b">
+            <file path="06_A_Changed_Layout.php" hash="2cd6e672c57eea8015bce8b8cac58047">
             <docblock line="0">
     <description></description>
     <long-description></long-description>
@@ -416,31 +461,40 @@
         abstract="false"
         static="false"
         namespace=""
-        startLine="5"
-        startColumn="61"
-        endLine="9"
-        endColumn="202"
+        startLine="10"
+        startColumn="158"
+        endLine="14"
+        endColumn="303"
         visibility="public"
-        returnByReference="false">
+        returnByReference="false"
+        response="array&lt;int,int&gt;">
     <name>foo</name>
     <full_name>\A_Changed_Layout::foo()</full_name>
     <value></value>
-                <argument line="5" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
-    <type>array</type>
+    <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="5" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="5">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
-                </docblock>
+                    <tag
+                name="param"
+                description=""
+                                                                 variable="p1"                                 type="array&lt;int,int&gt;"/>
+                            <tag
+                name="return"
+                description=""
+                                                                                                 type="array&lt;int,int&gt;"/>
+            </docblock>
 
 </method>
 
@@ -450,7 +504,7 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="07_A_Changed_Variable_Names.php" hash="44d243ee37818f886d7f725da7d60ff2">
+            <file path="07_A_Changed_Variable_Names.php" hash="c878d95d7b38d3e7143422c31f9d3dad">
             <docblock line="0">
     <description></description>
     <long-description></long-description>
@@ -491,31 +545,40 @@
         abstract="false"
         static="false"
         namespace=""
-        startLine="5"
-        startColumn="69"
-        endLine="13"
-        endColumn="256"
+        startLine="10"
+        startColumn="169"
+        endLine="18"
+        endColumn="364"
         visibility="public"
-        returnByReference="false">
+        returnByReference="false"
+        response="array&lt;int,int&gt;">
     <name>foo</name>
     <full_name>\A_Changed_Variable_Names::foo()</full_name>
     <value></value>
-                <argument line="5" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>first</name>
     <default></default>
-    <type>array</type>
+    <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="5" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>second</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="5">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
-                </docblock>
+                    <tag
+                name="param"
+                description=""
+                                                                 variable="first"                                 type="array&lt;int,int&gt;"/>
+                            <tag
+                name="return"
+                description=""
+                                                                                                 type="array&lt;int,int&gt;"/>
+            </docblock>
 
 </method>
 
@@ -525,7 +588,7 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="08_A_Changed_Method_Names.php" hash="39aedbf21652fbe9c618c14a5435e8b6">
+            <file path="08_A_Changed_Method_Names.php" hash="2f981e43244d370674f9c5bdd407caec">
             <docblock line="0">
     <description></description>
     <long-description></long-description>
@@ -566,31 +629,40 @@
         abstract="false"
         static="false"
         namespace=""
-        startLine="5"
-        startColumn="67"
-        endLine="13"
-        endColumn="240"
+        startLine="10"
+        startColumn="164"
+        endLine="18"
+        endColumn="345"
         visibility="public"
-        returnByReference="false">
+        returnByReference="false"
+        response="array&lt;int,int&gt;">
     <name>bar</name>
     <full_name>\A_Changed_Method_Names::bar()</full_name>
     <value></value>
-                <argument line="5" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
-    <type>array</type>
+    <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="5" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="5">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
-                </docblock>
+                    <tag
+                name="param"
+                description=""
+                                                                 variable="p1"                                 type="array&lt;int,int&gt;"/>
+                            <tag
+                name="return"
+                description=""
+                                                                                                 type="array&lt;int,int&gt;"/>
+            </docblock>
 
 </method>
 
@@ -600,7 +672,7 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="09_A_Changed_Literals.php" hash="94ef6692d6b80e6cfd9772d519ab2e55">
+            <file path="09_A_Changed_Literals.php" hash="09fe167c1ef581ed8d2a73c0cfc1e8ac">
             <docblock line="0">
     <description></description>
     <long-description></long-description>
@@ -641,31 +713,40 @@
         abstract="false"
         static="false"
         namespace=""
-        startLine="5"
-        startColumn="63"
-        endLine="13"
-        endColumn="236"
+        startLine="10"
+        startColumn="160"
+        endLine="18"
+        endColumn="341"
         visibility="public"
-        returnByReference="false">
+        returnByReference="false"
+        response="array&lt;int,int&gt;">
     <name>foo</name>
     <full_name>\A_Changed_Literals::foo()</full_name>
     <value></value>
-                <argument line="5" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
-    <type>array</type>
+    <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="5" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="5">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
-                </docblock>
+                    <tag
+                name="param"
+                description=""
+                                                                 variable="p1"                                 type="array&lt;int,int&gt;"/>
+                            <tag
+                name="return"
+                description=""
+                                                                                                 type="array&lt;int,int&gt;"/>
+            </docblock>
 
 </method>
 
@@ -675,7 +756,7 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="10_A_Additional_Statements.php" hash="e344a66493066a64049c0abf88682922">
+            <file path="10_A_Additional_Statements.php" hash="4eab795750156150480f4f5f96ced036">
             <docblock line="0">
     <description></description>
     <long-description></long-description>
@@ -716,31 +797,40 @@
         abstract="false"
         static="false"
         namespace=""
-        startLine="5"
-        startColumn="68"
-        endLine="14"
-        endColumn="277"
+        startLine="10"
+        startColumn="165"
+        endLine="19"
+        endColumn="383"
         visibility="public"
-        returnByReference="false">
+        returnByReference="false"
+        response="array&lt;int,int&gt;">
     <name>foo</name>
     <full_name>\A_Additional_Statements::foo()</full_name>
     <value></value>
-                <argument line="5" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
-    <type>array</type>
+    <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="5" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="5">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
-                </docblock>
+                    <tag
+                name="param"
+                description=""
+                                                                 variable="p1"                                 type="array&lt;int,int&gt;"/>
+                            <tag
+                name="return"
+                description=""
+                                                                                                 type="array&lt;int,int&gt;"/>
+            </docblock>
 
 </method>
 
@@ -750,7 +840,7 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="11_A_Removed_Statements.php" hash="e448fc48e80ed2add75ab3b25fa492f6">
+            <file path="11_A_Removed_Statements.php" hash="7e9c88b9d7546697a198d5f79a167970">
             <docblock line="0">
     <description></description>
     <long-description></long-description>
@@ -791,31 +881,40 @@
         abstract="false"
         static="false"
         namespace=""
-        startLine="5"
-        startColumn="65"
-        endLine="12"
-        endColumn="220"
+        startLine="10"
+        startColumn="162"
+        endLine="17"
+        endColumn="324"
         visibility="public"
-        returnByReference="false">
+        returnByReference="false"
+        response="array&lt;int,int&gt;">
     <name>foo</name>
     <full_name>\A_Removed_Statements::foo()</full_name>
     <value></value>
-                <argument line="5" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
-    <type>array</type>
+    <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="5" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="5">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
-                </docblock>
+                    <tag
+                name="param"
+                description=""
+                                                                 variable="p1"                                 type="array&lt;int,int&gt;"/>
+                            <tag
+                name="return"
+                description=""
+                                                                                                 type="array&lt;int,int&gt;"/>
+            </docblock>
 
 </method>
 
@@ -825,7 +924,7 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="12_A_Changed_Statement_Order.php" hash="f0e1f276d5a94003e5f90df7a8ac3d19">
+            <file path="12_A_Changed_Statement_Order.php" hash="6ae9d103a48eb669bcf36a078e1bb3a1">
             <docblock line="0">
     <description></description>
     <long-description></long-description>
@@ -866,31 +965,40 @@
         abstract="false"
         static="false"
         namespace=""
-        startLine="5"
-        startColumn="70"
-        endLine="13"
-        endColumn="243"
+        startLine="10"
+        startColumn="167"
+        endLine="18"
+        endColumn="348"
         visibility="public"
-        returnByReference="false">
+        returnByReference="false"
+        response="array&lt;int,int&gt;">
     <name>foo</name>
     <full_name>\A_Changed_Statement_Order::foo()</full_name>
     <value></value>
-                <argument line="5" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
-    <type>array</type>
+    <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="5" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="5">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
-                </docblock>
+                    <tag
+                name="param"
+                description=""
+                                                                 variable="p1"                                 type="array&lt;int,int&gt;"/>
+                            <tag
+                name="return"
+                description=""
+                                                                                                 type="array&lt;int,int&gt;"/>
+            </docblock>
 
 </method>
 
@@ -900,7 +1008,7 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="13_A_Changed_Syntax.php" hash="0f021ef823a0c7fb1baff08689918210">
+            <file path="13_A_Changed_Syntax.php" hash="e12245e9dec038556d0c3b7489098144">
             <docblock line="0">
     <description></description>
     <long-description></long-description>
@@ -941,31 +1049,40 @@
         abstract="false"
         static="false"
         namespace=""
-        startLine="5"
-        startColumn="61"
-        endLine="11"
-        endColumn="200"
+        startLine="10"
+        startColumn="158"
+        endLine="16"
+        endColumn="299"
         visibility="public"
-        returnByReference="false">
+        returnByReference="false"
+        response="array&lt;int,int&gt;">
     <name>foo</name>
     <full_name>\A_Changed_Syntax::foo()</full_name>
     <value></value>
-                <argument line="5" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
-    <type>array</type>
+    <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="5" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="5">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
-                </docblock>
+                    <tag
+                name="param"
+                description=""
+                                                                 variable="p1"                                 type="array&lt;int,int&gt;"/>
+                            <tag
+                name="return"
+                description=""
+                                                                                                 type="array&lt;int,int&gt;"/>
+            </docblock>
 
 </method>
 
