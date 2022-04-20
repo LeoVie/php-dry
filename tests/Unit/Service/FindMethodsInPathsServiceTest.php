@@ -21,11 +21,12 @@ class FindMethodsInPathsServiceTest extends TestCase
         $configuration
             ->method('getPhpDocumentorReportPath')
             ->willReturn(__DIR__ . '/../../testdata/phpDocumentor/small_report');
+        Configuration::setInstance($configuration);
 
         $filesystem = $this->createMock(Filesystem::class);
         $filesystem->method('readFilePart')->willReturnArgument(0);
 
-        $methods = (new FindMethodsInPathsService($filesystem))->findAll($configuration);
+        $methods = (new FindMethodsInPathsService($filesystem))->findAll();
 
         $expected = [
             Method::create(

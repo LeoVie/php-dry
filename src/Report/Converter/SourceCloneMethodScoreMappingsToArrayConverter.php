@@ -19,18 +19,18 @@ class SourceCloneMethodScoreMappingsToArrayConverter
      *
      * @return array<int, array{sourceClone: array{methods: array<array{method: array{name: string, methodSignature: non-empty-string, filepath: string, codePositionRange: array{start: array{line: int, filePos: int}, end: array{line: int, filePos: int}, countOfLines: int}, content: string}, scores: array<array{scoreType: string, points: int}>}>}}>
      */
-    public function sourceCloneMethodScoresMappingToArray(array $sortedSourceCloneMethodScoreMappings, Configuration $configuration): array
+    public function sourceCloneMethodScoresMappingToArray(array $sortedSourceCloneMethodScoreMappings): array
     {
-        return array_map(function (SourceCloneMethodScoresMapping $sourceCloneMethodScoresMapping) use ($configuration): array {
+        return array_map(function (SourceCloneMethodScoresMapping $sourceCloneMethodScoresMapping): array {
             return [
                 'sourceClone' => [
-                    'methods' => array_map(function (MethodScoresMapping $methodScoresMapping) use ($configuration): array {
+                    'methods' => array_map(function (MethodScoresMapping $methodScoresMapping): array {
                         $method = $methodScoresMapping->getMethod();
                         return [
                             'method' => [
                                 'name' => $method->getName(),
                                 'methodSignature' => 'function ' . $method->getName() . $this->methodSignatureOutput->format($method->getMethodSignature()),
-                                'filepath' => $this->convertAbsoluteFilepathToProjectRelative($method->getFilepath(), $configuration->getDirectory()),
+                                'filepath' => $this->convertAbsoluteFilepathToProjectRelative($method->getFilepath(), Configuration::instance()->getDirectory()),
                                 'codePositionRange' => [
                                     'start' => [
                                         'line' => $method->getCodePositionRange()->getStart()->getLine(),

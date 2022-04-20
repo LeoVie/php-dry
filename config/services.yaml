@@ -30,6 +30,9 @@ services:
     arguments:
       - !tagged command
 
+  App\Cache\Cache:
+    shared: false
+
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones
 

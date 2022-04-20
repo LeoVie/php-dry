@@ -6,6 +6,8 @@ namespace App\Configuration;
 
 class Configuration
 {
+    private static Configuration $instance;
+
     private string $directory;
 
     private function __construct(
@@ -17,6 +19,7 @@ class Configuration
         private bool                $enableConstructNormalization,
         private string              $phpDocumentorReportPath,
         private string              $phpDocumentorExecutablePath,
+        private string              $cachePath,
         private ReportConfiguration $reportConfiguration
     )
     {
@@ -31,10 +34,11 @@ class Configuration
         bool                $enableConstructNormalization,
         string              $phpDocumentorReportPath,
         string              $phpDocumentorExecutablePath,
+        string              $cachePath,
         ReportConfiguration $reportConfiguration
     ): self
     {
-        return new self(
+        self::setInstance(new self(
             $silent,
             $minTokenLength,
             $minSimilarTokensPercentage,
@@ -43,8 +47,21 @@ class Configuration
             $enableConstructNormalization,
             $phpDocumentorReportPath,
             $phpDocumentorExecutablePath,
+            $cachePath,
             $reportConfiguration
-        );
+        ));
+
+        return self::$instance;
+    }
+
+    public static function instance(): self
+    {
+        return self::$instance;
+    }
+
+    public static function setInstance(self $instance): void
+    {
+        self::$instance = $instance;
     }
 
     public function setDirectory(string $directory): void
@@ -95,6 +112,11 @@ class Configuration
     public function getPhpDocumentorExecutablePath(): string
     {
         return $this->phpDocumentorExecutablePath;
+    }
+
+    public function getCachePath(): string
+    {
+        return $this->cachePath;
     }
 
     public function getReportConfiguration(): ReportConfiguration

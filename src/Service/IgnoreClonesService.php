@@ -20,12 +20,12 @@ class IgnoreClonesService
 
     /**
      * @param SourceClone[][] $cloneGroups
-     * @param Configuration $configuration
      *
      * @return SourceClone[]
      */
-    public function extractNonIgnoredClones(array $cloneGroups, Configuration $configuration): array
+    public function extractNonIgnoredClones(array $cloneGroups): array
     {
+        $configuration = Configuration::instance();
         /** @var SourceClone[] $nonIgnoredClones */
         $nonIgnoredClones = array_values(
             array_filter(

@@ -26,8 +26,9 @@ class FindMethodsInPathsService
      *
      * @throws FilesystemException
      */
-    public function findAll(Configuration $configuration): array
+    public function findAll(): array
     {
+        $configuration = Configuration::instance();
         $reportPath = $configuration->getPhpDocumentorReportPath();
         $reportXmlFilepath = rtrim($reportPath, '/') . '/structure.xml';
 

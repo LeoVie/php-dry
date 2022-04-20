@@ -93,6 +93,10 @@ build_infection_image:
 infection:
 	docker run -v ${PWD}:/app --rm php-dry/infection:latest
 
+.PHONY: build_dev_image
+build_dev_image:
+	docker build -f docker/project/Dockerfile -t php-dry-dev:latest . --no-cache
+
 .PHONY: build_image
 build_image:
 ifndef tag

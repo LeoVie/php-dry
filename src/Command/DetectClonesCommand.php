@@ -93,10 +93,10 @@ class DetectClonesCommand extends Command
             ->setOutputHelper(VerboseOutputHelper::create($input, $output))
             ->setStopwatch($stopwatch);
 
-        $configuration = $this->createConfiguration($input);
+        $this->createConfiguration($input);
 
-        $detected = $this->detectClonesService->detectInDirectory($configuration, $commandOutput);
-        $clonesToReport = $this->ignoreClonesService->extractNonIgnoredClones($detected, $configuration);
+        $detected = $this->detectClonesService->detectInDirectory($commandOutput);
+        $clonesToReport = $this->ignoreClonesService->extractNonIgnoredClones($detected);
 
         $sourceCloneMethodScoresMappings = [];
         if (empty($clonesToReport)) {
@@ -143,22 +143,20 @@ class DetectClonesCommand extends Command
             }
         }
 
-        $this->report($sourceCloneMethodScoresMappings, $configuration);
+        $this->report($sourceCloneMethodScoresMappings);
 
         $commandOutput->stopTime();
 
         return Command::FAILURE;
     }
 
-    private function createConfiguration(InputInterface $input): Configuration
+    private function createConfiguration(InputInterface $input): void
     {
         $configuration = $this->configurationFactory->createConfigurationFromXmlFile(
             $this->getStringOption($input, self::OPTION_CONFIG)
         );
 
         $configuration->setDirectory($this->getStringArgument($input, self::ARGUMENT_DIRECTORY));
-
-        return $configuration;
     }
 
     private function getStringArgument(InputInterface $input, string $name): string
@@ -178,24 +176,25 @@ class DetectClonesCommand extends Command
     }
 
     /** @param array<SourceCloneMethodScoresMapping> $sourceCloneMethodScoresMappings */
-    private function report(array $sourceCloneMethodScoresMappings, Configuration $configuration): void
+    private function report(array $sourceCloneMethodScoresMappings): void
     {
-        $report = $this->reportBuilder->createReport($sourceCloneMethodScoresMappings, $configuration);
+        $report = $this->reportBuilder->createReport($sourceCloneMethodScoresMappings);
 
+        $configuration = Configuration::instance();
         if ($configuration->getReportConfiguration()->getHtml()) {
             $htmlReport = $this->htmlReportFormatter->format($report);
 
-            $this->htmlReportReporter->report($htmlReport, $configuration);
+            $this->htmlReportReporter->report($htmlReport);
         }
         if ($configuration->getReportConfiguration()->getJson()) {
             $jsonReport = $this->jsonReportFormatter->format($report);
 
-            $this->jsonReportReporter->report($jsonReport, $configuration);
+            $this->jsonReportReporter->report($jsonReport);
         }
         if ($configuration->getReportConfiguration()->getCli()) {
             $cliReport = $this->cliReportFormatter->format($report);
 
-            $this->cliReportReporter->report($cliReport, $configuration);
+            $this->cliReportReporter->report($cliReport);
         }
     }
 }

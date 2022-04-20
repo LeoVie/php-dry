@@ -8,7 +8,8 @@
          countOfParamSets="10"
          enableConstructNormalization="false"
          phpDocumentorReportPath="/tmp/phpDocumentor"
-         phpDocumentorExecutablePath="/var/www/tools/phpDocumentor.phar">
+         phpDocumentorExecutablePath="/var/www/tools/phpDocumentor.phar"
+         cachePath=".">
 
     <report>
         <cli/>

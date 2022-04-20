@@ -11,10 +11,10 @@ class HtmlReportReporter implements ReportReporter
     /**
      * @throws FilesystemException
      */
-    public function report(string $report, Configuration $configuration): void
+    public function report(string $report): void
     {
         /** @var Html $htmlConfiguration */
-        $htmlConfiguration = $configuration->getReportConfiguration()->getHtml();
+        $htmlConfiguration = Configuration::instance()->getReportConfiguration()->getHtml();
 
         $htmlDirectory = rtrim($htmlConfiguration->getDirectory()) . '/php-dry_html-report/';
         $htmlFilepath = $htmlDirectory . 'php-dry.html';
