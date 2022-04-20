@@ -58,16 +58,12 @@ class Type1SourceCloneCandidateFactory
         foreach ($methodSignatureGroup->getMethodsCollection()->getAll() as $method) {
             $methodTokenSequence = $this->methodTokenSequenceCache->get($method);
             if ($methodTokenSequence === null) {
-                print("\nMISS\n");
                 $methodTokenSequence = MethodTokenSequence::create(
                     $method,
                     $this->tokenSequenceNormalizer->normalizeLevel1($this->tokenSequenceFactory->createFromMethod($method))
                 );
 
                 $this->methodTokenSequenceCache->store($method, $methodTokenSequence);
-
-            } else {
-                print("\nHIT\n");
             }
 
             $methodTokenSequences[] = $methodTokenSequence;
