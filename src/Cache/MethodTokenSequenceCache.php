@@ -9,6 +9,7 @@ class MethodTokenSequenceCache
 {
     private const CACHE_FILE = '.php-dry-method-token-sequence-cache';
 
+    /** @param Cache<TokenSequence> $cache */
     public function __construct(private Cache $cache)
     {
     }

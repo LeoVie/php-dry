@@ -5,8 +5,10 @@ namespace App\Cache;
 use App\Configuration\Configuration;
 use LeoVie\PhpFilesystem\Service\Filesystem;
 
+/** @template T */
 class Cache
 {
+    /** @var array<string, T> */
     private array $cache = [];
     private bool $wasPopulated = false;
     private string $cacheFilepath;
@@ -25,12 +27,16 @@ class Cache
         if ($this->filesystem->fileExists($this->cacheFilepath)) {
             $serializedCache = $this->filesystem->readFile($this->cacheFilepath);
 
-            $this->cache = unserialize($serializedCache);
+            /** @var array<string, T> $unserializedCache */
+            $unserializedCache = unserialize($serializedCache);
+
+            $this->cache = $unserializedCache;
         }
 
         $this->wasPopulated = true;
     }
 
+    /** @param T $value */
     public function store(string $key, mixed $value): void
     {
         $this->cache[$key] = $value;
@@ -38,9 +44,10 @@ class Cache
         $this->filesystem->writeFile($this->cacheFilepath, serialize($this->cache));
     }
 
+    /** @return T|null */
     public function get(string $key): mixed
     {
-        if ($this->wasPopulated) {
+        if (!$this->wasPopulated) {
             $this->populate();
         }
 
