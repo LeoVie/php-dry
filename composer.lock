@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "311fcd4eeac951a9d9795065582f68dd",
+    "content-hash": "8a78f6d62be88891976450a4218d2d9c",
     "packages": [
         {
             "name": "fakerphp/faker",
@@ -389,16 +389,16 @@
         },
         {
             "name": "leovie/php-param-generator",
-            "version": "v1.0.4",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LeoVie/php-param-generator.git",
-                "reference": "1a8cbada80485f0ddce7324fc380922a7f2f6de4"
+                "reference": "74482b8484a7500cdc7ac6230772026abdf883b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LeoVie/php-param-generator/zipball/1a8cbada80485f0ddce7324fc380922a7f2f6de4",
-                "reference": "1a8cbada80485f0ddce7324fc380922a7f2f6de4",
+                "url": "https://api.github.com/repos/LeoVie/php-param-generator/zipball/74482b8484a7500cdc7ac6230772026abdf883b1",
+                "reference": "74482b8484a7500cdc7ac6230772026abdf883b1",
                 "shasum": ""
             },
             "require": {
@@ -436,9 +436,9 @@
             "description": "Generate parameters in php.",
             "support": {
                 "issues": "https://github.com/LeoVie/php-param-generator/issues",
-                "source": "https://github.com/LeoVie/php-param-generator/tree/v1.0.4"
+                "source": "https://github.com/LeoVie/php-param-generator/tree/v1.1.0"
             },
-            "time": "2022-04-13T15:47:23+00:00"
+            "time": "2022-04-20T14:57:57+00:00"
         },
         {
             "name": "leovie/php-token-normalize",
