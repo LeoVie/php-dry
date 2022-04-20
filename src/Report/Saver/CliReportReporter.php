@@ -3,7 +3,6 @@
 namespace App\Report\Saver;
 
 use App\Command\Output\DetectClonesCommandOutput;
-use App\Configuration\Configuration;
 
 class CliReportReporter implements ReportReporter
 {
@@ -11,7 +10,7 @@ class CliReportReporter implements ReportReporter
     {
     }
 
-    public function report(string $report, Configuration $configuration): void
+    public function report(string $report): void
     {
         $this->detectClonesCommandOutput->single($report);
     }

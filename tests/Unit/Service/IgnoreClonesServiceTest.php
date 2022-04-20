@@ -19,6 +19,8 @@ class IgnoreClonesServiceTest extends TestCase
     /** @dataProvider extractNonIgnoredClonesProvider */
     public function testExtractNonIgnoredClones(array $expected, array $clones, array $tokenSequences, Configuration $configuration): void
     {
+        Configuration::setInstance($configuration);
+
         $arrayUtil = $this->createMock(ArrayUtil::class);
         $arrayUtil->method('flatten')->willReturn($clones);
 
@@ -27,7 +29,7 @@ class IgnoreClonesServiceTest extends TestCase
 
         self::assertSame(
             $expected,
-            (new IgnoreClonesService($arrayUtil, $tokenSequenceFactory))->extractNonIgnoredClones($clones, $configuration)
+            (new IgnoreClonesService($arrayUtil, $tokenSequenceFactory))->extractNonIgnoredClones($clones)
         );
     }
 

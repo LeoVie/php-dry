@@ -31,8 +31,10 @@ class Type3SourceCloneCandidateFactory
      * @throws CollectionCannotBeEmpty
      * @throws SubsequenceUtilNotFound
      */
-    public function createMultiple(iterable $type2SourceCloneCandidates, Configuration $configuration): array
+    public function createMultiple(iterable $type2SourceCloneCandidates): array
     {
+        $configuration = Configuration::instance();
+
         $subsequenceUtil = $this->subsequenceUtilPicker->pick(
             $configuration->isEnableLcsAlgorithm()
                 ? SubsequenceUtilPicker::STRATEGY_LCS

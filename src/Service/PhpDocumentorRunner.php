@@ -9,8 +9,9 @@ class PhpDocumentorRunner
 {
     private const TEMPLATE_PATH = __DIR__ . '/../../config/phpDocumentor/template';
 
-    public function run(Configuration $configuration): void
+    public function run(): void
     {
+        $configuration = Configuration::instance();
         $command = \Safe\sprintf(
             '%s run --directory %s --target %s --template %s 2>&1',
             $configuration->getPhpDocumentorExecutablePath(),

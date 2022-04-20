@@ -6,6 +6,8 @@ namespace App\Configuration;
 
 class Configuration
 {
+    private static Configuration $instance;
+
     private string $directory;
 
     private function __construct(
@@ -34,7 +36,7 @@ class Configuration
         ReportConfiguration $reportConfiguration
     ): self
     {
-        return new self(
+        self::setInstance(new self(
             $silent,
             $minTokenLength,
             $minSimilarTokensPercentage,
@@ -44,7 +46,19 @@ class Configuration
             $phpDocumentorReportPath,
             $phpDocumentorExecutablePath,
             $reportConfiguration
-        );
+        ));
+
+        return self::$instance;
+    }
+
+    public static function instance(): self
+    {
+        return self::$instance;
+    }
+
+    public static function setInstance(self $instance): void
+    {
+        self::$instance = $instance;
     }
 
     public function setDirectory(string $directory): void

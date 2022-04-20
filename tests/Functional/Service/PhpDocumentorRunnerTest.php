@@ -15,7 +15,9 @@ class PhpDocumentorRunnerTest extends TestCase
         $configuration->method('getPhpDocumentorReportPath')->willReturn(__DIR__ . '/phpDocumentorReport');
         $configuration->method('getDirectory')->willReturn(__DIR__ . '/../../testdata/clone-detection-testdata');
 
-        (new PhpDocumentorRunner())->run($configuration);
+        Configuration::setInstance($configuration);
+
+        (new PhpDocumentorRunner())->run();
 
         self::assertXmlFileEqualsXmlFile(__DIR__ . '/expected_phpDocumentor_structure.xml', __DIR__ . '/phpDocumentorReport/structure.xml');
     }

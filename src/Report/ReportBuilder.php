@@ -2,7 +2,6 @@
 
 namespace App\Report;
 
-use App\Configuration\Configuration;
 use App\Model\SourceClone\SourceClone;
 use App\Model\SourceCloneMethodScoresMapping;
 use App\Report\Converter\SourceCloneMethodScoreMappingsToArrayConverter;
@@ -14,7 +13,7 @@ class ReportBuilder
     }
 
     /** @param array<SourceCloneMethodScoresMapping> $sourceCloneMethodScoresMappings */
-    public function createReport(array $sourceCloneMethodScoresMappings, Configuration $configuration): Report
+    public function createReport(array $sourceCloneMethodScoresMappings): Report
     {
         $sortedSourceCloneMethodScoreMappings = [
             SourceClone::TYPE_1 => [],
@@ -37,13 +36,13 @@ class ReportBuilder
 
         return Report::create(
             $this->sourceCloneMethodScoreMappingsToArrayConverter
-                ->sourceCloneMethodScoresMappingToArray($sortedSourceCloneMethodScoreMappings[SourceClone::TYPE_1], $configuration),
+                ->sourceCloneMethodScoresMappingToArray($sortedSourceCloneMethodScoreMappings[SourceClone::TYPE_1]),
             $this->sourceCloneMethodScoreMappingsToArrayConverter
-                ->sourceCloneMethodScoresMappingToArray($sortedSourceCloneMethodScoreMappings[SourceClone::TYPE_2], $configuration),
+                ->sourceCloneMethodScoresMappingToArray($sortedSourceCloneMethodScoreMappings[SourceClone::TYPE_2]),
             $this->sourceCloneMethodScoreMappingsToArrayConverter
-                ->sourceCloneMethodScoresMappingToArray($sortedSourceCloneMethodScoreMappings[SourceClone::TYPE_3], $configuration),
+                ->sourceCloneMethodScoresMappingToArray($sortedSourceCloneMethodScoreMappings[SourceClone::TYPE_3]),
             $this->sourceCloneMethodScoreMappingsToArrayConverter
-                ->sourceCloneMethodScoresMappingToArray($sortedSourceCloneMethodScoreMappings[SourceClone::TYPE_4], $configuration),
+                ->sourceCloneMethodScoresMappingToArray($sortedSourceCloneMethodScoreMappings[SourceClone::TYPE_4]),
         );
     }
 }

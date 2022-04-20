@@ -59,17 +59,17 @@ class DetectClonesService
      * @throws SubsequenceUtilNotFound
      * @throws PhpDocumentorFailed
      */
-    public function detectInDirectory(Configuration $configuration, DetectClonesCommandOutput $output): array
+    public function detectInDirectory(DetectClonesCommandOutput $output): array
     {
-        $this->phpDocumentorRunner->run($configuration);
+        $this->phpDocumentorRunner->run();
 
-        $methods = $this->findMethodsInPathsService->findAll($configuration);
+        $methods = $this->findMethodsInPathsService->findAll();
 
         $output->foundMethods(count($methods));
 
         $methodSignatureGroups = $this->methodsBySignatureGrouper->group($methods);
 
-        return $this->detectClones($methodSignatureGroups, $configuration, $output);
+        return $this->detectClones($methodSignatureGroups, $output);
     }
 
     /**
@@ -83,7 +83,7 @@ class DetectClonesService
      * @throws MethodCannotBeModifiedToNonClassContext
      * @throws SubsequenceUtilNotFound
      */
-    private function detectClones(array $methodSignatureGroups, Configuration $configuration, DetectClonesCommandOutput $output, bool $includeType4Clones = true): array
+    private function detectClones(array $methodSignatureGroups, DetectClonesCommandOutput $output, bool $includeType4Clones = true): array
     {
         $output->detectionRunningForType('1');
         $type1SCCs = $this->type1SourceCloneCandidateFactory->createMultiple(
@@ -105,8 +105,7 @@ class DetectClonesService
         /** @var Type2SourceCloneCandidate[] $filteredType2SCCs */
         $filteredType2SCCs = $this->removeSCCsFullyCoveredByCloneAndMethodSignatureGroup($methodSignatureGroups, $type2SCCs, $type2Clones);
         $type3SCCs = $this->type3SourceCloneCandidateFactory->createMultiple(
-            $output->createProgressBarIterator($filteredType2SCCs),
-            $configuration
+            $output->createProgressBarIterator($filteredType2SCCs)
         );
         $type3Clones = $this->type3CloneDetector->detect($type3SCCs);
 
@@ -121,12 +120,12 @@ class DetectClonesService
         $filteredMethodSignatureGroups = $this->removeMethodSignatureGroupsFullyCoveredByClonesAlready($methodSignatureGroups, $type1Clones, $type2Clones, $type3Clones);
 
         $type4ClonesByConstructNormalization = [];
+        $configuration = Configuration::instance();
         if ($configuration->getEnableConstructNormalization()) {
             $output->newLine()->detectionRunningForType('4 by construct normalization');
 
             $type4ClonesByConstructNormalization = $this->detectType4ClonesByConstructNormalization(
                 $output->createProgressBarIterator($filteredMethodSignatureGroups),
-                $configuration,
                 $output,
             );
         }
@@ -249,7 +248,7 @@ class DetectClonesService
      * @throws MethodCannotBeModifiedToNonClassContext
      * @throws NoParamGeneratorFoundForParamRequest
      */
-    private function detectType4ClonesByConstructNormalization(iterable $filteredMethodSignatureGroups, Configuration $configuration, DetectClonesCommandOutput $output): array
+    private function detectType4ClonesByConstructNormalization(iterable $filteredMethodSignatureGroups, DetectClonesCommandOutput $output): array
     {
         $methodSignatureGroupsWithLanguageConstructNormalizedMethods = [];
         foreach ($filteredMethodSignatureGroups as $methodSignatureGroup) {
@@ -277,7 +276,7 @@ class DetectClonesService
             );
         }
 
-        $clones = $this->detectClones($methodSignatureGroupsWithLanguageConstructNormalizedMethods, $configuration, $output, false);
+        $clones = $this->detectClones($methodSignatureGroupsWithLanguageConstructNormalizedMethods, $output, false);
 
         $allClonesTogether = array_merge(
             $clones[SourceClone::TYPE_1],
