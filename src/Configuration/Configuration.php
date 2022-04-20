@@ -19,6 +19,7 @@ class Configuration
         private bool                $enableConstructNormalization,
         private string              $phpDocumentorReportPath,
         private string              $phpDocumentorExecutablePath,
+        private string              $cachePath,
         private ReportConfiguration $reportConfiguration
     )
     {
@@ -33,6 +34,7 @@ class Configuration
         bool                $enableConstructNormalization,
         string              $phpDocumentorReportPath,
         string              $phpDocumentorExecutablePath,
+        string              $cachePath,
         ReportConfiguration $reportConfiguration
     ): self
     {
@@ -45,6 +47,7 @@ class Configuration
             $enableConstructNormalization,
             $phpDocumentorReportPath,
             $phpDocumentorExecutablePath,
+            $cachePath,
             $reportConfiguration
         ));
 
@@ -109,6 +112,11 @@ class Configuration
     public function getPhpDocumentorExecutablePath(): string
     {
         return $this->phpDocumentorExecutablePath;
+    }
+
+    public function getCachePath(): string
+    {
+        return $this->cachePath;
     }
 
     public function getReportConfiguration(): ReportConfiguration

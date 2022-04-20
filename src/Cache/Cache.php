@@ -2,6 +2,7 @@
 
 namespace App\Cache;
 
+use App\Configuration\Configuration;
 use LeoVie\PhpFilesystem\Service\Filesystem;
 
 class Cache
@@ -14,9 +15,9 @@ class Cache
     {
     }
 
-    public function setCacheFilepath(string $cacheFilepath): void
+    public function setCacheFilepath(string $cacheFile): void
     {
-        $this->cacheFilepath = $cacheFilepath;
+        $this->cacheFilepath = Configuration::instance()->getCachePath() . $cacheFile;
     }
 
     private function populate(): void

@@ -7,15 +7,15 @@ use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 
 class MethodTokenSequenceCache
 {
-    private const CACHE_FILE = __DIR__ . '/.php-dry-method-token-sequence-cache';
+    private const CACHE_FILE = '.php-dry-method-token-sequence-cache';
 
     public function __construct(private Cache $cache)
     {
-        $this->cache->setCacheFilepath(self::CACHE_FILE);
     }
 
     public function get(Method $method): ?TokenSequence
     {
+        $this->cache->setCacheFilepath(self::CACHE_FILE);
         return $this->cache->get($method->identity());
     }
 
