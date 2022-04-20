@@ -12,6 +12,7 @@ class Cache
     private array $cache = [];
     private bool $wasPopulated = false;
     private string $cacheFilepath;
+    private int $storesSinceLastPersist = 0;
 
     public function __construct(private Filesystem $filesystem)
     {
@@ -41,7 +42,12 @@ class Cache
     {
         $this->cache[$key] = $value;
 
-        $this->filesystem->writeFile($this->cacheFilepath, serialize($this->cache));
+        $this->storesSinceLastPersist++;
+
+        if ($this->storesSinceLastPersist >= 100) {
+            $this->filesystem->writeFile($this->cacheFilepath, serialize($this->cache));
+            $this->storesSinceLastPersist = 0;
+        }
     }
 
     /** @return T|null */
