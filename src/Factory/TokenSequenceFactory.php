@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Factory;
 
-use App\Cache\MethodTokenSequenceCache;
+use App\Cache\TokenSequenceCache;
 use App\Model\Method\Method;
 use App\Wrapper\PhpTokenWrapper;
 use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 
 class TokenSequenceFactory
 {
-    public function __construct(private PhpTokenWrapper $phpTokenWrapper, private MethodTokenSequenceCache $cache)
+    public function __construct(private PhpTokenWrapper $phpTokenWrapper, private TokenSequenceCache $cache)
     {
     }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Factory\SourceCloneCandidate;
 
+use App\Cache\MethodTokenSequenceCache;
 use App\Exception\CollectionCannotBeEmpty;
 use App\Factory\Collection\MethodsCollectionFactory;
 use App\Factory\TokenSequenceFactory;
@@ -23,7 +24,9 @@ class Type1SourceCloneCandidateFactory
         private TokenSequenceNormalizer                     $tokenSequenceNormalizer,
         private MethodsCollectionFactory                    $methodsCollectionFactory,
         private ArrayUtil                                   $arrayUtil,
-    ) {
+        private MethodTokenSequenceCache                    $methodTokenSequenceCache,
+    )
+    {
     }
 
     /**
@@ -51,12 +54,24 @@ class Type1SourceCloneCandidateFactory
      */
     private function createMultipleForOneMethodsCollection(MethodSignatureGroup $methodSignatureGroup): array
     {
-        $methodTokenSequences = array_map(function (Method $m): MethodTokenSequence {
-            return MethodTokenSequence::create(
-                $m,
-                $this->tokenSequenceNormalizer->normalizeLevel1($this->tokenSequenceFactory->createFromMethod($m))
-            );
-        }, $methodSignatureGroup->getMethodsCollection()->getAll());
+        $methodTokenSequences = [];
+        foreach ($methodSignatureGroup->getMethodsCollection()->getAll() as $method) {
+            $methodTokenSequence = $this->methodTokenSequenceCache->get($method);
+            if ($methodTokenSequence === null) {
+                print("\nMISS\n");
+                $methodTokenSequence = MethodTokenSequence::create(
+                    $method,
+                    $this->tokenSequenceNormalizer->normalizeLevel1($this->tokenSequenceFactory->createFromMethod($method))
+                );
+
+                $this->methodTokenSequenceCache->store($method, $methodTokenSequence);
+
+            } else {
+                print("\nHIT\n");
+            }
+
+            $methodTokenSequences[] = $methodTokenSequence;
+        }
 
         $groupedMethodTokenSequences = $this->methodTokenSequencesByTokenSequencesGrouper->group($methodTokenSequences);
 
@@ -71,7 +86,7 @@ class Type1SourceCloneCandidateFactory
      */
     private function createMultipleForMultipleMethodTokenSequencesGroups(array $groupedMethodTokenSequences): array
     {
-        return array_map(fn (array $methodTokenSequences): Type1SourceCloneCandidate => Type1SourceCloneCandidate::create(
+        return array_map(fn(array $methodTokenSequences): Type1SourceCloneCandidate => Type1SourceCloneCandidate::create(
             $methodTokenSequences[0]->getTokenSequence(),
             $this->methodsCollectionFactory->fromMethodTokenSequence($methodTokenSequences),
         ), $groupedMethodTokenSequences);
