@@ -15,7 +15,8 @@ An example of a valid configuration:
          countOfParamSets="10"
          enableConstructNormalization="false"
          phpDocumentorReportPath="/tmp/phpDocumentorReport"
-         phpDocumentorExecutablePath="/usr/bin/phpDocumentor.phar">
+         phpDocumentorExecutablePath="/usr/bin/phpDocumentor.phar"
+         cachePath="/tmp/php-dry-cache">
 
     <report>
         <cli/>
@@ -128,3 +129,9 @@ phpDocumentor should get stored. This path has to merely exist at execution time
 - Default: `tools/phpDocumentor.phar`
 
 Where is phpDocumentor located?
+
+### `cachePath`
+- Possible values: A valid path to a directory.
+- Default: `.`
+
+Where should php-dry store its cache?
