@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Model\Method;
 
 use App\Collection\MethodsCollection;
-use App\ModelOutput\Method\MethodSignatureOutput;
 
 class MethodSignatureGroup
 {

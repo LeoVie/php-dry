@@ -12,6 +12,7 @@ use App\Collection\MethodsCollection;
 use App\Command\Output\DetectClonesCommandOutput;
 use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
+use App\Exception\PhpDocumentorFailed;
 use App\Exception\SubsequenceUtilNotFound;
 use App\Factory\SourceCloneCandidate\Type1SourceCloneCandidateFactory;
 use App\Factory\SourceCloneCandidate\Type2SourceCloneCandidateFactory;
@@ -56,6 +57,7 @@ class DetectClonesService
      * @throws MethodCannotBeModifiedToNonClassContext
      * @throws NoParamGeneratorFoundForParamRequest
      * @throws SubsequenceUtilNotFound
+     * @throws PhpDocumentorFailed
      */
     public function detectInDirectory(Configuration $configuration, DetectClonesCommandOutput $output): array
     {

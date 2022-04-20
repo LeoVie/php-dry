@@ -6,6 +6,7 @@ namespace App\Grouper;
 
 use App\Collection\MethodsCollection;
 use App\Compare\MethodSignatureComparer;
+use App\Exception\CollectionCannotBeEmpty;
 use App\Model\Method\Method;
 use App\Model\Method\MethodSignatureGroup;
 
@@ -19,6 +20,7 @@ class MethodsBySignatureGrouper
      * @param Method[] $methods
      *
      * @return MethodSignatureGroup[]
+     * @throws CollectionCannotBeEmpty
      */
     public function group(array $methods): array
     {
@@ -45,6 +47,7 @@ class MethodsBySignatureGrouper
      * @param MethodSignatureGroup[] $methodSignatureGroups
      *
      * @return MethodSignatureGroup[]
+     * @throws CollectionCannotBeEmpty
      */
     private function addToExistingMatchingMethodSignatureGroupOrCreateNewOne(Method $method, array $methodSignatureGroups): array
     {
