@@ -83,7 +83,7 @@ class Type1SourceCloneCandidateFactory
         return $type1SourceCloneCandidates;
     }
 
-    private function getMethodTokenSequenceFromCacheOrCreate(Method $method): ?MethodTokenSequence
+    private function getMethodTokenSequenceFromCacheOrCreate(Method $method): MethodTokenSequence
     {
         $methodTokenSequence = $this->methodTokenSequenceCache->get($method);
         if ($methodTokenSequence === null) {
@@ -94,6 +94,7 @@ class Type1SourceCloneCandidateFactory
 
             $this->methodTokenSequenceCache->store($method, $methodTokenSequence);
         }
+
         return $methodTokenSequence;
     }
 }
