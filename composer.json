@@ -20,7 +20,7 @@
     "leovie/php-grouper": "^1.0",
     "leovie/php-method-modifier": "^1.0",
     "leovie/php-method-runner": "^1.0",
-    "leovie/php-param-generator": "^1.0",
+    "leovie/php-param-generator": "^1.1",
     "leovie/php-token-normalize": "^1.0",
     "nikic/php-parser": "^4.13",
     "phpdocumentor/type-resolver": "^1.6",
