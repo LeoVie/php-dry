@@ -10,9 +10,12 @@ class MethodSignatureOutputFormatter
 {
     public function format(MethodSignature $methodSignature): string
     {
+        $orderedParamTypes = array_combine($methodSignature->getParamsOrder(), $methodSignature->getParamTypes());
+        ksort($orderedParamTypes);
+
         return \Safe\sprintf(
             '(%s): %s',
-            join(', ', $methodSignature->getParamTypes()),
+            join(', ', $orderedParamTypes),
             $methodSignature->getReturnType()
         );
     }

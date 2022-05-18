@@ -85,8 +85,10 @@ class FindMethodsInPathsService
     {
         $codePositionRange = $this->buildCodePositionRange($methodElement);
 
+        $methodSignature = $this->buildMethodSignature($methodElement);
+
         return Method::create(
-            $this->buildMethodSignature($methodElement),
+            $methodSignature,
             $methodElement->filter('name')->first()->text(),
             $filepath,
             $codePositionRange,
@@ -101,10 +103,13 @@ class FindMethodsInPathsService
             $paramTypes[] = CrawlerFactory::create($argument)->filter('type')->first()->text();
         }
 
+        uasort($paramTypes, fn(string $a, string $b) => $a <=> $b);
+        $paramsOrder = array_keys($paramTypes);
+
         /** @var string $returnType */
         $returnType = $methodElement->attr('response');
 
-        return MethodSignature::create($paramTypes, $returnType);
+        return MethodSignature::create($paramTypes, $paramsOrder, $returnType);
     }
 
     private function buildCodePositionRange(Crawler $methodElement): CodePositionRange

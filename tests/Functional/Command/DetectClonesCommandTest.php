@@ -125,6 +125,7 @@ class DetectClonesCommandTest extends KernelTestCase
         self::assertSame(Command::FAILURE, $this->commandTester->getStatusCode());
     }
 
+    /** @group now */
     public function testJsonReport(): void
     {
         $testdataDir = __DIR__ . '/../../testdata/clone-detection-testdata/';

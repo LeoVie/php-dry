@@ -8,25 +8,41 @@ use JsonSerializable;
 
 class MethodSignature implements JsonSerializable
 {
-    /** @param string[] $paramTypes */
+    /**
+     * @param string[] $paramTypes
+     * @param int[] $paramsOrder
+     */
     private function __construct(
         private array  $paramTypes,
+        private array  $paramsOrder,
         private string $returnType,
-    ) {
+    )
+    {
     }
 
-    /** @param string[] $paramTypes */
+    /**
+     * @param string[] $paramTypes
+     * @param int[] $paramsOrder
+     */
     public static function create(
         array  $paramTypes,
+        array  $paramsOrder,
         string $returnType,
-    ): self {
-        return new self($paramTypes, $returnType);
+    ): self
+    {
+        return new self($paramTypes, $paramsOrder, $returnType);
     }
 
     /** @return string[] */
     public function getParamTypes(): array
     {
         return $this->paramTypes;
+    }
+
+    /** @return int[] */
+    public function getParamsOrder(): array
+    {
+        return $this->paramsOrder;
     }
 
     public function getReturnType(): string

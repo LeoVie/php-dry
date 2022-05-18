@@ -15,7 +15,7 @@ class MethodSignatureComparer
 
     private function sameParamTypes(MethodSignature $a, MethodSignature $b): bool
     {
-        return $a->getParamTypes() === $b->getParamTypes();
+        return array_values($a->getParamTypes()) === array_values($b->getParamTypes());
     }
 
     private function sameReturnType(MethodSignature $a, MethodSignature $b): bool

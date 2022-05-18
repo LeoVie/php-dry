@@ -19,18 +19,18 @@ class MethodSignatureComparerTest extends TestCase
     {
         return [
             'non equal param types -> not equal' => [
-                \App\Model\Method\MethodSignature::create(['int'], 'string'),
-                \App\Model\Method\MethodSignature::create(['string'], 'string'),
+                \App\Model\Method\MethodSignature::create(['int'], [0], 'string'),
+                \App\Model\Method\MethodSignature::create(['string'], [0], 'string'),
                 'expected' => false,
             ],
             'non equal return type -> not equal' => [
-                \App\Model\Method\MethodSignature::create(['int'], 'string'),
-                \App\Model\Method\MethodSignature::create(['int'], 'int'),
+                \App\Model\Method\MethodSignature::create(['int'], [0], 'string'),
+                \App\Model\Method\MethodSignature::create(['int'], [0], 'int'),
                 'expected' => false,
             ],
             'everything equal -> equal' => [
-                \App\Model\Method\MethodSignature::create(['int'], 'string'),
-                \App\Model\Method\MethodSignature::create(['int'], 'string'),
+                \App\Model\Method\MethodSignature::create(['int'], [0], 'string'),
+                \App\Model\Method\MethodSignature::create(['int'], [0], 'string'),
                 'expected' => true,
             ],
         ];

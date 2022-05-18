@@ -64,7 +64,6 @@ class DetectClonesService
         $this->phpDocumentorRunner->run();
 
         $methods = $this->findMethodsInPathsService->findAll();
-
         $output->foundMethods(count($methods));
 
         $methodSignatureGroups = $this->methodsBySignatureGrouper->group($methods);
