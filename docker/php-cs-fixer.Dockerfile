@@ -1,4 +1,4 @@
-ARG PHP_VERSION=8.0.13
+ARG PHP_VERSION=8.0
 FROM php:${PHP_VERSION}-fpm-alpine3.14 as composer
 
 COPY install_composer.sh /install_composer.sh

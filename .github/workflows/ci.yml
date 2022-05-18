@@ -13,7 +13,7 @@ jobs:
           - { operating-system: 'ubuntu-latest', php-version: '8.0'}
           - { operating-system: 'ubuntu-latest', php-version: '8.1'}
 
-    name: CI on ${{ matrix.operating-system }} with PHP ${{ matrix.php-version }}, using ${{ matrix.coverage-driver }}
+    name: CI on ${{ matrix.operating-system }} with PHP ${{ matrix.php-version }}
 
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -24,13 +24,9 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - name: "Install PHP"
-        uses: "shivammathur/setup-php@v2"
-        with:
-          php-version: ${{ matrix.php-version }}
       - name: "Install requirements"
         run: |
-          make setup_test_environment php_version=$(php -r 'echo PHP_VERSION;')
+          make setup_test_environment php_version=${{ matrix.php-version }}
       - name: "Static Analysis"
         run: |
           make phpstan

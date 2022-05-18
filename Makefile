@@ -1,7 +1,9 @@
+php_version=8.0.18
+
 .PHONY: setup_dev_environment
 setup_dev_environment:
 	make setup_env env=dev
-	make setup_ci_images
+	make setup_ci_images php_version=$(php_version)
 	make install
 
 .PHONY: setup_test_environment
