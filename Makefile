@@ -6,16 +6,31 @@ setup_dev_environment:
 
 .PHONY: setup_test_environment
 setup_test_environment:
+ifndef php_version
+	$(error php_version is not set)
+endif
 	make setup_env env=test
-	make setup_ci_images
+	make setup_ci_images php_version=$(php_version)
 	make install
 
 .PHONY: setup_ci_images
-setup_ci_images: build_composer_image build_php-cs-fixer_image build_phpstan_image build_phpunit_image build_psalm_image build_infection_image
+setup_ci_images:
+ifndef php_version
+	$(error php_version is not set)
+endif
+	make build_composer_image php_version=$(php_version)
+	make build_php-cs-fixer_image php_version=$(php_version)
+	make build_phpstan_image
+	make build_phpunit_image php_version=$(php_version)
+	make build_psalm_image php_version=$(php_version)
+	make build_infection_image php_version=$(php_version)
 
 .PHONY: build_composer_image
 build_composer_image:
-	cd docker && docker build . -f composer.Dockerfile -t php-dry/composer:latest && cd -
+ifndef php_version
+	$(error php_version is not set)
+endif
+	cd docker && docker build . -f composer.Dockerfile -t php-dry/composer:latest --build-arg PHP_VERSION=$(php_version) && cd -
 
 .PHONY: composer
 composer:
@@ -40,7 +55,10 @@ test: phpstan psalm phpunit infection
 
 .PHONY: build_php-cs-fixer_image
 build_php-cs-fixer_image:
-	cd docker && docker build . -f php-cs-fixer.Dockerfile -t php-dry/php-cs-fixer:latest && cd -
+ifndef php_version
+	$(error php_version is not set)
+endif
+	cd docker && docker build . -f php-cs-fixer.Dockerfile -t php-dry/php-cs-fixer:latest --build-arg PHP_VERSION=$(php_version) && cd -
 
 .PHONY: php-cs-fixer
 php-cs-fixer:
@@ -56,7 +74,10 @@ phpstan:
 
 .PHONY: build_phpunit_image
 build_phpunit_image:
-	cd docker && docker build . -f phpunit.Dockerfile -t php-dry/phpunit:latest && cd -
+ifndef php_version
+	$(error php_version is not set)
+endif
+	cd docker && docker build . -f phpunit.Dockerfile -t php-dry/phpunit:latest --build-arg PHP_VERSION=$(php_version) && cd -
 
 .PHONY: phpunit
 phpunit:
@@ -79,7 +100,10 @@ functional:
 
 .PHONY: build_psalm_image
 build_psalm_image:
-	cd docker && docker build . -f psalm.Dockerfile -t php-dry/psalm:latest && cd -
+ifndef php_version
+	$(error php_version is not set)
+endif
+	cd docker && docker build . -f psalm.Dockerfile -t php-dry/psalm:latest --build-arg PHP_VERSION=$(php_version) && cd -
 
 .PHONY: psalm
 psalm:
@@ -87,7 +111,10 @@ psalm:
 
 .PHONY: build_infection_image
 build_infection_image:
-	cd docker && docker build . -f infection.Dockerfile -t php-dry/infection:latest && cd -
+ifndef php_version
+	$(error php_version is not set)
+endif
+	cd docker && docker build . -f infection.Dockerfile -t php-dry/infection:latest --build-arg PHP_VERSION=$(php_version) && cd -
 
 .PHONY: infection
 infection:
