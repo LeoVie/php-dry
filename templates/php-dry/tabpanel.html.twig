@@ -1,7 +1,7 @@
 <div class="tab-pane fade show{{ active ? ' active' : '' }}" id="nav-type-{{ type }}-clones" role="tabpanel"
      aria-labelledby="nav-type-{{ type }}-clones-tab">
     <h3>Detected {{ output|length }} clone{{ output|length != 1 ? 's' : '' }}</h3>
-    {% for cloneIndex, sourceCloneMethodScoreMapping in output %}
-        {{ include('clone_card.html.twig', {type: type, cloneIndex: cloneIndex, sourceCloneMethodScoreMapping: sourceCloneMethodScoreMapping, showScores: showScores}) }}
+    {% for cloneIndex, clone in output %}
+        {{ include('clone_card.html.twig', {type: type, cloneIndex: cloneIndex, clone: clone}) }}
     {% endfor %}
 </div>

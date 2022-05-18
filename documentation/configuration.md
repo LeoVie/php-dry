@@ -117,15 +117,6 @@ which can be transformed into a `for` loop, which can be transformed into a `whi
 
 This is very (very very) slow at the moment. You should use this only, if you really need it.
 
-### `enableCleanCodeScoring`
-- Possible values: `true`, `false`
-- Default: `true`
-
-Create scores for type-4 clones depending on their code cleanness?
-
-php-dry can rate found type-4 clone instances by their code cleanness. You can disable this, if you don't care
-about this rating.
-
 ### `phpDocumentorReportPath`
 - Possible values: A valid path to a directory
 - Default: `/tmp/phpDocumentorReport`

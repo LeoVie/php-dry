@@ -10,9 +10,7 @@ use App\Configuration\Configuration;
 use App\Configuration\ConfigurationFactory;
 use App\Exception\CollectionCannotBeEmpty;
 use App\Exception\SubsequenceUtilNotFound;
-use App\Model\MethodScoresMapping;
 use App\Model\SourceClone\SourceClone;
-use App\Model\SourceCloneMethodScoresMapping;
 use App\Report\Formatter\CliReportFormatter;
 use App\Report\Formatter\HtmlReportFormatter;
 use App\Report\Formatter\JsonReportFormatter;
@@ -23,11 +21,6 @@ use App\Report\Saver\JsonReportReporter;
 use App\Service\DetectClonesService;
 use App\Service\IgnoreClonesService;
 use App\ServiceFactory\StopwatchFactory;
-use LeoVie\PhpCleanCode\Rule\FileRuleResults;
-use LeoVie\PhpCleanCode\Service\CleanCodeCheckerService;
-use LeoVie\PhpCleanCode\Service\CleanCodeScorerService;
-use LeoVie\PhpMethodModifier\Exception\MethodCannotBeModifiedToNonClassContext;
-use LeoVie\PhpMethodModifier\Service\MethodModifierService;
 use LeoVie\PhpParamGenerator\Exception\NoParamGeneratorFoundForParamRequest;
 use Safe\Exceptions\FilesystemException;
 use Symfony\Component\Console\Command\Command;
@@ -47,9 +40,6 @@ class DetectClonesCommand extends Command
         private ConfigurationFactory      $configurationFactory,
         private DetectClonesService       $detectClonesService,
         private IgnoreClonesService       $ignoreClonesService,
-        private CleanCodeCheckerService   $cleanCodeCheckerService,
-        private CleanCodeScorerService    $cleanCodeScorerService,
-        private MethodModifierService     $methodModifierService,
         private HtmlReportFormatter       $htmlReportFormatter,
         private JsonReportFormatter       $jsonReportFormatter,
         private CliReportFormatter        $cliReportFormatter,
@@ -81,7 +71,6 @@ class DetectClonesCommand extends Command
      * @throws CollectionCannotBeEmpty
      * @throws FilesystemException
      * @throws NoParamGeneratorFoundForParamRequest
-     * @throws MethodCannotBeModifiedToNonClassContext
      * @throws SubsequenceUtilNotFound
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -93,12 +82,11 @@ class DetectClonesCommand extends Command
             ->setOutputHelper(VerboseOutputHelper::create($input, $output))
             ->setStopwatch($stopwatch);
 
-        $configuration = $this->createConfiguration($input);
+        $this->createConfiguration($input);
 
         $detected = $this->detectClonesService->detectInDirectory($commandOutput);
         $clonesToReport = $this->ignoreClonesService->extractNonIgnoredClones($detected);
 
-        $sourceCloneMethodScoresMappings = [];
         if (empty($clonesToReport)) {
             $commandOutput->noClonesFound()
                 ->stopTime();
@@ -106,59 +94,22 @@ class DetectClonesCommand extends Command
             return Command::SUCCESS;
         } else {
             $commandOutput->newLine(2);
-
-            foreach ($clonesToReport as $clone) {
-                $methodScoresMappings = [];
-                foreach ($clone->getMethodsCollection()->getAll() as $method) {
-                    if ($configuration->getEnableCleanCodeScoring() && $clone->getType() === SourceClone::TYPE_4) {
-                        try {
-                            $methodModifiedToNonClassContext = $this->methodModifierService->modifyMethodToNonClassContext(
-                                $this->methodModifierService->buildMethod($method->getContent())
-                            );
-                        } catch (MethodCannotBeModifiedToNonClassContext) {
-                            continue;
-                        }
-                        $methodContent = $methodModifiedToNonClassContext->getCode();
-
-                        $ruleResults = FileRuleResults::create($method->getFilepath(), $this->cleanCodeCheckerService->checkCode('<?php ' . $methodContent));
-
-                        $scoresResult = $this->cleanCodeScorerService->createScoresResult($ruleResults);
-
-                        $methodScoresMappings[] = MethodScoresMapping::create(
-                            $method,
-                            $scoresResult->getScores()
-                        );
-                    } else {
-                        $methodScoresMappings[] = MethodScoresMapping::create(
-                            $method,
-                            []
-                        );
-                    }
-                }
-
-                $sourceCloneMethodScoresMappings[] = SourceCloneMethodScoresMapping::create(
-                    $clone,
-                    $methodScoresMappings
-                );
-            }
         }
 
-        $this->report($sourceCloneMethodScoresMappings);
+        $this->report($clonesToReport);
 
         $commandOutput->stopTime();
 
         return Command::FAILURE;
     }
 
-    private function createConfiguration(InputInterface $input): Configuration
+    private function createConfiguration(InputInterface $input): void
     {
         $configuration = $this->configurationFactory->createConfigurationFromXmlFile(
             $this->getStringOption($input, self::OPTION_CONFIG)
         );
 
         $configuration->setDirectory($this->getStringArgument($input, self::ARGUMENT_DIRECTORY));
-
-        return $configuration;
     }
 
     private function getStringArgument(InputInterface $input, string $name): string
@@ -177,10 +128,10 @@ class DetectClonesCommand extends Command
         return $value;
     }
 
-    /** @param array<SourceCloneMethodScoresMapping> $sourceCloneMethodScoresMappings */
-    private function report(array $sourceCloneMethodScoresMappings): void
+    /** @param array<SourceClone> $clones */
+    private function report(array $clones): void
     {
-        $report = $this->reportBuilder->createReport($sourceCloneMethodScoresMappings);
+        $report = $this->reportBuilder->createReport($clones);
 
         $configuration = Configuration::instance();
         if ($configuration->getReportConfiguration()->getHtml()) {

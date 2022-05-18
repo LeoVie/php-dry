@@ -11,7 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 
-/** @group now */
 class DetectClonesCommandTest extends KernelTestCase
 {
     private CommandTester $commandTester;
@@ -161,8 +160,8 @@ class DetectClonesCommandTest extends KernelTestCase
     public function testHtmlReport(): void
     {
         $testdataDir = __DIR__ . '/../../testdata/clone-detection-testdata/';
-        $reportsDir = __DIR__ . '/../../generated/reports';
-        $reportPath = $reportsDir . '/php-dry_html-report/php-dry.html';
+        $reportsDir = __DIR__ . '/../../generated/reports/';
+        $reportPath = $reportsDir . 'php-dry_html-report/php-dry.html';
 
         if (file_exists($reportPath)) {
             unlink($reportPath);

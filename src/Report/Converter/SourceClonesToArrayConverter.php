@@ -3,29 +3,27 @@
 namespace App\Report\Converter;
 
 use App\Configuration\Configuration;
-use App\Model\MethodScoresMapping;
-use App\Model\SourceCloneMethodScoresMapping;
+use App\Model\Method\Method;
+use App\Model\SourceClone\SourceClone;
 use App\OutputFormatter\Model\Method\MethodSignatureOutputFormatter;
-use LeoVie\PhpCleanCode\Model\Score;
 
-class SourceCloneMethodScoreMappingsToArrayConverter
+class SourceClonesToArrayConverter
 {
     public function __construct(private MethodSignatureOutputFormatter $methodSignatureOutput)
     {
     }
 
     /**
-     * @param array<int, SourceCloneMethodScoresMapping> $sortedSourceCloneMethodScoreMappings
+     * @param array<int, SourceClone> $clones
      *
-     * @return array<int, array{sourceClone: array{methods: array<array{method: array{name: string, methodSignature: non-empty-string, filepath: string, codePositionRange: array{start: array{line: int, filePos: int}, end: array{line: int, filePos: int}, countOfLines: int}, content: string}, scores: array<array{scoreType: string, points: int}>}>}}>
+     * @return array<int, array{sourceClone: array{methods: array<array{method: array{name: string, methodSignature: non-empty-string, filepath: string, codePositionRange: array{start: array{line: int, filePos: int}, end: array{line: int, filePos: int}, countOfLines: int}, content: string}}>}}>
      */
-    public function sourceCloneMethodScoresMappingToArray(array $sortedSourceCloneMethodScoreMappings): array
+    public function sourceClonesToArray(array $clones): array
     {
-        return array_map(function (SourceCloneMethodScoresMapping $sourceCloneMethodScoresMapping): array {
+        return array_map(function (SourceClone $clone): array {
             return [
                 'sourceClone' => [
-                    'methods' => array_map(function (MethodScoresMapping $methodScoresMapping): array {
-                        $method = $methodScoresMapping->getMethod();
+                    'methods' => array_map(function (Method $method): array {
                         return [
                             'method' => [
                                 'name' => $method->getName(),
@@ -44,17 +42,11 @@ class SourceCloneMethodScoreMappingsToArrayConverter
                                 ],
                                 'content' => $method->getContent(),
                             ],
-                            'scores' => array_map(function (Score $score): array {
-                                return [
-                                    'scoreType' => $score->getScoreType(),
-                                    'points' => $score->getPoints(),
-                                ];
-                            }, $methodScoresMapping->getScores()),
                         ];
-                    }, $sourceCloneMethodScoresMapping->getMethodScoresMappings()),
+                    }, $clone->getMethodsCollection()->getAll()),
                 ],
             ];
-        }, $sortedSourceCloneMethodScoreMappings);
+        }, $clones);
     }
 
     private function convertAbsoluteFilepathToProjectRelative(string $absolute, string $projectRoot): string

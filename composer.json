@@ -14,7 +14,6 @@
     "ext-dom": "*",
     "ext-iconv": "*",
     "ext-mbstring": "*",
-    "leovie/php-clean-code-bundle": "^1.0",
     "leovie/php-construct-normalize": "^1.0",
     "leovie/php-filesystem": "^1.0",
     "leovie/php-grouper": "^1.0",

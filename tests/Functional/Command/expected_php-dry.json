@@ -20,8 +20,7 @@
                 "countOfLines": 8
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        $r = [];\r\n        $f = 100;\r\n        foreach ($p1 as $i) {\r\n            $r[] = $i * $p2;\r\n        }\r\n        return $r;\r\n    }"
-            },
-            "scores": []
+            }
           },
           {
             "method": {
@@ -40,8 +39,7 @@
                 "countOfLines": 8
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        $r = [];\r\n        $f = 100;\r\n        foreach ($p1 as $i) {\r\n            $r[] = $i * $p2;\r\n        }\r\n        return $r;\r\n    }"
-            },
-            "scores": []
+            }
           },
           {
             "method": {
@@ -60,8 +58,7 @@
                 "countOfLines": 9
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        $r          = [];\r\n        $f = 100    ;\r\n        foreach ($p1 as     $i) {\r\n            $r[]    = $i * $p2;\r\n        }\r\n\r\n        return $r;\r\n    }"
-            },
-            "scores": []
+            }
           },
           {
             "method": {
@@ -80,8 +77,7 @@
                 "countOfLines": 15
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        \/*\r\n         * Some actions are following:\r\n         *\/\r\n        \/\/ first we do this\r\n        $r = [];\r\n        $f = 100;\r\n        \/\/ then in the loop\r\n        foreach ($p1 as $i) {\r\n            \/\/ we do this\r\n            $r[] = $i * $p2;\r\n        }\r\n        \/\/ and after that, we do this\r\n        return $r;\r\n    }"
-            },
-            "scores": []
+            }
           },
           {
             "method": {
@@ -100,8 +96,7 @@
                 "countOfLines": 4
               },
               "content": "function foo(array $p1, int $p2): array {\r\n        $r = []; $f = 100;\r\n        foreach ($p1 as $i) { $r[] = $i * $p2; }\r\n        return $r;\r\n    }"
-            },
-            "scores": []
+            }
           }
         ]
       }
@@ -128,8 +123,7 @@
                 "countOfLines": 8
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        $r = [];\r\n        $f = 100;\r\n        foreach ($p1 as $i) {\r\n            $r[] = $i * $p2;\r\n        }\r\n        return $r;\r\n    }"
-            },
-            "scores": []
+            }
           },
           {
             "method": {
@@ -148,8 +142,7 @@
                 "countOfLines": 8
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        $r = [];\r\n        $f = 100;\r\n        foreach ($p1 as $i) {\r\n            $r[] = $i * $p2;\r\n        }\r\n        return $r;\r\n    }"
-            },
-            "scores": []
+            }
           },
           {
             "method": {
@@ -168,8 +161,7 @@
                 "countOfLines": 9
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        $r          = [];\r\n        $f = 100    ;\r\n        foreach ($p1 as     $i) {\r\n            $r[]    = $i * $p2;\r\n        }\r\n\r\n        return $r;\r\n    }"
-            },
-            "scores": []
+            }
           },
           {
             "method": {
@@ -188,8 +180,7 @@
                 "countOfLines": 15
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        \/*\r\n         * Some actions are following:\r\n         *\/\r\n        \/\/ first we do this\r\n        $r = [];\r\n        $f = 100;\r\n        \/\/ then in the loop\r\n        foreach ($p1 as $i) {\r\n            \/\/ we do this\r\n            $r[] = $i * $p2;\r\n        }\r\n        \/\/ and after that, we do this\r\n        return $r;\r\n    }"
-            },
-            "scores": []
+            }
           },
           {
             "method": {
@@ -208,8 +199,7 @@
                 "countOfLines": 4
               },
               "content": "function foo(array $p1, int $p2): array {\r\n        $r = []; $f = 100;\r\n        foreach ($p1 as $i) { $r[] = $i * $p2; }\r\n        return $r;\r\n    }"
-            },
-            "scores": []
+            }
           },
           {
             "method": {
@@ -228,8 +218,7 @@
                 "countOfLines": 8
               },
               "content": "function foo(array $first, int $second): array\r\n    {\r\n        $x = [];\r\n        $k = 100;\r\n        foreach ($first as $y) {\r\n            $x[] = $y * $second;\r\n        }\r\n        return $x;\r\n    }"
-            },
-            "scores": []
+            }
           },
           {
             "method": {
@@ -248,8 +237,7 @@
                 "countOfLines": 8
               },
               "content": "function bar(array $p1, int $p2): array\r\n    {\r\n        $r = [];\r\n        $f = 100;\r\n        foreach ($p1 as $i) {\r\n            $r[] = $i * $p2;\r\n        }\r\n        return $r;\r\n    }"
-            },
-            "scores": []
+            }
           },
           {
             "method": {
@@ -268,8 +256,7 @@
                 "countOfLines": 8
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        $r = [];\r\n        $f = -20;\r\n        foreach ($p1 as $i) {\r\n            $r[] = $i * $p2;\r\n        }\r\n        return $r;\r\n    }"
-            },
-            "scores": []
+            }
           }
         ]
       }
@@ -296,8 +283,7 @@
                 "countOfLines": 8
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        $r = [];\r\n        $f = 100;\r\n        foreach ($p1 as $i) {\r\n            $r[] = $i * $p2;\r\n        }\r\n        return $r;\r\n    }"
-            },
-            "scores": []
+            }
           },
           {
             "method": {
@@ -316,8 +302,7 @@
                 "countOfLines": 8
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        $r = [];\r\n        $f = 100;\r\n        foreach ($p1 as $i) {\r\n            $r[] = $i * $p2;\r\n        }\r\n        return $r;\r\n    }"
-            },
-            "scores": []
+            }
           },
           {
             "method": {
@@ -336,8 +321,7 @@
                 "countOfLines": 9
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        $r          = [];\r\n        $f = 100    ;\r\n        foreach ($p1 as     $i) {\r\n            $r[]    = $i * $p2;\r\n        }\r\n\r\n        return $r;\r\n    }"
-            },
-            "scores": []
+            }
           },
           {
             "method": {
@@ -356,8 +340,7 @@
                 "countOfLines": 15
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        \/*\r\n         * Some actions are following:\r\n         *\/\r\n        \/\/ first we do this\r\n        $r = [];\r\n        $f = 100;\r\n        \/\/ then in the loop\r\n        foreach ($p1 as $i) {\r\n            \/\/ we do this\r\n            $r[] = $i * $p2;\r\n        }\r\n        \/\/ and after that, we do this\r\n        return $r;\r\n    }"
-            },
-            "scores": []
+            }
           },
           {
             "method": {
@@ -376,8 +359,7 @@
                 "countOfLines": 4
               },
               "content": "function foo(array $p1, int $p2): array {\r\n        $r = []; $f = 100;\r\n        foreach ($p1 as $i) { $r[] = $i * $p2; }\r\n        return $r;\r\n    }"
-            },
-            "scores": []
+            }
           },
           {
             "method": {
@@ -396,8 +378,7 @@
                 "countOfLines": 8
               },
               "content": "function foo(array $first, int $second): array\r\n    {\r\n        $x = [];\r\n        $k = 100;\r\n        foreach ($first as $y) {\r\n            $x[] = $y * $second;\r\n        }\r\n        return $x;\r\n    }"
-            },
-            "scores": []
+            }
           },
           {
             "method": {
@@ -416,8 +397,7 @@
                 "countOfLines": 8
               },
               "content": "function bar(array $p1, int $p2): array\r\n    {\r\n        $r = [];\r\n        $f = 100;\r\n        foreach ($p1 as $i) {\r\n            $r[] = $i * $p2;\r\n        }\r\n        return $r;\r\n    }"
-            },
-            "scores": []
+            }
           },
           {
             "method": {
@@ -436,8 +416,7 @@
                 "countOfLines": 8
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        $r = [];\r\n        $f = -20;\r\n        foreach ($p1 as $i) {\r\n            $r[] = $i * $p2;\r\n        }\r\n        return $r;\r\n    }"
-            },
-            "scores": []
+            }
           },
           {
             "method": {
@@ -456,8 +435,7 @@
                 "countOfLines": 7
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        $r = [];\r\n        foreach ($p1 as $i) {\r\n            $r[] = $i * $p2;\r\n        }\r\n        return $r;\r\n    }"
-            },
-            "scores": []
+            }
           },
           {
             "method": {
@@ -476,8 +454,7 @@
                 "countOfLines": 8
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        $f = 100;\r\n        $r = [];\r\n        foreach ($p1 as $i) {\r\n            $r[] = $i * $p2;\r\n        }\r\n        return $r;\r\n    }"
-            },
-            "scores": []
+            }
           }
         ]
       }
@@ -504,17 +481,7 @@
                 "countOfLines": 8
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        $r = [];\r\n        $f = 100;\r\n        foreach ($p1 as $i) {\r\n            $r[] = $i * $p2;\r\n        }\r\n        return $r;\r\n    }"
-            },
-            "scores": [
-              {
-                "scoreType": "CompliancesAndViolationsMatter",
-                "points": 13
-              },
-              {
-                "scoreType": "OnlyViolationsMatter",
-                "points": 50
-              }
-            ]
+            }
           },
           {
             "method": {
@@ -533,17 +500,7 @@
                 "countOfLines": 8
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        $r = [];\r\n        $f = 100;\r\n        foreach ($p1 as $i) {\r\n            $r[] = $i * $p2;\r\n        }\r\n        return $r;\r\n    }"
-            },
-            "scores": [
-              {
-                "scoreType": "CompliancesAndViolationsMatter",
-                "points": 13
-              },
-              {
-                "scoreType": "OnlyViolationsMatter",
-                "points": 50
-              }
-            ]
+            }
           },
           {
             "method": {
@@ -562,17 +519,7 @@
                 "countOfLines": 9
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        $r          = [];\r\n        $f = 100    ;\r\n        foreach ($p1 as     $i) {\r\n            $r[]    = $i * $p2;\r\n        }\r\n\r\n        return $r;\r\n    }"
-            },
-            "scores": [
-              {
-                "scoreType": "CompliancesAndViolationsMatter",
-                "points": 13
-              },
-              {
-                "scoreType": "OnlyViolationsMatter",
-                "points": 50
-              }
-            ]
+            }
           },
           {
             "method": {
@@ -591,17 +538,7 @@
                 "countOfLines": 15
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        \/*\r\n         * Some actions are following:\r\n         *\/\r\n        \/\/ first we do this\r\n        $r = [];\r\n        $f = 100;\r\n        \/\/ then in the loop\r\n        foreach ($p1 as $i) {\r\n            \/\/ we do this\r\n            $r[] = $i * $p2;\r\n        }\r\n        \/\/ and after that, we do this\r\n        return $r;\r\n    }"
-            },
-            "scores": [
-              {
-                "scoreType": "CompliancesAndViolationsMatter",
-                "points": 14
-              },
-              {
-                "scoreType": "OnlyViolationsMatter",
-                "points": 42
-              }
-            ]
+            }
           },
           {
             "method": {
@@ -620,17 +557,7 @@
                 "countOfLines": 4
               },
               "content": "function foo(array $p1, int $p2): array {\r\n        $r = []; $f = 100;\r\n        foreach ($p1 as $i) { $r[] = $i * $p2; }\r\n        return $r;\r\n    }"
-            },
-            "scores": [
-              {
-                "scoreType": "CompliancesAndViolationsMatter",
-                "points": 13
-              },
-              {
-                "scoreType": "OnlyViolationsMatter",
-                "points": 50
-              }
-            ]
+            }
           },
           {
             "method": {
@@ -649,17 +576,7 @@
                 "countOfLines": 8
               },
               "content": "function foo(array $first, int $second): array\r\n    {\r\n        $x = [];\r\n        $k = 100;\r\n        foreach ($first as $y) {\r\n            $x[] = $y * $second;\r\n        }\r\n        return $x;\r\n    }"
-            },
-            "scores": [
-              {
-                "scoreType": "CompliancesAndViolationsMatter",
-                "points": 0
-              },
-              {
-                "scoreType": "OnlyViolationsMatter",
-                "points": 0
-              }
-            ]
+            }
           },
           {
             "method": {
@@ -678,17 +595,7 @@
                 "countOfLines": 8
               },
               "content": "function bar(array $p1, int $p2): array\r\n    {\r\n        $r = [];\r\n        $f = 100;\r\n        foreach ($p1 as $i) {\r\n            $r[] = $i * $p2;\r\n        }\r\n        return $r;\r\n    }"
-            },
-            "scores": [
-              {
-                "scoreType": "CompliancesAndViolationsMatter",
-                "points": 13
-              },
-              {
-                "scoreType": "OnlyViolationsMatter",
-                "points": 50
-              }
-            ]
+            }
           },
           {
             "method": {
@@ -707,17 +614,7 @@
                 "countOfLines": 8
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        $r = [];\r\n        $f = -20;\r\n        foreach ($p1 as $i) {\r\n            $r[] = $i * $p2;\r\n        }\r\n        return $r;\r\n    }"
-            },
-            "scores": [
-              {
-                "scoreType": "CompliancesAndViolationsMatter",
-                "points": 13
-              },
-              {
-                "scoreType": "OnlyViolationsMatter",
-                "points": 50
-              }
-            ]
+            }
           },
           {
             "method": {
@@ -736,17 +633,7 @@
                 "countOfLines": 9
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        $r = [];\r\n        $f = 100;\r\n        foreach ($p1 as $i) {\r\n            print($i * $p2 . \"\\n\");\r\n            $r[] = $i * $p2;\r\n        }\r\n        return $r;\r\n    }"
-            },
-            "scores": [
-              {
-                "scoreType": "CompliancesAndViolationsMatter",
-                "points": 14
-              },
-              {
-                "scoreType": "OnlyViolationsMatter",
-                "points": 50
-              }
-            ]
+            }
           },
           {
             "method": {
@@ -765,17 +652,7 @@
                 "countOfLines": 7
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        $r = [];\r\n        foreach ($p1 as $i) {\r\n            $r[] = $i * $p2;\r\n        }\r\n        return $r;\r\n    }"
-            },
-            "scores": [
-              {
-                "scoreType": "CompliancesAndViolationsMatter",
-                "points": 14
-              },
-              {
-                "scoreType": "OnlyViolationsMatter",
-                "points": 50
-              }
-            ]
+            }
           },
           {
             "method": {
@@ -794,17 +671,7 @@
                 "countOfLines": 8
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        $f = 100;\r\n        $r = [];\r\n        foreach ($p1 as $i) {\r\n            $r[] = $i * $p2;\r\n        }\r\n        return $r;\r\n    }"
-            },
-            "scores": [
-              {
-                "scoreType": "CompliancesAndViolationsMatter",
-                "points": 13
-              },
-              {
-                "scoreType": "OnlyViolationsMatter",
-                "points": 50
-              }
-            ]
+            }
           },
           {
             "method": {
@@ -823,17 +690,7 @@
                 "countOfLines": 6
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        return array_map(\r\n            fn($i) => $i * $p2,\r\n            $p1\r\n        );\r\n    }"
-            },
-            "scores": [
-              {
-                "scoreType": "CompliancesAndViolationsMatter",
-                "points": 18
-              },
-              {
-                "scoreType": "OnlyViolationsMatter",
-                "points": 50
-              }
-            ]
+            }
           }
         ]
       }
