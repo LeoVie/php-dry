@@ -16,6 +16,7 @@ use App\Report\Formatter\CliReportFormatter;
 use App\Report\Formatter\HtmlReportFormatter;
 use App\Report\Formatter\JsonReportFormatter;
 use App\Report\ReportBuilder;
+use App\Report\Reporter;
 use App\Report\Saver\CliReportReporter;
 use App\Report\Saver\HtmlReportReporter;
 use App\Report\Saver\JsonReportReporter;
@@ -46,14 +47,8 @@ class DetectClonesCommand extends Command
         private ConfigurationFactory      $configurationFactory,
         private DetectClonesService       $detectClonesService,
         private IgnoreClonesService       $ignoreClonesService,
-        private HtmlReportFormatter       $htmlReportFormatter,
-        private JsonReportFormatter       $jsonReportFormatter,
-        private CliReportFormatter        $cliReportFormatter,
         private DetectClonesCommandOutput $detectClonesCommandOutput,
-        private HtmlReportReporter        $htmlReportReporter,
-        private JsonReportReporter        $jsonReportReporter,
-        private CliReportReporter         $cliReportReporter,
-        private ReportBuilder             $reportBuilder,
+        private Reporter                  $reporter,
     )
     {
         parent::__construct(self::$defaultName);
@@ -106,7 +101,7 @@ class DetectClonesCommand extends Command
         }
 
         $commandOutput->newLine(2);
-        $this->report($relevantClones);
+        $this->reporter->report($relevantClones);
 
         $commandOutput->stopTime();
 
@@ -136,36 +131,5 @@ class DetectClonesCommand extends Command
         $value = $input->getOption($name);
 
         return $value;
-    }
-
-    /**
-     * @param array<SourceClone> $clones
-     *
-     * @throws FilesystemException
-     * @throws JsonException
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
-     */
-    private function report(array $clones): void
-    {
-        $report = $this->reportBuilder->createReport($clones);
-
-        $configuration = Configuration::instance();
-
-        if ($configuration->getReportConfiguration()->getHtml()) {
-            $htmlReport = $this->htmlReportFormatter->format($report);
-            $this->htmlReportReporter->report($htmlReport);
-        }
-
-        if ($configuration->getReportConfiguration()->getJson()) {
-            $jsonReport = $this->jsonReportFormatter->format($report);
-            $this->jsonReportReporter->report($jsonReport);
-        }
-
-        if ($configuration->getReportConfiguration()->getCli()) {
-            $cliReport = $this->cliReportFormatter->format($report);
-            $this->cliReportReporter->report($cliReport);
-        }
     }
 }
