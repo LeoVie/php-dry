@@ -7,7 +7,6 @@
          enableLcsAlgorithm="false"
          countOfParamSets="10"
          enableConstructNormalization="false"
-         enableCleanCodeScoring="true"
          phpDocumentorReportPath="/var/phpDocumentorReport"
          cachePath="/cache">
 

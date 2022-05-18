@@ -23,10 +23,10 @@
     </div>
     {{ include('nav.html.twig') }}
     <div class="tab-content" id="nav-tabContent">
-        {{ include('tabpanel.html.twig', {active: true, type: 1, output: output['TYPE_1'], showScores: false}) }}
-        {{ include('tabpanel.html.twig', {active: false, type: 2, output: output['TYPE_2'], showScores: false}) }}
-        {{ include('tabpanel.html.twig', {active: false, type: 3, output: output['TYPE_3'], showScores: false}) }}
-        {{ include('tabpanel.html.twig', {active: false, type: 4, output: output['TYPE_4'], showScores: true}) }}
+        {{ include('tabpanel.html.twig', {active: true, type: 1, output: output['TYPE_1']}) }}
+        {{ include('tabpanel.html.twig', {active: false, type: 2, output: output['TYPE_2']}) }}
+        {{ include('tabpanel.html.twig', {active: false, type: 3, output: output['TYPE_3']}) }}
+        {{ include('tabpanel.html.twig', {active: false, type: 4, output: output['TYPE_4']}) }}
     </div>
 </div>
 </body>

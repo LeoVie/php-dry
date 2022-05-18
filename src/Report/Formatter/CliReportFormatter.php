@@ -12,13 +12,13 @@ class CliReportFormatter implements ReportFormatter
 
     public function format(Report $report): string
     {
-        foreach ($report->getAll() as $type => $sourceCloneMethodScoresMappings) {
+        foreach ($report->getAll() as $type => $clones) {
             $this->addLine($type);
             $this->addLine('------');
             $this->addLine('');
 
-            foreach ($sourceCloneMethodScoresMappings as $sourceCloneMethodScoresMapping) {
-                $clone = $sourceCloneMethodScoresMapping['sourceClone'];
+            foreach ($clones as $clone) {
+                $clone = $clone['sourceClone'];
 
                 foreach ($clone['methods'] as $method) {
                     $m = $method['method'];

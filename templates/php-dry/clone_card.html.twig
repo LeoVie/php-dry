@@ -11,15 +11,12 @@
                 <th scope="col">#</th>
                 <th scope="col">File</th>
                 <th scope="col">Lines</th>
-                {% if showScores %}
-                    <th scope="col">Scores</th>
-                {% endif %}
                 <th scope="col">Content</th>
             </tr>
             </thead>
             <tbody>
-            {% for instanceIndex, method in sourceCloneMethodScoreMapping.sourceClone.methods %}
-                {{ include('clone_instance_row.html.twig', {type: type, cloneIndex: cloneIndex, instanceIndex: instanceIndex + 1, method: method, showScores: showScores}) }}
+            {% for instanceIndex, method in clone.sourceClone.methods %}
+                {{ include('clone_instance_row.html.twig', {type: type, cloneIndex: cloneIndex, instanceIndex: instanceIndex + 1, method: method}) }}
             {% endfor %}
             </tbody>
         </table>

@@ -3,46 +3,38 @@
 namespace App\Report;
 
 use App\Model\SourceClone\SourceClone;
-use App\Model\SourceCloneMethodScoresMapping;
-use App\Report\Converter\SourceCloneMethodScoreMappingsToArrayConverter;
+use App\Report\Converter\SourceClonesToArrayConverter;
 
 class ReportBuilder
 {
-    public function __construct(private SourceCloneMethodScoreMappingsToArrayConverter $sourceCloneMethodScoreMappingsToArrayConverter)
+    public function __construct(private SourceClonesToArrayConverter $sourceClonesToArrayConverter)
     {
     }
 
-    /** @param array<SourceCloneMethodScoresMapping> $sourceCloneMethodScoresMappings */
-    public function createReport(array $sourceCloneMethodScoresMappings): Report
+    /** @param array<SourceClone> $clones */
+    public function createReport(array $clones): Report
     {
-        $sortedSourceCloneMethodScoreMappings = [
+        $sortedClones = [
             SourceClone::TYPE_1 => [],
             SourceClone::TYPE_2 => [],
             SourceClone::TYPE_3 => [],
             SourceClone::TYPE_4 => [],
         ];
 
-        foreach ($sourceCloneMethodScoresMappings as $sourceCloneMethodScoresMapping) {
-            $methodScoresMappings = $sourceCloneMethodScoresMapping->getMethodScoresMappings();
-
-            $sourceCloneMethodScoresMappingWithRelativePath = SourceCloneMethodScoresMapping::create(
-                $sourceCloneMethodScoresMapping->getSourceClone(),
-                $methodScoresMappings
-            );
-
-            $cloneType = $sourceCloneMethodScoresMappingWithRelativePath->getSourceClone()->getType();
-            $sortedSourceCloneMethodScoreMappings[$cloneType][] = $sourceCloneMethodScoresMappingWithRelativePath;
+        foreach ($clones as $clone) {
+            $cloneType = $clone->getType();
+            $sortedClones[$cloneType][] = $clone;
         }
 
         return Report::create(
-            $this->sourceCloneMethodScoreMappingsToArrayConverter
-                ->sourceCloneMethodScoresMappingToArray($sortedSourceCloneMethodScoreMappings[SourceClone::TYPE_1]),
-            $this->sourceCloneMethodScoreMappingsToArrayConverter
-                ->sourceCloneMethodScoresMappingToArray($sortedSourceCloneMethodScoreMappings[SourceClone::TYPE_2]),
-            $this->sourceCloneMethodScoreMappingsToArrayConverter
-                ->sourceCloneMethodScoresMappingToArray($sortedSourceCloneMethodScoreMappings[SourceClone::TYPE_3]),
-            $this->sourceCloneMethodScoreMappingsToArrayConverter
-                ->sourceCloneMethodScoresMappingToArray($sortedSourceCloneMethodScoreMappings[SourceClone::TYPE_4]),
+            $this->sourceClonesToArrayConverter
+                ->sourceClonesToArray($sortedClones[SourceClone::TYPE_1]),
+            $this->sourceClonesToArrayConverter
+                ->sourceClonesToArray($sortedClones[SourceClone::TYPE_2]),
+            $this->sourceClonesToArrayConverter
+                ->sourceClonesToArray($sortedClones[SourceClone::TYPE_3]),
+            $this->sourceClonesToArrayConverter
+                ->sourceClonesToArray($sortedClones[SourceClone::TYPE_4]),
         );
     }
 }
