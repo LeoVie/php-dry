@@ -9,25 +9,32 @@ use App\Command\Output\Helper\VerboseOutputHelper;
 use App\Configuration\Configuration;
 use App\Configuration\ConfigurationFactory;
 use App\Exception\CollectionCannotBeEmpty;
+use App\Exception\PhpDocumentorFailed;
 use App\Exception\SubsequenceUtilNotFound;
 use App\Model\SourceClone\SourceClone;
 use App\Report\Formatter\CliReportFormatter;
 use App\Report\Formatter\HtmlReportFormatter;
 use App\Report\Formatter\JsonReportFormatter;
 use App\Report\ReportBuilder;
+use App\Report\Reporter;
 use App\Report\Saver\CliReportReporter;
 use App\Report\Saver\HtmlReportReporter;
 use App\Report\Saver\JsonReportReporter;
 use App\Service\DetectClonesService;
 use App\Service\IgnoreClonesService;
 use App\ServiceFactory\StopwatchFactory;
+use LeoVie\PhpMethodModifier\Exception\MethodCannotBeModifiedToNonClassContext;
 use LeoVie\PhpParamGenerator\Exception\NoParamGeneratorFoundForParamRequest;
 use Safe\Exceptions\FilesystemException;
+use Safe\Exceptions\JsonException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class DetectClonesCommand extends Command
 {
@@ -40,14 +47,8 @@ class DetectClonesCommand extends Command
         private ConfigurationFactory      $configurationFactory,
         private DetectClonesService       $detectClonesService,
         private IgnoreClonesService       $ignoreClonesService,
-        private HtmlReportFormatter       $htmlReportFormatter,
-        private JsonReportFormatter       $jsonReportFormatter,
-        private CliReportFormatter        $cliReportFormatter,
         private DetectClonesCommandOutput $detectClonesCommandOutput,
-        private HtmlReportReporter        $htmlReportReporter,
-        private JsonReportReporter        $jsonReportReporter,
-        private CliReportReporter         $cliReportReporter,
-        private ReportBuilder             $reportBuilder,
+        private Reporter                  $reporter,
     )
     {
         parent::__construct(self::$defaultName);
@@ -70,8 +71,14 @@ class DetectClonesCommand extends Command
     /**
      * @throws CollectionCannotBeEmpty
      * @throws FilesystemException
+     * @throws JsonException
+     * @throws LoaderError
+     * @throws MethodCannotBeModifiedToNonClassContext
      * @throws NoParamGeneratorFoundForParamRequest
+     * @throws PhpDocumentorFailed
+     * @throws RuntimeError
      * @throws SubsequenceUtilNotFound
+     * @throws SyntaxError
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -84,19 +91,17 @@ class DetectClonesCommand extends Command
 
         $this->createConfiguration($input);
 
-        $detected = $this->detectClonesService->detectInDirectory($commandOutput);
-        $clonesToReport = $this->ignoreClonesService->extractNonIgnoredClones($detected);
+        $detectedClones = $this->detectClonesService->detectInDirectory($commandOutput);
+        $relevantClones = $this->ignoreClonesService->extractNonIgnoredClones($detectedClones);
 
-        if (empty($clonesToReport)) {
-            $commandOutput->noClonesFound()
-                ->stopTime();
+        if (empty($relevantClones)) {
+            $commandOutput->noClonesFound()->stopTime();
 
             return Command::SUCCESS;
-        } else {
-            $commandOutput->newLine(2);
         }
 
-        $this->report($clonesToReport);
+        $commandOutput->newLine(2);
+        $this->reporter->report($relevantClones);
 
         $commandOutput->stopTime();
 
@@ -126,28 +131,5 @@ class DetectClonesCommand extends Command
         $value = $input->getOption($name);
 
         return $value;
-    }
-
-    /** @param array<SourceClone> $clones */
-    private function report(array $clones): void
-    {
-        $report = $this->reportBuilder->createReport($clones);
-
-        $configuration = Configuration::instance();
-        if ($configuration->getReportConfiguration()->getHtml()) {
-            $htmlReport = $this->htmlReportFormatter->format($report);
-
-            $this->htmlReportReporter->report($htmlReport);
-        }
-        if ($configuration->getReportConfiguration()->getJson()) {
-            $jsonReport = $this->jsonReportFormatter->format($report);
-
-            $this->jsonReportReporter->report($jsonReport);
-        }
-        if ($configuration->getReportConfiguration()->getCli()) {
-            $cliReport = $this->cliReportFormatter->format($report);
-
-            $this->cliReportReporter->report($cliReport);
-        }
     }
 }
