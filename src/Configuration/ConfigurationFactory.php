@@ -25,6 +25,7 @@ class ConfigurationFactory
             $this->getAsBool($crawler, 'php-dry', 'enableLcsAlgorithm', false),
             $this->getAsInt($crawler, 'php-dry', 'countOfParamSets', 10),
             $this->getAsBool($crawler, 'php-dry', 'enableConstructNormalization', false),
+            $this->getAsBool($crawler, 'php-dry', 'enableCleanCodeScoring', true),
             $this->relativePathToAbsolutePath(
                 $this->getAsString($crawler, 'php-dry', 'phpDocumentorReportPath', '/tmp/phpDocumentorReport'),
                 $configurationXmlDirectory

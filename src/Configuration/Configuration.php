@@ -17,6 +17,7 @@ class Configuration
         private bool                $enableLcsAlgorithm,
         private int                 $countOfParamSets,
         private bool                $enableConstructNormalization,
+        private bool                $enableCleanCodeScoring,
         private string              $phpDocumentorReportPath,
         private string              $phpDocumentorExecutablePath,
         private string              $cachePath,
@@ -32,6 +33,7 @@ class Configuration
         bool                $enableLcsAlgorithm,
         int                 $countOfParamSets,
         bool                $enableConstructNormalization,
+        bool                $enableCleanCodeScoring,
         string              $phpDocumentorReportPath,
         string              $phpDocumentorExecutablePath,
         string              $cachePath,
@@ -45,6 +47,7 @@ class Configuration
             $enableLcsAlgorithm,
             $countOfParamSets,
             $enableConstructNormalization,
+            $enableCleanCodeScoring,
             $phpDocumentorReportPath,
             $phpDocumentorExecutablePath,
             $cachePath,
@@ -102,6 +105,11 @@ class Configuration
     public function getEnableConstructNormalization(): bool
     {
         return $this->enableConstructNormalization;
+    }
+
+    public function getEnableCleanCodeScoring(): bool
+    {
+        return $this->enableCleanCodeScoring;
     }
 
     public function getPhpDocumentorReportPath(): string

@@ -93,7 +93,7 @@ class DetectClonesCommand extends Command
             ->setOutputHelper(VerboseOutputHelper::create($input, $output))
             ->setStopwatch($stopwatch);
 
-        $this->createConfiguration($input);
+        $configuration = $this->createConfiguration($input);
 
         $detected = $this->detectClonesService->detectInDirectory($commandOutput);
         $clonesToReport = $this->ignoreClonesService->extractNonIgnoredClones($detected);
@@ -110,7 +110,7 @@ class DetectClonesCommand extends Command
             foreach ($clonesToReport as $clone) {
                 $methodScoresMappings = [];
                 foreach ($clone->getMethodsCollection()->getAll() as $method) {
-                    if ($clone->getType() === SourceClone::TYPE_4) {
+                    if ($configuration->getEnableCleanCodeScoring() && $clone->getType() === SourceClone::TYPE_4) {
                         try {
                             $methodModifiedToNonClassContext = $this->methodModifierService->modifyMethodToNonClassContext(
                                 $this->methodModifierService->buildMethod($method->getContent())
@@ -150,13 +150,15 @@ class DetectClonesCommand extends Command
         return Command::FAILURE;
     }
 
-    private function createConfiguration(InputInterface $input): void
+    private function createConfiguration(InputInterface $input): Configuration
     {
         $configuration = $this->configurationFactory->createConfigurationFromXmlFile(
             $this->getStringOption($input, self::OPTION_CONFIG)
         );
 
         $configuration->setDirectory($this->getStringArgument($input, self::ARGUMENT_DIRECTORY));
+
+        return $configuration;
     }
 
     private function getStringArgument(InputInterface $input, string $name): string
