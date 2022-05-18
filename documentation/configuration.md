@@ -14,6 +14,7 @@ An example of a valid configuration:
          enableLcsAlgorithm="false"
          countOfParamSets="10"
          enableConstructNormalization="false"
+         enableCleanCodeScoring="true"
          phpDocumentorReportPath="/tmp/phpDocumentorReport"
          phpDocumentorExecutablePath="/usr/bin/phpDocumentor.phar"
          cachePath="/tmp/php-dry-cache">
@@ -115,6 +116,15 @@ the normalized codes. For example, every `array_map` call can get transformed in
 which can be transformed into a `for` loop, which can be transformed into a `while` loop.
 
 This is very (very very) slow at the moment. You should use this only, if you really need it.
+
+### `enableCleanCodeScoring`
+- Possible values: `true`, `false`
+- Default: `true`
+
+Create scores for type-4 clones depending on their code cleanness?
+
+php-dry can rate found type-4 clone instances by their code cleanness. You can disable this, if you don't care
+about this rating.
 
 ### `phpDocumentorReportPath`
 - Possible values: A valid path to a directory
