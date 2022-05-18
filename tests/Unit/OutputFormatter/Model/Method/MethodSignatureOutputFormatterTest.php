@@ -22,22 +22,22 @@ class MethodSignatureOutputFormatterTest extends TestCase
     {
         yield [
             '(): int',
-            MethodSignature::create([], 'int')
+            MethodSignature::create([], [], 'int')
         ];
 
         yield [
             '(): ?array',
-            MethodSignature::create([], '?array')
+            MethodSignature::create([], [], '?array')
         ];
 
         yield [
             '(int): int',
-            MethodSignature::create(['int'], 'int')
+            MethodSignature::create(['int'], [0], 'int')
         ];
 
         yield [
             '(int, string): int',
-            MethodSignature::create(['int', 'string'], 'int')
+            MethodSignature::create(['int', 'string'], [0, 1], 'int')
         ];
     }
 }

@@ -30,7 +30,7 @@ class MethodsBySignatureGrouperTest extends TestCase
             'methods' => [],
         ];
 
-        $methodSignatures = [MethodSignature::create(['int'], 'string')];
+        $methodSignatures = [MethodSignature::create(['int'], [0], 'string')];
         $method = $this->createMethod($methodSignatures[0]);
         yield 'one method' => [
             'expected' => [MethodSignatureGroup::create($methodSignatures[0], MethodsCollection::create($method))],
@@ -38,9 +38,9 @@ class MethodsBySignatureGrouperTest extends TestCase
         ];
 
         $methodSignatures = [
-            MethodSignature::create(['int'], 'string'),
-            MethodSignature::create(['int', 'int'], 'string'),
-            MethodSignature::create(['string'], 'array')
+            MethodSignature::create(['int'], [0], 'string'),
+            MethodSignature::create(['int', 'int'], [0, 1], 'string'),
+            MethodSignature::create(['string'], [0], 'array')
         ];
         $methods = array_map(fn (MethodSignature $ms): Method => $this->createMethod($ms), $methodSignatures);
         yield 'only methods with different signatures' => [
@@ -52,7 +52,7 @@ class MethodsBySignatureGrouperTest extends TestCase
             'methods' => $methods,
         ];
 
-        $methodSignatures = [MethodSignature::create(['int'], 'string')];
+        $methodSignatures = [MethodSignature::create(['int'], [0], 'string')];
         $methods = [];
         for ($i = 0; $i <= 2; $i++) {
             $methods[] = $this->createMethod($methodSignatures[0]);
@@ -65,9 +65,9 @@ class MethodsBySignatureGrouperTest extends TestCase
         ];
 
         $methodSignatures = [
-            MethodSignature::create(['int'], 'string'),
-            MethodSignature::create(['array'], 'string'),
-            MethodSignature::create(['string', 'int'], 'string')
+            MethodSignature::create(['int'], [0], 'string'),
+            MethodSignature::create(['array'], [0], 'string'),
+            MethodSignature::create(['string', 'int'], [0, 1], 'string')
         ];
         $methods = [
             $this->createMethod($methodSignatures[0]),

@@ -817,6 +817,37 @@
                                 </div>
                             </td>
                         </tr>
+                        <tr>
+                            <th scope="row">11</th>
+                            <td>14_A_Changed_Param_Order.php<br>10:163 - 18:344</td>
+                            <td>8</td>
+                            <td>
+                                <div class="accordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="type_3_clone_0_codeAccordionHeading11"><a
+                                                class="btn accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#type_3_clone_0_codeAccordion11" aria-expanded="false"
+                                                aria-controls="type_3_clone_0_codeAccordion11">
+                                            <pre><code class="language-php">function foo(int, array<int,int>): array<int,int></code></pre>
+                                        </a></h2>
+                                        <div id="type_3_clone_0_codeAccordion11" class="accordion-collapse collapse"
+                                             aria-labelledby="type_3_clone_0_codeAccordionHeading11">
+                                            <div class="accordion-body"><pre><code class="language-php">function foo(int $p2, array $p1): array
+    {
+        $r = [];
+        $f = 100;
+        foreach ($p1 as $i) {
+            $r[] = $i * $p2;
+        }
+        return $r;
+    }</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -1204,6 +1235,37 @@
             fn($i) => $i * $p2,
             $p1
         );
+    }</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">13</th>
+                            <td>14_A_Changed_Param_Order.php<br>10:163 - 18:344</td>
+                            <td>8</td>
+                            <td>
+                                <div class="accordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="type_4_clone_0_codeAccordionHeading13"><a
+                                                class="btn accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#type_4_clone_0_codeAccordion13" aria-expanded="false"
+                                                aria-controls="type_4_clone_0_codeAccordion13">
+                                            <pre><code class="language-php">function foo(int, array<int,int>): array<int,int></code></pre>
+                                        </a></h2>
+                                        <div id="type_4_clone_0_codeAccordion13" class="accordion-collapse collapse"
+                                             aria-labelledby="type_4_clone_0_codeAccordionHeading13">
+                                            <div class="accordion-body"><pre><code class="language-php">function foo(int $p2, array $p1): array
+    {
+        $r = [];
+        $f = 100;
+        foreach ($p1 as $i) {
+            $r[] = $i * $p2;
+        }
+        return $r;
     }</code></pre>
                                             </div>
                                         </div>

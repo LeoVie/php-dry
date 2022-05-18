@@ -962,6 +962,47 @@
 
         <parse_markers></parse_markers>
     </file>
+    <file path="14_A_Changed_Param_Order.php" hash="80e41d1ace13f6f91e86bc53c7d97682">
+        <docblock line="0">
+            <description/>
+            <long-description/>
+            <tag description="Application" name="package"/>
+        </docblock>
+        <class abstract="false" final="false" line="3" namespace="\">
+            <name>A_Changed_Param_Order</name>
+            <full_name>\A_Changed_Param_Order</full_name>
+            <docblock line="3">
+                <description/>
+                <long-description/>
+                <tag description="ALL" name="noinspection"/>
+                <tag description="Application" name="package"/>
+            </docblock>
+            <method abstract="false" endColumn="344" endLine="18" final="false" namespace=""
+                    response="array&lt;int,int&gt;" returnByReference="false" startColumn="163" startLine="10"
+                    static="false" visibility="public">
+                <name>foo</name>
+                <full_name>\A_Changed_Param_Order::foo()</full_name>
+                <value/>
+                <argument by_reference="false" line="10">
+                    <name>p2</name>
+                    <default/>
+                    <type>int</type>
+                </argument>
+                <argument by_reference="false" line="10">
+                    <name>p1</name>
+                    <default/>
+                    <type>array&lt;int,int&gt;</type>
+                </argument>
+                <docblock line="10">
+                    <description/>
+                    <long-description/>
+                    <tag description="" name="param" type="array&lt;int,int&gt;" variable="p1"/>
+                    <tag description="" name="return" type="array&lt;int,int&gt;"/>
+                </docblock>
+            </method>
+        </class>
+        <parse_markers/>
+    </file>
 
     <namespace name="\" full_name="\"/>
 

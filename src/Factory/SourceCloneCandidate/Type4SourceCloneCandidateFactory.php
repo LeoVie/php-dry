@@ -183,10 +183,17 @@ class Type4SourceCloneCandidateFactory
      */
     private function runMethodMultipleTimes(\App\Model\Method\Method $method, ParamListSet $paramListSet): array
     {
-        return array_map(
-            fn(ParamList $paramList): MethodResult => $this->runMethod($method, $paramList),
-            $paramListSet->getParamLists()
-        );
+        $results = [];
+
+        foreach ($paramListSet->getParamLists() as $paramList) {
+            $orderedParams = array_combine($method->getMethodSignature()->getParamsOrder(), $paramList->getParams());
+            ksort($orderedParams);
+            $orderedParamList = ParamList::create($orderedParams);
+
+            $results[] = $this->runMethod($method, $orderedParamList);
+        }
+
+        return $results;
     }
 
     /**

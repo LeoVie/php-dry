@@ -455,6 +455,25 @@
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        $f = 100;\r\n        $r = [];\r\n        foreach ($p1 as $i) {\r\n            $r[] = $i * $p2;\r\n        }\r\n        return $r;\r\n    }"
             }
+          },
+          {
+            "method": {
+              "name": "foo",
+              "methodSignature": "function foo(int, array<int,int>): array<int,int>",
+              "filepath": "14_A_Changed_Param_Order.php",
+              "codePositionRange": {
+                "start": {
+                  "line": 10,
+                  "filePos": 163
+                },
+                "end": {
+                  "line": 18,
+                  "filePos": 344
+                },
+                "countOfLines": 8
+              },
+              "content": "function foo(int $p2, array $p1): array\r\n    {\r\n        $r = [];\r\n        $f = 100;\r\n        foreach ($p1 as $i) {\r\n            $r[] = $i * $p2;\r\n        }\r\n        return $r;\r\n    }"
+            }
           }
         ]
       }
@@ -690,6 +709,25 @@
                 "countOfLines": 6
               },
               "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        return array_map(\r\n            fn($i) => $i * $p2,\r\n            $p1\r\n        );\r\n    }"
+            }
+          },
+          {
+            "method": {
+              "name": "foo",
+              "methodSignature": "function foo(int, array<int,int>): array<int,int>",
+              "filepath": "14_A_Changed_Param_Order.php",
+              "codePositionRange": {
+                "start": {
+                  "line": 10,
+                  "filePos": 163
+                },
+                "end": {
+                  "line": 18,
+                  "filePos": 344
+                },
+                "countOfLines": 8
+              },
+              "content": "function foo(int $p2, array $p1): array\r\n    {\r\n        $r = [];\r\n        $f = 100;\r\n        foreach ($p1 as $i) {\r\n            $r[] = $i * $p2;\r\n        }\r\n        return $r;\r\n    }"
             }
           }
         ]

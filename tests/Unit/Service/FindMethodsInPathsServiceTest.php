@@ -32,6 +32,7 @@ class FindMethodsInPathsServiceTest extends TestCase
             Method::create(
                 MethodSignature::create(
                     ['array<int,int>', 'int'],
+                    [0, 1],
                     'array<int,int>'
                 ),
                 'foo',
@@ -45,6 +46,7 @@ class FindMethodsInPathsServiceTest extends TestCase
             Method::create(
                 MethodSignature::create(
                     ['array<int,int>', 'int'],
+                    [0, 1],
                     'array<int,array<int,int>|int>'
                 ),
                 'bar',

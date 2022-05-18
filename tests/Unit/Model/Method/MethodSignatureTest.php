@@ -19,13 +19,13 @@ class MethodSignatureTest extends TestCase
     public function getParamTypesProvider(): Generator
     {
         $paramTypes = [];
-        yield [$paramTypes, MethodSignature::create($paramTypes, '')];
+        yield [$paramTypes, MethodSignature::create($paramTypes, [], '')];
 
         $paramTypes = ['string'];
-        yield [$paramTypes, MethodSignature::create($paramTypes, '')];
+        yield [$paramTypes, MethodSignature::create($paramTypes, [0], '')];
 
         $paramTypes = ['int', 'string'];
-        yield [$paramTypes, MethodSignature::create($paramTypes, '')];
+        yield [$paramTypes, MethodSignature::create($paramTypes, [0, 1], '')];
     }
 
     /** @dataProvider getReturnTypeProvider */
@@ -37,13 +37,13 @@ class MethodSignatureTest extends TestCase
     public function getReturnTypeProvider(): Generator
     {
         $returnType = 'int';
-        yield [$returnType, MethodSignature::create([], $returnType)];
+        yield [$returnType, MethodSignature::create([], [], $returnType)];
 
         $returnType = 'string';
-        yield [$returnType, MethodSignature::create([], $returnType)];
+        yield [$returnType, MethodSignature::create([], [], $returnType)];
 
         $returnType = '?int';
-        yield [$returnType, MethodSignature::create([], $returnType)];
+        yield [$returnType, MethodSignature::create([], [], $returnType)];
     }
 
     /** @dataProvider jsonSerializeProvider */
@@ -59,7 +59,7 @@ class MethodSignatureTest extends TestCase
                 'paramTypes' => [],
                 'returnType' => 'int',
             ]),
-            MethodSignature::create([], 'int')
+            MethodSignature::create([], [], 'int')
         ];
 
         yield [
@@ -67,7 +67,7 @@ class MethodSignatureTest extends TestCase
                 'paramTypes' => [],
                 'returnType' => '?array',
             ]),
-            MethodSignature::create([], '?array')
+            MethodSignature::create([], [], '?array')
         ];
 
         yield [
@@ -75,7 +75,7 @@ class MethodSignatureTest extends TestCase
                 'paramTypes' => ['int'],
                 'returnType' => 'int',
             ]),
-            MethodSignature::create(['int'], 'int')
+            MethodSignature::create(['int'], [0], 'int')
         ];
 
         yield [
@@ -83,7 +83,7 @@ class MethodSignatureTest extends TestCase
                 'paramTypes' => ['int', 'string'],
                 'returnType' => 'int',
             ]),
-            MethodSignature::create(['int', 'string'], 'int')
+            MethodSignature::create(['int', 'string'], [0, 1], 'int')
         ];
     }
 }
