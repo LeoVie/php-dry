@@ -9,12 +9,11 @@ jobs:
       matrix:
         operating-system: [ ubuntu-latest ]
         php-version: [ '8.0' ]
-        coverage-driver: [ xdebug ]
         include:
-          - { operating-system: 'ubuntu-latest', php-version: '8.0', coverage-driver: 'xdebug'}
-          - { operating-system: 'ubuntu-latest', php-version: '8.1', coverage-driver: 'xdebug'}
+          - { operating-system: 'ubuntu-latest', php-version: '8.0'}
+          - { operating-system: 'ubuntu-latest', php-version: '8.1'}
 
-    name: CI on ${{ matrix.operating-system }} with PHP ${{ matrix.php-version }}, using ${{ matrix.coverage-driver }}
+    name: CI on ${{ matrix.operating-system }} with PHP ${{ matrix.php-version }}
 
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -25,17 +24,9 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - name: "Install PHP"
-        uses: "shivammathur/setup-php@v2"
-        with:
-          php-version: ${{ matrix.php-version }}
-          coverage: ${{ matrix.coverage-driver }}
-          ini-values: memory_limit=512M, xdebug.mode=coverage
-          tools: composer:v2.1
-          extensions: ctype, iconv, mbstring
       - name: "Install requirements"
         run: |
-          make setup_test_environment
+          make setup_test_environment php_version=${{ matrix.php-version }}
       - name: "Static Analysis"
         run: |
           make phpstan
