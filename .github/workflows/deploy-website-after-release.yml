@@ -1,0 +1,12 @@
+on:
+  release:
+    types: [ published ]
+  workflow_dispatch: ~
+
+jobs:
+  deploy_website:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy website
+        run: |
+          curl -XPOST -u "${{ secrets.DEPLOY_PAT_USERNAME}}:${{secrets.DEPLOY_PAT}}" -H "Accept:application/vnd.github.everest-preview+json" -H "Content-Type:application/json" https://api.github.com/repos/leovie/php-dry-website/dispatches --data '{"event_type": "deploy_website" }'
