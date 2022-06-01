@@ -1,7 +1,7 @@
 # php-dry – Clone Detection for PHP
 
 php-dry detects duplicated behaviour in your application, even if the duplicated passages are implemented completely
-different to each other. Likely you should read a bit about the [theoretical background](documentation/theoretical_background.md)
+different to each other. Likely you should read a bit about the [theoretical background](http://php-dry.org/news/0.html)
 for a better understanding.
 
 ## Run via Docker (recommended)
@@ -23,8 +23,8 @@ After installation, you can run php-dry via
 vendor/bin/php-dry {path_to_project} -h
 ```
 
-## Configuration
-see [here](documentation/configuration.md)
+## Documentation
+see [here](http://php-dry.org/documentation)
 
 ## Thanks
 
