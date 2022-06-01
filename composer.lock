@@ -387,16 +387,16 @@
         },
         {
             "name": "leovie/php-token-normalize",
-            "version": "v2.0.0",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LeoVie/php-token-normalize.git",
-                "reference": "1a32ffa2a4b9be2b1ac784e275085a21f04e878d"
+                "reference": "cb9d3141c502255b28876f2b830e16395dc490de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LeoVie/php-token-normalize/zipball/1a32ffa2a4b9be2b1ac784e275085a21f04e878d",
-                "reference": "1a32ffa2a4b9be2b1ac784e275085a21f04e878d",
+                "url": "https://api.github.com/repos/LeoVie/php-token-normalize/zipball/cb9d3141c502255b28876f2b830e16395dc490de",
+                "reference": "cb9d3141c502255b28876f2b830e16395dc490de",
                 "shasum": ""
             },
             "require": {
@@ -432,9 +432,9 @@
             "description": "Normalize php tokens.",
             "support": {
                 "issues": "https://github.com/LeoVie/php-token-normalize/issues",
-                "source": "https://github.com/LeoVie/php-token-normalize/tree/v2.0.0"
+                "source": "https://github.com/LeoVie/php-token-normalize/tree/v2.0.1"
             },
-            "time": "2022-05-21T18:37:13+00:00"
+            "time": "2022-06-01T12:41:35+00:00"
         },
         {
             "name": "nikic/php-parser",
