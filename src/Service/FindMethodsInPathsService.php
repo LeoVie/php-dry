@@ -64,7 +64,7 @@ class FindMethodsInPathsService
         $methods = [];
         foreach ($fileElement->children() as $element) {
             if ($element->nodeName === 'class') {
-                $methods = array_merge($methods, $this->findMethodsInClass(CrawlerFactory::create($element), $filepath, $directory));
+                $methods = array_merge($methods, $this->findMethodsInClass(CrawlerFactory::create($element), $filepath));
             }
         }
 
@@ -72,20 +72,20 @@ class FindMethodsInPathsService
     }
 
     /** @return array<Method> */
-    private function findMethodsInClass(Crawler $classElement, string $filepath, string $projectDirectory): array
+    private function findMethodsInClass(Crawler $classElement, string $filepath): array
     {
         $methods = [];
 
         foreach ($classElement->children() as $element) {
             if ($element->nodeName === 'method') {
-                $methods[] = $this->buildMethod(CrawlerFactory::create($element), $filepath, $projectDirectory);
+                $methods[] = $this->buildMethod(CrawlerFactory::create($element), $filepath);
             }
         }
 
         return $methods;
     }
 
-    private function buildMethod(Crawler $methodElement, string $filepath, string $projectDirectory): Method
+    private function buildMethod(Crawler $methodElement, string $filepath): Method
     {
         $codePositionRange = $this->buildCodePositionRange($methodElement);
 
@@ -97,7 +97,6 @@ class FindMethodsInPathsService
             $filepath,
             $codePositionRange,
             $this->buildContent($codePositionRange, $filepath),
-            $projectDirectory,
         );
     }
 

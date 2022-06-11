@@ -41,7 +41,6 @@ class MethodOutputFormatterTest extends TestCase
                 '/var/www/foo.php',
                 $codePositionRange,
                 '',
-                ''
             ),
         ];
 
@@ -53,7 +52,6 @@ class MethodOutputFormatterTest extends TestCase
                 '/fp/bar.php',
                 $codePositionRange,
                 '',
-                ''
             ),
         ];
     }

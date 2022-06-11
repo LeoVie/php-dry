@@ -28,7 +28,7 @@ class SourceClonesToArrayConverter
                             'method' => [
                                 'name' => $method->getName(),
                                 'methodSignature' => 'function ' . $method->getName() . $this->methodSignatureOutput->format($method->getMethodSignature()),
-                                'filepath' => $this->convertAbsoluteFilepathToProjectRelative($method->getFilepath(), $method->getProjectPath()),
+                                'filepath' => \Safe\realpath($method->getFilepath()),
                                 'codePositionRange' => [
                                     'start' => [
                                         'line' => $method->getCodePositionRange()->getStart()->getLine(),
@@ -47,13 +47,5 @@ class SourceClonesToArrayConverter
                 ],
             ];
         }, $clones);
-    }
-
-    private function convertAbsoluteFilepathToProjectRelative(string $absolute, string $projectRoot): string
-    {
-        /** @var string $projectRelativePath */
-        $projectRelativePath = \Safe\preg_replace("@^$projectRoot@", '', $absolute);
-
-        return $projectRelativePath;
     }
 }
