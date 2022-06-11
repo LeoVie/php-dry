@@ -117,7 +117,6 @@ ifndef php_version
 	$(error php_version is not set)
 endif
 	cd docker && docker build . -f infection.Dockerfile -t php-dry/infection:latest --build-arg PHP_VERSION=$(php_version) && cd -
-
 .PHONY: infection
 infection:
 	docker run -v ${PWD}:/app --rm php-dry/infection:latest

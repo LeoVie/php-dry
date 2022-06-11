@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <php-dry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="../../xsd/php-dry.xsd"
+         directory="/var/www"
          silent="true"
          minTokenLength="60"
          minSimilarTokensPercentage="75"

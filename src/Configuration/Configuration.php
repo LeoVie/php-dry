@@ -8,9 +8,8 @@ class Configuration
 {
     private static Configuration $instance;
 
-    private string $directory;
-
     private function __construct(
+        private string              $directory,
         private bool                $silent,
         private int                 $minTokenLength,
         private int                 $minSimilarTokensPercentage,
@@ -26,6 +25,7 @@ class Configuration
     }
 
     public static function create(
+        string              $directory,
         bool                $silent,
         int                 $minTokenLength,
         int                 $minSimilarTokensPercentage,
@@ -39,6 +39,7 @@ class Configuration
     ): self
     {
         self::setInstance(new self(
+            $directory,
             $silent,
             $minTokenLength,
             $minSimilarTokensPercentage,
@@ -62,11 +63,6 @@ class Configuration
     public static function setInstance(self $instance): void
     {
         self::$instance = $instance;
-    }
-
-    public function setDirectory(string $directory): void
-    {
-        $this->directory = $directory;
     }
 
     public function getDirectory(): string
