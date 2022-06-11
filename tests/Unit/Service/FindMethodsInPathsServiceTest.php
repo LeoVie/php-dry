@@ -10,6 +10,7 @@ use App\Model\CodePosition\CodePositionRange;
 use App\Model\Method\Method;
 use App\Model\Method\MethodSignature;
 use App\Service\FindMethodsInPathsService;
+use App\Service\PhpDocumentorRunner;
 use LeoVie\PhpFilesystem\Service\Filesystem;
 use PHPUnit\Framework\TestCase;
 
@@ -26,8 +27,11 @@ class FindMethodsInPathsServiceTest extends TestCase
         $filesystem = $this->createMock(Filesystem::class);
         $filesystem->method('readFilePart')->willReturnArgument(0);
 
+        $phpDocumentorRunner = $this->createMock(PhpDocumentorRunner::class);
+        $phpDocumentorRunner->method('run');
+
         $projectDirectory = '/var/www/';
-        $methods = (new FindMethodsInPathsService($filesystem))->findAll($projectDirectory);
+        $methods = (new FindMethodsInPathsService($filesystem, $phpDocumentorRunner))->findAll($projectDirectory);
 
         $expected = [
             Method::create(
