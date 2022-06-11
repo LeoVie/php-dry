@@ -80,7 +80,7 @@ class DetectClonesCommand extends Command
 
         $methods = [];
         foreach (Configuration::instance()->getDirectories() as $directory) {
-            $methods = array_merge($this->findMethodsInPathsService->findAll($directory));
+            $methods = array_merge($methods, $this->findMethodsInPathsService->findAll($directory));
         }
 
         $detectedClones = $this->detectClonesService->detectInMethods($commandOutput, $methods);
