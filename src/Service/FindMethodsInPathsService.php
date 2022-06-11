@@ -19,6 +19,7 @@ class FindMethodsInPathsService
 {
     public function __construct(private Filesystem $filesystem)
     {
+
     }
 
     /**
@@ -26,15 +27,14 @@ class FindMethodsInPathsService
      *
      * @throws FilesystemException
      */
-    public function findAll(): array
+    public function findAll(string $directory): array
     {
-        $configuration = Configuration::instance();
-        $reportPath = $configuration->getPhpDocumentorReportPath();
+        $reportPath = Configuration::instance()->getPhpDocumentorReportPath();
         $reportXmlFilepath = rtrim($reportPath, '/') . '/structure.xml';
 
         $crawler = CrawlerFactory::create(\Safe\file_get_contents($reportXmlFilepath));
 
-        $directory = rtrim($configuration->getDirectory(), '/') . '/';
+        $directory = rtrim($directory, '/') . '/';
 
         return $this->findMethodsInProject($crawler->filter('project')->first(), $directory);
     }
@@ -60,7 +60,7 @@ class FindMethodsInPathsService
         $methods = [];
         foreach ($fileElement->children() as $element) {
             if ($element->nodeName === 'class') {
-                $methods = array_merge($methods, $this->findMethodsInClass(CrawlerFactory::create($element), $filepath));
+                $methods = array_merge($methods, $this->findMethodsInClass(CrawlerFactory::create($element), $filepath, $directory));
             }
         }
 
@@ -68,20 +68,20 @@ class FindMethodsInPathsService
     }
 
     /** @return array<Method> */
-    private function findMethodsInClass(Crawler $classElement, string $filepath): array
+    private function findMethodsInClass(Crawler $classElement, string $filepath, string $projectDirectory): array
     {
         $methods = [];
 
         foreach ($classElement->children() as $element) {
             if ($element->nodeName === 'method') {
-                $methods[] = $this->buildMethod(CrawlerFactory::create($element), $filepath);
+                $methods[] = $this->buildMethod(CrawlerFactory::create($element), $filepath, $projectDirectory);
             }
         }
 
         return $methods;
     }
 
-    private function buildMethod(Crawler $methodElement, string $filepath): Method
+    private function buildMethod(Crawler $methodElement, string $filepath, string $projectDirectory): Method
     {
         $codePositionRange = $this->buildCodePositionRange($methodElement);
 
@@ -93,6 +93,7 @@ class FindMethodsInPathsService
             $filepath,
             $codePositionRange,
             $this->buildContent($codePositionRange, $filepath),
+            $projectDirectory,
         );
     }
 

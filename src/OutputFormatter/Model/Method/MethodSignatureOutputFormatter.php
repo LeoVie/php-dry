@@ -13,7 +13,7 @@ class MethodSignatureOutputFormatter
         $orderedParamTypes = array_combine($methodSignature->getParamsOrder(), $methodSignature->getParamTypes());
         ksort($orderedParamTypes);
 
-        return \Safe\sprintf(
+        return sprintf(
             '(%s): %s',
             join(', ', $orderedParamTypes),
             $methodSignature->getReturnType()

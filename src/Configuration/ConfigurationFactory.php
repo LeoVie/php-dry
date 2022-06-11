@@ -20,9 +20,9 @@ class ConfigurationFactory
         $this->nodeExists($crawler, 'php-dry > report');
 
         return Configuration::create(
-            $this->relativePathToAbsolutePath(
-                $this->getAsString($crawler, 'php-dry', 'directory'),
-                $configurationXmlDirectory
+            array_map(
+                fn(string $directory): string => $this->relativePathToAbsolutePath($directory, $configurationXmlDirectory),
+                $this->getAsStringArray($crawler, 'php-dry > directories > directory')
             ),
             $this->getAsBool($crawler, 'php-dry', 'silent', false),
             $this->getAsInt($crawler, 'php-dry', 'minTokenLength', 50),
@@ -67,6 +67,31 @@ class ConfigurationFactory
     private function nodeExists(Crawler $crawler, string $path): bool
     {
         return $crawler->filter($path)->first()->count() > 0;
+    }
+
+    /**
+     * @param array<string> $default
+     *
+     * @return array<string>
+     */
+    private function getAsStringArray(Crawler $crawler, string $path, array $default = null): array
+    {
+        if ($crawler->filter($path)->count() === 0) {
+            if ($default === null) {
+                throw ConfigurationError::create(sprintf('%s', $path));
+            }
+        }
+
+        $array = [];
+        foreach ($crawler->filter($path) as $domNode) {
+            if ($domNode->nodeValue === null) {
+                continue;
+            }
+
+            $array[] = $domNode->nodeValue;
+        }
+
+        return $array;
     }
 
     /** @throws ConfigurationError */

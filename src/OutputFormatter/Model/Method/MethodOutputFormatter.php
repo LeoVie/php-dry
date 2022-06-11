@@ -15,7 +15,7 @@ class MethodOutputFormatter
 
     public function format(Method $method): string
     {
-        return \Safe\sprintf(
+        return sprintf(
             '%s: %s (%s)',
             $method->getFilepath(),
             $method->getName(),

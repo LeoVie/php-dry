@@ -14,7 +14,7 @@ class CodePositionRangeOutputFormatter
 
     public function format(CodePositionRange $codePositionRange): string
     {
-        return \Safe\sprintf(
+        return sprintf(
             '%s - %s (%s lines)',
             $this->codePositionOutputFormatter->format($codePositionRange->getStart()),
             $this->codePositionOutputFormatter->format($codePositionRange->getEnd()),

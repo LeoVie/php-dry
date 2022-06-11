@@ -10,7 +10,7 @@ class NoParamRequestForParamType extends Exception
 {
     private function __construct(string $paramType)
     {
-        parent::__construct(\Safe\sprintf('No ParamRequest exists for param type "%s".', $paramType));
+        parent::__construct(sprintf('No ParamRequest exists for param type "%s".', $paramType));
     }
 
     public static function create(string $paramType): self

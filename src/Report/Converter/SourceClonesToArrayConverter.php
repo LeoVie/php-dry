@@ -28,7 +28,7 @@ class SourceClonesToArrayConverter
                             'method' => [
                                 'name' => $method->getName(),
                                 'methodSignature' => 'function ' . $method->getName() . $this->methodSignatureOutput->format($method->getMethodSignature()),
-                                'filepath' => $this->convertAbsoluteFilepathToProjectRelative($method->getFilepath(), Configuration::instance()->getDirectory()),
+                                'filepath' => $this->convertAbsoluteFilepathToProjectRelative($method->getFilepath(), $method->getProjectPath()),
                                 'codePositionRange' => [
                                     'start' => [
                                         'line' => $method->getCodePositionRange()->getStart()->getLine(),

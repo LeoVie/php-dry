@@ -13,11 +13,10 @@ class PhpDocumentorRunnerTest extends TestCase
         $configuration = $this->createMock(Configuration::class);
         $configuration->method('getPhpDocumentorExecutablePath')->willReturn('tools/phpDocumentor.phar');
         $configuration->method('getPhpDocumentorReportPath')->willReturn(__DIR__ . '/phpDocumentorReport');
-        $configuration->method('getDirectory')->willReturn(__DIR__ . '/../../testdata/clone-detection-testdata');
 
         Configuration::setInstance($configuration);
 
-        (new PhpDocumentorRunner())->run();
+        (new PhpDocumentorRunner())->run(__DIR__ . '/../../testdata/clone-detection-testdata');
 
         self::assertXmlFileEqualsXmlFile(__DIR__ . '/expected_phpDocumentor_structure.xml', __DIR__ . '/phpDocumentorReport/structure.xml');
     }

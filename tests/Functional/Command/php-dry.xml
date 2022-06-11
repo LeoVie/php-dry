@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <php-dry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="../../../xsd/php-dry.xsd"
-         directory="../../testdata/clone-detection-testdata/"
          silent="false"
          minTokenLength="50"
          minSimilarTokensPercentage="80"
@@ -10,6 +9,10 @@
          enableConstructNormalization="false"
          phpDocumentorReportPath="./phpDocumentorReport"
          phpDocumentorExecutablePath="../../../tools/phpDocumentor.phar">
+
+    <directories>
+        <directory>../../testdata/clone-detection-testdata/</directory>
+    </directories>
 
     <report>
         <cli/>

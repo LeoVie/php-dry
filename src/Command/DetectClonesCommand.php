@@ -6,12 +6,14 @@ namespace App\Command;
 
 use App\Command\Output\DetectClonesCommandOutput;
 use App\Command\Output\Helper\VerboseOutputHelper;
+use App\Configuration\Configuration;
 use App\Configuration\ConfigurationFactory;
 use App\Exception\CollectionCannotBeEmpty;
 use App\Exception\PhpDocumentorFailed;
 use App\Exception\SubsequenceUtilNotFound;
 use App\Report\Reporter;
 use App\Service\DetectClonesService;
+use App\Service\FindMethodsInPathsService;
 use App\Service\IgnoreClonesService;
 use App\ServiceFactory\StopwatchFactory;
 use LeoVie\PhpMethodModifier\Exception\MethodCannotBeModifiedToNonClassContext;
@@ -38,6 +40,7 @@ class DetectClonesCommand extends Command
         private IgnoreClonesService       $ignoreClonesService,
         private DetectClonesCommandOutput $detectClonesCommandOutput,
         private Reporter                  $reporter,
+        private FindMethodsInPathsService $findMethodsInPathsService,
     )
     {
         parent::__construct(self::$defaultName);
@@ -76,7 +79,12 @@ class DetectClonesCommand extends Command
 
         $this->createConfiguration($input);
 
-        $detectedClones = $this->detectClonesService->detectInDirectory($commandOutput);
+        $methods = [];
+        foreach (Configuration::instance()->getDirectories() as $directory) {
+            $methods = array_merge($this->findMethodsInPathsService->findAll($directory));
+        }
+
+        $detectedClones = $this->detectClonesService->detectInMethods($commandOutput, $methods);
         $relevantClones = $this->ignoreClonesService->extractNonIgnoredClones($detectedClones);
 
         if (empty($relevantClones)) {

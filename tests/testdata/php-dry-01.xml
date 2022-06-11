@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <php-dry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="../../xsd/php-dry.xsd"
-         directory="src"
          silent="false"
          minTokenLength="50"
          minSimilarTokensPercentage="80"
@@ -10,6 +9,10 @@
          enableConstructNormalization="false"
          phpDocumentorReportPath="/var/phpDocumentorReport"
          cachePath="/cache">
+
+    <directories>
+        <directory>src</directory>
+    </directories>
 
     <report>
         <cli/>

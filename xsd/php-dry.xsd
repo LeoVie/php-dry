@@ -2,6 +2,13 @@
     <xs:element name="php-dry">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="directories">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:string" name="directory"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
                 <xs:element name="report">
                     <xs:complexType>
                         <xs:sequence>

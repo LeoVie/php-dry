@@ -93,6 +93,7 @@ class MethodsBySignatureGrouperTest extends TestCase
             '',
             $this->createMock(CodePositionRange::class),
             '',
+            '',
         );
     }
 }

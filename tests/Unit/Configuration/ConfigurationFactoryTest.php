@@ -19,7 +19,9 @@ class ConfigurationFactoryTest extends TestCase
     {
         yield 'php-dry-01.xml' => [
             'expected' => Configuration::create(
-                __DIR__ . '/../../testdata/src',
+                [
+                    __DIR__ . '/../../testdata/src'
+                ],
                 false,
                 50,
                 80,
@@ -40,7 +42,10 @@ class ConfigurationFactoryTest extends TestCase
 
         yield 'php-dry-02.xml' => [
             'expected' => Configuration::create(
-                '/var/www',
+                [
+                    '/var/www',
+                    '/bar/foo'
+                ],
                 true,
                 60,
                 75,

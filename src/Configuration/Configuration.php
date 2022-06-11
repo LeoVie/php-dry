@@ -8,8 +8,9 @@ class Configuration
 {
     private static Configuration $instance;
 
+    /** @param array<string> $directories */
     private function __construct(
-        private string              $directory,
+        private array               $directories,
         private bool                $silent,
         private int                 $minTokenLength,
         private int                 $minSimilarTokensPercentage,
@@ -24,8 +25,9 @@ class Configuration
     {
     }
 
+    /** @param array<string> $directories */
     public static function create(
-        string              $directory,
+        array               $directories,
         bool                $silent,
         int                 $minTokenLength,
         int                 $minSimilarTokensPercentage,
@@ -39,7 +41,7 @@ class Configuration
     ): self
     {
         self::setInstance(new self(
-            $directory,
+            $directories,
             $silent,
             $minTokenLength,
             $minSimilarTokensPercentage,
@@ -65,9 +67,10 @@ class Configuration
         self::$instance = $instance;
     }
 
-    public function getDirectory(): string
+    /** @return array<string> */
+    public function getDirectories(): array
     {
-        return $this->directory;
+        return $this->directories;
     }
 
     public function isSilent(): bool
