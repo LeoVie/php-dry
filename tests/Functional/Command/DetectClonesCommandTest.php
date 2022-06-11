@@ -25,10 +25,7 @@ class DetectClonesCommandTest extends KernelTestCase
 
     public function testHumanOutput(): void
     {
-        $testdataDir = __DIR__ . '/../../testdata/clone-detection-testdata/';
-
         $this->commandTester->execute([
-            DetectClonesCommand::ARGUMENT_DIRECTORY => $testdataDir,
             '--' . DetectClonesCommand::OPTION_CONFIG => __DIR__ . '/php-dry.xml'
         ]);
 
@@ -139,7 +136,6 @@ class DetectClonesCommandTest extends KernelTestCase
         self::assertFileDoesNotExist($reportPath);
 
         $this->commandTester->execute([
-            DetectClonesCommand::ARGUMENT_DIRECTORY => $testdataDir,
             '--' . DetectClonesCommand::OPTION_CONFIG => __DIR__ . '/php-dry.xml'
         ]);
 
@@ -171,7 +167,6 @@ class DetectClonesCommandTest extends KernelTestCase
         self::assertFileDoesNotExist($reportPath);
 
         $this->commandTester->execute([
-            DetectClonesCommand::ARGUMENT_DIRECTORY => $testdataDir,
             '--' . DetectClonesCommand::OPTION_CONFIG => __DIR__ . '/php-dry.xml'
         ]);
 

@@ -11,16 +11,9 @@ use App\Configuration\ConfigurationFactory;
 use App\Exception\CollectionCannotBeEmpty;
 use App\Exception\PhpDocumentorFailed;
 use App\Exception\SubsequenceUtilNotFound;
-use App\Model\SourceClone\SourceClone;
-use App\Report\Formatter\CliReportFormatter;
-use App\Report\Formatter\HtmlReportFormatter;
-use App\Report\Formatter\JsonReportFormatter;
-use App\Report\ReportBuilder;
 use App\Report\Reporter;
-use App\Report\Saver\CliReportReporter;
-use App\Report\Saver\HtmlReportReporter;
-use App\Report\Saver\JsonReportReporter;
 use App\Service\DetectClonesService;
+use App\Service\FindMethodsInPathsService;
 use App\Service\IgnoreClonesService;
 use App\ServiceFactory\StopwatchFactory;
 use LeoVie\PhpMethodModifier\Exception\MethodCannotBeModifiedToNonClassContext;
@@ -28,7 +21,6 @@ use LeoVie\PhpParamGenerator\Exception\NoParamGeneratorFoundForParamRequest;
 use Safe\Exceptions\FilesystemException;
 use Safe\Exceptions\JsonException;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -39,7 +31,6 @@ use Twig\Error\SyntaxError;
 class DetectClonesCommand extends Command
 {
     public const NAME = 'php-dry:check';
-    public const ARGUMENT_DIRECTORY = 'directory';
     public const OPTION_CONFIG = 'config';
     protected static $defaultName = self::NAME;
 
@@ -49,6 +40,7 @@ class DetectClonesCommand extends Command
         private IgnoreClonesService       $ignoreClonesService,
         private DetectClonesCommandOutput $detectClonesCommandOutput,
         private Reporter                  $reporter,
+        private FindMethodsInPathsService $findMethodsInPathsService,
     )
     {
         parent::__construct(self::$defaultName);
@@ -56,11 +48,7 @@ class DetectClonesCommand extends Command
 
     protected function configure(): void
     {
-        $this->addArgument(
-            self::ARGUMENT_DIRECTORY,
-            InputArgument::REQUIRED,
-            'Absolute path of directory in which clones should get detected.'
-        )->addOption(
+        $this->addOption(
             self::OPTION_CONFIG,
             'c',
             InputOption::VALUE_REQUIRED,
@@ -75,7 +63,6 @@ class DetectClonesCommand extends Command
      * @throws LoaderError
      * @throws MethodCannotBeModifiedToNonClassContext
      * @throws NoParamGeneratorFoundForParamRequest
-     * @throws PhpDocumentorFailed
      * @throws RuntimeError
      * @throws SubsequenceUtilNotFound
      * @throws SyntaxError
@@ -91,7 +78,12 @@ class DetectClonesCommand extends Command
 
         $this->createConfiguration($input);
 
-        $detectedClones = $this->detectClonesService->detectInDirectory($commandOutput);
+        $methods = [];
+        foreach (Configuration::instance()->getDirectories() as $directory) {
+            $methods = array_merge($this->findMethodsInPathsService->findAll($directory));
+        }
+
+        $detectedClones = $this->detectClonesService->detectInMethods($commandOutput, $methods);
         $relevantClones = $this->ignoreClonesService->extractNonIgnoredClones($detectedClones);
 
         if (empty($relevantClones)) {
@@ -110,19 +102,9 @@ class DetectClonesCommand extends Command
 
     private function createConfiguration(InputInterface $input): void
     {
-        $configuration = $this->configurationFactory->createConfigurationFromXmlFile(
+        $this->configurationFactory->createConfigurationFromXmlFile(
             $this->getStringOption($input, self::OPTION_CONFIG)
         );
-
-        $configuration->setDirectory($this->getStringArgument($input, self::ARGUMENT_DIRECTORY));
-    }
-
-    private function getStringArgument(InputInterface $input, string $name): string
-    {
-        /** @var string $value */
-        $value = $input->getArgument($name);
-
-        return $value;
     }
 
     private function getStringOption(InputInterface $input, string $name): string

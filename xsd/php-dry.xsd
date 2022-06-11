@@ -1,43 +1,51 @@
 <xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-<xs:element name="php-dry">
-    <xs:complexType>
-        <xs:sequence>
-            <xs:element name="report">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element type="xs:string" name="cli"/>
-                        <xs:element name="html">
-                            <xs:complexType>
-                                <xs:simpleContent>
-                                    <xs:extension base="xs:string">
-                                        <xs:attribute type="xs:string" name="directory" use="required"/>
-                                    </xs:extension>
-                                </xs:simpleContent>
-                            </xs:complexType>
-                        </xs:element>
-                        <xs:element name="json">
-                            <xs:complexType>
-                                <xs:simpleContent>
-                                    <xs:extension base="xs:string">
-                                        <xs:attribute type="xs:string" name="filepath" use="required"/>
-                                    </xs:extension>
-                                </xs:simpleContent>
-                            </xs:complexType>
-                        </xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-        </xs:sequence>
-        <xs:attribute type="xs:boolean" name="silent" default="false"/>
-        <xs:attribute type="xs:integer" name="minTokenLength" default="50"/>
-        <xs:attribute type="xs:integer" name="minSimilarTokensPercentage" default="80"/>
-        <xs:attribute type="xs:boolean" name="enableLcsAlgorithm" default="false"/>
-        <xs:attribute type="xs:integer" name="countOfParamSets" default="10"/>
-        <xs:attribute type="xs:boolean" name="enableConstructNormalization" default="false"/>
-        <xs:attribute type="xs:string" name="phpDocumentorReportPath" default="/tmp/phpDocumentorReport"/>
-        <xs:attribute type="xs:string" name="phpDocumentorExecutablePath" default="tools/phpDocumentor.phar"/>
-        <xs:attribute type="xs:string" name="cachePath" default="."/>
-    </xs:complexType>
-</xs:element>
+    <xs:element name="php-dry">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="directories">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:string" name="directory"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="report">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:string" name="cli"/>
+                            <xs:element name="html">
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:string">
+                                            <xs:attribute type="xs:string" name="directory" use="required"/>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="json">
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:string">
+                                            <xs:attribute type="xs:string" name="filepath" use="required"/>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="directory"/>
+            <xs:attribute type="xs:boolean" name="silent" default="false"/>
+            <xs:attribute type="xs:integer" name="minTokenLength" default="50"/>
+            <xs:attribute type="xs:integer" name="minSimilarTokensPercentage" default="80"/>
+            <xs:attribute type="xs:boolean" name="enableLcsAlgorithm" default="false"/>
+            <xs:attribute type="xs:integer" name="countOfParamSets" default="10"/>
+            <xs:attribute type="xs:boolean" name="enableConstructNormalization" default="false"/>
+            <xs:attribute type="xs:string" name="phpDocumentorReportPath" default="/tmp/phpDocumentorReport"/>
+            <xs:attribute type="xs:string" name="phpDocumentorExecutablePath" default="tools/phpDocumentor.phar"/>
+            <xs:attribute type="xs:string" name="cachePath" default="."/>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>
 

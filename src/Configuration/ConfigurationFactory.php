@@ -5,6 +5,7 @@ namespace App\Configuration;
 use App\Configuration\ReportConfiguration\Cli;
 use App\Configuration\ReportConfiguration\Html;
 use App\Configuration\ReportConfiguration\Json;
+use App\Exception\ConfigurationError;
 use App\ServiceFactory\CrawlerFactory;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -19,6 +20,10 @@ class ConfigurationFactory
         $this->nodeExists($crawler, 'php-dry > report');
 
         return Configuration::create(
+            array_map(
+                fn(string $directory): string => $this->relativePathToAbsolutePath($directory, $configurationXmlDirectory),
+                $this->getAsStringArray($crawler, 'php-dry > directories > directory')
+            ),
             $this->getAsBool($crawler, 'php-dry', 'silent', false),
             $this->getAsInt($crawler, 'php-dry', 'minTokenLength', 50),
             $this->getAsInt($crawler, 'php-dry', 'minSimilarTokensPercentage', 80),
@@ -64,27 +69,71 @@ class ConfigurationFactory
         return $crawler->filter($path)->first()->count() > 0;
     }
 
-    private function getAsString(Crawler $crawler, string $path, string $attribute, string $default): string
+    /**
+     * @param array<string> $default
+     *
+     * @return array<string>
+     */
+    private function getAsStringArray(Crawler $crawler, string $path, array $default = null): array
     {
+        if ($crawler->filter($path)->count() === 0) {
+            if ($default === null) {
+                throw ConfigurationError::create(sprintf('%s', $path));
+            }
+        }
+
+        $array = [];
+        foreach ($crawler->filter($path) as $domNode) {
+            if ($domNode->nodeValue === null) {
+                continue;
+            }
+
+            $array[] = $domNode->nodeValue;
+        }
+
+        return $array;
+    }
+
+    /** @throws ConfigurationError */
+    private function getAsString(Crawler $crawler, string $path, string $attribute, string $default = null): string
+    {
+        if ($crawler->filter($path)->first()->attr($attribute) === null) {
+            if ($default === null) {
+                throw ConfigurationError::create(sprintf('%s.%s', $path, $attribute));
+            }
+        }
+
         /** @var string $value */
         $value = $crawler->filter($path)->first()->attr($attribute) ?? $default;
 
         return $value;
     }
 
-    private function getAsInt(Crawler $crawler, string $path, string $attribute, int $default): int
+    /** @throws ConfigurationError */
+    private function getAsInt(Crawler $crawler, string $path, string $attribute, int $default = null): int
     {
+        if ($crawler->filter($path)->first()->attr($attribute) === null) {
+            if ($default === null) {
+                throw ConfigurationError::create(sprintf('%s.%s', $path, $attribute));
+            }
+        }
+
         /** @var int $value */
         $value = $crawler->filter($path)->first()->attr($attribute) ?? $default;
 
         return $value;
     }
 
-    private function getAsBool(Crawler $crawler, string $path, string $attribute, bool $default): bool
+    /** @throws ConfigurationError */
+    private function getAsBool(Crawler $crawler, string $path, string $attribute, bool $default = null): bool
     {
         $rawValue = $crawler->filter($path)->first()->attr($attribute);
 
         if ($rawValue === null) {
+            if ($default === null) {
+                throw ConfigurationError::create(sprintf('%s.%s', $path, $attribute));
+            }
+
             return $default;
         }
 

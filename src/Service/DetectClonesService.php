@@ -12,7 +12,6 @@ use App\Collection\MethodsCollection;
 use App\Command\Output\DetectClonesCommandOutput;
 use App\Configuration\Configuration;
 use App\Exception\CollectionCannotBeEmpty;
-use App\Exception\PhpDocumentorFailed;
 use App\Exception\SubsequenceUtilNotFound;
 use App\Factory\SourceCloneCandidate\Type1SourceCloneCandidateFactory;
 use App\Factory\SourceCloneCandidate\Type2SourceCloneCandidateFactory;
@@ -33,7 +32,6 @@ use Safe\Exceptions\FilesystemException;
 class DetectClonesService
 {
     public function __construct(
-        private FindMethodsInPathsService        $findMethodsInPathsService,
         private MethodsBySignatureGrouper        $methodsBySignatureGrouper,
         private Type1CloneDetector               $type1CloneDetector,
         private Type2CloneDetector               $type2CloneDetector,
@@ -44,12 +42,13 @@ class DetectClonesService
         private Type3SourceCloneCandidateFactory $type3SourceCloneCandidateFactory,
         private Type4SourceCloneCandidateFactory $type4SourceCloneCandidateFactory,
         private ConstructNormalizeService        $constructNormalizeService,
-        private PhpDocumentorRunner              $phpDocumentorRunner,
     )
     {
     }
 
     /**
+     * @param array<Method> $methods
+     *
      * @return SourceClone[][]
      *
      * @throws CollectionCannotBeEmpty
@@ -57,13 +56,9 @@ class DetectClonesService
      * @throws MethodCannotBeModifiedToNonClassContext
      * @throws NoParamGeneratorFoundForParamRequest
      * @throws SubsequenceUtilNotFound
-     * @throws PhpDocumentorFailed
      */
-    public function detectInDirectory(DetectClonesCommandOutput $output): array
+    public function detectInMethods(DetectClonesCommandOutput $output, array $methods): array
     {
-        $this->phpDocumentorRunner->run();
-
-        $methods = $this->findMethodsInPathsService->findAll();
         $output->foundMethods(count($methods));
 
         $methodSignatureGroups = $this->methodsBySignatureGrouper->group($methods);
@@ -246,6 +241,7 @@ class DetectClonesService
      * @throws FilesystemException
      * @throws MethodCannotBeModifiedToNonClassContext
      * @throws NoParamGeneratorFoundForParamRequest
+     * @throws SubsequenceUtilNotFound
      */
     private function detectType4ClonesByConstructNormalization(iterable $filteredMethodSignatureGroups, DetectClonesCommandOutput $output): array
     {
@@ -266,6 +262,7 @@ class DetectClonesService
                     $method->getFilepath(),
                     $method->getCodePositionRange(),
                     $languageConstructNormalizedMethodCode,
+                    $method->getProjectPath(),
                 );
             }
 

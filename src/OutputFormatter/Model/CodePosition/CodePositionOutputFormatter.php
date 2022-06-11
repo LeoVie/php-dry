@@ -10,7 +10,7 @@ class CodePositionOutputFormatter
 {
     public function format(CodePosition $codePosition): string
     {
-        return \Safe\sprintf(
+        return sprintf(
             '%s (position %s)',
             $codePosition->getLine(),
             $codePosition->getFilePos()

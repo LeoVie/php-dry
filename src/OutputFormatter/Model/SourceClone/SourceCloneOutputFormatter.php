@@ -16,7 +16,7 @@ class SourceCloneOutputFormatter
 
     public function format(SourceClone $sourceClone): string
     {
-        return \Safe\sprintf(
+        return sprintf(
             "CLONE: Type: %s, Methods: \n\t%s",
             $sourceClone->getType(),
             join(

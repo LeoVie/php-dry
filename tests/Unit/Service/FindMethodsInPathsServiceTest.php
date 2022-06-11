@@ -10,6 +10,7 @@ use App\Model\CodePosition\CodePositionRange;
 use App\Model\Method\Method;
 use App\Model\Method\MethodSignature;
 use App\Service\FindMethodsInPathsService;
+use App\Service\PhpDocumentorRunner;
 use LeoVie\PhpFilesystem\Service\Filesystem;
 use PHPUnit\Framework\TestCase;
 
@@ -26,7 +27,11 @@ class FindMethodsInPathsServiceTest extends TestCase
         $filesystem = $this->createMock(Filesystem::class);
         $filesystem->method('readFilePart')->willReturnArgument(0);
 
-        $methods = (new FindMethodsInPathsService($filesystem))->findAll();
+        $phpDocumentorRunner = $this->createMock(PhpDocumentorRunner::class);
+        $phpDocumentorRunner->method('run');
+
+        $projectDirectory = '/var/www/';
+        $methods = (new FindMethodsInPathsService($filesystem, $phpDocumentorRunner))->findAll($projectDirectory);
 
         $expected = [
             Method::create(
@@ -36,12 +41,13 @@ class FindMethodsInPathsServiceTest extends TestCase
                     'array<int,int>'
                 ),
                 'foo',
-                '/01_A.php',
+                '/var/www/01_A.php',
                 CodePositionRange::create(
                     CodePosition::create(10, 143),
                     CodePosition::create(18, 324),
                 ),
-                '/01_A.php'
+                '/var/www/01_A.php',
+                $projectDirectory
             ),
             Method::create(
                 MethodSignature::create(
@@ -50,12 +56,13 @@ class FindMethodsInPathsServiceTest extends TestCase
                     'array<int,array<int,int>|int>'
                 ),
                 'bar',
-                '/02_B.php',
+                '/var/www/02_B.php',
                 CodePositionRange::create(
                     CodePosition::create(10, 159),
                     CodePosition::create(13, 239),
                 ),
-                '/02_B.php'
+                '/var/www/02_B.php',
+                $projectDirectory
             ),
         ];
 

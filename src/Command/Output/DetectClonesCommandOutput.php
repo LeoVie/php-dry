@@ -64,21 +64,21 @@ class DetectClonesCommandOutput
     public function foundFiles(int $filesCount): self
     {
         return $this
-            ->single(\Safe\sprintf('Found %s files:', $filesCount))
+            ->single(sprintf('Found %s files:', $filesCount))
             ->lapTime();
     }
 
     public function foundMethods(int $methodsCount): self
     {
         return $this
-            ->single(\Safe\sprintf('Found %s methods:', $methodsCount))
+            ->single(sprintf('Found %s methods:', $methodsCount))
             ->lapTime();
     }
 
     public function foundClones(string $clonesType, int $clonesCount): self
     {
         return $this
-            ->single(\Safe\sprintf('Found %s %s clones:', $clonesCount, $clonesType))
+            ->single(sprintf('Found %s %s clones:', $clonesCount, $clonesType))
             ->lapTime();
     }
 
@@ -100,7 +100,7 @@ class DetectClonesCommandOutput
     public function detectionRunningForType(string $type): self
     {
         $this->outputHelper
-            ->info(\Safe\sprintf('Detecting type %s clones', $type));
+            ->info(sprintf('Detecting type %s clones', $type));
 
         return $this;
     }

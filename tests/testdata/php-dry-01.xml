@@ -10,6 +10,10 @@
          phpDocumentorReportPath="/var/phpDocumentorReport"
          cachePath="/cache">
 
+    <directories>
+        <directory>src</directory>
+    </directories>
+
     <report>
         <cli/>
         <html directory="reports"/>

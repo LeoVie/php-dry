@@ -11,6 +11,11 @@
          phpDocumentorExecutablePath="bla_foo"
          cachePath="/tmp/">
 
+    <directories>
+        <directory>/var/www</directory>
+        <directory>/bar/foo</directory>
+    </directories>
+
     <report>
         <cli/>
         <json filepath="foo/bar/report.json"/>
