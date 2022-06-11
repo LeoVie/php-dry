@@ -5,7 +5,7 @@
                 <xs:element name="directories">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element type="xs:string" name="directory"/>
+                            <xs:element type="xs:string" name="directory" maxOccurs="unbounded" minOccurs="1"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
