@@ -63,7 +63,6 @@ class DetectClonesCommand extends Command
      * @throws LoaderError
      * @throws MethodCannotBeModifiedToNonClassContext
      * @throws NoParamGeneratorFoundForParamRequest
-     * @throws PhpDocumentorFailed
      * @throws RuntimeError
      * @throws SubsequenceUtilNotFound
      * @throws SyntaxError

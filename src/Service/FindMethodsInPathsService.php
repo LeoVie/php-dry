@@ -17,9 +17,11 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class FindMethodsInPathsService
 {
-    public function __construct(private Filesystem $filesystem)
+    public function __construct(
+        private Filesystem          $filesystem,
+        private PhpDocumentorRunner $phpDocumentorRunner
+    )
     {
-
     }
 
     /**
@@ -29,6 +31,8 @@ class FindMethodsInPathsService
      */
     public function findAll(string $directory): array
     {
+        $this->phpDocumentorRunner->run($directory);
+
         $reportPath = Configuration::instance()->getPhpDocumentorReportPath();
         $reportXmlFilepath = rtrim($reportPath, '/') . '/structure.xml';
 
