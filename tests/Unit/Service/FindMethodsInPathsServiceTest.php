@@ -47,7 +47,6 @@ class FindMethodsInPathsServiceTest extends TestCase
                     CodePosition::create(18, 324),
                 ),
                 '/var/www/01_A.php',
-                $projectDirectory
             ),
             Method::create(
                 MethodSignature::create(
@@ -62,7 +61,6 @@ class FindMethodsInPathsServiceTest extends TestCase
                     CodePosition::create(13, 239),
                 ),
                 '/var/www/02_B.php',
-                $projectDirectory
             ),
         ];
 

@@ -7,7 +7,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "01_A.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/01_A.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -26,7 +26,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "03_A_Exact_Copy.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/03_A_Exact_Copy.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -45,7 +45,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "04_A_Additional_Whitespaces.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/04_A_Additional_Whitespaces.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -64,7 +64,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "05_A_Additional_Comments.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/05_A_Additional_Comments.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -83,7 +83,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "06_A_Changed_Layout.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/06_A_Changed_Layout.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -110,7 +110,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "01_A.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/01_A.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -129,7 +129,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "03_A_Exact_Copy.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/03_A_Exact_Copy.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -148,7 +148,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "04_A_Additional_Whitespaces.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/04_A_Additional_Whitespaces.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -167,7 +167,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "05_A_Additional_Comments.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/05_A_Additional_Comments.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -186,7 +186,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "06_A_Changed_Layout.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/06_A_Changed_Layout.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -205,7 +205,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "07_A_Changed_Variable_Names.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/07_A_Changed_Variable_Names.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -224,7 +224,7 @@
             "method": {
               "name": "bar",
               "methodSignature": "function bar(array<int,int>, int): array<int,int>",
-              "filepath": "08_A_Changed_Method_Names.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/08_A_Changed_Method_Names.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -243,7 +243,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "09_A_Changed_Literals.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/09_A_Changed_Literals.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -270,7 +270,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "01_A.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/01_A.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -289,7 +289,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "03_A_Exact_Copy.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/03_A_Exact_Copy.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -308,7 +308,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "04_A_Additional_Whitespaces.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/04_A_Additional_Whitespaces.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -327,7 +327,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "05_A_Additional_Comments.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/05_A_Additional_Comments.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -346,7 +346,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "06_A_Changed_Layout.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/06_A_Changed_Layout.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -365,7 +365,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "07_A_Changed_Variable_Names.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/07_A_Changed_Variable_Names.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -384,7 +384,7 @@
             "method": {
               "name": "bar",
               "methodSignature": "function bar(array<int,int>, int): array<int,int>",
-              "filepath": "08_A_Changed_Method_Names.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/08_A_Changed_Method_Names.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -403,7 +403,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "09_A_Changed_Literals.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/09_A_Changed_Literals.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -422,7 +422,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "11_A_Removed_Statements.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/11_A_Removed_Statements.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -441,7 +441,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "12_A_Changed_Statement_Order.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/12_A_Changed_Statement_Order.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -460,7 +460,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(int, array<int,int>): array<int,int>",
-              "filepath": "14_A_Changed_Param_Order.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/14_A_Changed_Param_Order.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -487,7 +487,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "01_A.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/01_A.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -506,7 +506,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "03_A_Exact_Copy.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/03_A_Exact_Copy.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -525,7 +525,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "04_A_Additional_Whitespaces.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/04_A_Additional_Whitespaces.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -544,7 +544,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "05_A_Additional_Comments.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/05_A_Additional_Comments.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -563,7 +563,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "06_A_Changed_Layout.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/06_A_Changed_Layout.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -582,7 +582,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "07_A_Changed_Variable_Names.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/07_A_Changed_Variable_Names.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -601,7 +601,7 @@
             "method": {
               "name": "bar",
               "methodSignature": "function bar(array<int,int>, int): array<int,int>",
-              "filepath": "08_A_Changed_Method_Names.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/08_A_Changed_Method_Names.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -620,7 +620,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "09_A_Changed_Literals.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/09_A_Changed_Literals.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -639,7 +639,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "10_A_Additional_Statements.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/10_A_Additional_Statements.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -658,7 +658,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "11_A_Removed_Statements.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/11_A_Removed_Statements.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -677,7 +677,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "12_A_Changed_Statement_Order.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/12_A_Changed_Statement_Order.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -696,7 +696,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "13_A_Changed_Syntax.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/13_A_Changed_Syntax.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,
@@ -715,7 +715,7 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(int, array<int,int>): array<int,int>",
-              "filepath": "14_A_Changed_Param_Order.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata/14_A_Changed_Param_Order.php",
               "codePositionRange": {
                 "start": {
                   "line": 10,

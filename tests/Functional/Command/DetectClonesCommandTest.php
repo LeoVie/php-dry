@@ -40,11 +40,11 @@ class DetectClonesCommandTest extends KernelTestCase
         $type1ClonesOutput = "TYPE_1
         ------
         
-         * 01_A.php: foo (10 (position 143) - 18 (position 324) (8 lines))
-         * 03_A_Exact_Copy.php: foo (10 (position 154) - 18 (position 335) (8 lines))
-         * 04_A_Additional_Whitespaces.php: foo (10 (position 166) - 19 (position 369) (9 lines))
-         * 05_A_Additional_Comments.php: foo (10 (position 163) - 25 (position 533) (15 lines))
-         * 06_A_Changed_Layout.php: foo (10 (position 158) - 14 (position 303) (4 lines))";
+         * /app/tests/testdata/clone-detection-testdata/01_A.php: foo (10 (position 143) - 18 (position 324) (8 lines))
+         * /app/tests/testdata/clone-detection-testdata/03_A_Exact_Copy.php: foo (10 (position 154) - 18 (position 335) (8 lines))
+         * /app/tests/testdata/clone-detection-testdata/04_A_Additional_Whitespaces.php: foo (10 (position 166) - 19 (position 369) (9 lines))
+         * /app/tests/testdata/clone-detection-testdata/05_A_Additional_Comments.php: foo (10 (position 163) - 25 (position 533) (15 lines))
+         * /app/tests/testdata/clone-detection-testdata/06_A_Changed_Layout.php: foo (10 (position 158) - 14 (position 303) (4 lines))";
 
         self::assertStringContainsString(
             $this->normalizeCommandLineOutput($type1ClonesOutput),
@@ -54,14 +54,14 @@ class DetectClonesCommandTest extends KernelTestCase
         $type2ClonesOutput = "TYPE_2
         ------
         
-         * 01_A.php: foo (10 (position 143) - 18 (position 324) (8 lines))
-         * 03_A_Exact_Copy.php: foo (10 (position 154) - 18 (position 335) (8 lines))
-         * 04_A_Additional_Whitespaces.php: foo (10 (position 166) - 19 (position 369) (9 lines))
-         * 05_A_Additional_Comments.php: foo (10 (position 163) - 25 (position 533) (15 lines))
-         * 06_A_Changed_Layout.php: foo (10 (position 158) - 14 (position 303) (4 lines))
-         * 07_A_Changed_Variable_Names.php: foo (10 (position 169) - 18 (position 364) (8 lines))
-         * 08_A_Changed_Method_Names.php: bar (10 (position 164) - 18 (position 345) (8 lines))
-         * 09_A_Changed_Literals.php: foo (10 (position 160) - 18 (position 341) (8 lines))";
+         * /app/tests/testdata/clone-detection-testdata/01_A.php: foo (10 (position 143) - 18 (position 324) (8 lines))
+         * /app/tests/testdata/clone-detection-testdata/03_A_Exact_Copy.php: foo (10 (position 154) - 18 (position 335) (8 lines))
+         * /app/tests/testdata/clone-detection-testdata/04_A_Additional_Whitespaces.php: foo (10 (position 166) - 19 (position 369) (9 lines))
+         * /app/tests/testdata/clone-detection-testdata/05_A_Additional_Comments.php: foo (10 (position 163) - 25 (position 533) (15 lines))
+         * /app/tests/testdata/clone-detection-testdata/06_A_Changed_Layout.php: foo (10 (position 158) - 14 (position 303) (4 lines))
+         * /app/tests/testdata/clone-detection-testdata/07_A_Changed_Variable_Names.php: foo (10 (position 169) - 18 (position 364) (8 lines))
+         * /app/tests/testdata/clone-detection-testdata/08_A_Changed_Method_Names.php: bar (10 (position 164) - 18 (position 345) (8 lines))
+         * /app/tests/testdata/clone-detection-testdata/09_A_Changed_Literals.php: foo (10 (position 160) - 18 (position 341) (8 lines))";
         self::assertStringContainsString(
             $this->normalizeCommandLineOutput($type2ClonesOutput),
             $this->normalizeCommandLineOutput($output)
@@ -70,16 +70,17 @@ class DetectClonesCommandTest extends KernelTestCase
         $type3ClonesOutput = "TYPE_3
         ------
         
-         * 01_A.php: foo (10 (position 143) - 18 (position 324) (8 lines))
-         * 03_A_Exact_Copy.php: foo (10 (position 154) - 18 (position 335) (8 lines))
-         * 04_A_Additional_Whitespaces.php: foo (10 (position 166) - 19 (position 369) (9 lines))
-         * 05_A_Additional_Comments.php: foo (10 (position 163) - 25 (position 533) (15 lines))
-         * 06_A_Changed_Layout.php: foo (10 (position 158) - 14 (position 303) (4 lines))
-         * 07_A_Changed_Variable_Names.php: foo (10 (position 169) - 18 (position 364) (8 lines))
-         * 08_A_Changed_Method_Names.php: bar (10 (position 164) - 18 (position 345) (8 lines))
-         * 09_A_Changed_Literals.php: foo (10 (position 160) - 18 (position 341) (8 lines))
-         * 11_A_Removed_Statements.php: foo (10 (position 162) - 17 (position 324) (7 lines))
-         * 12_A_Changed_Statement_Order.php: foo (10 (position 167) - 18 (position 348) (8 lines))";
+         * /app/tests/testdata/clone-detection-testdata/01_A.php: foo (10 (position 143) - 18 (position 324) (8 lines))
+         * /app/tests/testdata/clone-detection-testdata/03_A_Exact_Copy.php: foo (10 (position 154) - 18 (position 335) (8 lines))
+         * /app/tests/testdata/clone-detection-testdata/04_A_Additional_Whitespaces.php: foo (10 (position 166) - 19 (position 369) (9 lines))
+         * /app/tests/testdata/clone-detection-testdata/05_A_Additional_Comments.php: foo (10 (position 163) - 25 (position 533) (15 lines))
+         * /app/tests/testdata/clone-detection-testdata/06_A_Changed_Layout.php: foo (10 (position 158) - 14 (position 303) (4 lines))
+         * /app/tests/testdata/clone-detection-testdata/07_A_Changed_Variable_Names.php: foo (10 (position 169) - 18 (position 364) (8 lines))
+         * /app/tests/testdata/clone-detection-testdata/08_A_Changed_Method_Names.php: bar (10 (position 164) - 18 (position 345) (8 lines))
+         * /app/tests/testdata/clone-detection-testdata/09_A_Changed_Literals.php: foo (10 (position 160) - 18 (position 341) (8 lines))
+         * /app/tests/testdata/clone-detection-testdata/11_A_Removed_Statements.php: foo (10 (position 162) - 17 (position 324) (7 lines))
+         * /app/tests/testdata/clone-detection-testdata/12_A_Changed_Statement_Order.php: foo (10 (position 167) - 18 (position 348) (8 lines))
+         * /app/tests/testdata/clone-detection-testdata/14_A_Changed_Param_Order.php: foo (10 (position 163) - 18 (position 344) (8 lines))";
         self::assertStringContainsString(
             $this->normalizeCommandLineOutput($type3ClonesOutput),
             $this->normalizeCommandLineOutput($output)
@@ -88,18 +89,19 @@ class DetectClonesCommandTest extends KernelTestCase
         $type4ClonesOutput = "TYPE_4
         ------
         
-         * 01_A.php: foo (10 (position 143) - 18 (position 324) (8 lines))
-         * 03_A_Exact_Copy.php: foo (10 (position 154) - 18 (position 335) (8 lines))
-         * 04_A_Additional_Whitespaces.php: foo (10 (position 166) - 19 (position 369) (9 lines))
-         * 05_A_Additional_Comments.php: foo (10 (position 163) - 25 (position 533) (15 lines))
-         * 06_A_Changed_Layout.php: foo (10 (position 158) - 14 (position 303) (4 lines))
-         * 07_A_Changed_Variable_Names.php: foo (10 (position 169) - 18 (position 364) (8 lines))
-         * 08_A_Changed_Method_Names.php: bar (10 (position 164) - 18 (position 345) (8 lines))
-         * 09_A_Changed_Literals.php: foo (10 (position 160) - 18 (position 341) (8 lines))
-         * 10_A_Additional_Statements.php: foo (10 (position 165) - 19 (position 383) (9 lines))
-         * 11_A_Removed_Statements.php: foo (10 (position 162) - 17 (position 324) (7 lines))
-         * 12_A_Changed_Statement_Order.php: foo (10 (position 167) - 18 (position 348) (8 lines))
-         * 13_A_Changed_Syntax.php: foo (10 (position 158) - 16 (position 299) (6 lines))";
+         * /app/tests/testdata/clone-detection-testdata/01_A.php: foo (10 (position 143) - 18 (position 324) (8 lines))
+         * /app/tests/testdata/clone-detection-testdata/03_A_Exact_Copy.php: foo (10 (position 154) - 18 (position 335) (8 lines))
+         * /app/tests/testdata/clone-detection-testdata/04_A_Additional_Whitespaces.php: foo (10 (position 166) - 19 (position 369) (9 lines))
+         * /app/tests/testdata/clone-detection-testdata/05_A_Additional_Comments.php: foo (10 (position 163) - 25 (position 533) (15 lines))
+         * /app/tests/testdata/clone-detection-testdata/06_A_Changed_Layout.php: foo (10 (position 158) - 14 (position 303) (4 lines))
+         * /app/tests/testdata/clone-detection-testdata/07_A_Changed_Variable_Names.php: foo (10 (position 169) - 18 (position 364) (8 lines))
+         * /app/tests/testdata/clone-detection-testdata/08_A_Changed_Method_Names.php: bar (10 (position 164) - 18 (position 345) (8 lines))
+         * /app/tests/testdata/clone-detection-testdata/09_A_Changed_Literals.php: foo (10 (position 160) - 18 (position 341) (8 lines))
+         * /app/tests/testdata/clone-detection-testdata/10_A_Additional_Statements.php: foo (10 (position 165) - 19 (position 383) (9 lines))
+         * /app/tests/testdata/clone-detection-testdata/11_A_Removed_Statements.php: foo (10 (position 162) - 17 (position 324) (7 lines))
+         * /app/tests/testdata/clone-detection-testdata/12_A_Changed_Statement_Order.php: foo (10 (position 167) - 18 (position 348) (8 lines))
+         * /app/tests/testdata/clone-detection-testdata/13_A_Changed_Syntax.php: foo (10 (position 158) - 16 (position 299) (6 lines))
+         * /app/tests/testdata/clone-detection-testdata/14_A_Changed_Param_Order.php: foo (10 (position 163) - 18 (position 344) (8 lines))";
         self::assertStringContainsString(
             $this->normalizeCommandLineOutput($type4ClonesOutput),
             $this->normalizeCommandLineOutput($output)

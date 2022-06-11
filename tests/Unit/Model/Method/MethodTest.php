@@ -28,7 +28,6 @@ class MethodTest extends TestCase
             '',
             $this->createMock(CodePositionRange::class),
             '',
-            '',
         )];
     }
 
@@ -47,7 +46,6 @@ class MethodTest extends TestCase
             '',
             $this->createMock(CodePositionRange::class),
             '',
-            '',
         )];
 
         $name = 'bar';
@@ -56,7 +54,6 @@ class MethodTest extends TestCase
             $name,
             '',
             $this->createMock(CodePositionRange::class),
-            '',
             '',
         )];
     }
@@ -76,7 +73,6 @@ class MethodTest extends TestCase
             $filepath,
             $this->createMock(CodePositionRange::class),
             '',
-            '',
         )];
 
         $filepath = '/var/www/bar.php';
@@ -85,7 +81,6 @@ class MethodTest extends TestCase
             '',
             $filepath,
             $this->createMock(CodePositionRange::class),
-            '',
             '',
         )];
     }
@@ -105,7 +100,6 @@ class MethodTest extends TestCase
             '',
             $codePositionRange,
             '',
-            '',
         )];
     }
 
@@ -124,7 +118,6 @@ class MethodTest extends TestCase
             '',
             $this->createMock(CodePositionRange::class),
             $content,
-            '',
         )];
 
         $content = 'bla bla bla';
@@ -134,36 +127,6 @@ class MethodTest extends TestCase
             '',
             $this->createMock(CodePositionRange::class),
             $content,
-            '',
-        )];
-    }
-
-    /** @dataProvider getProjectPathProvider */
-    public function testGetProjectPath(string $expected, Method $method): void
-    {
-        self::assertSame($expected, $method->getProjectPath());
-    }
-
-    public function getProjectPathProvider(): Generator
-    {
-        $projectPath = '/var/www';
-        yield [$projectPath, Method::create(
-            $this->createMock(MethodSignature::class),
-            '',
-            '',
-            $this->createMock(CodePositionRange::class),
-            '',
-            $projectPath,
-        )];
-
-        $projectPath = 'foo/bar/bla/';
-        yield [$projectPath, Method::create(
-            $this->createMock(MethodSignature::class),
-            '',
-            '',
-            $this->createMock(CodePositionRange::class),
-            '',
-            $projectPath,
         )];
     }
 
@@ -191,7 +154,6 @@ class MethodTest extends TestCase
                 '/var/www/foo.php',
                 $codePositionRange,
                 '',
-                '',
             ),
         ];
 
@@ -210,7 +172,6 @@ class MethodTest extends TestCase
                 'barfoo',
                 '/fp/bar.php',
                 $codePositionRange,
-                '',
                 '',
             ),
         ];
