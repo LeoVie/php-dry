@@ -11,7 +11,7 @@
          phpDocumentorExecutablePath="../../../tools/phpDocumentor.phar">
 
     <directories>
-        <directory>../../testdata/clone-detection-testdata/</directory>
+        <directory>../../testdata/clone-detection-testdata-with-native-types/</directory>
     </directories>
 
     <report>
