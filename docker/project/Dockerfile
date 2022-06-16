@@ -12,6 +12,13 @@ COPY tools /var/www/tools
 COPY templates /var/www/templates
 COPY resources /var/www/resources
 
+COPY docker/project/php.ini "$PHP_INI_DIR/php.ini"
+
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/install-php-extensions && \
+    install-php-extensions intl
+
 ENTRYPOINT [ \
     "php", "-d", "memory_limit=-1", \
     "/var/www/php-dry" \
