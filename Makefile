@@ -138,6 +138,31 @@ endif
 	rm -rf ./vendor
 	composer install
 
+.PHONY: build_image_with_blackfire
+build_image_with_blackfire:
+ifndef blackfire_client_id
+	$(error blackfire_client_id is not set)
+endif
+ifndef blackfire_client_token
+	$(error blackfire_client_token is not set)
+endif
+ifndef blackfire_server_id
+	$(error blackfire_server_id is not set)
+endif
+ifndef blackfire_server_token
+	$(error blackfire_server_token is not set)
+endif
+	composer install --no-dev --optimize-autoloader
+	rm -rf ./vendor/*/*/.git
+	rm -f generated/*.php
+	docker build -f docker/project/with_blackfire.Dockerfile -t leovie/php-dry-with-blackfire:latest . --no-cache \
+		--build-arg CLIENT_ID=${blackfire_client_id} \
+		--build-arg CLIENT_TOKEN=${blackfire_client_token} \
+		--build-arg SERVER_ID=${blackfire_server_id} \
+		--build-arg SERVER_TOKEN=${blackfire_server_token}
+	rm -rf ./vendor
+	composer install
+
 .PHONY: build_and_push_image
 build_and_push_image: build_image
 	docker push leovie/php-dry:$(tag)
