@@ -1,4 +1,13 @@
-FROM php:8.1.1-alpine
+FROM php:8.1.1-fpm
+
+ARG CLIENT_ID
+ENV BLACKFIRE_CLIENT_ID=$CLIENT_ID
+ARG CLIENT_TOKEN
+ENV BLACKFIRE_CLIENT_TOKEN=$CLIENT_TOKEN
+ARG SERVER_ID
+ENV BLACKFIRE_SERVER_ID=$SERVER_ID
+ARG SERVER_TOKEN
+ENV BLACKFIRE_SERVER_TOKEN=$SERVER_TOKEN
 
 COPY php-dry /var/www/php-dry
 COPY config /var/www/config
@@ -19,7 +28,15 @@ ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/do
 RUN chmod +x /usr/local/bin/install-php-extensions && \
     install-php-extensions intl
 
+RUN mkdir -p /tmp/blackfire \
+    && architecture=$(uname -m) \
+    && curl -A "Docker" -L https://blackfire.io/api/v1/releases/cli/linux/$architecture | tar zxp -C /tmp/blackfire \
+    && mv /tmp/blackfire/blackfire /usr/bin/blackfire \
+    && rm -Rf /tmp/blackfire
+
+RUN blackfire php:install
+
 ENTRYPOINT [ \
-    "php", "-d", "memory_limit=-1", \
+    "blackfire", "run", "--ignore-exit-status", "php", "-d", "memory_limit=-1", \
     "/var/www/php-dry" \
 ]

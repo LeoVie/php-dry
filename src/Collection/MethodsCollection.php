@@ -16,6 +16,8 @@ class MethodsCollection
     /** @var array<Method> */
     private array $methods;
 
+    private string $hash;
+
     /** @throws CollectionCannotBeEmpty */
     private function __construct(Method ...$methods)
     {
@@ -24,6 +26,7 @@ class MethodsCollection
         }
 
         $this->methods = $methods;
+        $this->hash = self::buildHash($this->methods);
     }
 
     /** @throws CollectionCannotBeEmpty */
@@ -68,40 +71,33 @@ class MethodsCollection
 
     public function equals(self $other): bool
     {
-        return $this->containsOtherMethodCollection($other) && $other->containsOtherMethodCollection($this);
-    }
-
-    private function containsOtherMethodCollection(self $other): bool
-    {
-        foreach ($other->getAll() as $otherMethod) {
-            if (!$this->contains($otherMethod)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private function contains(Method $method): bool
-    {
-        foreach ($this->getAll() as $thisMethod) {
-            if ($thisMethod->identity() === $method->identity()) {
-                return true;
-            }
-        }
-
-        return false;
+        return $this->hash === $other->getHash();
     }
 
     public function add(Method $method): self
     {
         $this->methods[] = $method;
+        $this->hash = self::buildHash($this->methods);
 
         return $this;
+    }
+
+    /** @param array<Method> $methods */
+    private static function buildHash(array $methods): string
+    {
+        return join('<->', array_map(
+            fn(Method $method): string => $method->identity(),
+            $methods
+        ));
     }
 
     public function count(): int
     {
         return count($this->methods);
+    }
+
+    public function getHash(): string
+    {
+        return $this->hash;
     }
 }
