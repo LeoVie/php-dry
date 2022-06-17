@@ -77,9 +77,16 @@ class FindMethodsInPathsService
         $methods = [];
 
         foreach ($classElement->children() as $element) {
-            if ($element->nodeName === 'method') {
-                $methods[] = $this->buildMethod(CrawlerFactory::create($element), $filepath);
+            if ($element->nodeName !== 'method') {
+                continue;
             }
+
+            $methodElement = CrawlerFactory::create($element);
+            if ($methodElement->filter('inherited_from')->count() > 0) {
+                continue;
+            }
+
+            $methods[] = $this->buildMethod(CrawlerFactory::create($element), $filepath);
         }
 
         return $methods;
