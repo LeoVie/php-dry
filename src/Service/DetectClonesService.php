@@ -154,11 +154,11 @@ class DetectClonesService
     {
         $sccsToRemove = [];
         foreach ($clones as $clone) {
-            foreach ($sccs as $x => $type1SCC) {
-                if ($clone->getMethodsCollection()->equals($type1SCC->getMethodsCollection())) {
+            foreach ($sccs as $x => $sourceCloneCandidate) {
+                if ($clone->getMethodsCollection()->equals($sourceCloneCandidate->getMethodsCollection())) {
                     foreach ($methodSignatureGroups as $methodSignatureGroup) {
-                        if ($type1SCC->getMethodsCollection()->equals($methodSignatureGroup->getMethodsCollection())) {
-                            $sccsToRemove[$x] = $type1SCC;
+                        if ($sourceCloneCandidate->getMethodsCollection()->equals($methodSignatureGroup->getMethodsCollection())) {
+                            $sccsToRemove[$x] = $sourceCloneCandidate;
                         }
                     }
                 }
