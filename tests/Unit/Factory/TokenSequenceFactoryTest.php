@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Factory;
 
-use App\Cache\TokenSequenceCache;
 use App\Factory\TokenSequenceFactory;
 use App\Model\Method\Method;
 use App\Wrapper\PhpTokenWrapper;
@@ -17,12 +16,9 @@ class TokenSequenceFactoryTest extends TestCase
     /** @dataProvider createFromMethodProvider */
     public function testCreateFromMethod(TokenSequence $expected, PhpTokenWrapper $phpTokenWrapper): void
     {
-        $cache = $this->createMock(TokenSequenceCache::class);
-        $cache->method('get')->willReturn(null);
-
         $method = $this->createMock(Method::class);
         $method->method('getContent')->willReturn('');
-        self::assertEquals($expected, (new TokenSequenceFactory($phpTokenWrapper, $cache))->createFromMethod($method));
+        self::assertEquals($expected, (new TokenSequenceFactory($phpTokenWrapper))->createFromMethod($method));
     }
 
     public function createFromMethodProvider(): Generator

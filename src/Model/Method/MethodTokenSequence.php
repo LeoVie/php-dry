@@ -10,13 +10,17 @@ use LeoVie\PhpTokenNormalize\Model\TokenSequence;
 
 class MethodTokenSequence implements Identity, GroupIdentifiable
 {
-    private function __construct(private Method $method, private TokenSequence $tokenSequence)
+    private function __construct(
+        private Method        $method,
+        private TokenSequence $tokenSequence,
+        private string        $identity
+    )
     {
     }
 
-    public static function create(Method $method, TokenSequence $tokenSequence): self
+    public static function create(Method $method, TokenSequence $tokenSequence, string $identity): self
     {
-        return new self($method, $tokenSequence);
+        return new self($method, $tokenSequence, $identity);
     }
 
     public function getMethod(): Method
@@ -31,11 +35,11 @@ class MethodTokenSequence implements Identity, GroupIdentifiable
 
     public function identity(): string
     {
-        return $this->getTokenSequence()->identity();
+        return $this->identity;
     }
 
     public function groupID(): string
     {
-        return $this->identity();
+        return $this->identity;
     }
 }
