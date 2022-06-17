@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Factory\SourceCloneCandidate;
 
-use App\Cache\MethodTokenSequenceCache;
 use App\Exception\CollectionCannotBeEmpty;
 use App\Factory\Collection\MethodsCollectionFactory;
 use App\Factory\TokenSequenceFactory;
@@ -24,7 +23,6 @@ class Type1SourceCloneCandidateFactory
         private TokenSequenceNormalizer                     $tokenSequenceNormalizer,
         private MethodsCollectionFactory                    $methodsCollectionFactory,
         private ArrayUtil                                   $arrayUtil,
-        private MethodTokenSequenceCache                    $methodTokenSequenceCache,
     )
     {
     }
@@ -56,7 +54,7 @@ class Type1SourceCloneCandidateFactory
     {
         $methodTokenSequences = [];
         foreach ($methodSignatureGroup->getMethodsCollection()->getAll() as $method) {
-            $methodTokenSequences[] = $this->getMethodTokenSequenceFromCacheOrCreate($method);
+            $methodTokenSequences[] = $this->createMethodTokenSequence($method);
         }
 
         $groupedMethodTokenSequences = $this->methodTokenSequencesByTokenSequencesGrouper->group($methodTokenSequences);
@@ -83,18 +81,14 @@ class Type1SourceCloneCandidateFactory
         return $type1SourceCloneCandidates;
     }
 
-    private function getMethodTokenSequenceFromCacheOrCreate(Method $method): MethodTokenSequence
+    private function createMethodTokenSequence(Method $method): MethodTokenSequence
     {
-        $methodTokenSequence = $this->methodTokenSequenceCache->get($method);
-        if ($methodTokenSequence === null) {
-            $methodTokenSequence = MethodTokenSequence::create(
-                $method,
-                $this->tokenSequenceNormalizer->normalizeLevel1($this->tokenSequenceFactory->createFromMethod($method))
-            );
+        $normalizedTokenSequence = $this->tokenSequenceNormalizer->normalizeLevel1($this->tokenSequenceFactory->createFromMethod($method));
 
-            $this->methodTokenSequenceCache->store($method, $methodTokenSequence);
-        }
-
-        return $methodTokenSequence;
+        return MethodTokenSequence::create(
+            $method,
+            $normalizedTokenSequence,
+            $normalizedTokenSequence->identity()
+        );
     }
 }

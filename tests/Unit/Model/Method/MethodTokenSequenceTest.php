@@ -18,7 +18,8 @@ class MethodTokenSequenceTest extends TestCase
             $method,
             MethodTokenSequence::create(
                 $method,
-                $this->createMock(TokenSequence::class)
+                $this->createMock(TokenSequence::class),
+                ''
             )->getMethod()
         );
     }
@@ -30,21 +31,20 @@ class MethodTokenSequenceTest extends TestCase
             $tokenSequence,
             MethodTokenSequence::create(
                 $this->createMock(Method::class),
-                $tokenSequence
+                $tokenSequence,
+                ''
             )->getTokenSequence()
         );
     }
 
     public function testIdentity(): void
     {
-        $tokenSequence = $this->createMock(TokenSequence::class);
-        $tokenSequence->method('identity')->willReturn('token sequence identity');
-
         self::assertSame(
-            'token sequence identity',
+            'method token sequence identity',
             MethodTokenSequence::create(
                 $this->createMock(Method::class),
-                $tokenSequence
+                $this->createMock(TokenSequence::class),
+                'method token sequence identity'
             )->identity()
         );
     }
