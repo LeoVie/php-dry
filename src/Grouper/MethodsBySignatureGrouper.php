@@ -68,9 +68,7 @@ class MethodsBySignatureGrouper
         return $methodSignatureGroups;
     }
 
-    /**
-     * @param MethodSignatureGroup[] $methodSignatureGroups
-     */
+    /** @param array<MethodSignatureGroup> $methodSignatureGroups */
     private function findMatchingMethodSignatureGroup(Method $method, array $methodSignatureGroups): ?MethodSignatureGroup
     {
         foreach ($methodSignatureGroups as $methodSignatureGroup) {

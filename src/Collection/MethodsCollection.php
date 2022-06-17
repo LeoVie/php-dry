@@ -16,7 +16,9 @@ class MethodsCollection
     /** @var array<Method> */
     private array $methods;
 
-    private string $hash;
+    private string $hash = '';
+
+    private int $hashValidForMethodCount = 0;
 
     /** @throws CollectionCannotBeEmpty */
     private function __construct(Method ...$methods)
@@ -26,7 +28,6 @@ class MethodsCollection
         }
 
         $this->methods = $methods;
-        $this->hash = self::buildHash($this->methods);
     }
 
     /** @throws CollectionCannotBeEmpty */
@@ -66,29 +67,28 @@ class MethodsCollection
     /** @return array<Method> */
     public function getAll(): array
     {
-        return self::sortMethods($this->methods);
+        $currentHash = $this->hash;
+        $rebuiltHash = $this->getHash();
+
+        if ($currentHash === $rebuiltHash) {
+            return $this->methods;
+        }
+
+        $this->methods = self::sortMethods($this->methods);
+
+        return $this->methods;
     }
 
     public function equals(self $other): bool
     {
-        return $this->hash === $other->getHash();
+        return $this->getHash() === $other->getHash();
     }
 
     public function add(Method $method): self
     {
         $this->methods[] = $method;
-        $this->hash = self::buildHash($this->methods);
 
         return $this;
-    }
-
-    /** @param array<Method> $methods */
-    private static function buildHash(array $methods): string
-    {
-        return join('<->', array_map(
-            fn(Method $method): string => $method->identity(),
-            $methods
-        ));
     }
 
     public function count(): int
@@ -98,6 +98,22 @@ class MethodsCollection
 
     public function getHash(): string
     {
+        if ($this->hashValidForMethodCount === $this->count()) {
+            return $this->hash;
+        }
+
+        $this->hash = self::buildHash($this->methods);
+        $this->hashValidForMethodCount = $this->count();
+
         return $this->hash;
+    }
+
+    /** @param array<Method> $methods */
+    private static function buildHash(array $methods): string
+    {
+        return join('<->', array_map(
+            fn(Method $method): string => $method->identity(),
+            $methods
+        ));
     }
 }

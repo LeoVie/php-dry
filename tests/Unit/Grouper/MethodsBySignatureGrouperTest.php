@@ -20,7 +20,7 @@ class MethodsBySignatureGrouperTest extends TestCase
     /** @dataProvider groupProvider */
     public function testGroup(array $expected, array $methods): void
     {
-        self::assertEquals($expected, (new MethodsBySignatureGrouper(new MethodSignatureComparer()))->group($methods));
+        self::assertEqualsCanonicalizing($expected, (new MethodsBySignatureGrouper(new MethodSignatureComparer()))->group($methods));
     }
 
     public function groupProvider(): Generator

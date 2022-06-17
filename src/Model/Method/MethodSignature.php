@@ -8,6 +8,8 @@ use JsonSerializable;
 
 class MethodSignature implements JsonSerializable
 {
+    private string $hash = '';
+
     /**
      * @param string[] $paramTypes
      * @param int[] $paramsOrder
@@ -48,6 +50,15 @@ class MethodSignature implements JsonSerializable
     public function getReturnType(): string
     {
         return $this->returnType;
+    }
+
+    public function getHash(): string
+    {
+        if ($this->hash === '') {
+            $this->hash = join('-', $this->getParamTypes()) . '_' . $this->getReturnType();
+        }
+
+        return $this->hash;
     }
 
     /** @return array{'paramTypes': string[], "returnType": string} */
