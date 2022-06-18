@@ -16,7 +16,7 @@ class PhpDocumentorRunnerTest extends TestCase
 
         Configuration::setInstance($configuration);
 
-        (new PhpDocumentorRunner())->run(__DIR__ . '/../../testdata/clone-detection-testdata');
+        (new PhpDocumentorRunner())->run(__DIR__ . '/../../testdata/clone-detection-testdata-with-native-types');
 
         self::assertXmlFileEqualsXmlFile(__DIR__ . '/expected_phpDocumentor_structure.xml', __DIR__ . '/phpDocumentorReport/structure.xml');
     }

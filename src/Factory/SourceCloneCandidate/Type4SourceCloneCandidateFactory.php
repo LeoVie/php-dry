@@ -124,33 +124,10 @@ class Type4SourceCloneCandidateFactory
     /** @throws NoParamRequestForParamType */
     private function createParamRequest(Type $paramType): ParamRequest
     {
-        if (
-            $paramType instanceof Array_
-            || $paramType instanceof Iterable_
-        ) {
-            // TODO: make configurable
-            $arrayLength = 3;
-
-            $arrayTypeRequests = [];
-
-            for ($i = 0; $i < $arrayLength; $i++) {
-                $arrayTypeRequests[] = $this->createParamRequest($paramType->getValueType());
-            }
-
-            return ArrayRequest::create($arrayTypeRequests);
-        }
-
-        if ($paramType instanceof AggregatedType) {
-            $randomPickedType = $paramType->get(rand(0, count($paramType->getIterator()) - 1));
-
-            if ($randomPickedType === null) {
-                throw NoParamRequestForParamType::create('null');
-            }
-
-            return $this->createParamRequest($randomPickedType);
-        }
-
         return match (true) {
+            is_a($paramType, Array_::class),
+            is_a($paramType, Iterable_::class) => $this->createArrayRequest($paramType),
+            is_a($paramType, AggregatedType::class) => $this->createParamRequestForAggregatedType($paramType),
             is_a($paramType, String_::class) => StringRequest::create(),
             is_a($paramType, Integer::class) => IntRequest::create(),
             is_a($paramType, Float_::class) => FloatRequest::create(),
@@ -158,6 +135,33 @@ class Type4SourceCloneCandidateFactory
             is_a($paramType, Null_::class) => NullRequest::create(),
             default => throw NoParamRequestForParamType::create($paramType->__toString())
         };
+    }
+
+    /** @throws NoParamRequestForParamType */
+    private function createArrayRequest(Iterable_|Array_ $paramType): ArrayRequest
+    {
+        // TODO: make configurable
+        $arrayLength = 3;
+
+        $arrayTypeRequests = [];
+
+        for ($i = 0; $i < $arrayLength; $i++) {
+            $arrayTypeRequests[] = $this->createParamRequest($paramType->getValueType());
+        }
+
+        return ArrayRequest::create($arrayTypeRequests);
+    }
+
+    /** @throws NoParamRequestForParamType */
+    private function createParamRequestForAggregatedType(AggregatedType $paramType): ParamRequest
+    {
+        $randomPickedType = $paramType->get(rand(0, count($paramType->getIterator()) - 1));
+
+        if ($randomPickedType === null) {
+            throw NoParamRequestForParamType::create('null');
+        }
+
+        return $this->createParamRequest($randomPickedType);
     }
 
     /**
