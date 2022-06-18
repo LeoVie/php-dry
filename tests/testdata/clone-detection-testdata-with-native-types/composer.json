@@ -1,9 +1,9 @@
 {
     "name": "leovie/clone-detection-testdata-with-native-types",
     "autoload": {
-        "psr-4": {
-            "LeoVie\\CloneDetectionTestdataWithNativeTypes\\": "src/"
-        }
+        "classmap": [
+            "src/"
+        ]
     },
     "require": {}
 }

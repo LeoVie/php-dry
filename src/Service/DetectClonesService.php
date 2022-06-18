@@ -262,6 +262,7 @@ class DetectClonesService
                     $method->getFilepath(),
                     $method->getCodePositionRange(),
                     $languageConstructNormalizedMethodCode,
+                    $method->getClassFQN(),
                 );
             }
 

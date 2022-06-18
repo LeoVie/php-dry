@@ -31,6 +31,7 @@ class ConfigurationFactoryTest extends TestCase
                 '/var/phpDocumentorReport',
                 __DIR__ . '/../../testdata/tools/phpDocumentor.phar',
                 '/cache',
+                '/app/vendor/autoload.php',
                 ReportConfiguration::create(
                     ReportConfiguration\Cli::create(),
                     ReportConfiguration\Html::create(__DIR__ . '/../../testdata/reports'),
@@ -55,6 +56,7 @@ class ConfigurationFactoryTest extends TestCase
                 __DIR__ . '/../../testdata/report_of_phpdoc',
                 __DIR__ . '/../../testdata/bla_foo',
                 '/tmp/',
+                __DIR__ . '/../../testdata/config/bootstrap.php',
                 ReportConfiguration::create(
                     ReportConfiguration\Cli::create(),
                     null,

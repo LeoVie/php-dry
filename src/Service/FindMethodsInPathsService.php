@@ -76,8 +76,14 @@ class FindMethodsInPathsService
     {
         $methods = [];
 
+        $classFQN = '';
         foreach ($classElement->children() as $element) {
-            if ($element->nodeName !== 'method') {
+            if ($element->nodeName !== 'method' && $element->nodeName !== 'full_name') {
+                continue;
+            }
+
+            if ($element->nodeName === 'full_name') {
+                $classFQN = $element->nodeValue;
                 continue;
             }
 
@@ -86,13 +92,13 @@ class FindMethodsInPathsService
                 continue;
             }
 
-            $methods[] = $this->buildMethod(CrawlerFactory::create($element), $filepath);
+            $methods[] = $this->buildMethod(CrawlerFactory::create($element), $filepath, $classFQN);
         }
 
         return $methods;
     }
 
-    private function buildMethod(Crawler $methodElement, string $filepath): Method
+    private function buildMethod(Crawler $methodElement, string $filepath, string $classFQN): Method
     {
         $codePositionRange = $this->buildCodePositionRange($methodElement);
 
@@ -104,6 +110,7 @@ class FindMethodsInPathsService
             $filepath,
             $codePositionRange,
             $this->buildContent($codePositionRange, $filepath),
+            $classFQN,
         );
     }
 

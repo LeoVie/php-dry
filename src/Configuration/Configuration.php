@@ -20,6 +20,7 @@ class Configuration
         private string              $phpDocumentorReportPath,
         private string              $phpDocumentorExecutablePath,
         private string              $cachePath,
+        private string              $bootstrapScriptPath,
         private ReportConfiguration $reportConfiguration
     )
     {
@@ -37,6 +38,7 @@ class Configuration
         string              $phpDocumentorReportPath,
         string              $phpDocumentorExecutablePath,
         string              $cachePath,
+        string              $bootstrapScriptPath,
         ReportConfiguration $reportConfiguration
     ): self
     {
@@ -51,6 +53,7 @@ class Configuration
             $phpDocumentorReportPath,
             $phpDocumentorExecutablePath,
             $cachePath,
+            $bootstrapScriptPath,
             $reportConfiguration
         ));
 
@@ -121,5 +124,10 @@ class Configuration
     public function getReportConfiguration(): ReportConfiguration
     {
         return $this->reportConfiguration;
+    }
+
+    public function getBootstrapScriptPath(): string
+    {
+        return $this->bootstrapScriptPath;
     }
 }
