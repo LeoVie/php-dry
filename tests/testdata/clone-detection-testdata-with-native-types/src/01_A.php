@@ -1,6 +1,8 @@
 <?php /** @noinspection ALL */
 
-class A_Exact_Copy
+namespace LeoVie\CloneDetectionTestdataWithNativeTypes;
+
+class A
 {
     /**
      * @param array<int, int> $p1

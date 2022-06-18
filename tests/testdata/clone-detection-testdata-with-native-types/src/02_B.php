@@ -1,17 +1,16 @@
 <?php /** @noinspection ALL */
 
-class A_Changed_Syntax
+namespace LeoVie\CloneDetectionTestdataWithNativeTypes;
+
+class B
 {
     /**
      * @param array<int, int> $p1
      *
-     * @return array<int, int>
+     * @return array<int, array<int, int>|int>
      */
     function foo(array $p1, int $p2): array
     {
-        return array_map(
-            fn($i) => $i * $p2,
-            $p1
-        );
+        return [$p1, $p2];
     }
 }

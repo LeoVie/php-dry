@@ -7,15 +7,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/01_A.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/01_A.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 143
+                  "line": 12,
+                  "filePos": 202
                 },
                 "end": {
-                  "line": 18,
-                  "filePos": 324
+                  "line": 20,
+                  "filePos": 383
                 },
                 "countOfLines": 8
               },
@@ -26,15 +26,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/03_A_Exact_Copy.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/03_A_Exact_Copy.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 154
+                  "line": 12,
+                  "filePos": 213
                 },
                 "end": {
-                  "line": 18,
-                  "filePos": 335
+                  "line": 20,
+                  "filePos": 394
                 },
                 "countOfLines": 8
               },
@@ -45,15 +45,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/04_A_Additional_Whitespaces.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/04_A_Additional_Whitespaces.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 166
+                  "line": 12,
+                  "filePos": 225
                 },
                 "end": {
-                  "line": 19,
-                  "filePos": 369
+                  "line": 21,
+                  "filePos": 428
                 },
                 "countOfLines": 9
               },
@@ -64,34 +64,34 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/05_A_Additional_Comments.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/05_A_Additional_Comments.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 163
+                  "line": 12,
+                  "filePos": 222
                 },
                 "end": {
-                  "line": 25,
-                  "filePos": 533
+                  "line": 27,
+                  "filePos": 592
                 },
                 "countOfLines": 15
               },
-              "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        \/*\r\n         * Some actions are following:\r\n         *\/\r\n        \/\/ first we do this\r\n        $r = [];\r\n        $f = 100;\r\n        \/\/ then in the loop\r\n        foreach ($p1 as $i) {\r\n            \/\/ we do this\r\n            $r[] = $i * $p2;\r\n        }\r\n        \/\/ and after that, we do this\r\n        return $r;\r\n    }"
+              "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        /*\r\n         * Some actions are following:\r\n         */\r\n        // first we do this\r\n        $r = [];\r\n        $f = 100;\r\n        // then in the loop\r\n        foreach ($p1 as $i) {\r\n            // we do this\r\n            $r[] = $i * $p2;\r\n        }\r\n        // and after that, we do this\r\n        return $r;\r\n    }"
             }
           },
           {
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/06_A_Changed_Layout.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/06_A_Changed_Layout.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 158
+                  "line": 12,
+                  "filePos": 217
                 },
                 "end": {
-                  "line": 14,
-                  "filePos": 303
+                  "line": 16,
+                  "filePos": 362
                 },
                 "countOfLines": 4
               },
@@ -110,15 +110,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/01_A.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/01_A.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 143
+                  "line": 12,
+                  "filePos": 202
                 },
                 "end": {
-                  "line": 18,
-                  "filePos": 324
+                  "line": 20,
+                  "filePos": 383
                 },
                 "countOfLines": 8
               },
@@ -129,15 +129,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/03_A_Exact_Copy.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/03_A_Exact_Copy.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 154
+                  "line": 12,
+                  "filePos": 213
                 },
                 "end": {
-                  "line": 18,
-                  "filePos": 335
+                  "line": 20,
+                  "filePos": 394
                 },
                 "countOfLines": 8
               },
@@ -148,15 +148,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/04_A_Additional_Whitespaces.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/04_A_Additional_Whitespaces.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 166
+                  "line": 12,
+                  "filePos": 225
                 },
                 "end": {
-                  "line": 19,
-                  "filePos": 369
+                  "line": 21,
+                  "filePos": 428
                 },
                 "countOfLines": 9
               },
@@ -167,34 +167,34 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/05_A_Additional_Comments.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/05_A_Additional_Comments.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 163
+                  "line": 12,
+                  "filePos": 222
                 },
                 "end": {
-                  "line": 25,
-                  "filePos": 533
+                  "line": 27,
+                  "filePos": 592
                 },
                 "countOfLines": 15
               },
-              "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        \/*\r\n         * Some actions are following:\r\n         *\/\r\n        \/\/ first we do this\r\n        $r = [];\r\n        $f = 100;\r\n        \/\/ then in the loop\r\n        foreach ($p1 as $i) {\r\n            \/\/ we do this\r\n            $r[] = $i * $p2;\r\n        }\r\n        \/\/ and after that, we do this\r\n        return $r;\r\n    }"
+              "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        /*\r\n         * Some actions are following:\r\n         */\r\n        // first we do this\r\n        $r = [];\r\n        $f = 100;\r\n        // then in the loop\r\n        foreach ($p1 as $i) {\r\n            // we do this\r\n            $r[] = $i * $p2;\r\n        }\r\n        // and after that, we do this\r\n        return $r;\r\n    }"
             }
           },
           {
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/06_A_Changed_Layout.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/06_A_Changed_Layout.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 158
+                  "line": 12,
+                  "filePos": 217
                 },
                 "end": {
-                  "line": 14,
-                  "filePos": 303
+                  "line": 16,
+                  "filePos": 362
                 },
                 "countOfLines": 4
               },
@@ -205,15 +205,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/07_A_Changed_Variable_Names.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/07_A_Changed_Variable_Names.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 169
+                  "line": 12,
+                  "filePos": 228
                 },
                 "end": {
-                  "line": 18,
-                  "filePos": 364
+                  "line": 20,
+                  "filePos": 423
                 },
                 "countOfLines": 8
               },
@@ -224,15 +224,15 @@
             "method": {
               "name": "bar",
               "methodSignature": "function bar(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/08_A_Changed_Method_Names.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/08_A_Changed_Method_Names.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 164
+                  "line": 12,
+                  "filePos": 223
                 },
                 "end": {
-                  "line": 18,
-                  "filePos": 345
+                  "line": 20,
+                  "filePos": 404
                 },
                 "countOfLines": 8
               },
@@ -243,15 +243,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/09_A_Changed_Literals.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/09_A_Changed_Literals.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 160
+                  "line": 12,
+                  "filePos": 219
                 },
                 "end": {
-                  "line": 18,
-                  "filePos": 341
+                  "line": 20,
+                  "filePos": 400
                 },
                 "countOfLines": 8
               },
@@ -270,15 +270,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/01_A.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/01_A.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 143
+                  "line": 12,
+                  "filePos": 202
                 },
                 "end": {
-                  "line": 18,
-                  "filePos": 324
+                  "line": 20,
+                  "filePos": 383
                 },
                 "countOfLines": 8
               },
@@ -289,15 +289,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/03_A_Exact_Copy.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/03_A_Exact_Copy.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 154
+                  "line": 12,
+                  "filePos": 213
                 },
                 "end": {
-                  "line": 18,
-                  "filePos": 335
+                  "line": 20,
+                  "filePos": 394
                 },
                 "countOfLines": 8
               },
@@ -308,15 +308,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/04_A_Additional_Whitespaces.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/04_A_Additional_Whitespaces.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 166
+                  "line": 12,
+                  "filePos": 225
                 },
                 "end": {
-                  "line": 19,
-                  "filePos": 369
+                  "line": 21,
+                  "filePos": 428
                 },
                 "countOfLines": 9
               },
@@ -327,34 +327,34 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/05_A_Additional_Comments.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/05_A_Additional_Comments.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 163
+                  "line": 12,
+                  "filePos": 222
                 },
                 "end": {
-                  "line": 25,
-                  "filePos": 533
+                  "line": 27,
+                  "filePos": 592
                 },
                 "countOfLines": 15
               },
-              "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        \/*\r\n         * Some actions are following:\r\n         *\/\r\n        \/\/ first we do this\r\n        $r = [];\r\n        $f = 100;\r\n        \/\/ then in the loop\r\n        foreach ($p1 as $i) {\r\n            \/\/ we do this\r\n            $r[] = $i * $p2;\r\n        }\r\n        \/\/ and after that, we do this\r\n        return $r;\r\n    }"
+              "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        /*\r\n         * Some actions are following:\r\n         */\r\n        // first we do this\r\n        $r = [];\r\n        $f = 100;\r\n        // then in the loop\r\n        foreach ($p1 as $i) {\r\n            // we do this\r\n            $r[] = $i * $p2;\r\n        }\r\n        // and after that, we do this\r\n        return $r;\r\n    }"
             }
           },
           {
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/06_A_Changed_Layout.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/06_A_Changed_Layout.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 158
+                  "line": 12,
+                  "filePos": 217
                 },
                 "end": {
-                  "line": 14,
-                  "filePos": 303
+                  "line": 16,
+                  "filePos": 362
                 },
                 "countOfLines": 4
               },
@@ -365,15 +365,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/07_A_Changed_Variable_Names.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/07_A_Changed_Variable_Names.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 169
+                  "line": 12,
+                  "filePos": 228
                 },
                 "end": {
-                  "line": 18,
-                  "filePos": 364
+                  "line": 20,
+                  "filePos": 423
                 },
                 "countOfLines": 8
               },
@@ -384,15 +384,15 @@
             "method": {
               "name": "bar",
               "methodSignature": "function bar(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/08_A_Changed_Method_Names.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/08_A_Changed_Method_Names.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 164
+                  "line": 12,
+                  "filePos": 223
                 },
                 "end": {
-                  "line": 18,
-                  "filePos": 345
+                  "line": 20,
+                  "filePos": 404
                 },
                 "countOfLines": 8
               },
@@ -403,15 +403,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/09_A_Changed_Literals.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/09_A_Changed_Literals.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 160
+                  "line": 12,
+                  "filePos": 219
                 },
                 "end": {
-                  "line": 18,
-                  "filePos": 341
+                  "line": 20,
+                  "filePos": 400
                 },
                 "countOfLines": 8
               },
@@ -422,15 +422,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/11_A_Removed_Statements.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/11_A_Removed_Statements.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 162
+                  "line": 12,
+                  "filePos": 221
                 },
                 "end": {
-                  "line": 17,
-                  "filePos": 324
+                  "line": 19,
+                  "filePos": 383
                 },
                 "countOfLines": 7
               },
@@ -441,15 +441,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/12_A_Changed_Statement_Order.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/12_A_Changed_Statement_Order.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 167
+                  "line": 12,
+                  "filePos": 226
                 },
                 "end": {
-                  "line": 18,
-                  "filePos": 348
+                  "line": 20,
+                  "filePos": 407
                 },
                 "countOfLines": 8
               },
@@ -460,15 +460,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(int, array<int,int>): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/14_A_Changed_Param_Order.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/14_A_Changed_Param_Order.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 163
+                  "line": 12,
+                  "filePos": 222
                 },
                 "end": {
-                  "line": 18,
-                  "filePos": 344
+                  "line": 20,
+                  "filePos": 403
                 },
                 "countOfLines": 8
               },
@@ -487,15 +487,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/01_A.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/01_A.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 143
+                  "line": 12,
+                  "filePos": 202
                 },
                 "end": {
-                  "line": 18,
-                  "filePos": 324
+                  "line": 20,
+                  "filePos": 383
                 },
                 "countOfLines": 8
               },
@@ -506,15 +506,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/03_A_Exact_Copy.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/03_A_Exact_Copy.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 154
+                  "line": 12,
+                  "filePos": 213
                 },
                 "end": {
-                  "line": 18,
-                  "filePos": 335
+                  "line": 20,
+                  "filePos": 394
                 },
                 "countOfLines": 8
               },
@@ -525,15 +525,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/04_A_Additional_Whitespaces.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/04_A_Additional_Whitespaces.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 166
+                  "line": 12,
+                  "filePos": 225
                 },
                 "end": {
-                  "line": 19,
-                  "filePos": 369
+                  "line": 21,
+                  "filePos": 428
                 },
                 "countOfLines": 9
               },
@@ -544,34 +544,34 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/05_A_Additional_Comments.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/05_A_Additional_Comments.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 163
+                  "line": 12,
+                  "filePos": 222
                 },
                 "end": {
-                  "line": 25,
-                  "filePos": 533
+                  "line": 27,
+                  "filePos": 592
                 },
                 "countOfLines": 15
               },
-              "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        \/*\r\n         * Some actions are following:\r\n         *\/\r\n        \/\/ first we do this\r\n        $r = [];\r\n        $f = 100;\r\n        \/\/ then in the loop\r\n        foreach ($p1 as $i) {\r\n            \/\/ we do this\r\n            $r[] = $i * $p2;\r\n        }\r\n        \/\/ and after that, we do this\r\n        return $r;\r\n    }"
+              "content": "function foo(array $p1, int $p2): array\r\n    {\r\n        /*\r\n         * Some actions are following:\r\n         */\r\n        // first we do this\r\n        $r = [];\r\n        $f = 100;\r\n        // then in the loop\r\n        foreach ($p1 as $i) {\r\n            // we do this\r\n            $r[] = $i * $p2;\r\n        }\r\n        // and after that, we do this\r\n        return $r;\r\n    }"
             }
           },
           {
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/06_A_Changed_Layout.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/06_A_Changed_Layout.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 158
+                  "line": 12,
+                  "filePos": 217
                 },
                 "end": {
-                  "line": 14,
-                  "filePos": 303
+                  "line": 16,
+                  "filePos": 362
                 },
                 "countOfLines": 4
               },
@@ -582,15 +582,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/07_A_Changed_Variable_Names.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/07_A_Changed_Variable_Names.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 169
+                  "line": 12,
+                  "filePos": 228
                 },
                 "end": {
-                  "line": 18,
-                  "filePos": 364
+                  "line": 20,
+                  "filePos": 423
                 },
                 "countOfLines": 8
               },
@@ -601,15 +601,15 @@
             "method": {
               "name": "bar",
               "methodSignature": "function bar(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/08_A_Changed_Method_Names.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/08_A_Changed_Method_Names.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 164
+                  "line": 12,
+                  "filePos": 223
                 },
                 "end": {
-                  "line": 18,
-                  "filePos": 345
+                  "line": 20,
+                  "filePos": 404
                 },
                 "countOfLines": 8
               },
@@ -620,15 +620,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/09_A_Changed_Literals.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/09_A_Changed_Literals.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 160
+                  "line": 12,
+                  "filePos": 219
                 },
                 "end": {
-                  "line": 18,
-                  "filePos": 341
+                  "line": 20,
+                  "filePos": 400
                 },
                 "countOfLines": 8
               },
@@ -639,15 +639,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/10_A_Additional_Statements.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/10_A_Additional_Statements.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 165
+                  "line": 12,
+                  "filePos": 224
                 },
                 "end": {
-                  "line": 19,
-                  "filePos": 383
+                  "line": 21,
+                  "filePos": 442
                 },
                 "countOfLines": 9
               },
@@ -658,15 +658,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/11_A_Removed_Statements.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/11_A_Removed_Statements.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 162
+                  "line": 12,
+                  "filePos": 221
                 },
                 "end": {
-                  "line": 17,
-                  "filePos": 324
+                  "line": 19,
+                  "filePos": 383
                 },
                 "countOfLines": 7
               },
@@ -677,15 +677,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/12_A_Changed_Statement_Order.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/12_A_Changed_Statement_Order.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 167
+                  "line": 12,
+                  "filePos": 226
                 },
                 "end": {
-                  "line": 18,
-                  "filePos": 348
+                  "line": 20,
+                  "filePos": 407
                 },
                 "countOfLines": 8
               },
@@ -696,15 +696,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(array<int,int>, int): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/13_A_Changed_Syntax.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/13_A_Changed_Syntax.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 158
+                  "line": 12,
+                  "filePos": 217
                 },
                 "end": {
-                  "line": 16,
-                  "filePos": 299
+                  "line": 18,
+                  "filePos": 358
                 },
                 "countOfLines": 6
               },
@@ -715,15 +715,15 @@
             "method": {
               "name": "foo",
               "methodSignature": "function foo(int, array<int,int>): array<int,int>",
-              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/14_A_Changed_Param_Order.php",
+              "filepath": "/app/tests/testdata/clone-detection-testdata-with-native-types/src/14_A_Changed_Param_Order.php",
               "codePositionRange": {
                 "start": {
-                  "line": 10,
-                  "filePos": 163
+                  "line": 12,
+                  "filePos": 222
                 },
                 "end": {
-                  "line": 18,
-                  "filePos": 344
+                  "line": 20,
+                  "filePos": 403
                 },
                 "countOfLines": 8
               },

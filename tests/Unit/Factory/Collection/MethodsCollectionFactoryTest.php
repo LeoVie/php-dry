@@ -51,6 +51,7 @@ class MethodsCollectionFactoryTest extends TestCase
             '',
             $this->createMock(CodePositionRange::class),
             '',
+            '',
         );
     }
 

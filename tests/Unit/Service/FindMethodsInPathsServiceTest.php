@@ -43,10 +43,11 @@ class FindMethodsInPathsServiceTest extends TestCase
                 'foo',
                 '/var/www/01_A.php',
                 CodePositionRange::create(
-                    CodePosition::create(10, 143),
-                    CodePosition::create(18, 324),
+                    CodePosition::create(12, 202),
+                    CodePosition::create(20, 383),
                 ),
                 '/var/www/01_A.php',
+                '\\LeoVie\\CloneDetectionTestdataWithNativeTypes\\A'
             ),
             Method::create(
                 MethodSignature::create(
@@ -54,13 +55,14 @@ class FindMethodsInPathsServiceTest extends TestCase
                     [0, 1],
                     'array<int,array<int,int>|int>'
                 ),
-                'bar',
+                'foo',
                 '/var/www/02_B.php',
                 CodePositionRange::create(
-                    CodePosition::create(10, 159),
-                    CodePosition::create(13, 239),
+                    CodePosition::create(12, 218),
+                    CodePosition::create(15, 298),
                 ),
                 '/var/www/02_B.php',
+                '\\LeoVie\\CloneDetectionTestdataWithNativeTypes\\B'
             ),
         ];
 

@@ -8,10 +8,11 @@
          countOfParamSets="10"
          enableConstructNormalization="false"
          phpDocumentorReportPath="./phpDocumentorReport"
-         phpDocumentorExecutablePath="../../../tools/phpDocumentor.phar">
+         phpDocumentorExecutablePath="../../../tools/phpDocumentor.phar"
+         bootstrapScriptPath="../../testdata/clone-detection-testdata-with-native-types/vendor/autoload.php">
 
     <directories>
-        <directory>../../testdata/clone-detection-testdata-with-native-types/</directory>
+        <directory>../../testdata/clone-detection-testdata-with-native-types/src/</directory>
     </directories>
 
     <report>

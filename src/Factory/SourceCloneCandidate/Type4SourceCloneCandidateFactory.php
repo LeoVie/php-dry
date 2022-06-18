@@ -5,18 +5,22 @@ declare(strict_types=1);
 namespace App\Factory\SourceCloneCandidate;
 
 use App\Collection\MethodsCollection;
+use App\Configuration\Configuration;
 use App\ContextDecider\MethodContextDecider;
 use App\Exception\CollectionCannotBeEmpty;
 use App\Exception\NoParamRequestForParamType;
 use App\Factory\TokenSequenceFactory;
+use App\Model\Method\Method;
 use App\Model\Method\MethodSignature;
 use App\Model\Method\MethodSignatureGroup;
 use App\Model\RunResult\RunResultSet;
 use App\Model\SourceCloneCandidate\Type4SourceCloneCandidate;
 use LeoVie\PhpMethodRunner\Exception\CommandFailed;
-use LeoVie\PhpMethodRunner\Model\Method;
+use LeoVie\PhpMethodRunner\Model\ClassData;
+use LeoVie\PhpMethodRunner\Model\MethodData;
 use LeoVie\PhpMethodRunner\Model\MethodResult;
-use LeoVie\PhpMethodRunner\Model\MethodRunRequest;
+use LeoVie\PhpMethodRunner\Model\MethodRunRequestWithAutoloading;
+use LeoVie\PhpMethodRunner\Model\MethodRunRequestWithoutAutoloading;
 use LeoVie\PhpMethodRunner\Run\MethodRunner;
 use LeoVie\PhpParamGenerator\Exception\NoParamGeneratorFoundForParamRequest;
 use LeoVie\PhpParamGenerator\Model\Param\Param;
@@ -47,6 +51,8 @@ use Safe\Exceptions\FilesystemException;
 
 class Type4SourceCloneCandidateFactory
 {
+    private Configuration $configuration;
+
     public function __construct(
         private ParamGeneratorService   $paramGeneratorService,
         private MethodRunner            $methodRunner,
@@ -69,6 +75,8 @@ class Type4SourceCloneCandidateFactory
      */
     public function createMultipleByRunningMethods(iterable $methodSignatureGroups): array
     {
+        $this->configuration = Configuration::instance();
+
         $sourceCloneCandidates = [];
 
         foreach ($methodSignatureGroups as $methodSignatureGroup) {
@@ -185,7 +193,7 @@ class Type4SourceCloneCandidateFactory
      *
      * @throws FilesystemException
      */
-    private function runMethodMultipleTimes(\App\Model\Method\Method $method, ParamListSet $paramListSet): array
+    private function runMethodMultipleTimes(Method $method, ParamListSet $paramListSet): array
     {
         $results = [];
 
@@ -204,14 +212,20 @@ class Type4SourceCloneCandidateFactory
      * @throws FilesystemException
      * @throws CommandFailed
      */
-    private function runMethod(\App\Model\Method\Method $method, ParamList $paramList): MethodResult
+    private function runMethod(Method $method, ParamList $paramList): MethodResult
     {
-        $methodRunRequest = MethodRunRequest::create(
-            Method::create(
+        $methodRunRequest = MethodRunRequestWithAutoloading::create(
+            MethodData::create(
                 $method->getName(),
                 $this->tokenSequenceNormalizer->normalizeLevel4($this->tokenSequenceFactory->createFromMethod($method))->toCode()
             ),
-            array_map(fn(Param $p): mixed => $p->flatten(), $paramList->getParams())
+            array_map(fn(Param $p): mixed => $p->flatten(), $paramList->getParams()),
+            ClassData::create(
+                $method->getClassFQN()
+            ),
+            // TODO: generate random class constructor params
+            [],
+            $this->configuration->getBootstrapScriptPath()
         );
 
         return $this->methodRunner->run($methodRunRequest);
@@ -240,7 +254,7 @@ class Type4SourceCloneCandidateFactory
      */
     private function createForRunResultSets(array $runResultSets): Type4SourceCloneCandidate
     {
-        $methods = array_map(fn(RunResultSet $rrs): \App\Model\Method\Method => $rrs->getMethod(), $runResultSets);
+        $methods = array_map(fn(RunResultSet $rrs): Method => $rrs->getMethod(), $runResultSets);
 
         return Type4SourceCloneCandidate::create(MethodsCollection::create(...$methods));
     }

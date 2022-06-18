@@ -42,6 +42,10 @@ class ConfigurationFactory
                 $this->getAsString($crawler, 'php-dry', 'cachePath', '.'),
                 $configurationXmlDirectory
             ),
+            $this->relativePathToAbsolutePath(
+                $this->getAsString($crawler, 'php-dry', 'bootstrapScriptPath', ''),
+                $configurationXmlDirectory
+            ),
             ReportConfiguration::create(
                 $this->nodeExists($crawler, 'php-dry > report > cli') ? Cli::create() : null,
                 $this->nodeExists($crawler, 'php-dry > report > html')

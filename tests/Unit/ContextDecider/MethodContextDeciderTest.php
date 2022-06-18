@@ -50,6 +50,7 @@ class MethodContextDeciderTest extends TestCase
                 'foo.php',
                 $this->createMock(CodePositionRange::class),
                 'function foo(): int { return $this->bar(); }',
+                '',
             ),
         ];
 
@@ -61,6 +62,7 @@ class MethodContextDeciderTest extends TestCase
                 'foo.php',
                 $this->createMock(CodePositionRange::class),
                 'function foo(): int { return self::bar(); }',
+                '',
             ),
         ];
 
@@ -72,6 +74,7 @@ class MethodContextDeciderTest extends TestCase
                 'foo.php',
                 $this->createMock(CodePositionRange::class),
                 'function foo(): int { return self :: bar(); }',
+                '',
             ),
         ];
 
@@ -83,6 +86,7 @@ class MethodContextDeciderTest extends TestCase
                 'foo.php',
                 $this->createMock(CodePositionRange::class),
                 'function foo(): int { return parent::bar(); }',
+                '',
             ),
         ];
 
@@ -94,6 +98,7 @@ class MethodContextDeciderTest extends TestCase
                 'foo.php',
                 $this->createMock(CodePositionRange::class),
                 'function foo(): int { return parent :: bar(); }',
+                '',
             ),
         ];
 
@@ -109,6 +114,7 @@ class MethodContextDeciderTest extends TestCase
                 'foo.php',
                 $this->createMock(CodePositionRange::class),
                 'function foo(): Foo { return 100; }',
+                '',
             ),
         ];
 
@@ -124,6 +130,7 @@ class MethodContextDeciderTest extends TestCase
                 'foo.php',
                 $this->createMock(CodePositionRange::class),
                 'function foo(): int { return 100; }',
+                '',
             ),
         ];
 
@@ -137,6 +144,7 @@ class MethodContextDeciderTest extends TestCase
                 'foo.php',
                 $this->createMock(CodePositionRange::class),
                 'function foo(): void { $x = 100; }',
+                '',
             ),
         ];
     }
