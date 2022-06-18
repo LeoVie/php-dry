@@ -9,14 +9,15 @@ use App\ContextDecider\MethodContextDecider;
 use App\Exception\CollectionCannotBeEmpty;
 use App\Exception\NoParamRequestForParamType;
 use App\Factory\TokenSequenceFactory;
+use App\Model\Method\Method;
 use App\Model\Method\MethodSignature;
 use App\Model\Method\MethodSignatureGroup;
 use App\Model\RunResult\RunResultSet;
 use App\Model\SourceCloneCandidate\Type4SourceCloneCandidate;
 use LeoVie\PhpMethodRunner\Exception\CommandFailed;
-use LeoVie\PhpMethodRunner\Model\Method;
+use LeoVie\PhpMethodRunner\Model\MethodData;
 use LeoVie\PhpMethodRunner\Model\MethodResult;
-use LeoVie\PhpMethodRunner\Model\MethodRunRequest;
+use LeoVie\PhpMethodRunner\Model\MethodRunRequestWithoutAutoloading;
 use LeoVie\PhpMethodRunner\Run\MethodRunner;
 use LeoVie\PhpParamGenerator\Exception\NoParamGeneratorFoundForParamRequest;
 use LeoVie\PhpParamGenerator\Model\Param\Param;
@@ -185,7 +186,7 @@ class Type4SourceCloneCandidateFactory
      *
      * @throws FilesystemException
      */
-    private function runMethodMultipleTimes(\App\Model\Method\Method $method, ParamListSet $paramListSet): array
+    private function runMethodMultipleTimes(Method $method, ParamListSet $paramListSet): array
     {
         $results = [];
 
@@ -204,10 +205,10 @@ class Type4SourceCloneCandidateFactory
      * @throws FilesystemException
      * @throws CommandFailed
      */
-    private function runMethod(\App\Model\Method\Method $method, ParamList $paramList): MethodResult
+    private function runMethod(Method $method, ParamList $paramList): MethodResult
     {
-        $methodRunRequest = MethodRunRequest::create(
-            Method::create(
+        $methodRunRequest = MethodRunRequestWithoutAutoloading::create(
+            MethodData::create(
                 $method->getName(),
                 $this->tokenSequenceNormalizer->normalizeLevel4($this->tokenSequenceFactory->createFromMethod($method))->toCode()
             ),
@@ -240,7 +241,7 @@ class Type4SourceCloneCandidateFactory
      */
     private function createForRunResultSets(array $runResultSets): Type4SourceCloneCandidate
     {
-        $methods = array_map(fn(RunResultSet $rrs): \App\Model\Method\Method => $rrs->getMethod(), $runResultSets);
+        $methods = array_map(fn(RunResultSet $rrs): Method => $rrs->getMethod(), $runResultSets);
 
         return Type4SourceCloneCandidate::create(MethodsCollection::create(...$methods));
     }

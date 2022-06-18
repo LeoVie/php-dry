@@ -1,5 +1,7 @@
 <?php /** @noinspection ALL */
 
+namespace LeoVie\CloneDetectionTestdataWithNativeTypes;
+
 class A_Changed_Method_Names
 {
     /**

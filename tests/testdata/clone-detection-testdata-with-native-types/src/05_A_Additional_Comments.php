@@ -1,6 +1,8 @@
 <?php /** @noinspection ALL */
 
-class A_Additional_Statements
+namespace LeoVie\CloneDetectionTestdataWithNativeTypes;
+
+class A_Additional_Comments
 {
     /**
      * @param array<int, int> $p1
@@ -9,12 +11,18 @@ class A_Additional_Statements
      */
     function foo(array $p1, int $p2): array
     {
+        /*
+         * Some actions are following:
+         */
+        // first we do this
         $r = [];
         $f = 100;
+        // then in the loop
         foreach ($p1 as $i) {
-            print($i * $p2 . "\n");
+            // we do this
             $r[] = $i * $p2;
         }
+        // and after that, we do this
         return $r;
     }
 }

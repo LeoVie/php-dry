@@ -1,6 +1,8 @@
 <?php /** @noinspection ALL */
 
-class A_Changed_Statement_Order
+namespace LeoVie\CloneDetectionTestdataWithNativeTypes;
+
+class A_Changed_Syntax
 {
     /**
      * @param array<int, int> $p1
@@ -9,11 +11,9 @@ class A_Changed_Statement_Order
      */
     function foo(array $p1, int $p2): array
     {
-        $f = 100;
-        $r = [];
-        foreach ($p1 as $i) {
-            $r[] = $i * $p2;
-        }
-        return $r;
+        return array_map(
+            fn($i) => $i * $p2,
+            $p1
+        );
     }
 }
