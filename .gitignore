@@ -1,7 +1,7 @@
 #
 # Composer
 #
-vendor
+/vendor
 bin/*
 !bin/console
 
