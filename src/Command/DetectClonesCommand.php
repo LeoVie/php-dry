@@ -89,7 +89,11 @@ class DetectClonesCommand extends Command
                 $this->findConstructableClasses->findAll($directory)
             );
         }
-        $vendorClasses = $this->findConstructableClasses->findAll($configuration->getVendorPath());
+
+        $vendorClasses = [];
+        if ($configuration->getVendorPath() !== '') {
+            $vendorClasses = $this->findConstructableClasses->findAll($configuration->getVendorPath());
+        }
 
         $constructableClasses = array_merge($projectClasses, $vendorClasses);
 
