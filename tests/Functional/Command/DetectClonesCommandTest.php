@@ -186,6 +186,16 @@ class DetectClonesCommandTest extends KernelTestCase
         self::assertHtmlStringEqualsHtmlString($expectedHtml, $actualHtml);
     }
 
+    /** @group now */
+    public function testWithDTOParams(): void
+    {
+        $this->commandTester->execute([
+            '--' . DetectClonesCommand::OPTION_CONFIG => __DIR__ . '/php-dry_with-DTO-params.xml'
+        ]);
+
+        $output = $this->commandTester->getDisplay();
+    }
+
     protected function assertHtmlStringEqualsHtmlString(string $expectedHtml, string $actualHtml)
     {
         $this->assertEqualsCanonicalizing(

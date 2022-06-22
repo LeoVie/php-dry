@@ -1,0 +1,20 @@
+{
+    "name": "leovie/clone-detection-testdata-with-dtos",
+    "autoload": {
+        "classmap": [
+            "src/"
+        ]
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../DTO-repository",
+            "options": {
+                "symlink": false
+            }
+        }
+    ],
+    "require": {
+        "leovie/dto-repository": "dev-main"
+    }
+}

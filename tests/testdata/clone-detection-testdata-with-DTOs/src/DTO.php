@@ -1,4 +1,6 @@
-<?php
+<?php /** @noinspection ALL */
+
+namespace LeoVie\CloneDetectionTestdataWithDTOs;
 
 class DTO
 {

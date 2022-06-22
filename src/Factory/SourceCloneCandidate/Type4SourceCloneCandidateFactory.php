@@ -10,6 +10,7 @@ use App\ContextDecider\MethodContextDecider;
 use App\Exception\CollectionCannotBeEmpty;
 use App\Exception\NoParamRequestForParamType;
 use App\Factory\TokenSequenceFactory;
+use App\Model\ClassModel\ClassModel;
 use App\Model\Method\Method;
 use App\Model\Method\MethodSignature;
 use App\Model\Method\MethodSignatureGroup;
@@ -20,7 +21,6 @@ use LeoVie\PhpMethodRunner\Model\ClassData;
 use LeoVie\PhpMethodRunner\Model\MethodData;
 use LeoVie\PhpMethodRunner\Model\MethodResult;
 use LeoVie\PhpMethodRunner\Model\MethodRunRequestWithAutoloading;
-use LeoVie\PhpMethodRunner\Model\MethodRunRequestWithoutAutoloading;
 use LeoVie\PhpMethodRunner\Run\MethodRunner;
 use LeoVie\PhpParamGenerator\Exception\NoParamGeneratorFoundForParamRequest;
 use LeoVie\PhpParamGenerator\Model\Param\Param;
@@ -47,11 +47,15 @@ use phpDocumentor\Reflection\Types\Integer;
 use phpDocumentor\Reflection\Types\Iterable_;
 use phpDocumentor\Reflection\Types\Null_;
 use phpDocumentor\Reflection\Types\String_;
+use phpDocumentor\Reflection\Types\Object_;
 use Safe\Exceptions\FilesystemException;
 
 class Type4SourceCloneCandidateFactory
 {
     private Configuration $configuration;
+
+    /** @var array<ClassModel> */
+    private array $constructableClasses = [];
 
     public function __construct(
         private ParamGeneratorService   $paramGeneratorService,
@@ -59,13 +63,14 @@ class Type4SourceCloneCandidateFactory
         private TokenSequenceFactory    $tokenSequenceFactory,
         private TokenSequenceNormalizer $tokenSequenceNormalizer,
         private MethodContextDecider    $methodContextDecider,
-        private TypeResolver            $typeResolver,
+        private TypeResolver            $typeResolver
     )
     {
     }
 
     /**
      * @param iterable<MethodSignatureGroup> $methodSignatureGroups
+     * @param array<ClassModel> $constructableClasses
      *
      * @return Type4SourceCloneCandidate[]
      *
@@ -73,9 +78,10 @@ class Type4SourceCloneCandidateFactory
      * @throws FilesystemException
      * @throws NoParamGeneratorFoundForParamRequest
      */
-    public function createMultipleByRunningMethods(iterable $methodSignatureGroups): array
+    public function createMultipleByRunningMethods(iterable $methodSignatureGroups, array $constructableClasses): array
     {
         $this->configuration = Configuration::instance();
+        $this->constructableClasses = $constructableClasses;
 
         $sourceCloneCandidates = [];
 
@@ -141,7 +147,8 @@ class Type4SourceCloneCandidateFactory
             is_a($paramType, Float_::class) => FloatRequest::create(),
             is_a($paramType, Boolean::class) => BoolRequest::create(),
             is_a($paramType, Null_::class) => NullRequest::create(),
-            default => throw NoParamRequestForParamType::create($paramType->__toString())
+            is_a($paramType, Object_::class) => $this->createParamRequestForObject($paramType),
+            default => throw NoParamRequestForParamType::create($paramType->__toString(), $paramType::class)
         };
     }
 
@@ -166,10 +173,28 @@ class Type4SourceCloneCandidateFactory
         $randomPickedType = $paramType->get(rand(0, count($paramType->getIterator()) - 1));
 
         if ($randomPickedType === null) {
-            throw NoParamRequestForParamType::create('null');
+            throw NoParamRequestForParamType::create('null', 'null');
         }
 
         return $this->createParamRequest($randomPickedType);
+    }
+
+    /** @throws NoParamRequestForParamType */
+    private function createParamRequestForObject(Object_ $paramType): ParamRequest
+    {
+        $class = $paramType->getFqsen();
+
+        if ($class === null) {
+            throw NoParamRequestForParamType::create('object', 'object');
+        }
+
+        $classFQS = $class->__toString();
+
+        $classIsConstructable = array_key_exists($classFQS, $this->constructableClasses);
+
+        // TODO here
+
+        throw NoParamRequestForParamType::create($paramType->__toString(), $classFQS);
     }
 
     /**
