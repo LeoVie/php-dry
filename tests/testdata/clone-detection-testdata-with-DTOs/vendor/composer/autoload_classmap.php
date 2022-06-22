@@ -7,9 +7,10 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'LeoVie\\CloneDetectionTestdataWithDTOs\\A' => $baseDir . '/src/01_A.php',
-    'LeoVie\\CloneDetectionTestdataWithDTOs\\A_Changed_Syntax' => $baseDir . '/src/04_A_Changed_Syntax.php',
-    'LeoVie\\CloneDetectionTestdataWithDTOs\\A_Exact_Copy' => $baseDir . '/src/03_A_Exact_Copy.php',
-    'LeoVie\\CloneDetectionTestdataWithDTOs\\B' => $baseDir . '/src/02_B.php',
     'LeoVie\\CloneDetectionTestdataWithDTOs\\DTO' => $baseDir . '/src/DTO.php',
+    'LeoVie\\CloneDetectionTestdataWithDTOs\\ToAnalyze\\A' => $baseDir . '/src/ToAnalyze/01_A.php',
+    'LeoVie\\CloneDetectionTestdataWithDTOs\\ToAnalyze\\A_Changed_Syntax' => $baseDir . '/src/ToAnalyze/04_A_Changed_Syntax.php',
+    'LeoVie\\CloneDetectionTestdataWithDTOs\\ToAnalyze\\A_Exact_Copy' => $baseDir . '/src/ToAnalyze/03_A_Exact_Copy.php',
+    'LeoVie\\CloneDetectionTestdataWithDTOs\\ToAnalyze\\B' => $baseDir . '/src/ToAnalyze/02_B.php',
+    'LeoVie\\DTORepository\\VendorDTO' => $vendorDir . '/leovie/dto-repository/src/VendorDTO.php',
 );

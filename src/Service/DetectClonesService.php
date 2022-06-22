@@ -248,7 +248,7 @@ class DetectClonesService
 
     /**
      * @param iterable<MethodSignatureGroup> $filteredMethodSignatureGroups
-     * @param array<ClassModel>
+     * @param array<ClassModel> $constructableClasses
      *
      * @return SourceClone[]
      *
@@ -291,7 +291,7 @@ class DetectClonesService
             );
         }
 
-        $clones = $this->detectClones($methodSignatureGroupsWithLanguageConstructNormalizedMethods, $output, $constructableClasses, false);
+        $clones = $this->detectClones($output, $methodSignatureGroupsWithLanguageConstructNormalizedMethods, $constructableClasses, false);
 
         $allClonesTogether = array_merge(
             $clones[SourceClone::TYPE_1],

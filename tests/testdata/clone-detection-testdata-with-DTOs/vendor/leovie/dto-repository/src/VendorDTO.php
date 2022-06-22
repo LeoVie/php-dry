@@ -4,20 +4,21 @@ namespace LeoVie\DTORepository;
 
 class VendorDTO
 {
+    /** @param array<int, int> $p1 */
     public function __construct(
-        private int $x,
-        private int $y
+        private array $p1,
+        private int   $p2
     )
     {
     }
 
-    public function getX(): int
+    public function getP1(): array
     {
-        return $this->x;
+        return $this->p1;
     }
 
-    public function getY(): int
+    public function getP2(): int
     {
-        return $this->y;
+        return $this->p2;
     }
 }

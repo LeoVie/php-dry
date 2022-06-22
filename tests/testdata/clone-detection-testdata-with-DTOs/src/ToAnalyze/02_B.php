@@ -1,6 +1,8 @@
 <?php /** @noinspection ALL */
 
-namespace LeoVie\CloneDetectionTestdataWithDTOs;
+namespace LeoVie\CloneDetectionTestdataWithDTOs\ToAnalyze;
+
+use LeoVie\CloneDetectionTestdataWithDTOs\DTO;
 
 class B
 {

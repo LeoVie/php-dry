@@ -22,11 +22,12 @@ class ComposerStaticInite17cba945be499726e4323268288eb20
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'LeoVie\\CloneDetectionTestdataWithDTOs\\A' => __DIR__ . '/../..' . '/src/01_A.php',
-        'LeoVie\\CloneDetectionTestdataWithDTOs\\A_Changed_Syntax' => __DIR__ . '/../..' . '/src/04_A_Changed_Syntax.php',
-        'LeoVie\\CloneDetectionTestdataWithDTOs\\A_Exact_Copy' => __DIR__ . '/../..' . '/src/03_A_Exact_Copy.php',
-        'LeoVie\\CloneDetectionTestdataWithDTOs\\B' => __DIR__ . '/../..' . '/src/02_B.php',
         'LeoVie\\CloneDetectionTestdataWithDTOs\\DTO' => __DIR__ . '/../..' . '/src/DTO.php',
+        'LeoVie\\CloneDetectionTestdataWithDTOs\\ToAnalyze\\A' => __DIR__ . '/../..' . '/src/ToAnalyze/01_A.php',
+        'LeoVie\\CloneDetectionTestdataWithDTOs\\ToAnalyze\\A_Changed_Syntax' => __DIR__ . '/../..' . '/src/ToAnalyze/04_A_Changed_Syntax.php',
+        'LeoVie\\CloneDetectionTestdataWithDTOs\\ToAnalyze\\A_Exact_Copy' => __DIR__ . '/../..' . '/src/ToAnalyze/03_A_Exact_Copy.php',
+        'LeoVie\\CloneDetectionTestdataWithDTOs\\ToAnalyze\\B' => __DIR__ . '/../..' . '/src/ToAnalyze/02_B.php',
+        'LeoVie\\DTORepository\\VendorDTO' => __DIR__ . '/..' . '/leovie/dto-repository/src/VendorDTO.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

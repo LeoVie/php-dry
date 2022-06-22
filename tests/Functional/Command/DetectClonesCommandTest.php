@@ -26,7 +26,7 @@ class DetectClonesCommandTest extends KernelTestCase
     public function testHumanOutput(): void
     {
         $this->commandTester->execute([
-            '--' . DetectClonesCommand::OPTION_CONFIG => __DIR__ . '/php-dry.xml'
+            '--' . DetectClonesCommand::OPTION_CONFIG => __DIR__ . '/with-native-types/php-dry.xml'
         ]);
 
         $output = $this->commandTester->getDisplay();
@@ -124,10 +124,9 @@ class DetectClonesCommandTest extends KernelTestCase
         self::assertSame(Command::FAILURE, $this->commandTester->getStatusCode());
     }
 
-    public function testJsonReport(): void
+    /** @dataProvider jsonReportProvider */
+    public function testJsonReport(string $expectedJson, string $reportsDir, string $configPath): void
     {
-        $testdataDir = __DIR__ . '/../../testdata/clone-detection-testdata-with-native-types/src/';
-        $reportsDir = __DIR__ . '/../../generated/reports';
         $reportPath = $reportsDir . '/php-dry.json';
 
         if (file_exists($reportPath)) {
@@ -137,14 +136,8 @@ class DetectClonesCommandTest extends KernelTestCase
         self::assertFileDoesNotExist($reportPath);
 
         $this->commandTester->execute([
-            '--' . DetectClonesCommand::OPTION_CONFIG => __DIR__ . '/php-dry.xml'
+            '--' . DetectClonesCommand::OPTION_CONFIG => $configPath
         ]);
-
-        $expectedJson = str_replace(
-            '%testdata_dir%',
-            $testdataDir,
-            \Safe\file_get_contents(__DIR__ . '/expected_php-dry.json')
-        );
 
         $this->assertCommandFailed();
 
@@ -155,10 +148,33 @@ class DetectClonesCommandTest extends KernelTestCase
         self::assertJsonStringEqualsJsonString($expectedJson, $actualJson);
     }
 
-    public function testHtmlReport(): void
+    public function jsonReportProvider(): array
     {
-        $testdataDir = __DIR__ . '/../../testdata/clone-detection-testdata-with-native-types/src/';
-        $reportsDir = __DIR__ . '/../../generated/reports/';
+        return [
+            'with native types' => [
+                'expectedJson' => str_replace(
+                    '%testdata_dir%',
+                    __DIR__ . '/../../testdata/clone-detection-testdata-with-native-types/src/',
+                    \Safe\file_get_contents(__DIR__ . '/with-native-types/expected_php-dry.json')
+                ),
+                'reportsDir' => __DIR__ . '/with-native-types/generated/reports/',
+                'configPath' => __DIR__ . '/with-native-types/php-dry.xml',
+            ],
+            'with DTO params' => [
+                'expectedJson' => str_replace(
+                    '%testdata_dir%',
+                    __DIR__ . '/../../testdata/clone-detection-testdata-with-DTOs/src/',
+                    \Safe\file_get_contents(__DIR__ . '/with-DTOs/expected_php-dry.json')
+                ),
+                'reportsDir' => __DIR__ . '/with-DTOs/generated/reports/',
+                'configPath' => __DIR__ . '/with-DTOs/php-dry.xml',
+            ]
+        ];
+    }
+
+    /** @dataProvider htmlReportProvider */
+    public function testHtmlReport(string $expectedHtml, string $reportsDir, string $configPath): void
+    {
         $reportPath = $reportsDir . 'php-dry_html-report/php-dry.html';
 
         if (file_exists($reportPath)) {
@@ -168,14 +184,8 @@ class DetectClonesCommandTest extends KernelTestCase
         self::assertFileDoesNotExist($reportPath);
 
         $this->commandTester->execute([
-            '--' . DetectClonesCommand::OPTION_CONFIG => __DIR__ . '/php-dry.xml'
+            '--' . DetectClonesCommand::OPTION_CONFIG => $configPath
         ]);
-
-        $expectedHtml = str_replace(
-            '%testdata_dir%',
-            $testdataDir,
-            \Safe\file_get_contents(__DIR__ . '/expected_php-dry.html')
-        );
 
         $this->assertCommandFailed();
 
@@ -186,14 +196,28 @@ class DetectClonesCommandTest extends KernelTestCase
         self::assertHtmlStringEqualsHtmlString($expectedHtml, $actualHtml);
     }
 
-    /** @group now */
-    public function testWithDTOParams(): void
+    public function htmlReportProvider(): array
     {
-        $this->commandTester->execute([
-            '--' . DetectClonesCommand::OPTION_CONFIG => __DIR__ . '/php-dry_with-DTO-params.xml'
-        ]);
-
-        $output = $this->commandTester->getDisplay();
+        return [
+            'with native types' => [
+                'expectedHtml' => str_replace(
+                    '%testdata_dir%',
+                    __DIR__ . '/../../testdata/clone-detection-testdata-with-native-types/src/',
+                    \Safe\file_get_contents(__DIR__ . '/with-native-types/expected_php-dry.html')
+                ),
+                'reportsDir' => __DIR__ . '/with-native-types/generated/reports/',
+                'configPath' => __DIR__ . '/with-native-types/php-dry.xml',
+            ],
+            'with DTO params' => [
+                'expectedHtml' => str_replace(
+                    '%testdata_dir%',
+                    __DIR__ . '/../../testdata/clone-detection-testdata-with-DTOs/src/',
+                    \Safe\file_get_contents(__DIR__ . '/with-DTOs/expected_php-dry.html')
+                ),
+                'reportsDir' => __DIR__ . '/with-DTOs/generated/reports/',
+                'configPath' => __DIR__ . '/with-DTOs/php-dry.xml',
+            ]
+        ];
     }
 
     protected function assertHtmlStringEqualsHtmlString(string $expectedHtml, string $actualHtml)

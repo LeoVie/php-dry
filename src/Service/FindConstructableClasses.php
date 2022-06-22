@@ -8,7 +8,6 @@ use App\Configuration\Configuration;
 use App\Exception\ClassNotConstructable;
 use App\Exception\PhpDocumentorFailed;
 use App\Model\ClassModel\ClassModel;
-use App\Model\Method\Method;
 use App\Model\Method\MethodSignature;
 use App\ServiceFactory\CrawlerFactory;
 use Safe\Exceptions\FilesystemException;
@@ -21,7 +20,7 @@ class FindConstructableClasses
     }
 
     /**
-     * @return array<class-string, Method>
+     * @return array<class-string, ClassModel>
      *
      * @throws FilesystemException
      * @throws PhpDocumentorFailed
@@ -74,10 +73,12 @@ class FindConstructableClasses
     /** @throws ClassNotConstructable */
     private function buildClass(Crawler $classElement): ClassModel
     {
+        /** @var class-string $classFQN */
         $classFQN = '';
 
         foreach ($classElement->children() as $element) {
             if ($element->nodeName === 'full_name') {
+                /** @var class-string $classFQN */
                 $classFQN = $element->nodeValue;
 
                 break;

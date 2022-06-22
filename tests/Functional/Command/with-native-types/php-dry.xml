@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <php-dry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="../../../xsd/php-dry.xsd"
+         xsi:noNamespaceSchemaLocation="../../../../xsd/php-dry.xsd"
          silent="false"
          minTokenLength="50"
          minSimilarTokensPercentage="80"
@@ -8,16 +8,16 @@
          countOfParamSets="10"
          enableConstructNormalization="false"
          phpDocumentorReportPath="./phpDocumentorReport"
-         phpDocumentorExecutablePath="../../../tools/phpDocumentor.phar"
-         bootstrapScriptPath="../../testdata/clone-detection-testdata-with-native-types/vendor/autoload.php">
+         phpDocumentorExecutablePath="../../../../tools/phpDocumentor.phar"
+         bootstrapScriptPath="../../../testdata/clone-detection-testdata-with-native-types/vendor/autoload.php">
 
     <directories>
-        <directory>../../testdata/clone-detection-testdata-with-native-types/src/</directory>
+        <directory>../../../testdata/clone-detection-testdata-with-native-types/src/</directory>
     </directories>
 
     <report>
         <cli/>
-        <html directory="../../generated/reports"/>
-        <json filepath="../../generated/reports/php-dry.json"/>
+        <html directory="generated/reports"/>
+        <json filepath="generated/reports/php-dry.json"/>
     </report>
 </php-dry>

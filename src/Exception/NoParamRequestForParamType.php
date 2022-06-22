@@ -11,7 +11,7 @@ class NoParamRequestForParamType extends Exception
     private function __construct(string $paramType, string $paramClass)
     {
         parent::__construct(sprintf(
-            'No ParamRequest exists for param type "%s" (class "%s)".',
+            'No ParamRequest exists for param type "%s" (class "%s").',
             $paramType,
             $paramClass
         ));

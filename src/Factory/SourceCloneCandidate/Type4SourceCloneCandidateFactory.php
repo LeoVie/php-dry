@@ -31,6 +31,7 @@ use LeoVie\PhpParamGenerator\Model\ParamRequest\BoolRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\FloatRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\IntRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\NullRequest;
+use LeoVie\PhpParamGenerator\Model\ParamRequest\ObjectRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamList\ParamListRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamList\ParamListSetRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamRequest;
@@ -94,7 +95,9 @@ class Type4SourceCloneCandidateFactory
                 continue;
             }
 
-            $paramListSet = $this->createParamListSet($paramRequests, 5);
+            // TODO: make configurable
+            $paramListSetLength = 5;
+            $paramListSet = $this->createParamListSet($paramRequests, $paramListSetLength);
 
             /** @var array<RunResultSet[]> $runResultSetsArray */
             $runResultSetsArray = [];
@@ -106,11 +109,12 @@ class Type4SourceCloneCandidateFactory
 
                 try {
                     $methodResults = $this->runMethodMultipleTimes($method, $paramListSet);
-                } catch (CommandFailed) {
+                } catch (CommandFailed $e) {
                     continue;
                 }
 
                 $runResultSet = RunResultSet::create($method, $paramListSet, $methodResults);
+
                 $runResultSetsArray[$runResultSet->hash()][] = $runResultSet;
             }
 
@@ -129,7 +133,9 @@ class Type4SourceCloneCandidateFactory
     {
         $paramRequests = [];
         foreach ($methodSignature->getParamTypes() as $paramType) {
-            $paramRequests[] = $this->createParamRequest($this->typeResolver->resolve($paramType));
+            $paramRequest = $this->createParamRequest($this->typeResolver->resolve($paramType));
+
+            $paramRequests[] = $paramRequest;
         }
 
         return $paramRequests;
@@ -188,13 +194,28 @@ class Type4SourceCloneCandidateFactory
             throw NoParamRequestForParamType::create('object', 'object');
         }
 
-        $classFQS = $class->__toString();
+        /** @var class-string $classFQN */
+        $classFQN = $class->__toString();
 
-        $classIsConstructable = array_key_exists($classFQS, $this->constructableClasses);
+        $classIsConstructable = array_key_exists($classFQN, $this->constructableClasses);
 
-        // TODO here
+        if (!$classIsConstructable) {
+            throw NoParamRequestForParamType::create($paramType->__toString(), $classFQN);
+        }
 
-        throw NoParamRequestForParamType::create($paramType->__toString(), $classFQS);
+        $classModel = $this->constructableClasses[$classFQN];
+
+        $constructorSignature = $classModel->getConstructorSignature();
+        $classHasConstructor = $constructorSignature !== null;
+        if (!$classHasConstructor) {
+            throw NoParamRequestForParamType::create($paramType->__toString(), $classFQN);
+        }
+
+        return ObjectRequest::create(
+            $this->configuration->getBootstrapScriptPath(),
+            $classFQN,
+            $this->createParamRequests($constructorSignature)
+        );
     }
 
     /**
@@ -250,7 +271,7 @@ class Type4SourceCloneCandidateFactory
             ),
             // TODO: generate random class constructor params
             [],
-            $this->configuration->getBootstrapScriptPath()
+            \Safe\realpath($this->configuration->getBootstrapScriptPath())
         );
 
         return $this->methodRunner->run($methodRunRequest);
