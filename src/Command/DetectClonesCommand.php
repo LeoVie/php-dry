@@ -89,7 +89,7 @@ class DetectClonesCommand extends Command
                 $this->findConstructableClasses->findAll($directory)
             );
         }
-
+      
         if ($configuration->getVendorPath() !== '') {
             $vendorClasses = $this->findConstructableClasses->findAll($configuration->getVendorPath());
 
