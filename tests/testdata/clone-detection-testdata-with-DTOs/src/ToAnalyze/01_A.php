@@ -1,11 +1,15 @@
 <?php /** @noinspection ALL */
 
+namespace LeoVie\CloneDetectionTestdataWithDTOs\ToAnalyze;
+
+use LeoVie\DTORepository\VendorDTO;
+
 class A
 {
     /**
      * @return array<int, int>
      */
-    function bar(DTO $dto): array
+    function bar(VendorDTO $dto): array
     {
         $r = [];
         $f = 100;

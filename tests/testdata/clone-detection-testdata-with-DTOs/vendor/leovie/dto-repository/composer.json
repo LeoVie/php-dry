@@ -1,0 +1,9 @@
+{
+    "name": "leovie/dto-repository",
+    "autoload": {
+        "psr-4": {
+            "LeoVie\\DTORepository\\": "src/"
+        }
+    },
+    "require": {}
+}

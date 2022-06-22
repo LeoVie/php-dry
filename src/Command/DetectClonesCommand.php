@@ -14,6 +14,7 @@ use App\Exception\SubsequenceUtilNotFound;
 use App\Report\Reporter;
 use App\Service\DetectClonesService;
 use App\Service\FindMethodsInPathsService;
+use App\Service\FindConstructableClasses;
 use App\Service\IgnoreClonesService;
 use App\ServiceFactory\StopwatchFactory;
 use LeoVie\PhpMethodModifier\Exception\MethodCannotBeModifiedToNonClassContext;
@@ -41,6 +42,7 @@ class DetectClonesCommand extends Command
         private DetectClonesCommandOutput $detectClonesCommandOutput,
         private Reporter                  $reporter,
         private FindMethodsInPathsService $findMethodsInPathsService,
+        private FindConstructableClasses  $findConstructableClasses,
     )
     {
         parent::__construct(self::$defaultName);
@@ -66,6 +68,7 @@ class DetectClonesCommand extends Command
      * @throws RuntimeError
      * @throws SubsequenceUtilNotFound
      * @throws SyntaxError
+     * @throws PhpDocumentorFailed
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -77,13 +80,25 @@ class DetectClonesCommand extends Command
             ->setStopwatch($stopwatch);
 
         $this->createConfiguration($input);
+        $configuration = Configuration::instance();
+
+        $projectClasses = [];
+        foreach ($configuration->getDirectories() as $directory) {
+            $projectClasses = array_merge(
+                $projectClasses,
+                $this->findConstructableClasses->findAll($directory)
+            );
+        }
+        $vendorClasses = $this->findConstructableClasses->findAll($configuration->getVendorPath());
+
+        $constructableClasses = array_merge($projectClasses, $vendorClasses);
 
         $methods = [];
-        foreach (Configuration::instance()->getDirectories() as $directory) {
+        foreach ($configuration->getDirectories() as $directory) {
             $methods = array_merge($methods, $this->findMethodsInPathsService->findAll($directory));
         }
 
-        $detectedClones = $this->detectClonesService->detectInMethods($commandOutput, $methods);
+        $detectedClones = $this->detectClonesService->detectInMethods($commandOutput, $methods, $constructableClasses);
         $relevantClones = $this->ignoreClonesService->extractNonIgnoredClones($detectedClones);
 
         if (empty($relevantClones)) {

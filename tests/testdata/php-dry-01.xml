@@ -9,7 +9,8 @@
          enableConstructNormalization="false"
          phpDocumentorReportPath="/var/phpDocumentorReport"
          cachePath="/cache"
-         bootstrapScriptPath="/app/vendor/autoload.php">
+         bootstrapScriptPath="/app/vendor/autoload.php"
+         vendorPath="/var/www/vendor/">
 
     <directories>
         <directory>src</directory>
