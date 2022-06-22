@@ -90,11 +90,12 @@ class DetectClonesCommand extends Command
             );
         }
 
+        $vendorClasses = [];
         if ($configuration->getVendorPath() !== '') {
             $vendorClasses = $this->findConstructableClasses->findAll($configuration->getVendorPath());
-
-            $constructableClasses = array_merge($projectClasses, $vendorClasses);
         }
+
+        $constructableClasses = array_merge($projectClasses, $vendorClasses);
 
         $methods = [];
         foreach ($configuration->getDirectories() as $directory) {
