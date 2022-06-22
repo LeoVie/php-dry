@@ -205,16 +205,10 @@ class Type4SourceCloneCandidateFactory
 
         $classModel = $this->constructableClasses[$classFQN];
 
-        $constructorSignature = $classModel->getConstructorSignature();
-        $classHasConstructor = $constructorSignature !== null;
-        if (!$classHasConstructor) {
-            throw NoParamRequestForParamType::create($paramType->__toString(), $classFQN);
-        }
-
         return ObjectRequest::create(
             $this->configuration->getBootstrapScriptPath(),
             $classFQN,
-            $this->createParamRequests($constructorSignature)
+            $this->createParamRequests($classModel->getConstructorSignature())
         );
     }
 

@@ -12,13 +12,13 @@ class ClassModel implements JsonSerializable
     /** @param class-string $FQN */
     private function __construct(
         private string           $FQN,
-        private ?MethodSignature $constructorSignature
+        private MethodSignature $constructorSignature
     )
     {
     }
 
     /** @param class-string $FQN */
-    public static function create(string $FQN, ?MethodSignature $constructorSignature): self
+    public static function create(string $FQN, MethodSignature $constructorSignature): self
     {
         return new self($FQN, $constructorSignature);
     }
@@ -29,12 +29,12 @@ class ClassModel implements JsonSerializable
         return $this->FQN;
     }
 
-    public function getConstructorSignature(): ?MethodSignature
+    public function getConstructorSignature(): MethodSignature
     {
         return $this->constructorSignature;
     }
 
-    /** @return array{'FQN': class-string, 'constructorSignature': ?MethodSignature} */
+    /** @return array{'FQN': class-string, 'constructorSignature': MethodSignature} */
     public function jsonSerialize(): array
     {
         return [

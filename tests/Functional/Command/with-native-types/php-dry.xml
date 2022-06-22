@@ -17,7 +17,7 @@
 
     <report>
         <cli/>
-        <html directory="generated/reports"/>
+        <html directory="generated/reports/"/>
         <json filepath="generated/reports/php-dry.json"/>
     </report>
 </php-dry>
