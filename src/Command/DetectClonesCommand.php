@@ -15,6 +15,7 @@ use App\Report\Reporter;
 use App\Service\DetectClonesService;
 use App\Service\FindMethodsInPathsService;
 use App\Service\IgnoreClonesService;
+use App\Service\PhpDryVersionService;
 use App\ServiceFactory\StopwatchFactory;
 use LeoVie\PhpMethodModifier\Exception\MethodCannotBeModifiedToNonClassContext;
 use LeoVie\PhpParamGenerator\Exception\NoParamGeneratorFoundForParamRequest;
@@ -41,6 +42,7 @@ class DetectClonesCommand extends Command
         private DetectClonesCommandOutput $detectClonesCommandOutput,
         private Reporter                  $reporter,
         private FindMethodsInPathsService $findMethodsInPathsService,
+        private PhpDryVersionService      $phpDryVersionService,
     )
     {
         parent::__construct(self::$defaultName);
@@ -74,7 +76,8 @@ class DetectClonesCommand extends Command
 
         $commandOutput = $this->detectClonesCommandOutput
             ->setOutputHelper(VerboseOutputHelper::create($input, $output))
-            ->setStopwatch($stopwatch);
+            ->setStopwatch($stopwatch)
+            ->start($this->phpDryVersionService->getCurrentVersion());
 
         $this->createConfiguration($input);
 
