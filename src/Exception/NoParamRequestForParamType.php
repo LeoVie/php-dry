@@ -8,17 +8,13 @@ use Exception;
 
 class NoParamRequestForParamType extends Exception
 {
-    private function __construct(string $paramType, string $paramClass)
+    private function __construct(string $paramType)
     {
-        parent::__construct(sprintf(
-            'No ParamRequest exists for param type "%s" (class "%s").',
-            $paramType,
-            $paramClass
-        ));
+        parent::__construct(sprintf('No ParamRequest exists for param type "%s".', $paramType));
     }
 
-    public static function create(string $paramType, string $paramClass): self
+    public static function create(string $paramType): self
     {
-        return new self($paramType, $paramClass);
+        return new self($paramType);
     }
 }

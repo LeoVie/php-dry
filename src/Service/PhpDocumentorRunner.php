@@ -14,7 +14,7 @@ class PhpDocumentorRunner
         $configuration = Configuration::instance();
 
         $command = sprintf(
-            '%s run --directory %s --target %s --template %s --force 2>&1',
+            '%s run --directory %s --target %s --template %s 2>&1',
             $configuration->getPhpDocumentorExecutablePath(),
             $directory,
             $configuration->getPhpDocumentorReportPath(),

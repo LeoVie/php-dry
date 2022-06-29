@@ -12,8 +12,8 @@ class NoParamRequestForParamTypeTest extends TestCase
     public function testCreate(): void
     {
         self::assertSame(
-            'No ParamRequest exists for param type "Foo" (class "Bar").',
-            NoParamRequestForParamType::create('Foo', 'Bar')->getMessage()
+            'No ParamRequest exists for param type "Foo".',
+            NoParamRequestForParamType::create('Foo')->getMessage()
         );
     }
 }

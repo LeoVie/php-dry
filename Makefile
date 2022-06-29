@@ -39,7 +39,7 @@ composer:
 ifndef command
 	$(error command is not set)
 endif
-	docker run --rm -v $(shell pwd):/app php-dry/composer:latest $(command)
+	docker run -v $(shell pwd):/app php-dry/composer:latest $(command)
 
 .PHONY: install
 install:

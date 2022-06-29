@@ -1,7 +1,7 @@
 #
 # Composer
 #
-/vendor
+vendor
 bin/*
 !bin/console
 
@@ -41,7 +41,7 @@ tests/testdata/template/generated/*
 /report.html
 
 .phpdoc
+tests/generated/reports/*
+!/tests/generated/reports/.gitkeep
 
-tests/Functional/Command/*/phpDocumentorReport
-tests/Functional/Command/*/generated/reports/*
-!tests/Functional/Command/*/generated/reports/.gitkeep
+tests/Functional/Command/phpDocumentorReport
