@@ -9,9 +9,7 @@
          enableConstructNormalization="true"
          phpDocumentorReportPath="report_of_phpdoc"
          phpDocumentorExecutablePath="bla_foo"
-         cachePath="/tmp/"
-         bootstrapScriptPath="config/bootstrap.php"
-         vendorPath="/vendor/">
+         cachePath="/tmp/">
 
     <directories>
         <directory>/var/www</directory>

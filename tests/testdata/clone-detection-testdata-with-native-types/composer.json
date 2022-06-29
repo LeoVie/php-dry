@@ -1,9 +1,0 @@
-{
-    "name": "leovie/clone-detection-testdata-with-native-types",
-    "autoload": {
-        "classmap": [
-            "src/"
-        ]
-    },
-    "require": {}
-}

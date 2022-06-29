@@ -5,22 +5,18 @@ declare(strict_types=1);
 namespace App\Factory\SourceCloneCandidate;
 
 use App\Collection\MethodsCollection;
-use App\Configuration\Configuration;
 use App\ContextDecider\MethodContextDecider;
 use App\Exception\CollectionCannotBeEmpty;
 use App\Exception\NoParamRequestForParamType;
 use App\Factory\TokenSequenceFactory;
-use App\Model\ClassModel\ClassModel;
-use App\Model\Method\Method;
 use App\Model\Method\MethodSignature;
 use App\Model\Method\MethodSignatureGroup;
 use App\Model\RunResult\RunResultSet;
 use App\Model\SourceCloneCandidate\Type4SourceCloneCandidate;
 use LeoVie\PhpMethodRunner\Exception\CommandFailed;
-use LeoVie\PhpMethodRunner\Model\ClassData;
-use LeoVie\PhpMethodRunner\Model\MethodData;
+use LeoVie\PhpMethodRunner\Model\Method;
 use LeoVie\PhpMethodRunner\Model\MethodResult;
-use LeoVie\PhpMethodRunner\Model\MethodRunRequestWithAutoloading;
+use LeoVie\PhpMethodRunner\Model\MethodRunRequest;
 use LeoVie\PhpMethodRunner\Run\MethodRunner;
 use LeoVie\PhpParamGenerator\Exception\NoParamGeneratorFoundForParamRequest;
 use LeoVie\PhpParamGenerator\Model\Param\Param;
@@ -31,7 +27,6 @@ use LeoVie\PhpParamGenerator\Model\ParamRequest\BoolRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\FloatRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\IntRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\NullRequest;
-use LeoVie\PhpParamGenerator\Model\ParamRequest\ObjectRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamList\ParamListRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamList\ParamListSetRequest;
 use LeoVie\PhpParamGenerator\Model\ParamRequest\ParamRequest;
@@ -48,30 +43,23 @@ use phpDocumentor\Reflection\Types\Integer;
 use phpDocumentor\Reflection\Types\Iterable_;
 use phpDocumentor\Reflection\Types\Null_;
 use phpDocumentor\Reflection\Types\String_;
-use phpDocumentor\Reflection\Types\Object_;
 use Safe\Exceptions\FilesystemException;
 
 class Type4SourceCloneCandidateFactory
 {
-    private Configuration $configuration;
-
-    /** @var array<ClassModel> */
-    private array $constructableClasses = [];
-
     public function __construct(
         private ParamGeneratorService   $paramGeneratorService,
         private MethodRunner            $methodRunner,
         private TokenSequenceFactory    $tokenSequenceFactory,
         private TokenSequenceNormalizer $tokenSequenceNormalizer,
         private MethodContextDecider    $methodContextDecider,
-        private TypeResolver            $typeResolver
+        private TypeResolver            $typeResolver,
     )
     {
     }
 
     /**
      * @param iterable<MethodSignatureGroup> $methodSignatureGroups
-     * @param array<ClassModel> $constructableClasses
      *
      * @return Type4SourceCloneCandidate[]
      *
@@ -79,11 +67,8 @@ class Type4SourceCloneCandidateFactory
      * @throws FilesystemException
      * @throws NoParamGeneratorFoundForParamRequest
      */
-    public function createMultipleByRunningMethods(iterable $methodSignatureGroups, array $constructableClasses): array
+    public function createMultipleByRunningMethods(iterable $methodSignatureGroups): array
     {
-        $this->configuration = Configuration::instance();
-        $this->constructableClasses = $constructableClasses;
-
         $sourceCloneCandidates = [];
 
         foreach ($methodSignatureGroups as $methodSignatureGroup) {
@@ -95,9 +80,7 @@ class Type4SourceCloneCandidateFactory
                 continue;
             }
 
-            // TODO: make configurable
-            $paramListSetLength = 5;
-            $paramListSet = $this->createParamListSet($paramRequests, $paramListSetLength);
+            $paramListSet = $this->createParamListSet($paramRequests, 5);
 
             /** @var array<RunResultSet[]> $runResultSetsArray */
             $runResultSetsArray = [];
@@ -109,12 +92,11 @@ class Type4SourceCloneCandidateFactory
 
                 try {
                     $methodResults = $this->runMethodMultipleTimes($method, $paramListSet);
-                } catch (CommandFailed $e) {
+                } catch (CommandFailed) {
                     continue;
                 }
 
                 $runResultSet = RunResultSet::create($method, $paramListSet, $methodResults);
-
                 $runResultSetsArray[$runResultSet->hash()][] = $runResultSet;
             }
 
@@ -133,9 +115,7 @@ class Type4SourceCloneCandidateFactory
     {
         $paramRequests = [];
         foreach ($methodSignature->getParamTypes() as $paramType) {
-            $paramRequest = $this->createParamRequest($this->typeResolver->resolve($paramType));
-
-            $paramRequests[] = $paramRequest;
+            $paramRequests[] = $this->createParamRequest($this->typeResolver->resolve($paramType));
         }
 
         return $paramRequests;
@@ -144,72 +124,40 @@ class Type4SourceCloneCandidateFactory
     /** @throws NoParamRequestForParamType */
     private function createParamRequest(Type $paramType): ParamRequest
     {
+        if (
+            $paramType instanceof Array_
+            || $paramType instanceof Iterable_
+        ) {
+            // TODO: make configurable
+            $arrayLength = 3;
+
+            $arrayTypeRequests = [];
+
+            for ($i = 0; $i < $arrayLength; $i++) {
+                $arrayTypeRequests[] = $this->createParamRequest($paramType->getValueType());
+            }
+
+            return ArrayRequest::create($arrayTypeRequests);
+        }
+
+        if ($paramType instanceof AggregatedType) {
+            $randomPickedType = $paramType->get(rand(0, count($paramType->getIterator()) - 1));
+
+            if ($randomPickedType === null) {
+                throw NoParamRequestForParamType::create('null');
+            }
+
+            return $this->createParamRequest($randomPickedType);
+        }
+
         return match (true) {
-            is_a($paramType, Array_::class),
-            is_a($paramType, Iterable_::class) => $this->createArrayRequest($paramType),
-            is_a($paramType, AggregatedType::class) => $this->createParamRequestForAggregatedType($paramType),
             is_a($paramType, String_::class) => StringRequest::create(),
             is_a($paramType, Integer::class) => IntRequest::create(),
             is_a($paramType, Float_::class) => FloatRequest::create(),
             is_a($paramType, Boolean::class) => BoolRequest::create(),
             is_a($paramType, Null_::class) => NullRequest::create(),
-            is_a($paramType, Object_::class) => $this->createParamRequestForObject($paramType),
-            default => throw NoParamRequestForParamType::create($paramType->__toString(), $paramType::class)
+            default => throw NoParamRequestForParamType::create($paramType->__toString())
         };
-    }
-
-    /** @throws NoParamRequestForParamType */
-    private function createArrayRequest(Iterable_|Array_ $paramType): ArrayRequest
-    {
-        // TODO: make configurable
-        $arrayLength = 3;
-
-        $arrayTypeRequests = [];
-
-        for ($i = 0; $i < $arrayLength; $i++) {
-            $arrayTypeRequests[] = $this->createParamRequest($paramType->getValueType());
-        }
-
-        return ArrayRequest::create($arrayTypeRequests);
-    }
-
-    /** @throws NoParamRequestForParamType */
-    private function createParamRequestForAggregatedType(AggregatedType $paramType): ParamRequest
-    {
-        $randomPickedType = $paramType->get(rand(0, count($paramType->getIterator()) - 1));
-
-        if ($randomPickedType === null) {
-            throw NoParamRequestForParamType::create('null', 'null');
-        }
-
-        return $this->createParamRequest($randomPickedType);
-    }
-
-    /** @throws NoParamRequestForParamType */
-    private function createParamRequestForObject(Object_ $paramType): ParamRequest
-    {
-        $class = $paramType->getFqsen();
-
-        if ($class === null) {
-            throw NoParamRequestForParamType::create('object', 'object');
-        }
-
-        /** @var class-string $classFQN */
-        $classFQN = $class->__toString();
-
-        $classIsConstructable = array_key_exists($classFQN, $this->constructableClasses);
-
-        if (!$classIsConstructable) {
-            throw NoParamRequestForParamType::create($paramType->__toString(), $classFQN);
-        }
-
-        $classModel = $this->constructableClasses[$classFQN];
-
-        return ObjectRequest::create(
-            $this->configuration->getBootstrapScriptPath(),
-            $classFQN,
-            $this->createParamRequests($classModel->getConstructorSignature())
-        );
     }
 
     /**
@@ -233,7 +181,7 @@ class Type4SourceCloneCandidateFactory
      *
      * @throws FilesystemException
      */
-    private function runMethodMultipleTimes(Method $method, ParamListSet $paramListSet): array
+    private function runMethodMultipleTimes(\App\Model\Method\Method $method, ParamListSet $paramListSet): array
     {
         $results = [];
 
@@ -252,20 +200,14 @@ class Type4SourceCloneCandidateFactory
      * @throws FilesystemException
      * @throws CommandFailed
      */
-    private function runMethod(Method $method, ParamList $paramList): MethodResult
+    private function runMethod(\App\Model\Method\Method $method, ParamList $paramList): MethodResult
     {
-        $methodRunRequest = MethodRunRequestWithAutoloading::create(
-            MethodData::create(
+        $methodRunRequest = MethodRunRequest::create(
+            Method::create(
                 $method->getName(),
                 $this->tokenSequenceNormalizer->normalizeLevel4($this->tokenSequenceFactory->createFromMethod($method))->toCode()
             ),
-            array_map(fn(Param $p): mixed => $p->flatten(), $paramList->getParams()),
-            ClassData::create(
-                $method->getClassFQN()
-            ),
-            // TODO: generate random class constructor params
-            [],
-            \Safe\realpath($this->configuration->getBootstrapScriptPath())
+            array_map(fn(Param $p): mixed => $p->flatten(), $paramList->getParams())
         );
 
         return $this->methodRunner->run($methodRunRequest);
@@ -294,7 +236,7 @@ class Type4SourceCloneCandidateFactory
      */
     private function createForRunResultSets(array $runResultSets): Type4SourceCloneCandidate
     {
-        $methods = array_map(fn(RunResultSet $rrs): Method => $rrs->getMethod(), $runResultSets);
+        $methods = array_map(fn(RunResultSet $rrs): \App\Model\Method\Method => $rrs->getMethod(), $runResultSets);
 
         return Type4SourceCloneCandidate::create(MethodsCollection::create(...$methods));
     }

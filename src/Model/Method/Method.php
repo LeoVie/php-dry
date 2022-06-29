@@ -15,7 +15,6 @@ class Method implements Identity, \JsonSerializable
         private string            $filepath,
         private CodePositionRange $codePositionRange,
         private string            $content,
-        private string            $classFQN,
     )
     {
     }
@@ -26,10 +25,9 @@ class Method implements Identity, \JsonSerializable
         string            $filepath,
         CodePositionRange $codePositionRange,
         string            $content,
-        string            $classFQN,
     ): self
     {
-        return new self($methodSignature, $name, $filepath, $codePositionRange, $content, $classFQN);
+        return new self($methodSignature, $name, $filepath, $codePositionRange, $content);
     }
 
     public function getMethodSignature(): MethodSignature
@@ -55,11 +53,6 @@ class Method implements Identity, \JsonSerializable
     public function getContent(): string
     {
         return $this->content;
-    }
-
-    public function getClassFQN(): string
-    {
-        return $this->classFQN;
     }
 
     public function identity(): string

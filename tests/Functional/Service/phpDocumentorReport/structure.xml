@@ -1,7 +1,26 @@
 <?xml version="1.0"?>
 <project name="Documentation">
-                <file path="01_A.php" hash="f28296a263af803925546bfcb2e9e938">
+                <file path="01_A.php" hash="4273da57afe10c209b0a79960a2a8617">
             <docblock line="0">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+
+            
+            
+
+            
+                        
+                        
+                                        <class final="false" abstract="false" namespace="\" line="3">
+                    <name>A</name>
+                    <full_name>\A</full_name>
+                    <docblock line="3">
     <description></description>
     <long-description></long-description>
                     <tag
@@ -14,26 +33,6 @@
                                                                                                 />
             </docblock>
 
-
-            
-                            <namespace-alias name="\LeoVie\CloneDetectionTestdataWithNativeTypes"/>
-            
-
-            
-                        
-                        
-                                        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
-                    <name>A</name>
-                    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A</full_name>
-                    <docblock line="5">
-    <description></description>
-    <long-description></long-description>
-                    <tag
-                name="package"
-                description="Application"
-                                                                                                />
-            </docblock>
-
                     
                     
                                         
@@ -41,30 +40,30 @@
                                             <method final="false"
         abstract="false"
         static="false"
-        namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
-        startLine="12"
-        startColumn="202"
-        endLine="20"
-        endColumn="383"
+        namespace=""
+        startLine="10"
+        startColumn="143"
+        endLine="18"
+        endColumn="324"
         visibility="public"
         returnByReference="false"
         response="array&lt;int,int&gt;">
     <name>foo</name>
-    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A::foo()</full_name>
+    <full_name>\A::foo()</full_name>
     <value></value>
-                <argument line="12" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
     <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="12" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="12">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
                     <tag
@@ -85,8 +84,27 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="02_B.php" hash="11d90666d6bd33643f44ff844fce90e8">
+            <file path="02_B.php" hash="349dde51b977be66ccf7fcdb72117006">
             <docblock line="0">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+
+            
+            
+
+            
+                        
+                        
+                                        <class final="false" abstract="false" namespace="\" line="3">
+                    <name>B</name>
+                    <full_name>\B</full_name>
+                    <docblock line="3">
     <description></description>
     <long-description></long-description>
                     <tag
@@ -99,26 +117,6 @@
                                                                                                 />
             </docblock>
 
-
-            
-                            <namespace-alias name="\LeoVie\CloneDetectionTestdataWithNativeTypes"/>
-            
-
-            
-                        
-                        
-                                        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
-                    <name>B</name>
-                    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\B</full_name>
-                    <docblock line="5">
-    <description></description>
-    <long-description></long-description>
-                    <tag
-                name="package"
-                description="Application"
-                                                                                                />
-            </docblock>
-
                     
                     
                                         
@@ -126,30 +124,30 @@
                                             <method final="false"
         abstract="false"
         static="false"
-        namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
-        startLine="12"
-        startColumn="218"
-        endLine="15"
-        endColumn="298"
+        namespace=""
+        startLine="10"
+        startColumn="159"
+        endLine="13"
+        endColumn="239"
         visibility="public"
         returnByReference="false"
         response="array&lt;int,array&lt;int,int&gt;|int&gt;">
     <name>foo</name>
-    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\B::foo()</full_name>
+    <full_name>\B::foo()</full_name>
     <value></value>
-                <argument line="12" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
     <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="12" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="12">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
                     <tag
@@ -170,15 +168,11 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="03_A_Exact_Copy.php" hash="daa518e48fa46c46627afb8db3fd0f9f">
+            <file path="03_A_Exact_Copy.php" hash="39bc5c6531e7721a2d97a51fa717113c">
             <docblock line="0">
     <description></description>
     <long-description></long-description>
                     <tag
-                name="noinspection"
-                description="ALL"
-                                                                                                />
-                            <tag
                 name="package"
                 description="Application"
                                                                                                 />
@@ -186,19 +180,22 @@
 
 
             
-                            <namespace-alias name="\LeoVie\CloneDetectionTestdataWithNativeTypes"/>
             
 
             
                         
                         
-                                        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
+                                        <class final="false" abstract="false" namespace="\" line="3">
                     <name>A_Exact_Copy</name>
-                    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Exact_Copy</full_name>
-                    <docblock line="5">
+                    <full_name>\A_Exact_Copy</full_name>
+                    <docblock line="3">
     <description></description>
     <long-description></long-description>
                     <tag
+                name="noinspection"
+                description="ALL"
+                                                                                                />
+                            <tag
                 name="package"
                 description="Application"
                                                                                                 />
@@ -211,30 +208,30 @@
                                             <method final="false"
         abstract="false"
         static="false"
-        namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
-        startLine="12"
-        startColumn="213"
-        endLine="20"
-        endColumn="394"
+        namespace=""
+        startLine="10"
+        startColumn="154"
+        endLine="18"
+        endColumn="335"
         visibility="public"
         returnByReference="false"
         response="array&lt;int,int&gt;">
     <name>foo</name>
-    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Exact_Copy::foo()</full_name>
+    <full_name>\A_Exact_Copy::foo()</full_name>
     <value></value>
-                <argument line="12" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
     <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="12" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="12">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
                     <tag
@@ -255,15 +252,11 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="04_A_Additional_Whitespaces.php" hash="f28723078eb40a5d0ab2b6ab94b6a8c5">
+            <file path="04_A_Additional_Whitespaces.php" hash="44fff7ab0ebc0b0085dffefbfa1046bd">
             <docblock line="0">
     <description></description>
     <long-description></long-description>
                     <tag
-                name="noinspection"
-                description="ALL"
-                                                                                                />
-                            <tag
                 name="package"
                 description="Application"
                                                                                                 />
@@ -271,19 +264,22 @@
 
 
             
-                            <namespace-alias name="\LeoVie\CloneDetectionTestdataWithNativeTypes"/>
             
 
             
                         
                         
-                                        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
+                                        <class final="false" abstract="false" namespace="\" line="3">
                     <name>A_Additional_Whitespaces</name>
-                    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Additional_Whitespaces</full_name>
-                    <docblock line="5">
+                    <full_name>\A_Additional_Whitespaces</full_name>
+                    <docblock line="3">
     <description></description>
     <long-description></long-description>
                     <tag
+                name="noinspection"
+                description="ALL"
+                                                                                                />
+                            <tag
                 name="package"
                 description="Application"
                                                                                                 />
@@ -296,30 +292,30 @@
                                             <method final="false"
         abstract="false"
         static="false"
-        namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
-        startLine="12"
-        startColumn="225"
-        endLine="21"
-        endColumn="428"
+        namespace=""
+        startLine="10"
+        startColumn="166"
+        endLine="19"
+        endColumn="369"
         visibility="public"
         returnByReference="false"
         response="array&lt;int,int&gt;">
     <name>foo</name>
-    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Additional_Whitespaces::foo()</full_name>
+    <full_name>\A_Additional_Whitespaces::foo()</full_name>
     <value></value>
-                <argument line="12" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
     <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="12" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="12">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
                     <tag
@@ -340,15 +336,11 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="05_A_Additional_Comments.php" hash="82294c5c5cc2e3fd64aa7943bad5e8c4">
+            <file path="05_A_Additional_Comments.php" hash="6db8907d94f2a6fb3bd2265495a6df42">
             <docblock line="0">
     <description></description>
     <long-description></long-description>
                     <tag
-                name="noinspection"
-                description="ALL"
-                                                                                                />
-                            <tag
                 name="package"
                 description="Application"
                                                                                                 />
@@ -356,19 +348,22 @@
 
 
             
-                            <namespace-alias name="\LeoVie\CloneDetectionTestdataWithNativeTypes"/>
             
 
             
                         
                         
-                                        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
+                                        <class final="false" abstract="false" namespace="\" line="3">
                     <name>A_Additional_Comments</name>
-                    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Additional_Comments</full_name>
-                    <docblock line="5">
+                    <full_name>\A_Additional_Comments</full_name>
+                    <docblock line="3">
     <description></description>
     <long-description></long-description>
                     <tag
+                name="noinspection"
+                description="ALL"
+                                                                                                />
+                            <tag
                 name="package"
                 description="Application"
                                                                                                 />
@@ -381,30 +376,30 @@
                                             <method final="false"
         abstract="false"
         static="false"
-        namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
-        startLine="12"
-        startColumn="222"
-        endLine="27"
-        endColumn="592"
+        namespace=""
+        startLine="10"
+        startColumn="163"
+        endLine="25"
+        endColumn="533"
         visibility="public"
         returnByReference="false"
         response="array&lt;int,int&gt;">
     <name>foo</name>
-    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Additional_Comments::foo()</full_name>
+    <full_name>\A_Additional_Comments::foo()</full_name>
     <value></value>
-                <argument line="12" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
     <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="12" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="12">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
                     <tag
@@ -425,15 +420,11 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="06_A_Changed_Layout.php" hash="acbc6a11f8918adb375bd1c29c22d55f">
+            <file path="06_A_Changed_Layout.php" hash="2cd6e672c57eea8015bce8b8cac58047">
             <docblock line="0">
     <description></description>
     <long-description></long-description>
                     <tag
-                name="noinspection"
-                description="ALL"
-                                                                                                />
-                            <tag
                 name="package"
                 description="Application"
                                                                                                 />
@@ -441,19 +432,22 @@
 
 
             
-                            <namespace-alias name="\LeoVie\CloneDetectionTestdataWithNativeTypes"/>
             
 
             
                         
                         
-                                        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
+                                        <class final="false" abstract="false" namespace="\" line="3">
                     <name>A_Changed_Layout</name>
-                    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Layout</full_name>
-                    <docblock line="5">
+                    <full_name>\A_Changed_Layout</full_name>
+                    <docblock line="3">
     <description></description>
     <long-description></long-description>
                     <tag
+                name="noinspection"
+                description="ALL"
+                                                                                                />
+                            <tag
                 name="package"
                 description="Application"
                                                                                                 />
@@ -466,30 +460,30 @@
                                             <method final="false"
         abstract="false"
         static="false"
-        namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
-        startLine="12"
-        startColumn="217"
-        endLine="16"
-        endColumn="362"
+        namespace=""
+        startLine="10"
+        startColumn="158"
+        endLine="14"
+        endColumn="303"
         visibility="public"
         returnByReference="false"
         response="array&lt;int,int&gt;">
     <name>foo</name>
-    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Layout::foo()</full_name>
+    <full_name>\A_Changed_Layout::foo()</full_name>
     <value></value>
-                <argument line="12" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
     <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="12" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="12">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
                     <tag
@@ -510,8 +504,27 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="07_A_Changed_Variable_Names.php" hash="ed5530b7f9df8f59434689f47afb64a5">
+            <file path="07_A_Changed_Variable_Names.php" hash="c878d95d7b38d3e7143422c31f9d3dad">
             <docblock line="0">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+
+            
+            
+
+            
+                        
+                        
+                                        <class final="false" abstract="false" namespace="\" line="3">
+                    <name>A_Changed_Variable_Names</name>
+                    <full_name>\A_Changed_Variable_Names</full_name>
+                    <docblock line="3">
     <description></description>
     <long-description></long-description>
                     <tag
@@ -524,26 +537,6 @@
                                                                                                 />
             </docblock>
 
-
-            
-                            <namespace-alias name="\LeoVie\CloneDetectionTestdataWithNativeTypes"/>
-            
-
-            
-                        
-                        
-                                        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
-                    <name>A_Changed_Variable_Names</name>
-                    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Variable_Names</full_name>
-                    <docblock line="5">
-    <description></description>
-    <long-description></long-description>
-                    <tag
-                name="package"
-                description="Application"
-                                                                                                />
-            </docblock>
-
                     
                     
                                         
@@ -551,30 +544,30 @@
                                             <method final="false"
         abstract="false"
         static="false"
-        namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
-        startLine="12"
-        startColumn="228"
-        endLine="20"
-        endColumn="423"
+        namespace=""
+        startLine="10"
+        startColumn="169"
+        endLine="18"
+        endColumn="364"
         visibility="public"
         returnByReference="false"
         response="array&lt;int,int&gt;">
     <name>foo</name>
-    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Variable_Names::foo()</full_name>
+    <full_name>\A_Changed_Variable_Names::foo()</full_name>
     <value></value>
-                <argument line="12" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>first</name>
     <default></default>
     <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="12" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>second</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="12">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
                     <tag
@@ -595,8 +588,27 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="08_A_Changed_Method_Names.php" hash="07a35b66310ea687c8810cf3f1465818">
+            <file path="08_A_Changed_Method_Names.php" hash="2f981e43244d370674f9c5bdd407caec">
             <docblock line="0">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+
+            
+            
+
+            
+                        
+                        
+                                        <class final="false" abstract="false" namespace="\" line="3">
+                    <name>A_Changed_Method_Names</name>
+                    <full_name>\A_Changed_Method_Names</full_name>
+                    <docblock line="3">
     <description></description>
     <long-description></long-description>
                     <tag
@@ -609,26 +621,6 @@
                                                                                                 />
             </docblock>
 
-
-            
-                            <namespace-alias name="\LeoVie\CloneDetectionTestdataWithNativeTypes"/>
-            
-
-            
-                        
-                        
-                                        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
-                    <name>A_Changed_Method_Names</name>
-                    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Method_Names</full_name>
-                    <docblock line="5">
-    <description></description>
-    <long-description></long-description>
-                    <tag
-                name="package"
-                description="Application"
-                                                                                                />
-            </docblock>
-
                     
                     
                                         
@@ -636,30 +628,30 @@
                                             <method final="false"
         abstract="false"
         static="false"
-        namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
-        startLine="12"
-        startColumn="223"
-        endLine="20"
-        endColumn="404"
+        namespace=""
+        startLine="10"
+        startColumn="164"
+        endLine="18"
+        endColumn="345"
         visibility="public"
         returnByReference="false"
         response="array&lt;int,int&gt;">
     <name>bar</name>
-    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Method_Names::bar()</full_name>
+    <full_name>\A_Changed_Method_Names::bar()</full_name>
     <value></value>
-                <argument line="12" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
     <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="12" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="12">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
                     <tag
@@ -680,15 +672,11 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="09_A_Changed_Literals.php" hash="cee6d74980e34534899e1dafa44f84b6">
+            <file path="09_A_Changed_Literals.php" hash="09fe167c1ef581ed8d2a73c0cfc1e8ac">
             <docblock line="0">
     <description></description>
     <long-description></long-description>
                     <tag
-                name="noinspection"
-                description="ALL"
-                                                                                                />
-                            <tag
                 name="package"
                 description="Application"
                                                                                                 />
@@ -696,19 +684,22 @@
 
 
             
-                            <namespace-alias name="\LeoVie\CloneDetectionTestdataWithNativeTypes"/>
             
 
             
                         
                         
-                                        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
+                                        <class final="false" abstract="false" namespace="\" line="3">
                     <name>A_Changed_Literals</name>
-                    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Literals</full_name>
-                    <docblock line="5">
+                    <full_name>\A_Changed_Literals</full_name>
+                    <docblock line="3">
     <description></description>
     <long-description></long-description>
                     <tag
+                name="noinspection"
+                description="ALL"
+                                                                                                />
+                            <tag
                 name="package"
                 description="Application"
                                                                                                 />
@@ -721,30 +712,30 @@
                                             <method final="false"
         abstract="false"
         static="false"
-        namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
-        startLine="12"
-        startColumn="219"
-        endLine="20"
-        endColumn="400"
+        namespace=""
+        startLine="10"
+        startColumn="160"
+        endLine="18"
+        endColumn="341"
         visibility="public"
         returnByReference="false"
         response="array&lt;int,int&gt;">
     <name>foo</name>
-    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Literals::foo()</full_name>
+    <full_name>\A_Changed_Literals::foo()</full_name>
     <value></value>
-                <argument line="12" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
     <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="12" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="12">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
                     <tag
@@ -765,15 +756,11 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="10_A_Additional_Statements.php" hash="a0aa431c9ed2b161cfa286d581f5338f">
+            <file path="10_A_Additional_Statements.php" hash="4eab795750156150480f4f5f96ced036">
             <docblock line="0">
     <description></description>
     <long-description></long-description>
                     <tag
-                name="noinspection"
-                description="ALL"
-                                                                                                />
-                            <tag
                 name="package"
                 description="Application"
                                                                                                 />
@@ -781,77 +768,15 @@
 
 
             
-                            <namespace-alias name="\LeoVie\CloneDetectionTestdataWithNativeTypes"/>
             
 
             
                         
                         
-                                        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
+                                        <class final="false" abstract="false" namespace="\" line="3">
                     <name>A_Additional_Statements</name>
-                    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Additional_Statements</full_name>
-                    <docblock line="5">
-    <description></description>
-    <long-description></long-description>
-                    <tag
-                name="package"
-                description="Application"
-                                                                                                />
-            </docblock>
-
-                    
-                    
-                                        
-                                        
-                                            <method final="false"
-        abstract="false"
-        static="false"
-        namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
-        startLine="12"
-        startColumn="224"
-        endLine="21"
-        endColumn="442"
-        visibility="public"
-        returnByReference="false"
-        response="array&lt;int,int&gt;">
-    <name>foo</name>
-    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Additional_Statements::foo()</full_name>
-    <value></value>
-                <argument line="12" by_reference="false">
-    <name>p1</name>
-    <default></default>
-    <type>array&lt;int,int&gt;</type>
-</argument>
-
-            <argument line="12" by_reference="false">
-    <name>p2</name>
-    <default></default>
-    <type>int</type>
-</argument>
-
-        <docblock line="12">
-    <description></description>
-    <long-description></long-description>
-                    <tag
-                name="param"
-                description=""
-                                                                 variable="p1"                                 type="array&lt;int,int&gt;"/>
-                            <tag
-                name="return"
-                description=""
-                                                                                                 type="array&lt;int,int&gt;"/>
-            </docblock>
-
-</method>
-
-                                                        </class>
-            
-                        
-            
-            <parse_markers></parse_markers>
-        </file>
-            <file path="11_A_Removed_Statements.php" hash="874728c08a77a352a026432d235d8bb1">
-            <docblock line="0">
+                    <full_name>\A_Additional_Statements</full_name>
+                    <docblock line="3">
     <description></description>
     <long-description></long-description>
                     <tag
@@ -864,26 +789,6 @@
                                                                                                 />
             </docblock>
 
-
-            
-                            <namespace-alias name="\LeoVie\CloneDetectionTestdataWithNativeTypes"/>
-            
-
-            
-                        
-                        
-                                        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
-                    <name>A_Removed_Statements</name>
-                    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Removed_Statements</full_name>
-                    <docblock line="5">
-    <description></description>
-    <long-description></long-description>
-                    <tag
-                name="package"
-                description="Application"
-                                                                                                />
-            </docblock>
-
                     
                     
                                         
@@ -891,30 +796,30 @@
                                             <method final="false"
         abstract="false"
         static="false"
-        namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
-        startLine="12"
-        startColumn="221"
+        namespace=""
+        startLine="10"
+        startColumn="165"
         endLine="19"
         endColumn="383"
         visibility="public"
         returnByReference="false"
         response="array&lt;int,int&gt;">
     <name>foo</name>
-    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Removed_Statements::foo()</full_name>
+    <full_name>\A_Additional_Statements::foo()</full_name>
     <value></value>
-                <argument line="12" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
     <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="12" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="12">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
                     <tag
@@ -935,8 +840,27 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="12_A_Changed_Statement_Order.php" hash="989026de625fa5414141ea861cb613ef">
+            <file path="11_A_Removed_Statements.php" hash="7e9c88b9d7546697a198d5f79a167970">
             <docblock line="0">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+
+            
+            
+
+            
+                        
+                        
+                                        <class final="false" abstract="false" namespace="\" line="3">
+                    <name>A_Removed_Statements</name>
+                    <full_name>\A_Removed_Statements</full_name>
+                    <docblock line="3">
     <description></description>
     <long-description></long-description>
                     <tag
@@ -949,79 +873,78 @@
                                                                                                 />
             </docblock>
 
+                    
+                    
+                                        
+                                        
+                                            <method final="false"
+        abstract="false"
+        static="false"
+        namespace=""
+        startLine="10"
+        startColumn="162"
+        endLine="17"
+        endColumn="324"
+        visibility="public"
+        returnByReference="false"
+        response="array&lt;int,int&gt;">
+    <name>foo</name>
+    <full_name>\A_Removed_Statements::foo()</full_name>
+    <value></value>
+                <argument line="10" by_reference="false">
+    <name>p1</name>
+    <default></default>
+    <type>array&lt;int,int&gt;</type>
+</argument>
+
+            <argument line="10" by_reference="false">
+    <name>p2</name>
+    <default></default>
+    <type>int</type>
+</argument>
+
+        <docblock line="10">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="param"
+                description=""
+                                                                 variable="p1"                                 type="array&lt;int,int&gt;"/>
+                            <tag
+                name="return"
+                description=""
+                                                                                                 type="array&lt;int,int&gt;"/>
+            </docblock>
+
+</method>
+
+                                                        </class>
+            
+                        
+            
+            <parse_markers></parse_markers>
+        </file>
+            <file path="12_A_Changed_Statement_Order.php" hash="6ae9d103a48eb669bcf36a078e1bb3a1">
+            <docblock line="0">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
 
             
-                            <namespace-alias name="\LeoVie\CloneDetectionTestdataWithNativeTypes"/>
             
 
             
                         
                         
-                                        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
+                                        <class final="false" abstract="false" namespace="\" line="3">
                     <name>A_Changed_Statement_Order</name>
-                    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Statement_Order</full_name>
-                    <docblock line="5">
-    <description></description>
-    <long-description></long-description>
-                    <tag
-                name="package"
-                description="Application"
-                                                                                                />
-            </docblock>
-
-                    
-                    
-                                        
-                                        
-                                            <method final="false"
-        abstract="false"
-        static="false"
-        namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
-        startLine="12"
-        startColumn="226"
-        endLine="20"
-        endColumn="407"
-        visibility="public"
-        returnByReference="false"
-        response="array&lt;int,int&gt;">
-    <name>foo</name>
-    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Statement_Order::foo()</full_name>
-    <value></value>
-                <argument line="12" by_reference="false">
-    <name>p1</name>
-    <default></default>
-    <type>array&lt;int,int&gt;</type>
-</argument>
-
-            <argument line="12" by_reference="false">
-    <name>p2</name>
-    <default></default>
-    <type>int</type>
-</argument>
-
-        <docblock line="12">
-    <description></description>
-    <long-description></long-description>
-                    <tag
-                name="param"
-                description=""
-                                                                 variable="p1"                                 type="array&lt;int,int&gt;"/>
-                            <tag
-                name="return"
-                description=""
-                                                                                                 type="array&lt;int,int&gt;"/>
-            </docblock>
-
-</method>
-
-                                                        </class>
-            
-                        
-            
-            <parse_markers></parse_markers>
-        </file>
-            <file path="13_A_Changed_Syntax.php" hash="b0b82965d8683ec6bdaaa5de54e7b149">
-            <docblock line="0">
+                    <full_name>\A_Changed_Statement_Order</full_name>
+                    <docblock line="3">
     <description></description>
     <long-description></long-description>
                     <tag
@@ -1034,26 +957,6 @@
                                                                                                 />
             </docblock>
 
-
-            
-                            <namespace-alias name="\LeoVie\CloneDetectionTestdataWithNativeTypes"/>
-            
-
-            
-                        
-                        
-                                        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
-                    <name>A_Changed_Syntax</name>
-                    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Syntax</full_name>
-                    <docblock line="5">
-    <description></description>
-    <long-description></long-description>
-                    <tag
-                name="package"
-                description="Application"
-                                                                                                />
-            </docblock>
-
                     
                     
                                         
@@ -1061,30 +964,30 @@
                                             <method final="false"
         abstract="false"
         static="false"
-        namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
-        startLine="12"
-        startColumn="217"
+        namespace=""
+        startLine="10"
+        startColumn="167"
         endLine="18"
-        endColumn="358"
+        endColumn="348"
         visibility="public"
         returnByReference="false"
         response="array&lt;int,int&gt;">
     <name>foo</name>
-    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Syntax::foo()</full_name>
+    <full_name>\A_Changed_Statement_Order::foo()</full_name>
     <value></value>
-                <argument line="12" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
     <type>array&lt;int,int&gt;</type>
 </argument>
 
-            <argument line="12" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-        <docblock line="12">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
                     <tag
@@ -1105,8 +1008,27 @@
             
             <parse_markers></parse_markers>
         </file>
-            <file path="14_A_Changed_Param_Order.php" hash="b7e94baa852eb797c8ebb22cd4ae90e5">
+            <file path="13_A_Changed_Syntax.php" hash="e12245e9dec038556d0c3b7489098144">
             <docblock line="0">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+
+            
+            
+
+            
+                        
+                        
+                                        <class final="false" abstract="false" namespace="\" line="3">
+                    <name>A_Changed_Syntax</name>
+                    <full_name>\A_Changed_Syntax</full_name>
+                    <docblock line="3">
     <description></description>
     <long-description></long-description>
                     <tag
@@ -1119,21 +1041,85 @@
                                                                                                 />
             </docblock>
 
+                    
+                    
+                                        
+                                        
+                                            <method final="false"
+        abstract="false"
+        static="false"
+        namespace=""
+        startLine="10"
+        startColumn="158"
+        endLine="16"
+        endColumn="299"
+        visibility="public"
+        returnByReference="false"
+        response="array&lt;int,int&gt;">
+    <name>foo</name>
+    <full_name>\A_Changed_Syntax::foo()</full_name>
+    <value></value>
+                <argument line="10" by_reference="false">
+    <name>p1</name>
+    <default></default>
+    <type>array&lt;int,int&gt;</type>
+</argument>
 
-            
-                            <namespace-alias name="\LeoVie\CloneDetectionTestdataWithNativeTypes"/>
-            
+            <argument line="10" by_reference="false">
+    <name>p2</name>
+    <default></default>
+    <type>int</type>
+</argument>
 
-            
-                        
-                        
-                                        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
-                    <name>A_Changed_Param_Order</name>
-                    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Param_Order</full_name>
-                    <docblock line="5">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
                     <tag
+                name="param"
+                description=""
+                                                                 variable="p1"                                 type="array&lt;int,int&gt;"/>
+                            <tag
+                name="return"
+                description=""
+                                                                                                 type="array&lt;int,int&gt;"/>
+            </docblock>
+
+</method>
+
+                                                        </class>
+            
+                        
+            
+            <parse_markers></parse_markers>
+        </file>
+            <file path="14_A_Changed_Param_Order.php" hash="80e41d1ace13f6f91e86bc53c7d97682">
+            <docblock line="0">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="package"
+                description="Application"
+                                                                                                />
+            </docblock>
+
+
+            
+            
+
+            
+                        
+                        
+                                        <class final="false" abstract="false" namespace="\" line="3">
+                    <name>A_Changed_Param_Order</name>
+                    <full_name>\A_Changed_Param_Order</full_name>
+                    <docblock line="3">
+    <description></description>
+    <long-description></long-description>
+                    <tag
+                name="noinspection"
+                description="ALL"
+                                                                                                />
+                            <tag
                 name="package"
                 description="Application"
                                                                                                 />
@@ -1146,30 +1132,30 @@
                                             <method final="false"
         abstract="false"
         static="false"
-        namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
-        startLine="12"
-        startColumn="222"
-        endLine="20"
-        endColumn="403"
+        namespace=""
+        startLine="10"
+        startColumn="163"
+        endLine="18"
+        endColumn="344"
         visibility="public"
         returnByReference="false"
         response="array&lt;int,int&gt;">
     <name>foo</name>
-    <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Param_Order::foo()</full_name>
+    <full_name>\A_Changed_Param_Order::foo()</full_name>
     <value></value>
-                <argument line="12" by_reference="false">
+                <argument line="10" by_reference="false">
     <name>p2</name>
     <default></default>
     <type>int</type>
 </argument>
 
-            <argument line="12" by_reference="false">
+            <argument line="10" by_reference="false">
     <name>p1</name>
     <default></default>
     <type>array&lt;int,int&gt;</type>
 </argument>
 
-        <docblock line="12">
+        <docblock line="10">
     <description></description>
     <long-description></long-description>
                     <tag
@@ -1191,19 +1177,6 @@
             <parse_markers></parse_markers>
         </file>
     
-            <namespace name="CloneDetectionTestdataWithNativeTypes" full_name="\LeoVie\CloneDetectionTestdataWithNativeTypes" />
-
-            <namespace name="\" full_name="\">
-            <namespace name="LeoVie" full_name="\LeoVie">
-            <namespace name="CloneDetectionTestdataWithNativeTypes" full_name="\LeoVie\CloneDetectionTestdataWithNativeTypes" />
-
-    </namespace>
-
-    </namespace>
-
-            <namespace name="LeoVie" full_name="\LeoVie">
-            <namespace name="CloneDetectionTestdataWithNativeTypes" full_name="\LeoVie\CloneDetectionTestdataWithNativeTypes" />
-
-    </namespace>
+            <namespace name="\" full_name="\" />
 
     </project>

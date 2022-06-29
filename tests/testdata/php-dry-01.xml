@@ -8,9 +8,7 @@
          countOfParamSets="10"
          enableConstructNormalization="false"
          phpDocumentorReportPath="/var/phpDocumentorReport"
-         cachePath="/cache"
-         bootstrapScriptPath="/app/vendor/autoload.php"
-         vendorPath="/var/www/vendor/">
+         cachePath="/cache">
 
     <directories>
         <directory>src</directory>
