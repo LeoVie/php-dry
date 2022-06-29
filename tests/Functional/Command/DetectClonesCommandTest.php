@@ -32,6 +32,9 @@ class DetectClonesCommandTest extends KernelTestCase
         $output = $this->commandTester->getDisplay();
 
         $this->assertCommandFailed();
+        $phpDryVersion = trim(\Safe\file_get_contents(__DIR__ . '/../../../VERSION'));
+        self::assertStringContainsString(sprintf('Running php-dry %s.', $phpDryVersion), $output);
+
         self::assertStringContainsString('Detecting type 1 clones', $output);
         self::assertStringContainsString('Detecting type 2 clones', $output);
         self::assertStringContainsString('Detecting type 3 clones', $output);

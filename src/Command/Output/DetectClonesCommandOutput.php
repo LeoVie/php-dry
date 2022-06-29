@@ -27,9 +27,9 @@ class DetectClonesCommandOutput
         return $this;
     }
 
-    public function getName(): string
+    public function start(string $version): self
     {
-        return 'human';
+        return $this->single(sprintf('Running php-dry %s.', $version));
     }
 
     public function runtime(StopwatchEvent $runtime): void
@@ -61,24 +61,10 @@ class DetectClonesCommandOutput
         return $this;
     }
 
-    public function foundFiles(int $filesCount): self
-    {
-        return $this
-            ->single(sprintf('Found %s files:', $filesCount))
-            ->lapTime();
-    }
-
     public function foundMethods(int $methodsCount): self
     {
         return $this
             ->single(sprintf('Found %s methods:', $methodsCount))
-            ->lapTime();
-    }
-
-    public function foundClones(string $clonesType, int $clonesCount): self
-    {
-        return $this
-            ->single(sprintf('Found %s %s clones:', $clonesCount, $clonesType))
             ->lapTime();
     }
 
