@@ -27,9 +27,19 @@ class DetectClonesCommandOutput
         return $this;
     }
 
-    public function getName(): string
+    public function start(): self
     {
-        return 'human';
+        $version = file_get_contents(__DIR__ . '/../../../VERSION');
+        $this->outputHelper->single('Running php-dry ' . $version);
+
+        return $this;
+    }
+
+    public function findConstructableClasses(string $directory): self
+    {
+        $this->outputHelper->single(sprintf('Searching constructable classes in "%s"...', $directory));
+
+        return $this;
     }
 
     public function runtime(StopwatchEvent $runtime): void
@@ -115,5 +125,12 @@ class DetectClonesCommandOutput
     public function createProgressBarIterator(iterable $iterable): iterable
     {
         return $this->outputHelper->createProgressBarIterator($iterable);
+    }
+
+    public function countOfConstructableClasses(int $count): self
+    {
+        $this->outputHelper->single(sprintf('Found %s constructable classes.', $count));
+
+        return $this;
     }
 }

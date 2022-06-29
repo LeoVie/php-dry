@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Command\Output\DetectClonesCommandOutput;
 use App\Configuration\Configuration;
 use App\Exception\ClassNotConstructable;
 use App\Exception\PhpDocumentorFailed;
@@ -25,28 +26,35 @@ class FindConstructableClasses
      * @throws FilesystemException
      * @throws PhpDocumentorFailed
      */
-    public function findAll(string $directory): array
+    public function findAll(DetectClonesCommandOutput $commandOutput, string $directory): array
     {
-        $this->phpDocumentorRunner->run($directory);
+        $this->phpDocumentorRunner->runMinimal($directory);
 
         $reportPath = Configuration::instance()->getPhpDocumentorReportPath();
         $reportXmlFilepath = rtrim($reportPath, '/') . '/structure.xml';
 
-        copy($reportXmlFilepath, __DIR__ . '/structure.xml');
+        file_put_contents(__DIR__ . '/structure.xml', file_get_contents($reportXmlFilepath));
 
         $crawler = CrawlerFactory::create(\Safe\file_get_contents($reportXmlFilepath));
 
-        return $this->findClassesInProject($crawler->filter('project')->first());
+        return $this->findClassesInProject($commandOutput, $crawler->filter('project')->first());
     }
 
     /** @return array<class-string, ClassModel> */
-    private function findClassesInProject(Crawler $projectElement): array
+    private function findClassesInProject(DetectClonesCommandOutput $commandOutput, Crawler $projectElement): array
     {
-        $classes = [];
+        $fileElements = [];
         foreach ($projectElement->children() as $element) {
             if ($element->nodeName === 'file') {
-                $classes = array_merge($classes, $this->findClassesInFile(CrawlerFactory::create($element)));
+                $fileElements[] = $element;
             }
+        }
+
+        $fileElements = $commandOutput->createProgressBarIterator($fileElements);
+
+        $classes = [];
+        foreach ($fileElements as $fileElement) {
+            $classes = array_merge($classes, $this->findClassesInFile(CrawlerFactory::create($fileElement)));
         }
 
         return $classes;

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<project name="{{ project.name }}">
+    {# @var file \phpDocumentor\Descriptor\FileDescriptor #}
+    {% for file in project.files %}
+        <file path="{{ file.path }}" hash="{{ file.hash }}">
+            {# @var class \phpDocumentor\Descriptor\ClassDescriptor #}
+            {% for class in file.classes %}
+                <class final="{{ class.final | export }}" abstract="{{ class.abstract | export }}" namespace="{{ class.namespace }}" line="{{ class.line }}">
+                    <name>{{ class.name }}</name>
+                    <full_name>{{ class.fullyQualifiedStructuralElementName }}</full_name>
+                    {% if class.parent %}
+                        <extends>{{ class.parent }}</extends> {% endif %}
+
+                    {% for method in class.methods %}
+                        {{ include('method.xml.twig', {method: method}) }}
+                    {% endfor %}
+                    {% for method in class.inheritedMethods %}
+                        {{ include('method.xml.twig', {method: method, inherited_from: method.parent}) }}
+                    {% endfor %}
+                </class>
+            {% endfor %}
+
+            {# @var trait \phpDocumentor\Descriptor\TraitDescriptor #}
+            {% for trait in file.traits %}
+                <trait namespace="{{ trait.namespace }}" line="{{ trait.line }}">
+                    <name>{{ trait.name }}</name>
+                    <full_name>{{ trait.fullyQualifiedStructuralElementName }}</full_name>
+                    {{ include('docblock.xml.twig', {descriptor: trait}) }}
+                    {% for property in trait.properties %}
+                        {{ include('property.xml.twig', {property: property}) }}
+                    {% endfor %}
+
+                    {% for method in trait.methods %}
+                        {{ include('method.xml.twig', {method: method}) }}
+                    {% endfor %}
+                </trait>
+            {% endfor %}
+
+        </file>
+    {% endfor %}
+
+</project>

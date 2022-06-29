@@ -1,0 +1,14 @@
+{# @var method phpDocumentor\Descriptor\MethodDescriptor #}
+<method final="{{ method.final | export }}"
+        abstract="{{ method.abstract | export }}"
+        static="{{ method.static | export }}"
+        namespace="{{ method.namespace }}"
+        visibility="{{ method.visibility }}"
+        returnByReference="{{ method.hasReturnByReference | export }}"
+        response="{{ method.response.type }}">
+    <name>{{ method.name }}</name>
+    <full_name>{{ method.fullyQualifiedStructuralElementName }}</full_name>
+    {% for argument in method.arguments %}
+        {{ include('argument.xml.twig', {descriptor: argument}) }}
+    {% endfor %}
+</method>

@@ -1,0 +1,424 @@
+<?xml version="1.0"?>
+<project name="Documentation">
+    <file path="01_A.php" hash="f28296a263af803925546bfcb2e9e938">
+        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
+            <name>A</name>
+            <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A</full_name>
+
+            <method final="false"
+                    abstract="false"
+                    static="false"
+                    namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
+                    visibility="public"
+                    returnByReference="false"
+                    response="array&lt;int,int&gt;">
+                <name>foo</name>
+                <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A::foo()</full_name>
+                <argument line="12" by_reference="false">
+                    <name>p1</name>
+                    <type>array&lt;int,int&gt;</type>
+                </argument>
+
+                <argument line="12" by_reference="false">
+                    <name>p2</name>
+                    <type>int</type>
+                </argument>
+
+            </method>
+
+        </class>
+
+
+    </file>
+    <file path="02_B.php" hash="11d90666d6bd33643f44ff844fce90e8">
+        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
+            <name>B</name>
+            <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\B</full_name>
+
+            <method final="false"
+                    abstract="false"
+                    static="false"
+                    namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
+                    visibility="public"
+                    returnByReference="false"
+                    response="array&lt;int,array&lt;int,int&gt;|int&gt;">
+                <name>foo</name>
+                <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\B::foo()</full_name>
+                <argument line="12" by_reference="false">
+                    <name>p1</name>
+                    <type>array&lt;int,int&gt;</type>
+                </argument>
+
+                <argument line="12" by_reference="false">
+                    <name>p2</name>
+                    <type>int</type>
+                </argument>
+
+            </method>
+
+        </class>
+
+
+    </file>
+    <file path="03_A_Exact_Copy.php" hash="daa518e48fa46c46627afb8db3fd0f9f">
+        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
+            <name>A_Exact_Copy</name>
+            <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Exact_Copy</full_name>
+
+            <method final="false"
+                    abstract="false"
+                    static="false"
+                    namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
+                    visibility="public"
+                    returnByReference="false"
+                    response="array&lt;int,int&gt;">
+                <name>foo</name>
+                <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Exact_Copy::foo()</full_name>
+                <argument line="12" by_reference="false">
+                    <name>p1</name>
+                    <type>array&lt;int,int&gt;</type>
+                </argument>
+
+                <argument line="12" by_reference="false">
+                    <name>p2</name>
+                    <type>int</type>
+                </argument>
+
+            </method>
+
+        </class>
+
+
+    </file>
+    <file path="04_A_Additional_Whitespaces.php" hash="f28723078eb40a5d0ab2b6ab94b6a8c5">
+        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
+            <name>A_Additional_Whitespaces</name>
+            <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Additional_Whitespaces</full_name>
+
+            <method final="false"
+                    abstract="false"
+                    static="false"
+                    namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
+                    visibility="public"
+                    returnByReference="false"
+                    response="array&lt;int,int&gt;">
+                <name>foo</name>
+                <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Additional_Whitespaces::foo()</full_name>
+                <argument line="12" by_reference="false">
+                    <name>p1</name>
+                    <type>array&lt;int,int&gt;</type>
+                </argument>
+
+                <argument line="12" by_reference="false">
+                    <name>p2</name>
+                    <type>int</type>
+                </argument>
+
+            </method>
+
+        </class>
+
+
+    </file>
+    <file path="05_A_Additional_Comments.php" hash="82294c5c5cc2e3fd64aa7943bad5e8c4">
+        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
+            <name>A_Additional_Comments</name>
+            <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Additional_Comments</full_name>
+
+            <method final="false"
+                    abstract="false"
+                    static="false"
+                    namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
+                    visibility="public"
+                    returnByReference="false"
+                    response="array&lt;int,int&gt;">
+                <name>foo</name>
+                <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Additional_Comments::foo()</full_name>
+                <argument line="12" by_reference="false">
+                    <name>p1</name>
+                    <type>array&lt;int,int&gt;</type>
+                </argument>
+
+                <argument line="12" by_reference="false">
+                    <name>p2</name>
+                    <type>int</type>
+                </argument>
+
+            </method>
+
+        </class>
+
+
+    </file>
+    <file path="06_A_Changed_Layout.php" hash="acbc6a11f8918adb375bd1c29c22d55f">
+        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
+            <name>A_Changed_Layout</name>
+            <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Layout</full_name>
+
+            <method final="false"
+                    abstract="false"
+                    static="false"
+                    namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
+                    visibility="public"
+                    returnByReference="false"
+                    response="array&lt;int,int&gt;">
+                <name>foo</name>
+                <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Layout::foo()</full_name>
+                <argument line="12" by_reference="false">
+                    <name>p1</name>
+                    <type>array&lt;int,int&gt;</type>
+                </argument>
+
+                <argument line="12" by_reference="false">
+                    <name>p2</name>
+                    <type>int</type>
+                </argument>
+
+            </method>
+
+        </class>
+
+
+    </file>
+    <file path="07_A_Changed_Variable_Names.php" hash="ed5530b7f9df8f59434689f47afb64a5">
+        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
+            <name>A_Changed_Variable_Names</name>
+            <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Variable_Names</full_name>
+
+            <method final="false"
+                    abstract="false"
+                    static="false"
+                    namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
+                    visibility="public"
+                    returnByReference="false"
+                    response="array&lt;int,int&gt;">
+                <name>foo</name>
+                <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Variable_Names::foo()</full_name>
+                <argument line="12" by_reference="false">
+                    <name>first</name>
+                    <type>array&lt;int,int&gt;</type>
+                </argument>
+
+                <argument line="12" by_reference="false">
+                    <name>second</name>
+                    <type>int</type>
+                </argument>
+
+            </method>
+
+        </class>
+
+
+    </file>
+    <file path="08_A_Changed_Method_Names.php" hash="07a35b66310ea687c8810cf3f1465818">
+        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
+            <name>A_Changed_Method_Names</name>
+            <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Method_Names</full_name>
+
+            <method final="false"
+                    abstract="false"
+                    static="false"
+                    namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
+                    visibility="public"
+                    returnByReference="false"
+                    response="array&lt;int,int&gt;">
+                <name>bar</name>
+                <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Method_Names::bar()</full_name>
+                <argument line="12" by_reference="false">
+                    <name>p1</name>
+                    <type>array&lt;int,int&gt;</type>
+                </argument>
+
+                <argument line="12" by_reference="false">
+                    <name>p2</name>
+                    <type>int</type>
+                </argument>
+
+            </method>
+
+        </class>
+
+
+    </file>
+    <file path="09_A_Changed_Literals.php" hash="cee6d74980e34534899e1dafa44f84b6">
+        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
+            <name>A_Changed_Literals</name>
+            <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Literals</full_name>
+
+            <method final="false"
+                    abstract="false"
+                    static="false"
+                    namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
+                    visibility="public"
+                    returnByReference="false"
+                    response="array&lt;int,int&gt;">
+                <name>foo</name>
+                <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Literals::foo()</full_name>
+                <argument line="12" by_reference="false">
+                    <name>p1</name>
+                    <type>array&lt;int,int&gt;</type>
+                </argument>
+
+                <argument line="12" by_reference="false">
+                    <name>p2</name>
+                    <type>int</type>
+                </argument>
+
+            </method>
+
+        </class>
+
+
+    </file>
+    <file path="10_A_Additional_Statements.php" hash="a0aa431c9ed2b161cfa286d581f5338f">
+        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
+            <name>A_Additional_Statements</name>
+            <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Additional_Statements</full_name>
+
+            <method final="false"
+                    abstract="false"
+                    static="false"
+                    namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
+                    visibility="public"
+                    returnByReference="false"
+                    response="array&lt;int,int&gt;">
+                <name>foo</name>
+                <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Additional_Statements::foo()</full_name>
+                <argument line="12" by_reference="false">
+                    <name>p1</name>
+                    <type>array&lt;int,int&gt;</type>
+                </argument>
+
+                <argument line="12" by_reference="false">
+                    <name>p2</name>
+                    <type>int</type>
+                </argument>
+
+            </method>
+
+        </class>
+
+
+    </file>
+    <file path="11_A_Removed_Statements.php" hash="874728c08a77a352a026432d235d8bb1">
+        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
+            <name>A_Removed_Statements</name>
+            <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Removed_Statements</full_name>
+
+            <method final="false"
+                    abstract="false"
+                    static="false"
+                    namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
+                    visibility="public"
+                    returnByReference="false"
+                    response="array&lt;int,int&gt;">
+                <name>foo</name>
+                <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Removed_Statements::foo()</full_name>
+                <argument line="12" by_reference="false">
+                    <name>p1</name>
+                    <type>array&lt;int,int&gt;</type>
+                </argument>
+
+                <argument line="12" by_reference="false">
+                    <name>p2</name>
+                    <type>int</type>
+                </argument>
+
+            </method>
+
+        </class>
+
+
+    </file>
+    <file path="12_A_Changed_Statement_Order.php" hash="989026de625fa5414141ea861cb613ef">
+        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
+            <name>A_Changed_Statement_Order</name>
+            <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Statement_Order</full_name>
+
+            <method final="false"
+                    abstract="false"
+                    static="false"
+                    namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
+                    visibility="public"
+                    returnByReference="false"
+                    response="array&lt;int,int&gt;">
+                <name>foo</name>
+                <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Statement_Order::foo()</full_name>
+                <argument line="12" by_reference="false">
+                    <name>p1</name>
+                    <type>array&lt;int,int&gt;</type>
+                </argument>
+
+                <argument line="12" by_reference="false">
+                    <name>p2</name>
+                    <type>int</type>
+                </argument>
+
+            </method>
+
+        </class>
+
+
+    </file>
+    <file path="13_A_Changed_Syntax.php" hash="b0b82965d8683ec6bdaaa5de54e7b149">
+        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
+            <name>A_Changed_Syntax</name>
+            <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Syntax</full_name>
+
+            <method final="false"
+                    abstract="false"
+                    static="false"
+                    namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
+                    visibility="public"
+                    returnByReference="false"
+                    response="array&lt;int,int&gt;">
+                <name>foo</name>
+                <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Syntax::foo()</full_name>
+                <argument line="12" by_reference="false">
+                    <name>p1</name>
+                    <type>array&lt;int,int&gt;</type>
+                </argument>
+
+                <argument line="12" by_reference="false">
+                    <name>p2</name>
+                    <type>int</type>
+                </argument>
+
+            </method>
+
+        </class>
+
+
+    </file>
+    <file path="14_A_Changed_Param_Order.php" hash="b7e94baa852eb797c8ebb22cd4ae90e5">
+        <class final="false" abstract="false" namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes" line="5">
+            <name>A_Changed_Param_Order</name>
+            <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Param_Order</full_name>
+
+            <method final="false"
+                    abstract="false"
+                    static="false"
+                    namespace="\LeoVie\CloneDetectionTestdataWithNativeTypes"
+                    visibility="public"
+                    returnByReference="false"
+                    response="array&lt;int,int&gt;">
+                <name>foo</name>
+                <full_name>\LeoVie\CloneDetectionTestdataWithNativeTypes\A_Changed_Param_Order::foo()</full_name>
+                <argument line="12" by_reference="false">
+                    <name>p2</name>
+                    <type>int</type>
+                </argument>
+
+                <argument line="12" by_reference="false">
+                    <name>p1</name>
+                    <type>array&lt;int,int&gt;</type>
+                </argument>
+
+            </method>
+
+        </class>
+
+
+    </file>
+
+</project>

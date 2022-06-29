@@ -77,25 +77,35 @@ class DetectClonesCommand extends Command
 
         $commandOutput = $this->detectClonesCommandOutput
             ->setOutputHelper(VerboseOutputHelper::create($input, $output))
-            ->setStopwatch($stopwatch);
+            ->setStopwatch($stopwatch)
+            ->start();
 
         $this->createConfiguration($input);
         $configuration = Configuration::instance();
 
         $projectClasses = [];
         foreach ($configuration->getDirectories() as $directory) {
+            $commandOutput->findConstructableClasses($directory);
+
             $projectClasses = array_merge(
                 $projectClasses,
-                $this->findConstructableClasses->findAll($directory)
+                $this->findConstructableClasses->findAll($commandOutput, $directory)
             );
+
+            $commandOutput->newLine(1);
         }
 
         $vendorClasses = [];
         if ($configuration->getVendorPath() !== '') {
-            $vendorClasses = $this->findConstructableClasses->findAll($configuration->getVendorPath());
+            $commandOutput->findConstructableClasses($configuration->getVendorPath());
+            $vendorClasses = $this->findConstructableClasses->findAll($commandOutput, $configuration->getVendorPath());
         }
 
+        $commandOutput->newLine(1);
+
         $constructableClasses = array_merge($projectClasses, $vendorClasses);
+
+        $commandOutput->countOfConstructableClasses(count($constructableClasses));
 
         $methods = [];
         foreach ($configuration->getDirectories() as $directory) {
