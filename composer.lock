@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1a874fd89d8a1d85259767b8ce1af78e",
+    "content-hash": "4ac93a84d560180bad5393dbc0ad5f30",
     "packages": [
         {
             "name": "fakerphp/faker",
@@ -284,16 +284,16 @@
         },
         {
             "name": "leovie/php-method-runner",
-            "version": "v2.0.0",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LeoVie/php-method-runner.git",
-                "reference": "de0da2c1610d457dc9db33984966aa5b465cea75"
+                "reference": "df6f04e1d77b61b124de729d8a08f1f02cd17739"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LeoVie/php-method-runner/zipball/de0da2c1610d457dc9db33984966aa5b465cea75",
-                "reference": "de0da2c1610d457dc9db33984966aa5b465cea75",
+                "url": "https://api.github.com/repos/LeoVie/php-method-runner/zipball/df6f04e1d77b61b124de729d8a08f1f02cd17739",
+                "reference": "df6f04e1d77b61b124de729d8a08f1f02cd17739",
                 "shasum": ""
             },
             "require": {
@@ -328,9 +328,9 @@
             "description": "Run php methods.",
             "support": {
                 "issues": "https://github.com/LeoVie/php-method-runner/issues",
-                "source": "https://github.com/LeoVie/php-method-runner/tree/v2.0.0"
+                "source": "https://github.com/LeoVie/php-method-runner/tree/v3.0.1"
             },
-            "time": "2022-05-21T18:05:41+00:00"
+            "time": "2022-06-18T09:13:12+00:00"
         },
         {
             "name": "leovie/php-param-generator",
