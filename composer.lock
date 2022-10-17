@@ -334,16 +334,16 @@
         },
         {
             "name": "leovie/php-param-generator",
-            "version": "v2.0.0",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LeoVie/php-param-generator.git",
-                "reference": "104d667f5438d327c8bca9d9ae267ae4d13b15d5"
+                "reference": "464b88a00b9c4646a9e1b068d7e0bc880ba4a4a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LeoVie/php-param-generator/zipball/104d667f5438d327c8bca9d9ae267ae4d13b15d5",
-                "reference": "104d667f5438d327c8bca9d9ae267ae4d13b15d5",
+                "url": "https://api.github.com/repos/LeoVie/php-param-generator/zipball/464b88a00b9c4646a9e1b068d7e0bc880ba4a4a8",
+                "reference": "464b88a00b9c4646a9e1b068d7e0bc880ba4a4a8",
                 "shasum": ""
             },
             "require": {
@@ -381,9 +381,9 @@
             "description": "Generate parameters in php.",
             "support": {
                 "issues": "https://github.com/LeoVie/php-param-generator/issues",
-                "source": "https://github.com/LeoVie/php-param-generator/tree/v2.0.0"
+                "source": "https://github.com/LeoVie/php-param-generator/tree/v2.1.1"
             },
-            "time": "2022-05-21T18:33:57+00:00"
+            "time": "2022-06-22T10:12:07+00:00"
         },
         {
             "name": "leovie/php-token-normalize",
