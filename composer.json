@@ -41,7 +41,7 @@
     "infection/infection": "^0.26.6",
     "jetbrains/phpstorm-attributes": "^1.0",
     "phpunit/phpunit": "^9.5",
-    "psalm/plugin-symfony": "^3.1",
+    "psalm/plugin-symfony": "^4.0",
     "roave/security-advisories": "dev-latest",
     "vimeo/psalm": "^4.10"
   },
